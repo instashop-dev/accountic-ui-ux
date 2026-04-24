@@ -202,22 +202,17 @@ import PageLayout from '../layouts/PageLayout.astro';
 		font-size: 0.95rem;
 		font-family: inherit;
 		border: 1px solid var(--eth-border);
-		border-radius: 16px;
+		border-radius: 1rem; /* MASTER: 1rem for data inputs, not pill */
 		background: var(--eth-surface);
 		color: var(--eth-text);
 		min-height: 48px;
 		resize: vertical;
+		transition: border-color 180ms ease, box-shadow 180ms ease;
 	}
 
-	.field textarea { border-radius: 16px; }
+	.field textarea { border-radius: 1rem; }
 
-	.field input:focus-visible,
-	.field select:focus-visible,
-	.field textarea:focus-visible {
-		outline: 2px solid var(--eth-accent);
-		outline-offset: 1px;
-		border-color: transparent;
-	}
+	/* Focus uses the global soft-glow rule from global.css — no override here. */
 
 	.form-foot {
 		display: flex;

@@ -271,7 +271,7 @@ const pageDescription =
 				font-size: 0.95rem;
 				font-family: inherit;
 				border: 1px solid var(--eth-border);
-				border-radius: 12px;
+				border-radius: 1rem; /* MASTER: 1rem for data inputs */
 				background: var(--eth-surface);
 				color: var(--eth-text);
 				min-height: 46px;
@@ -281,11 +281,7 @@ const pageDescription =
 
 			.auth-field input:hover { border-color: var(--eth-border-light); }
 
-			.auth-field input:focus-visible {
-				outline: none;
-				border-color: var(--eth-accent);
-				box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
-			}
+			/* Focus uses the global soft-glow rule from global.css. */
 
 			.auth-pwd {
 				position: relative;

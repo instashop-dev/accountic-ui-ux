@@ -154,7 +154,7 @@ const pricingTiers = [
 			<section class="section action" aria-labelledby="action-title">
 				<div class="container">
 					<div class="section-head action-head">
-						<span class="eyebrow">See it in action</span>
+						<span class="section-label">See it in action</span>
 						<h2 id="action-title">From a 14-page reassessment notice to a filable reply.</h2>
 						<p class="lede">No screenshots, no demos — this is what the workflow produces. Citations verified, grounded in your firm's own prior positions.</p>
 					</div>
@@ -253,7 +253,7 @@ const pricingTiers = [
 			<section class="section quality" aria-labelledby="quality-title">
 				<div class="container">
 					<div class="section-head quality-head">
-						<span class="eyebrow">Draft quality</span>
+						<span class="section-label">Draft quality</span>
 						<h2 id="quality-title">A draft a senior partner will put their name on.</h2>
 						<p class="lede">
 							Generic LLMs draft fast. They also hallucinate repealed sections, invent
@@ -366,7 +366,7 @@ const pricingTiers = [
 			<section class="section how" id="how-it-works" aria-labelledby="how-title">
 				<div class="container">
 					<div class="section-head">
-						<span class="eyebrow">The workflow</span>
+						<span class="section-label">The workflow</span>
 						<h2 id="how-title">Upload → Analyse → Draft → Export</h2>
 						<p class="lede">Four steps. One notice. Under thirty minutes. Human review at every stage — because the AO will read what <em>you</em> sign.</p>
 					</div>
@@ -466,7 +466,7 @@ const pricingTiers = [
 			<section class="section why" id="why-accountic" aria-labelledby="why-title">
 				<div class="container">
 					<div class="section-head">
-						<span class="eyebrow">Why Accountic</span>
+						<span class="section-label">Why Accountic</span>
 						<h2 id="why-title">Five differentiators, strongest moats first.</h2>
 					</div>
 
@@ -559,7 +559,7 @@ const pricingTiers = [
 			<section class="section pricing" id="pricing" aria-labelledby="pricing-title">
 				<div class="container">
 					<div class="section-head">
-						<span class="eyebrow">Pricing</span>
+						<span class="section-label">Pricing</span>
 						<h2 id="pricing-title">Per-notice pricing. No per-seat tax.</h2>
 						<p class="lede">
 							Billed per notice, packaged in monthly quotas. Soft quotas — a s.&nbsp;153A deadline
@@ -948,7 +948,7 @@ const pricingTiers = [
 			}
 
 			/* ─────────────────────────── See it in action — diptych */
-			.action { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+			.action { padding-top: var(--space-20); padding-bottom: var(--space-20); }
 			.action-head { text-align: left; margin-inline: 0; }
 
 			.action-panel {
@@ -1224,7 +1224,7 @@ const pricingTiers = [
 			}
 
 			/* ─────────────────────────── Draft quality — vs generic LLM */
-			.quality { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+			.quality { padding-top: var(--space-20); padding-bottom: var(--space-20); }
 			.quality-head { text-align: left; margin-inline: 0; }
 
 			.quality-panel {
@@ -1657,6 +1657,9 @@ const pricingTiers = [
 			.cta-card h2 {
 				margin: 0.5rem auto 0.75rem;
 				max-width: 18ch;
+				/* Zerosettle-style airy CTA title: light weight, tighter tracking */
+				font-weight: 300;
+				letter-spacing: -0.05em;
 			}
 
 			.cta-card p {
