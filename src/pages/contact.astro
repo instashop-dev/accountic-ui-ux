@@ -10,18 +10,25 @@ import PageLayout from '../layouts/PageLayout.astro';
 	lede="Tell us about your practice and we'll be in touch within one business day. For pilot cohorts, we typically onboard in under 48 hours."
 >
 	<svg slot="visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<rect x="50" y="30" width="180" height="140" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.4" />
-		<rect x="50" y="30" width="180" height="36" rx="20" fill="#10b981" />
-		<rect x="50" y="54" width="180" height="12" fill="#10b981" />
-		<rect x="70" y="44" width="60" height="8" rx="4" fill="#ffffff" opacity="0.9" />
-		<rect x="70" y="82" width="120" height="5" rx="2.5" fill="#cbd5e1" />
-		<rect x="70" y="94" width="80" height="5" rx="2.5" fill="#cbd5e1" />
-		<rect x="70" y="106" width="100" height="5" rx="2.5" fill="#cbd5e1" />
-		<rect x="70" y="125" width="50" height="22" rx="11" fill="#10b981" />
-		<circle cx="215" cy="145" r="24" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" />
-		<path d="M205 141l8 6 12-10" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-		<circle cx="35" cy="55" r="14" fill="#fce7f3" />
-		<path d="M30 55l4 4 6-7" stroke="#9d174d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+		{/* Incoming chat bubble (from user, white) */}
+		<g>
+			<path d="M28 52 Q28 38 42 38 H152 Q166 38 166 52 V82 Q166 96 152 96 H68 L48 110 V96 Q28 96 28 82 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.4" />
+			<rect x="44" y="52" width="80" height="5" rx="2.5" fill="#cbd5e1" />
+			<rect x="44" y="63" width="100" height="5" rx="2.5" fill="#cbd5e1" />
+			<rect x="44" y="74" width="60" height="5" rx="2.5" fill="#cbd5e1" />
+		</g>
+		{/* Outgoing reply bubble (emerald) */}
+		<g>
+			<path d="M232 116 Q232 102 218 102 H118 Q104 102 104 116 V142 Q104 156 118 156 H208 L226 172 V156 Q232 156 232 142 Z" fill="#10b981" />
+			<rect x="120" y="118" width="92" height="5" rx="2.5" fill="#ffffff" opacity="0.9" />
+			<rect x="120" y="129" width="70" height="5" rx="2.5" fill="#ffffff" opacity="0.6" />
+			<circle cx="210" cy="142" r="9" fill="#ffffff" />
+			<path d="M205 142l3 3 6-6" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+		</g>
+		{/* Small dots / signals */}
+		<circle cx="22" cy="30" r="4" fill="#fde68a" />
+		<circle cx="244" cy="38" r="5" fill="#fbcfe8" />
+		<circle cx="18" cy="130" r="3" fill="#bfdbfe" />
 	</svg>
 	<div class="contact-grid" data-capture data-source="contact-page">
 		<form class="contact-form" data-capture-form data-state="form" novalidate>
@@ -47,28 +54,30 @@ import PageLayout from '../layouts/PageLayout.astro';
 				</label>
 			</div>
 
-			<label class="field">
-				<span class="field-label">Firm size</span>
-				<select name="size" required>
-					<option value="" disabled selected>Select firm size…</option>
-					<option>Solo practitioner</option>
-					<option>2–5 professionals</option>
-					<option>6–15 professionals</option>
-					<option>16–30 professionals</option>
-					<option>30+ professionals</option>
-				</select>
-			</label>
+			<div class="field-row">
+				<label class="field">
+					<span class="field-label">Firm size</span>
+					<select name="size" required>
+						<option value="" disabled selected>Select firm size…</option>
+						<option>Solo practitioner</option>
+						<option>2–5 professionals</option>
+						<option>6–15 professionals</option>
+						<option>16–30 professionals</option>
+						<option>30+ professionals</option>
+					</select>
+				</label>
 
-			<label class="field">
-				<span class="field-label">Monthly Income Tax notice volume</span>
-				<select name="volume">
-					<option value="" disabled selected>Select monthly volume…</option>
-					<option>Under 10 notices</option>
-					<option>10–50 notices</option>
-					<option>50–200 notices</option>
-					<option>200+ notices</option>
-				</select>
-			</label>
+				<label class="field">
+					<span class="field-label">Monthly notice volume <span class="optional">(optional)</span></span>
+					<select name="volume">
+						<option value="" disabled selected>Select volume…</option>
+						<option>Under 10 notices</option>
+						<option>10–50 notices</option>
+						<option>50–200 notices</option>
+						<option>200+ notices</option>
+					</select>
+				</label>
+			</div>
 
 			<label class="field">
 				<span class="field-label">What would you like to discuss?</span>

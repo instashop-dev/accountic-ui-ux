@@ -165,6 +165,9 @@ img, svg { display: block; max-width: 100%; }
 
 button { font-family: inherit; cursor: pointer; }
 
+/* HTML5 hidden attribute should always win over display overrides */
+[hidden] { display: none !important; }
+
 /* Utilities */
 .container {
 	width: 100%;
