@@ -249,6 +249,119 @@ const pricingTiers = [
 				</div>
 			</section>
 
+			{/* ─── DRAFT QUALITY — vs generic LLM ─── */}
+			<section class="section quality" aria-labelledby="quality-title">
+				<div class="container">
+					<div class="section-head quality-head">
+						<span class="eyebrow">Draft quality</span>
+						<h2 id="quality-title">A draft a senior partner will put their name on.</h2>
+						<p class="lede">
+							Generic LLMs draft fast. They also hallucinate repealed sections, invent
+							case law, and ship PAN and GSTIN to servers outside India with no DPA.
+							Accountic is built the other way — for the CA whose signature is on the
+							reply.
+						</p>
+					</div>
+
+					<div class="quality-panel">
+						<article class="q-card q-generic" aria-label="Generic LLM output">
+							<header class="q-card-head">
+								<span class="q-pill q-pill-muted">
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<rect x="3" y="3" width="18" height="18" rx="4" />
+										<path d="M8 9h8M8 13h5" />
+									</svg>
+									ChatGPT / generic LLM
+								</span>
+								<span class="q-verdict q-verdict-fail">Not fit to file</span>
+							</header>
+							<ul class="q-list">
+								<li>
+									<span class="q-ico q-ico-x" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+									</span>
+									Cites <span class="q-strike">"section 147A"</span> — doesn't exist in the IT Act
+								</li>
+								<li>
+									<span class="q-ico q-ico-x" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+									</span>
+									Invents <span class="q-strike">ITO v. Modi Industries (2019)</span> — no such case
+								</li>
+								<li>
+									<span class="q-ico q-ico-x" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+									</span>
+									Boilerplate tone — reads like every other generic reply before the AO
+								</li>
+								<li>
+									<span class="q-ico q-ico-x" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+									</span>
+									Uploads PAN &amp; GSTIN to a US-hosted model with no DPA
+								</li>
+								<li>
+									<span class="q-ico q-ico-x" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+									</span>
+									No audit log — no accountability if a citation is wrong
+								</li>
+							</ul>
+						</article>
+
+						<article class="q-card q-accountic" aria-label="Accountic draft">
+							<header class="q-card-head">
+								<span class="q-pill q-pill-accent">
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+										<path d="m9 12 2 2 4-4" />
+									</svg>
+									Accountic draft
+								</span>
+								<span class="q-verdict q-verdict-ok">Ready for senior review</span>
+							</header>
+							<ul class="q-list">
+								<li>
+									<span class="q-ico q-ico-check" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+									</span>
+									Every citation verified against a live IT Act &amp; case-law repository
+								</li>
+								<li>
+									<span class="q-ico q-ico-check" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+									</span>
+									Grounded in ITAT / High Court / Supreme Court judgments, checked for currency
+								</li>
+								<li>
+									<span class="q-ico q-ico-check" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+									</span>
+									Matched to your firm's voice — learned from your prior replies on day one
+								</li>
+								<li>
+									<span class="q-ico q-ico-check" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+									</span>
+									India-resident processing. Your corpus never trains anyone else's model.
+								</li>
+								<li>
+									<span class="q-ico q-ico-check" aria-hidden="true">
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+									</span>
+									Credit-refund if the verification layer misses a bad citation
+								</li>
+							</ul>
+						</article>
+					</div>
+
+					<p class="quality-closing">
+						Drafted to a standard a 45-year CA firm will put their name on — because it
+						<em>is</em>&nbsp;built by one.
+					</p>
+				</div>
+			</section>
+
 			{/* ─── HOW IT WORKS ─── */}
 			<section class="section how" id="how-it-works" aria-labelledby="how-title">
 				<div class="container">
@@ -1091,6 +1204,151 @@ const pricingTiers = [
 				.flow-chips { flex-direction: row; flex-wrap: wrap; justify-content: center; }
 				.action-notice,
 				.action-reply { transform: none; }
+			}
+
+			/* ─────────────────────────── Draft quality — vs generic LLM */
+			.quality { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+			.quality-head { text-align: left; margin-inline: 0; }
+
+			.quality-panel {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem;
+				margin-bottom: var(--space-8);
+			}
+
+			.q-card {
+				border-radius: var(--eth-card-radius);
+				padding: 1.75rem;
+				display: flex;
+				flex-direction: column;
+				transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+			}
+
+			.q-card:hover { transform: translateY(-3px); box-shadow: var(--eth-shadow); }
+
+			.q-generic {
+				background: #fef2f2;
+				border: 1px solid #fecaca;
+				color: #7f1d1d;
+			}
+
+			.q-accountic {
+				background: var(--eth-surface);
+				border: 1px solid var(--eth-border);
+				box-shadow: var(--eth-shadow-sm);
+			}
+
+			.q-card-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 0.75rem;
+				margin-bottom: 1.25rem;
+				flex-wrap: wrap;
+			}
+
+			.q-pill {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-size: 0.78rem;
+				font-weight: 600;
+				padding: 0.4rem 0.75rem;
+				border-radius: 9999px;
+				letter-spacing: -0.01em;
+			}
+
+			.q-pill-muted {
+				background: rgba(185, 28, 28, 0.08);
+				color: #991b1b;
+				border: 1px solid rgba(185, 28, 28, 0.18);
+			}
+
+			.q-pill-accent {
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent-hover);
+				border: 1px solid rgba(16, 185, 129, 0.22);
+			}
+
+			.q-verdict {
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+
+			.q-verdict-fail { color: #b91c1c; }
+			.q-verdict-ok { color: var(--eth-accent); }
+
+			.q-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				gap: 0.7rem;
+			}
+
+			.q-list li {
+				display: flex;
+				align-items: flex-start;
+				gap: 0.65rem;
+				font-size: 0.92rem;
+				line-height: 1.55;
+			}
+
+			.q-generic .q-list li { color: #7f1d1d; }
+			.q-accountic .q-list li { color: var(--eth-text); }
+
+			.q-ico {
+				flex-shrink: 0;
+				width: 20px;
+				height: 20px;
+				border-radius: 9999px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				margin-top: 2px;
+			}
+
+			.q-ico-x {
+				background: rgba(185, 28, 28, 0.14);
+				color: #b91c1c;
+			}
+
+			.q-ico-check {
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent);
+			}
+
+			.q-strike {
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				font-size: 0.88em;
+				text-decoration: line-through;
+				text-decoration-color: rgba(185, 28, 28, 0.6);
+				text-decoration-thickness: 1.5px;
+				color: #991b1b;
+				background: rgba(185, 28, 28, 0.06);
+				padding: 1px 6px;
+				border-radius: 4px;
+			}
+
+			.quality-closing {
+				text-align: center;
+				color: var(--eth-text-secondary);
+				font-size: 1rem;
+				max-width: 56ch;
+				margin: 0 auto;
+			}
+
+			.quality-closing em {
+				font-style: italic;
+				color: var(--eth-accent);
+				font-weight: 500;
+			}
+
+			@media (max-width: 820px) {
+				.quality-panel { grid-template-columns: 1fr; }
 			}
 
 			/* ─────────────────────────── How it works */
