@@ -377,8 +377,14 @@ button { font-family: inherit; cursor: pointer; }
 
 .doc-body strong { color: var(--eth-text); font-weight: 600; }
 
-.doc-body a { color: var(--eth-accent); }
-.doc-body a:hover { color: var(--eth-accent-hover); }
+.doc-body a:not(.btn) { color: var(--eth-accent); }
+.doc-body a:not(.btn):hover { color: var(--eth-accent-hover); }
+
+/* Preserve button colors inside document bodies */
+.doc-body a.btn-primary,
+.doc-body a.btn-primary:hover { color: #ffffff; }
+.doc-body a.btn-secondary,
+.doc-body a.btn-secondary:hover { color: var(--eth-text); }
 
 .bullets,
 .ordered {

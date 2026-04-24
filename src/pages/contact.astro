@@ -9,8 +9,22 @@ import PageLayout from '../layouts/PageLayout.astro';
 	heading="Let's get your firm onto Accountic."
 	lede="Tell us about your practice and we'll be in touch within one business day. For pilot cohorts, we typically onboard in under 48 hours."
 >
-	<div class="contact-grid">
-		<form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks — we will be in touch within one business day.');">
+	<svg slot="visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<rect x="50" y="30" width="180" height="140" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.4" />
+		<rect x="50" y="30" width="180" height="36" rx="20" fill="#10b981" />
+		<rect x="50" y="54" width="180" height="12" fill="#10b981" />
+		<rect x="70" y="44" width="60" height="8" rx="4" fill="#ffffff" opacity="0.9" />
+		<rect x="70" y="82" width="120" height="5" rx="2.5" fill="#cbd5e1" />
+		<rect x="70" y="94" width="80" height="5" rx="2.5" fill="#cbd5e1" />
+		<rect x="70" y="106" width="100" height="5" rx="2.5" fill="#cbd5e1" />
+		<rect x="70" y="125" width="50" height="22" rx="11" fill="#10b981" />
+		<circle cx="215" cy="145" r="24" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" />
+		<path d="M205 141l8 6 12-10" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+		<circle cx="35" cy="55" r="14" fill="#fce7f3" />
+		<path d="M30 55l4 4 6-7" stroke="#9d174d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+	</svg>
+	<div class="contact-grid" data-capture data-source="contact-page">
+		<form class="contact-form" data-capture-form data-state="form" novalidate>
 			<div class="field-row">
 				<label class="field">
 					<span class="field-label">Full name</span>
@@ -72,7 +86,28 @@ import PageLayout from '../layouts/PageLayout.astro';
 					By submitting you agree to our <a href="/privacy">privacy policy</a>. We'll only contact you about your request.
 				</p>
 			</div>
+			<p class="form-error" data-capture-error role="alert" hidden>Please fill in your name, firm, and a valid work email.</p>
 		</form>
+
+		<div class="contact-thanks" data-state="thanks" hidden>
+			<div class="thanks-icon" aria-hidden="true">
+				<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M20 6 9 17l-5-5"></path>
+				</svg>
+			</div>
+			<h2>Thanks — we'll be in touch.</h2>
+			<p>
+				We received <strong data-capture-email>your email</strong> and one of the founders will reach out within one business day. Pilot-cohort onboarding typically takes under 48 hours.
+			</p>
+			<div class="thanks-next">
+				<p class="thanks-next-label">While you wait</p>
+				<ul>
+					<li><a href="/security">Read our security &amp; DPA posture →</a></li>
+					<li><a href="/dpdp">Review our DPDP compliance →</a></li>
+					<li><a href="/#pricing">Browse the per-notice pricing →</a></li>
+				</ul>
+			</div>
+		</div>
 
 		<aside class="contact-aside">
 			<div class="aside-card">
@@ -240,7 +275,141 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 	.btn-small { padding: 0.55rem 1rem; font-size: 0.85rem; min-height: 40px; }
 
+	.form-error {
+		margin: -0.25rem 0 0;
+		color: #b91c1c;
+		font-size: 0.85rem;
+		font-weight: 500;
+	}
+
+	.contact-thanks {
+		grid-column: 1 / -1;
+		background: var(--eth-surface);
+		border: 1px solid var(--eth-border);
+		border-radius: var(--eth-card-radius);
+		padding: clamp(2rem, 5vw, 3rem);
+		box-shadow: var(--eth-shadow);
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.thanks-icon {
+		width: 64px;
+		height: 64px;
+		border-radius: 9999px;
+		background: var(--eth-accent-soft);
+		color: var(--eth-accent);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1rem;
+	}
+
+	.contact-thanks h2 { margin: 0 0 0.75rem; font-size: clamp(1.5rem, 2.4vw, 2rem); }
+	.contact-thanks > p { max-width: 52ch; color: var(--eth-text-secondary); margin: 0 auto; }
+	.contact-thanks strong { color: var(--eth-text); font-weight: 600; }
+
+	.thanks-next {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px dashed var(--eth-border);
+		width: 100%;
+		max-width: 440px;
+	}
+
+	.thanks-next-label {
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--eth-text-muted);
+		margin: 0 0 0.6rem;
+	}
+
+	.thanks-next ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.4rem;
+	}
+
+	.thanks-next a {
+		color: var(--eth-accent);
+		font-weight: 500;
+		font-size: 0.95rem;
+	}
+
 	@media (max-width: 900px) {
 		.contact-grid { grid-template-columns: 1fr; }
 	}
 </style>
+
+<script is:inline>
+	(function () {
+		const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+		function storeCapture(payload, source) {
+			try {
+				const key = 'accountic:captures';
+				const existing = JSON.parse(localStorage.getItem(key) || '[]');
+				existing.push({ ...payload, source, at: new Date().toISOString() });
+				localStorage.setItem(key, JSON.stringify(existing));
+			} catch (_) { /* storage unavailable — silently skip */ }
+		}
+
+		function sendCapture(payload, source) {
+			const card = document.querySelector(`[data-capture][data-source="${source}"]`);
+			const endpoint = card && card.dataset.endpoint;
+			if (!endpoint) return Promise.resolve();
+			return fetch(endpoint, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+				body: JSON.stringify({ ...payload, source, page: location.pathname }),
+			}).catch(() => {});
+		}
+
+		const card = document.querySelector('[data-capture][data-source="contact-page"]');
+		if (!card) return;
+		const form = card.querySelector('[data-capture-form]');
+		const err = card.querySelector('[data-capture-error]');
+		const emailOut = card.querySelector('[data-capture-email]');
+		const formState = card.querySelector('[data-state="form"]');
+		const thanksState = card.querySelector('[data-state="thanks"]');
+		if (!form) return;
+
+		form.addEventListener('submit', function (event) {
+			event.preventDefault();
+			const data = new FormData(form);
+			const name = (data.get('name') || '').toString().trim();
+			const firm = (data.get('firm') || '').toString().trim();
+			const email = (data.get('email') || '').toString().trim();
+			if (!name || !firm || !EMAIL_RE.test(email)) {
+				if (err) err.hidden = false;
+				return;
+			}
+			if (err) err.hidden = true;
+
+			const submitBtn = form.querySelector('button[type="submit"]');
+			if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.6'; }
+
+			const payload = {
+				name, firm, email,
+				phone: (data.get('phone') || '').toString().trim(),
+				size: (data.get('size') || '').toString().trim(),
+				volume: (data.get('volume') || '').toString().trim(),
+				message: (data.get('message') || '').toString().trim(),
+			};
+
+			storeCapture(payload, 'contact-page');
+			sendCapture(payload, 'contact-page').finally(function () {
+				if (emailOut) emailOut.textContent = email;
+				if (formState) formState.hidden = true;
+				if (thanksState) thanksState.hidden = false;
+				window.scrollTo({ top: card.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+			});
+		});
+	})();
+</script>

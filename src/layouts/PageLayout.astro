@@ -28,10 +28,15 @@ const fullTitle = `${title} · ${SITE_TITLE}`;
 		<main id="main">
 			{(eyebrow || heading || lede) && (
 				<section class="page-hero">
-					<div class={`container ${narrow ? 'page-container--narrow' : ''}`}>
-						{eyebrow && <span class="eyebrow">{eyebrow}</span>}
-						{heading && <h1>{heading}</h1>}
-						{lede && <p class="lede">{lede}</p>}
+					<div class={`container ${narrow ? 'page-container--narrow' : ''} page-hero-inner`}>
+						<div class="page-hero-copy">
+							{eyebrow && <span class="eyebrow">{eyebrow}</span>}
+							{heading && <h1>{heading}</h1>}
+							{lede && <p class="lede">{lede}</p>}
+						</div>
+						<div class="page-hero-art" aria-hidden="true">
+							<slot name="visual" />
+						</div>
 					</div>
 				</section>
 			)}
@@ -57,9 +62,36 @@ const fullTitle = `${title} · ${SITE_TITLE}`;
 					radial-gradient(ellipse 50% 40% at 60% 70%, rgba(147, 197, 253, 0.3) 0%, transparent 100%);
 			}
 
+			.page-hero-inner {
+				display: grid;
+				grid-template-columns: 1.5fr 1fr;
+				gap: 2.5rem;
+				align-items: center;
+			}
+
+			.page-hero-art {
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+				min-height: 180px;
+			}
+
+			.page-hero-art:empty { display: none; }
+
+			.page-hero-art :global(svg) {
+				max-width: 100%;
+				height: auto;
+			}
+
 			.page-hero h1 {
 				margin: 0.75rem 0 1rem;
 				max-width: 20ch;
+			}
+
+			@media (max-width: 820px) {
+				.page-hero-inner { grid-template-columns: 1fr; }
+				.page-hero-art { justify-content: flex-start; min-height: 0; margin-top: 1rem; }
+				.page-hero-art :global(svg) { max-width: 220px; }
 			}
 
 			.page-hero .eyebrow {

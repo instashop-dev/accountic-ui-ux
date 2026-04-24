@@ -37,7 +37,7 @@ const pricingTiers = [
 				<div class="container hero-inner">
 					<a class="hero-badge" href="#why-accountic" aria-label="Learn about Accountic">
 						<span class="badge-dot" aria-hidden="true"></span>
-						<span>LAUNCHING APRIL 2026 · FOR INDIAN CAs</span>
+						<span>LAUNCHING MAY 2026 · FOR INDIAN CAs</span>
 					</a>
 
 					<h1 class="hero-title">
@@ -467,7 +467,7 @@ const pricingTiers = [
 				<div class="container">
 					<div class="section-head">
 						<span class="eyebrow">Why Accountic</span>
-						<h2 id="why-title">Five reasons a senior partner will put their name on it.</h2>
+						<h2 id="why-title">Five differentiators, strongest moats first.</h2>
 					</div>
 
 					<div class="cv-showcase">
@@ -602,17 +602,34 @@ const pricingTiers = [
 			{/* ─── FINAL CTA ─── */}
 			<section class="section cta-section" id="cta">
 				<div class="container">
-					<div class="cta-card">
-						<span class="eyebrow cta-eyebrow">Join the April 2026 pilot cohort</span>
-						<h2>Draft your first three notices free.</h2>
-						<p>
-							3 notices on us. No card required. If the verification layer misses a citation, the credit returns — automatically.
-						</p>
-						<form class="cta-form" onsubmit="event.preventDefault(); alert('Thanks — we\\'ll be in touch.');">
-							<label class="sr-only" for="cta-email">Work email</label>
-							<input id="cta-email" name="email" type="email" placeholder="firm-email@yourca.in" required autocomplete="email" />
-							<button type="submit" class="btn btn-primary">Request access</button>
-						</form>
+					<div class="cta-card" data-capture data-source="homepage-cta">
+						<div class="cta-form-state" data-state="form">
+							<span class="eyebrow cta-eyebrow">Join the May 2026 pilot cohort</span>
+							<h2>Draft your first three notices free.</h2>
+							<p>
+								3 notices on us. No card required. If the verification layer misses a citation, the credit returns — automatically.
+							</p>
+							<form class="cta-form" data-capture-form novalidate>
+								<label class="sr-only" for="cta-email">Work email</label>
+								<input id="cta-email" name="email" type="email" placeholder="firm-email@yourca.in" required autocomplete="email" />
+								<button type="submit" class="btn btn-primary">Request access</button>
+							</form>
+							<p class="cta-error" data-capture-error role="alert" hidden>Please enter a valid work email.</p>
+						</div>
+
+						<div class="cta-thanks-state" data-state="thanks" hidden>
+							<div class="cta-thanks-icon" aria-hidden="true">
+								<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M20 6 9 17l-5-5"></path>
+								</svg>
+							</div>
+							<span class="eyebrow cta-eyebrow">You're on the list</span>
+							<h2>Thanks — we'll be in touch.</h2>
+							<p>
+								We received <strong data-capture-email>your email</strong> and one of the founders will reach out within one business day with your pilot-cohort details.
+							</p>
+							<p class="cta-thanks-meta">In the meantime, you can <a href="/security">read our security posture</a> or <a href="/contact">book a demo</a>.</p>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -1677,9 +1694,107 @@ const pricingTiers = [
 
 			.cta-form .btn { min-height: 48px; }
 
+			.cta-error {
+				margin: 0.5rem auto 0;
+				max-width: 480px;
+				color: #b91c1c;
+				font-size: 0.85rem;
+				font-weight: 500;
+				text-align: left;
+				padding-left: 1rem;
+			}
+
+			.cta-thanks-state {
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cta-thanks-icon {
+				width: 58px;
+				height: 58px;
+				border-radius: 9999px;
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent);
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 1rem;
+			}
+
+			.cta-thanks-state h2 { margin: 0.35rem 0 0.75rem; max-width: 20ch; }
+			.cta-thanks-state p { max-width: 52ch; color: var(--eth-text-secondary); margin: 0 auto; }
+			.cta-thanks-state strong { color: var(--eth-text); font-weight: 600; }
+
+			.cta-thanks-meta { font-size: 0.9rem; margin-top: 1rem !important; }
+			.cta-thanks-meta a { color: var(--eth-accent); font-weight: 500; }
+
 			@media (max-width: 560px) {
 				.cta-form { flex-direction: column; }
 			}
 		</style>
+
+		<script is:inline>
+			(function () {
+				const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+				function storeCapture(email, source) {
+					try {
+						const key = 'accountic:captures';
+						const existing = JSON.parse(localStorage.getItem(key) || '[]');
+						existing.push({ email, source, at: new Date().toISOString() });
+						localStorage.setItem(key, JSON.stringify(existing));
+					} catch (_) { /* storage unavailable — silently skip */ }
+				}
+
+				function sendCapture(email, source) {
+					// Placeholder: plug in Formspree/Getform/own endpoint via data-endpoint attr
+					const card = document.querySelector(`[data-capture][data-source="${source}"]`);
+					const endpoint = card && card.dataset.endpoint;
+					if (!endpoint) return Promise.resolve();
+					return fetch(endpoint, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+						body: JSON.stringify({ email, source, page: location.pathname }),
+					}).catch(() => {});
+				}
+
+				document.querySelectorAll('[data-capture]').forEach((card) => {
+					const form = card.querySelector('[data-capture-form]');
+					if (!form) return;
+					const err = card.querySelector('[data-capture-error]');
+					const emailOut = card.querySelector('[data-capture-email]');
+					const formState = card.querySelector('[data-state="form"]');
+					const thanksState = card.querySelector('[data-state="thanks"]');
+
+					form.addEventListener('submit', function (event) {
+						event.preventDefault();
+						const emailInput = form.querySelector('input[type="email"]');
+						const email = (emailInput && emailInput.value || '').trim();
+
+						if (!EMAIL_RE.test(email)) {
+							if (err) err.hidden = false;
+							emailInput && emailInput.focus();
+							return;
+						}
+						if (err) err.hidden = true;
+
+						const submitBtn = form.querySelector('button[type="submit"]');
+						if (submitBtn) {
+							submitBtn.disabled = true;
+							submitBtn.style.opacity = '0.6';
+						}
+
+						storeCapture(email, card.dataset.source || 'unknown');
+						sendCapture(email, card.dataset.source || 'unknown').finally(function () {
+							if (emailOut) emailOut.textContent = email;
+							if (formState) formState.hidden = true;
+							if (thanksState) thanksState.hidden = false;
+						});
+					});
+				});
+			})();
+		</script>
 	</body>
 </html>
