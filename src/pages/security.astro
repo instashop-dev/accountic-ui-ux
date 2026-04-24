@@ -1,0 +1,238 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const pillars = [
+	{
+		title: 'India-resident processing',
+		body: 'Every notice, every draft, and every model invocation stays within Indian data centres. No cross-border transfer of client data, by design. Infrastructure provided by SOC 2 Type II–compliant technology partner Thalia.',
+	},
+	{
+		title: 'No training on your data',
+		body: 'Your corpus and outputs are never used to train models serving any other firm or customer. Explicit "no training" commitment — the only posture a senior partner can sign off on under ICAI confidentiality and DPDP.',
+	},
+	{
+		title: 'Consent-per-document uploads',
+		body: 'Each PDF upload is tied to a specific matter and consent scope. PII-aware pipelines identify and scope PAN, GSTIN, and related identifiers so they never leak between clients.',
+	},
+	{
+		title: 'Data Processing Agreements on request',
+		body: 'Firm customers receive a DPA suitable for handing to a listed-company client without qualification. We act as your Data Processor under DPDP; you remain the Data Fiduciary. See the DPA page for the full text.',
+	},
+	{
+		title: 'Audit logs on every draft',
+		body: 'Every citation is traceable. Every draft carries a verification audit log — the section, circular, or case cited, the repository version checked, the timestamp, and the confidence score — suitable for ICAI peer review.',
+	},
+	{
+		title: 'Encryption in transit and at rest',
+		body: 'TLS 1.2+ in transit. AES-256 at rest. Key rotation on a published cadence. No customer data ever appears in logs, error reports, or telemetry.',
+	},
+];
+---
+
+<PageLayout
+	title="Security & trust"
+	description="How Accountic secures the data that runs through a Chartered Accountant's highest-stakes work — SOC 2 Type II, India-resident processing, DPDP-ready, DPA available."
+	eyebrow="Security &amp; Trust"
+	heading="Security built for the signature on the reply."
+	lede="Your name goes on every draft that leaves Accountic. The way we build, deploy, and secure the product reflects what's actually at stake."
+>
+	<section class="pillars">
+		<div class="pillar-grid">
+			{pillars.map((p) => (
+				<article class="pillar-card">
+					<div class="pillar-icon">
+						<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+							<path d="m9 12 2 2 4-4"></path>
+						</svg>
+					</div>
+					<h3>{p.title}</h3>
+					<p>{p.body}</p>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<section class="standards">
+		<div class="standards-head">
+			<span class="eyebrow">Standards &amp; certifications</span>
+			<h2>What we're accountable to.</h2>
+		</div>
+		<div class="standards-grid">
+			<article class="standard">
+				<p class="std-name">SOC 2 Type II</p>
+				<p class="std-body">Infrastructure provided by technology partner Thalia, under a continuous-audit SOC 2 Type II programme. Audit summary available to customers under NDA.</p>
+			</article>
+			<article class="standard">
+				<p class="std-name">DPDP Act, 2023</p>
+				<p class="std-body">Designed from day one to make your own DPDP compliance easier — consent framework, retention controls, deletion-on-request, notification commitments.</p>
+			</article>
+			<article class="standard">
+				<p class="std-name">ICAI Code of Ethics (effective 1 April 2026)</p>
+				<p class="std-body">Positioned as an assistant to the CA's professional judgment. Workflow records support peer review and faceless-assessment "application of mind" expectations.</p>
+			</article>
+			<article class="standard">
+				<p class="std-name">ISO 27001 (on roadmap)</p>
+				<p class="std-body">Independent ISO 27001 certification on the 12-month roadmap as we scale. Progress will be published quarterly alongside the citation-verification error rate.</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="practices">
+		<div class="practices-head">
+			<span class="eyebrow">Operational practices</span>
+			<h2>How we run the service.</h2>
+		</div>
+		<dl class="practices-list">
+			<div>
+				<dt>Access controls</dt>
+				<dd>Least-privilege access, hardware-token 2FA for all engineers, quarterly access reviews. Role-based access controls for firm customers ship within 90 days of launch.</dd>
+			</div>
+			<div>
+				<dt>Key management</dt>
+				<dd>Encryption keys held in a managed KMS with scheduled rotation. Customer data is encrypted per-tenant; cross-tenant access is structurally impossible, not merely policy-restricted.</dd>
+			</div>
+			<div>
+				<dt>Monitoring &amp; incident response</dt>
+				<dd>24×7 monitoring on production systems. Incident protocol defined and rehearsed pre-launch, with customer notification commitments under DPDP timelines. Status page goes live at launch.</dd>
+			</div>
+			<div>
+				<dt>Vendor management</dt>
+				<dd>Every subprocessor is listed publicly, with DPAs in place and data-residency attestations on file. Changes to the subprocessor list are announced in advance.</dd>
+			</div>
+			<div>
+				<dt>Responsible disclosure</dt>
+				<dd>Report a vulnerability to <a href="mailto:security@accountic.com">security@accountic.com</a>. We aim to acknowledge within 24 hours and publish remediation within 30 days for high-severity issues.</dd>
+			</div>
+		</dl>
+	</section>
+
+	<section class="resources">
+		<div class="resources-card">
+			<div>
+				<span class="eyebrow">Resources</span>
+				<h2>Documents your legal team will ask for.</h2>
+				<p>DPA, subprocessor list, and a one-page security brief — request access below and we'll share them via a signed link.</p>
+			</div>
+			<div class="resources-actions">
+				<a class="btn btn-primary" href="/contact">Request documents</a>
+				<a class="btn btn-secondary" href="/dpa">View DPA overview</a>
+			</div>
+		</div>
+	</section>
+</PageLayout>
+
+<style>
+	.pillar-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+		margin-bottom: var(--space-16);
+	}
+
+	.pillar-card {
+		background: var(--eth-surface);
+		border: 1px solid var(--eth-border);
+		border-radius: var(--eth-card-radius);
+		padding: 1.75rem;
+		box-shadow: var(--eth-shadow-sm);
+		transition: transform 200ms ease, box-shadow 200ms ease;
+	}
+
+	.pillar-card:hover { transform: translateY(-2px); box-shadow: var(--eth-shadow); }
+
+	.pillar-icon {
+		width: 44px;
+		height: 44px;
+		border-radius: 14px;
+		background: var(--eth-accent-soft);
+		color: var(--eth-accent);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1rem;
+	}
+
+	.pillar-card h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.5rem; }
+	.pillar-card p { margin: 0; font-size: 0.92rem; line-height: 1.6; }
+
+	.standards-head,
+	.practices-head { margin-bottom: var(--space-8); }
+	.standards-head h2,
+	.practices-head h2 { margin-top: 0.35rem; }
+
+	.standards-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+		margin-bottom: var(--space-16);
+	}
+
+	.standard {
+		background: var(--eth-surface-alt);
+		border: 1px solid var(--eth-border);
+		border-radius: var(--eth-card-radius);
+		padding: 1.5rem;
+	}
+
+	.std-name {
+		margin: 0 0 0.4rem;
+		font-size: 0.75rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--eth-accent);
+		font-weight: 600;
+	}
+
+	.std-body { margin: 0; font-size: 0.92rem; color: var(--eth-text-secondary); line-height: 1.6; }
+
+	.practices-list {
+		display: grid;
+		gap: 0;
+		margin: 0 0 var(--space-16);
+		border-top: 1px solid var(--eth-border);
+	}
+
+	.practices-list > div {
+		display: grid;
+		grid-template-columns: 240px 1fr;
+		gap: 2rem;
+		padding: 1.25rem 0;
+		border-bottom: 1px solid var(--eth-border);
+	}
+
+	.practices-list dt { font-weight: 600; font-size: 1rem; margin: 0; }
+	.practices-list dd { margin: 0; color: var(--eth-text-secondary); font-size: 0.92rem; line-height: 1.65; }
+	.practices-list dd a { color: var(--eth-accent); font-weight: 500; }
+
+	.resources-card {
+		background-color: var(--eth-bg);
+		background-image:
+			radial-gradient(ellipse 70% 50% at 20% 30%, rgba(253, 230, 138, 0.4) 0%, transparent 100%),
+			radial-gradient(ellipse 60% 45% at 85% 70%, rgba(147, 197, 253, 0.3) 0%, transparent 100%);
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		border-radius: var(--eth-layout-radius);
+		padding: clamp(1.75rem, 4vw, 3rem);
+		display: grid;
+		grid-template-columns: 1.4fr 1fr;
+		gap: 2rem;
+		align-items: center;
+		box-shadow: var(--eth-shadow);
+	}
+
+	.resources-card h2 { margin: 0.4rem 0 0.75rem; font-size: clamp(1.5rem, 2.2vw, 1.85rem); }
+	.resources-card p { margin: 0; color: var(--eth-text-secondary); }
+
+	.resources-actions { display: flex; flex-direction: column; gap: 0.6rem; align-items: stretch; }
+
+	@media (max-width: 900px) {
+		.pillar-grid { grid-template-columns: repeat(2, 1fr); }
+		.standards-grid { grid-template-columns: 1fr; }
+		.practices-list > div { grid-template-columns: 1fr; gap: 0.5rem; }
+		.resources-card { grid-template-columns: 1fr; }
+	}
+
+	@media (max-width: 560px) {
+		.pillar-grid { grid-template-columns: 1fr; }
+	}
+</style>

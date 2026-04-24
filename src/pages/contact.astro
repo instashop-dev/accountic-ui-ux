@@ -1,0 +1,246 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title="Contact sales"
+	description="Talk to the Accountic team about firm-tier pricing, DPAs, and custom onboarding for your CA practice."
+	eyebrow="Contact sales"
+	heading="Let's get your firm onto Accountic."
+	lede="Tell us about your practice and we'll be in touch within one business day. For pilot cohorts, we typically onboard in under 48 hours."
+>
+	<div class="contact-grid">
+		<form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks — we will be in touch within one business day.');">
+			<div class="field-row">
+				<label class="field">
+					<span class="field-label">Full name</span>
+					<input name="name" type="text" required autocomplete="name" placeholder="CA Rajesh Mehta" />
+				</label>
+				<label class="field">
+					<span class="field-label">Firm name</span>
+					<input name="firm" type="text" required placeholder="DPS &amp; Co." />
+				</label>
+			</div>
+
+			<div class="field-row">
+				<label class="field">
+					<span class="field-label">Work email</span>
+					<input name="email" type="email" required autocomplete="email" placeholder="partner@firm.in" />
+				</label>
+				<label class="field">
+					<span class="field-label">Phone <span class="optional">(optional)</span></span>
+					<input name="phone" type="tel" autocomplete="tel" placeholder="+91 98xx xxx xxx" />
+				</label>
+			</div>
+
+			<label class="field">
+				<span class="field-label">Firm size</span>
+				<select name="size" required>
+					<option value="" disabled selected>Select firm size…</option>
+					<option>Solo practitioner</option>
+					<option>2–5 professionals</option>
+					<option>6–15 professionals</option>
+					<option>16–30 professionals</option>
+					<option>30+ professionals</option>
+				</select>
+			</label>
+
+			<label class="field">
+				<span class="field-label">Monthly Income Tax notice volume</span>
+				<select name="volume">
+					<option value="" disabled selected>Select monthly volume…</option>
+					<option>Under 10 notices</option>
+					<option>10–50 notices</option>
+					<option>50–200 notices</option>
+					<option>200+ notices</option>
+				</select>
+			</label>
+
+			<label class="field">
+				<span class="field-label">What would you like to discuss?</span>
+				<textarea name="message" rows="4" placeholder="Pilot terms, DPA availability, bulk historical upload…"></textarea>
+			</label>
+
+			<div class="form-foot">
+				<button type="submit" class="btn btn-primary">
+					Request a conversation
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+					</svg>
+				</button>
+				<p class="foot-note">
+					By submitting you agree to our <a href="/privacy">privacy policy</a>. We'll only contact you about your request.
+				</p>
+			</div>
+		</form>
+
+		<aside class="contact-aside">
+			<div class="aside-card">
+				<h3>What happens next</h3>
+				<ol>
+					<li><strong>We reply within 1 business day</strong> — usually faster.</li>
+					<li><strong>30-minute discovery</strong> on notice volume, firm setup, historical corpus.</li>
+					<li><strong>Pilot onboarding</strong> with your first 10 notices under close review.</li>
+					<li><strong>Firm-tier terms</strong> including DPA, if applicable.</li>
+				</ol>
+			</div>
+
+			<div class="aside-card">
+				<h3>Direct channels</h3>
+				<ul class="direct">
+					<li>
+						<span class="dir-label">Sales</span>
+						<a href="mailto:sales@accountic.com">sales@accountic.com</a>
+					</li>
+					<li>
+						<span class="dir-label">Partnerships</span>
+						<a href="mailto:partners@accountic.com">partners@accountic.com</a>
+					</li>
+					<li>
+						<span class="dir-label">Security &amp; DPA</span>
+						<a href="mailto:security@accountic.com">security@accountic.com</a>
+					</li>
+					<li>
+						<span class="dir-label">Support</span>
+						<a href="mailto:support@accountic.com">support@accountic.com</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="aside-card subtle">
+				<p class="small">
+					<strong>Not ready to talk?</strong> Start with 3 free notices — no card required.
+				</p>
+				<a href="/#cta" class="btn btn-secondary btn-small">Start free trial</a>
+			</div>
+		</aside>
+	</div>
+</PageLayout>
+
+<style>
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1.4fr 1fr;
+		gap: 2.5rem;
+		align-items: start;
+	}
+
+	.contact-form {
+		background: var(--eth-surface);
+		border: 1px solid var(--eth-border);
+		border-radius: var(--eth-card-radius);
+		padding: clamp(1.5rem, 3vw, 2.25rem);
+		box-shadow: var(--eth-shadow-sm);
+		display: grid;
+		gap: 1rem;
+	}
+
+	.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+	@media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
+
+	.field { display: grid; gap: 0.4rem; }
+
+	.field-label {
+		font-size: 0.85rem;
+		color: var(--eth-text);
+		font-weight: 500;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.optional { color: var(--eth-text-muted); font-weight: 400; }
+
+	.field input,
+	.field select,
+	.field textarea {
+		padding: 0.85rem 1rem;
+		font-size: 0.95rem;
+		font-family: inherit;
+		border: 1px solid var(--eth-border);
+		border-radius: 16px;
+		background: var(--eth-surface);
+		color: var(--eth-text);
+		min-height: 48px;
+		resize: vertical;
+	}
+
+	.field textarea { border-radius: 16px; }
+
+	.field input:focus-visible,
+	.field select:focus-visible,
+	.field textarea:focus-visible {
+		outline: 2px solid var(--eth-accent);
+		outline-offset: 1px;
+		border-color: transparent;
+	}
+
+	.form-foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+		margin-top: 0.5rem;
+	}
+
+	.foot-note {
+		font-size: 0.8rem;
+		color: var(--eth-text-muted);
+		margin: 0;
+		max-width: 32ch;
+	}
+
+	.foot-note a { color: var(--eth-text); text-decoration: underline; text-decoration-color: var(--eth-border-light); }
+
+	.contact-aside { display: grid; gap: 1rem; }
+
+	.aside-card {
+		background: var(--eth-surface);
+		border: 1px solid var(--eth-border);
+		border-radius: var(--eth-card-radius);
+		padding: 1.5rem;
+		box-shadow: var(--eth-shadow-sm);
+	}
+
+	.aside-card h3 {
+		font-size: 1rem;
+		margin: 0 0 0.85rem;
+		font-weight: 600;
+	}
+
+	.aside-card ol { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.5rem; color: var(--eth-text-secondary); font-size: 0.9rem; }
+
+	.aside-card ol strong { color: var(--eth-text); font-weight: 600; }
+
+	.direct { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
+
+	.direct li { display: grid; gap: 0.15rem; }
+
+	.dir-label {
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--eth-text-muted);
+		font-weight: 600;
+	}
+
+	.direct a { color: var(--eth-text); font-weight: 500; font-size: 0.92rem; }
+
+	.aside-card.subtle {
+		background: var(--eth-surface-alt);
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		align-items: flex-start;
+	}
+
+	.aside-card .small { font-size: 0.9rem; margin: 0; color: var(--eth-text-secondary); }
+	.aside-card .small strong { color: var(--eth-text); }
+
+	.btn-small { padding: 0.55rem 1rem; font-size: 0.85rem; min-height: 40px; }
+
+	@media (max-width: 900px) {
+		.contact-grid { grid-template-columns: 1fr; }
+	}
+</style>

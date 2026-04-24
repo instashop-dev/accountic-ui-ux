@@ -1,0 +1,104 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title="Terms of service"
+	description="The agreement that governs your use of Accountic — the AI workbench for Indian Chartered Accountancy Income Tax notice drafting."
+	eyebrow="Terms of service"
+	heading="The agreement that governs your use of Accountic."
+	lede="Plain-English where possible, precise where required. If you run a CA firm and need specific contractual clarifications, contact us — we respond."
+>
+	<article class="doc">
+		<aside class="doc-toc" aria-label="On this page">
+			<p class="toc-label">On this page</p>
+			<ol>
+				<li><a href="#acceptance">Acceptance</a></li>
+				<li><a href="#service">The service</a></li>
+				<li><a href="#account">Your account</a></li>
+				<li><a href="#use">Acceptable use</a></li>
+				<li><a href="#billing">Billing &amp; quotas</a></li>
+				<li><a href="#ip">Intellectual property</a></li>
+				<li><a href="#warranties">Warranties &amp; disclaimers</a></li>
+				<li><a href="#liability">Liability</a></li>
+				<li><a href="#termination">Termination</a></li>
+				<li><a href="#law">Governing law</a></li>
+			</ol>
+		</aside>
+
+		<div class="doc-body">
+			<p class="doc-meta">Version 1.0 · Effective April 2026 · Governing law: India</p>
+
+			<section id="acceptance">
+				<h2>Acceptance</h2>
+				<p>By creating an account, accessing, or using Accountic ("the Service"), you agree to these Terms of Service and our Privacy Policy. If you're accepting on behalf of a firm, you represent that you have authority to bind that firm.</p>
+				<p>If you don't agree, don't use the Service.</p>
+			</section>
+
+			<section id="service">
+				<h2>The service</h2>
+				<p>Accountic provides an AI-assisted workbench for drafting Income Tax notice replies, grounded in verified IT Act references, CBDT circulars, case law, and your uploaded prior replies. The Service includes classification, analysis, drafting, citation verification, and export.</p>
+				<p><strong>Accountic assists; it does not replace professional judgment.</strong> Every draft requires human review by a qualified Chartered Accountant before it is filed or relied upon. You retain responsibility for the final reply and its conformity with applicable law.</p>
+			</section>
+
+			<section id="account">
+				<h2>Your account</h2>
+				<p>You're responsible for keeping your credentials secure, for the activity of anyone you authorise to use your firm's account, and for ensuring the data you upload is lawful to process. Notify us immediately of any suspected unauthorised access.</p>
+			</section>
+
+			<section id="use">
+				<h2>Acceptable use</h2>
+				<p>You agree not to:</p>
+				<ul class="bullets">
+					<li>Use the Service for anything other than drafting replies to notices you or your clients are lawfully responding to.</li>
+					<li>Upload content you don't have lawful authority to process.</li>
+					<li>Attempt to reverse-engineer, decompile, or extract the underlying models or the citation-verification repository.</li>
+					<li>Interfere with the Service's operation, security controls, or telemetry.</li>
+					<li>Share account credentials across firms or resell access.</li>
+				</ul>
+			</section>
+
+			<section id="billing">
+				<h2>Billing &amp; quotas</h2>
+				<p>Plans are billed per notice, packaged in monthly quotas. The current plans, quotas, and effective per-notice pricing are listed on the pricing section of the homepage. All pricing is in Indian Rupees and inclusive of GST-compliant invoicing.</p>
+				<p>Quotas are soft: notices processed beyond your monthly quota are billed at the same effective per-notice rate until the next cycle. We do not impose hard mid-month cutoffs.</p>
+				<h3>Citation-verification credit-refund</h3>
+				<p>If Accountic's citation-verification layer should have caught a bad citation and did not, the corresponding notice-credit is refunded to your account automatically. The refund mechanism is documented in your customer agreement and published quarterly as part of our accuracy reporting.</p>
+			</section>
+
+			<section id="ip">
+				<h2>Intellectual property</h2>
+				<p><strong>Your content stays yours.</strong> You retain all rights to the notices, prior replies, and supporting documents you upload, as well as to the drafted replies you export. You grant us a limited licence to process this content solely to provide and improve the Service for your firm.</p>
+				<p>We retain all rights to the Service itself, the models, the citation-verification repository, and our brand. Nothing in these Terms transfers any of our intellectual property to you.</p>
+			</section>
+
+			<section id="warranties">
+				<h2>Warranties &amp; disclaimers</h2>
+				<p>We warrant that we will deliver the Service with reasonable care and skill, in line with the security and privacy commitments on the security and DPDP pages.</p>
+				<p><strong>The Service is an assistant, not a substitute for professional judgment.</strong> Drafts must be reviewed by a qualified Chartered Accountant before filing. Except as expressly stated, the Service is provided "as is" to the fullest extent permitted by applicable law.</p>
+			</section>
+
+			<section id="liability">
+				<h2>Liability</h2>
+				<p>Neither party is liable for indirect, consequential, or punitive damages. Our total aggregate liability under these Terms is capped at the fees you paid us in the 12 months preceding the event giving rise to the claim.</p>
+				<p>Nothing in this section limits liability that cannot be limited under applicable law.</p>
+			</section>
+
+			<section id="termination">
+				<h2>Termination</h2>
+				<p>You may terminate at any time from your account dashboard. We may terminate for material breach if you don't cure within 30 days of written notice, or immediately for unlawful use or non-payment.</p>
+				<p>On termination, we delete or return your data within 30 days as set out in your DPA.</p>
+			</section>
+
+			<section id="law" class="request-section">
+				<h2>Governing law</h2>
+				<p>These Terms are governed by the laws of India. Any dispute will be resolved in the courts of Mumbai, Maharashtra, unless your customer agreement provides otherwise.</p>
+				<p>For questions about these Terms:</p>
+				<div class="cta-row">
+					<a class="btn btn-primary" href="mailto:legal@accountic.com">Email legal@accountic.com</a>
+					<a class="btn btn-secondary" href="/privacy">Read the privacy policy</a>
+				</div>
+			</section>
+		</div>
+	</article>
+</PageLayout>

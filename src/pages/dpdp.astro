@@ -1,0 +1,105 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title="DPDP compliance"
+	description="How Accountic helps Indian Chartered Accountancy firms meet their obligations under the Digital Personal Data Protection Act, 2023."
+	eyebrow="DPDP compliance"
+	heading="DPDP-ready, so your firm's compliance gets easier — not harder."
+	lede="Under DPDP, your firm is a Data Fiduciary for your clients' personal data. This page explains how Accountic supports that posture, and what we commit to as your Data Processor."
+>
+	<article class="doc">
+		<aside class="doc-toc" aria-label="On this page">
+			<p class="toc-label">On this page</p>
+			<ol>
+				<li><a href="#roles">Roles under DPDP</a></li>
+				<li><a href="#consent">Consent &amp; notice</a></li>
+				<li><a href="#purpose">Purpose limitation</a></li>
+				<li><a href="#security">Security safeguards</a></li>
+				<li><a href="#rights">Rights of data principals</a></li>
+				<li><a href="#breach">Breach notification</a></li>
+				<li><a href="#transfers">Cross-border transfers</a></li>
+				<li><a href="#retention">Retention &amp; deletion</a></li>
+				<li><a href="#grievance">Grievance redressal</a></li>
+			</ol>
+		</aside>
+
+		<div class="doc-body">
+			<p class="doc-meta">Aligned to the Digital Personal Data Protection Act, 2023 · Governing law: India</p>
+
+			<section id="roles">
+				<h2>Roles under DPDP</h2>
+				<p>Under the DPDP Act, 2023, your CA firm is the <strong>Data Fiduciary</strong> for personal data belonging to your clients that appears in the notices you upload. Accountic acts as your <strong>Data Processor</strong>, strictly on your documented instructions, under the Data Processing Agreement you execute with us.</p>
+				<p>This means: you determine the purpose and means of processing; we carry out processing only to the extent necessary to deliver the Service.</p>
+			</section>
+
+			<section id="consent">
+				<h2>Consent &amp; notice</h2>
+				<p>You are responsible for obtaining the consent required from data principals under Section 5 of the DPDP Act for the personal data contained in documents you upload, and for providing each data principal the statutory notice.</p>
+				<p>Accountic's upload flow supports consent-per-document tagging. We recommend including this tagging in your engagement letters from 1 April 2026 onward.</p>
+			</section>
+
+			<section id="purpose">
+				<h2>Purpose limitation</h2>
+				<p>We process personal data only for the purposes documented in the DPA:</p>
+				<ol class="ordered">
+					<li>Classification and extraction of notice parameters.</li>
+					<li>Retrieval and verification of citations.</li>
+					<li>Generation of draft replies.</li>
+					<li>Audit logging for peer review.</li>
+					<li>Provision and improvement of the Service under your instructions.</li>
+				</ol>
+				<p><strong>We do not use your content to train general-purpose models or models serving other customers.</strong></p>
+			</section>
+
+			<section id="security">
+				<h2>Security safeguards</h2>
+				<p>We maintain the technical and organisational safeguards required under DPDP, including but not limited to:</p>
+				<ul class="bullets">
+					<li>Encryption in transit (TLS 1.2+) and at rest (AES-256) with key rotation.</li>
+					<li>Tenant isolation and least-privilege access controls.</li>
+					<li>SOC 2 Type II–compliant infrastructure via technology partner Thalia.</li>
+					<li>24×7 monitoring and quarterly access reviews.</li>
+					<li>Independent security testing on an annual cadence.</li>
+				</ul>
+				<p>Further detail is in Annex B of the DPA.</p>
+			</section>
+
+			<section id="rights">
+				<h2>Rights of data principals</h2>
+				<p>Your clients have the right to access, correct, and erase their personal data held in Accountic. As their Data Fiduciary, you are the first point of contact for these requests.</p>
+				<p>We support you in fulfilling these requests by providing:</p>
+				<ul class="bullets">
+					<li>Self-service export of all content you've uploaded and drafts you've generated.</li>
+					<li>Deletion of specific documents or an entire matter on your instruction, within 30 days.</li>
+					<li>Written confirmation of deletion.</li>
+				</ul>
+			</section>
+
+			<section id="breach">
+				<h2>Breach notification</h2>
+				<p>We notify you of any personal-data breach affecting your data <strong>without undue delay after becoming aware, and in any event within 72 hours</strong>. Our notification includes the nature of the breach, the data affected, containment and remediation steps, and our point of contact for follow-up so you can meet your own breach-notification obligations under DPDP.</p>
+			</section>
+
+			<section id="transfers">
+				<h2>Cross-border transfers</h2>
+				<p>Accountic processes personal data <strong>entirely within India</strong>. We do not transfer your clients' personal data outside Indian territory without your express prior written instruction.</p>
+			</section>
+
+			<section id="retention">
+				<h2>Retention &amp; deletion</h2>
+				<p>We retain personal data only for as long as your firm's account is active or as instructed by you in the DPA. On termination or on written request, we delete or return your data within 30 days and confirm deletion in writing.</p>
+			</section>
+
+			<section id="grievance" class="request-section">
+				<h2>Grievance redressal</h2>
+				<p>If you have a grievance about how we handle personal data, reach out to our Data Protection Officer. We respond within 30 days. If your grievance is not addressed to your satisfaction, you may escalate to the Data Protection Board of India.</p>
+				<div class="cta-row">
+					<a class="btn btn-primary" href="mailto:dpo@accountic.com">Email dpo@accountic.com</a>
+					<a class="btn btn-secondary" href="/dpa">Review the DPA</a>
+				</div>
+			</section>
+		</div>
+	</article>
+</PageLayout>

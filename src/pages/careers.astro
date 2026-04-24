@@ -1,0 +1,262 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const roles = [
+	{
+		title: 'Founding Backend Engineer (RAG / Retrieval)',
+		team: 'Engineering',
+		location: 'Mumbai · Hybrid',
+		type: 'Full-time',
+		blurb: 'Own the citation-verification pipeline from ingestion to retrieval. Production RAG experience required. You will ship the single most differentiating thing we sell.',
+	},
+	{
+		title: 'Founding Product Engineer (TypeScript / Astro)',
+		team: 'Engineering',
+		location: 'Mumbai · Hybrid',
+		type: 'Full-time',
+		blurb: 'Build the workbench CAs work in every day. Tight feedback loops with 10 paying firms. Obsess over latency, clarity, and the 30-minute promise.',
+	},
+	{
+		title: 'Senior Associate — Tax Research',
+		team: 'Domain',
+		location: 'Mumbai · On-site',
+		type: 'Full-time',
+		blurb: 'CA or equivalent with 3+ years in direct-tax litigation. Curate the IT Act, CBDT circulars, and case-law repository. Review model outputs. Write the quarterly accuracy report.',
+	},
+	{
+		title: 'Founding Customer Engineer',
+		team: 'GTM',
+		location: 'Mumbai · Hybrid',
+		type: 'Full-time',
+		blurb: 'Onboard the first 100 firms. Sit in on their first 10 notices each. Turn friction into product bugs. Background in tax practice, sales engineering, or both.',
+	},
+];
+
+const values = [
+	{
+		title: 'Depth before breadth.',
+		body: "V1 does one thing — Income Tax notice drafting — to a standard a senior partner will put their name on. We'd rather ship one workflow that works than five that kind of work.",
+	},
+	{
+		title: 'Honest about accuracy.',
+		body: 'We publish our citation-verification error rate quarterly. A bad draft that reaches an AO damages a CA\'s standing. That shapes every product trade-off.',
+	},
+	{
+		title: 'India, first and seriously.',
+		body: "Data residency, DPDP, ICAI ethics, Razorpay billing — not as afterthoughts. Built because our customers' compliance posture depends on ours.",
+	},
+	{
+		title: 'Practitioners in the loop.',
+		body: 'Founded by DPS & Co. — 45 years of CA practice. Every workflow decision runs past people who have drafted these replies themselves.',
+	},
+];
+---
+
+<PageLayout
+	title="Careers"
+	description="Help build the AI workbench for Indian Chartered Accountancy. Mumbai-based, founding-team roles across engineering, tax research, and customer engineering."
+	eyebrow="Careers"
+	heading="Build the workbench for 1.6 lakh Indian CAs."
+	lede="We're a small founding team in Mumbai, working on the single most repetitive high-stakes task in Indian accountancy. If you want to ship something measurably trusted by professionals, read on."
+>
+	<section class="about">
+		<div class="about-head">
+			<span class="eyebrow">Why this, why now</span>
+			<h2>Responding to an Income Tax notice is a CA's highest-stakes recurring task.</h2>
+		</div>
+		<div class="about-grid">
+			<p>
+				A routine notice burns 3–4 hours. A scrutiny or reassessment can consume days. Across
+				~1.6 lakh practicing CAs in India, this is the single largest pool of skilled, repetitive
+				work in the profession.
+			</p>
+			<p>
+				Accountic V1 is a focused AI workbench for Income Tax notice response, with a
+				citation-verification layer backed by a credit-refund policy — the only one of its kind
+				in the Indian market. We launch April 2026. The work you'd do in the next 12 months will
+				define whether Indian CAs trust AI with the filings their signature goes on.
+			</p>
+		</div>
+	</section>
+
+	<section class="values">
+		<div class="values-head">
+			<span class="eyebrow">How we work</span>
+			<h2>Four things we believe.</h2>
+		</div>
+		<div class="values-grid">
+			{values.map((v) => (
+				<article class="value-card">
+					<h3>{v.title}</h3>
+					<p>{v.body}</p>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<section class="roles" id="open-roles">
+		<div class="roles-head">
+			<span class="eyebrow">Open roles</span>
+			<h2>Founding-team positions.</h2>
+			<p class="lede">Every role is founding. Every hire sits within 20 feet of the co-founders. Compensation is market cash + meaningful equity for founding hires.</p>
+		</div>
+
+		<ul class="role-list">
+			{roles.map((r) => (
+				<li class="role-card">
+					<div class="role-meta">
+						<span class="role-team">{r.team}</span>
+						<span class="role-dot">·</span>
+						<span class="role-loc">{r.location}</span>
+						<span class="role-dot">·</span>
+						<span class="role-type">{r.type}</span>
+					</div>
+					<h3>{r.title}</h3>
+					<p>{r.blurb}</p>
+					<a class="role-apply" href={`mailto:careers@accountic.com?subject=${encodeURIComponent('Application — ' + r.title)}`}>
+						Apply
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+						</svg>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<section class="general">
+		<div class="general-card">
+			<h2>Don't see your role?</h2>
+			<p>
+				If you've spent years drafting tax notices, building production RAG systems, or running
+				customer-facing motions for professional-services software — we want to hear from you.
+			</p>
+			<a class="btn btn-primary" href="mailto:careers@accountic.com">
+				Email careers@accountic.com
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+				</svg>
+			</a>
+		</div>
+	</section>
+</PageLayout>
+
+<style>
+	.about-head,
+	.values-head,
+	.roles-head { margin-bottom: var(--space-8); }
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem;
+		margin-bottom: var(--space-16);
+	}
+
+	.about-grid p {
+		color: var(--eth-text-secondary);
+		font-size: 1rem;
+		line-height: 1.75;
+		margin: 0;
+	}
+
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.25rem;
+		margin-bottom: var(--space-16);
+	}
+
+	.value-card {
+		background: var(--eth-surface);
+		border: 1px solid var(--eth-border);
+		border-radius: var(--eth-card-radius);
+		padding: 1.75rem;
+		box-shadow: var(--eth-shadow-sm);
+	}
+
+	.value-card h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.5rem; }
+	.value-card p { margin: 0; color: var(--eth-text-secondary); line-height: 1.65; font-size: 0.95rem; }
+
+	.roles-head .lede { max-width: 54ch; }
+
+	.role-list {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 var(--space-16);
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.role-card {
+		background: var(--eth-surface);
+		border: 1px solid var(--eth-border);
+		border-radius: var(--eth-card-radius);
+		padding: 1.5rem;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-areas:
+			'meta meta'
+			'title apply'
+			'blurb blurb';
+		gap: 0.6rem 1rem;
+		align-items: center;
+		transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+	}
+
+	.role-card:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--eth-shadow);
+		border-color: var(--eth-border-light);
+	}
+
+	.role-meta { grid-area: meta; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--eth-text-muted); }
+
+	.role-team { color: var(--eth-accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; }
+	.role-dot { color: var(--eth-border-light); }
+
+	.role-card h3 { grid-area: title; font-size: 1.15rem; font-weight: 600; margin: 0; }
+	.role-card p { grid-area: blurb; margin: 0; color: var(--eth-text-secondary); font-size: 0.92rem; line-height: 1.6; }
+
+	.role-apply {
+		grid-area: apply;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-weight: 600;
+		color: var(--eth-accent);
+		font-size: 0.9rem;
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--eth-border);
+		border-radius: 9999px;
+		transition: background-color 200ms ease, border-color 200ms ease;
+	}
+
+	.role-apply:hover { background: var(--eth-accent-soft); border-color: var(--eth-accent); color: var(--eth-accent-hover); }
+
+	.general-card {
+		background: var(--eth-text);
+		color: #e2e8f0;
+		border-radius: var(--eth-layout-radius);
+		padding: clamp(2rem, 5vw, 3rem);
+		text-align: center;
+	}
+
+	.general-card h2 { color: #fff; margin: 0 0 0.75rem; }
+	.general-card p { color: rgba(255, 255, 255, 0.75); margin: 0 auto 1.5rem; max-width: 44ch; }
+
+	@media (max-width: 820px) {
+		.about-grid,
+		.values-grid { grid-template-columns: 1fr; }
+
+		.role-card {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				'meta'
+				'title'
+				'blurb'
+				'apply';
+		}
+		.role-apply { justify-self: flex-start; }
+	}
+</style>

@@ -1,0 +1,111 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title="Privacy policy"
+	description="How Accountic collects, processes, and protects your personal data under India's Digital Personal Data Protection Act, 2023."
+	eyebrow="Privacy policy"
+	heading="What we collect, why, and how we protect it."
+	lede="Plain-language summary plus the full policy. Written to make your DPDP compliance easier — not harder."
+>
+	<article class="doc">
+		<aside class="doc-toc" aria-label="On this page">
+			<p class="toc-label">On this page</p>
+			<ol>
+				<li><a href="#summary">Plain-language summary</a></li>
+				<li><a href="#controller">Who we are</a></li>
+				<li><a href="#collect">What we collect</a></li>
+				<li><a href="#use">How we use it</a></li>
+				<li><a href="#share">Who we share with</a></li>
+				<li><a href="#retention">Retention &amp; deletion</a></li>
+				<li><a href="#rights">Your rights under DPDP</a></li>
+				<li><a href="#contact">Contact our DPO</a></li>
+			</ol>
+		</aside>
+
+		<div class="doc-body">
+			<p class="doc-meta">Version 1.0 · Last updated April 2026 · Governing law: India</p>
+
+			<section id="summary">
+				<h2>Plain-language summary</h2>
+				<ul class="bullets">
+					<li>We process data <strong>only to deliver Accountic's service</strong> — classifying notices, verifying citations, drafting replies.</li>
+					<li>All processing happens <strong>within India</strong>. No international transfer of client personal data.</li>
+					<li>Your corpus and outputs are <strong>never used to train models</strong> for anyone else.</li>
+					<li>You can <strong>export or delete your data at any time</strong>. We confirm deletion in writing within 30 days.</li>
+					<li>We notify you of security incidents affecting your data within <strong>72 hours</strong>.</li>
+				</ul>
+			</section>
+
+			<section id="controller">
+				<h2>Who we are</h2>
+				<p>This privacy policy is issued by <strong>Accountic Technologies Pvt. Ltd.</strong> ("Accountic", "we", "us"), a company registered in India. When you use Accountic as a firm customer, you act as the Data Fiduciary for your clients' personal data; we act as your Data Processor under the Data Processing Agreement you execute with us.</p>
+				<p>This policy also covers the personal data we collect directly from you — for example, when you visit the website, create an account, contact sales, or apply for a role.</p>
+			</section>
+
+			<section id="collect">
+				<h2>What we collect</h2>
+				<h3>Account data</h3>
+				<p>Your name, work email, firm name, role, and authentication credentials (passwords are never stored in plaintext).</p>
+				<h3>Usage data</h3>
+				<p>Which notices you upload and when, which drafts you export, citation-verification outcomes, and aggregated telemetry used to keep the service reliable. Usage data is tied to your firm, not to individual clients.</p>
+				<h3>Content you upload</h3>
+				<p>Income Tax notices, prior replies, and any supporting documents you provide. This content may contain personal data belonging to your firm's clients, which we process strictly on your documented instructions.</p>
+				<h3>Support &amp; communications</h3>
+				<p>Messages you send to our sales, support, or security teams, and any attachments you share. We retain these to provide support and improve the service.</p>
+			</section>
+
+			<section id="use">
+				<h2>How we use it</h2>
+				<p>We use your personal data to:</p>
+				<ol class="ordered">
+					<li>Provide the Accountic service — classification, analysis, drafting, export.</li>
+					<li>Verify citations against our repository before they reach a draft.</li>
+					<li>Maintain auditability, including the citation audit log available on every draft.</li>
+					<li>Provide customer support and process your billing.</li>
+					<li>Detect abuse and keep the service secure.</li>
+				</ol>
+				<p><strong>We do not use your content to train any model that serves other customers.</strong> We do not sell personal data.</p>
+			</section>
+
+			<section id="share">
+				<h2>Who we share with</h2>
+				<p>We share personal data only with:</p>
+				<ul class="bullets">
+					<li><strong>Subprocessors</strong> strictly necessary to operate the service, each under contractual terms at least as protective as your DPA with us. The current list is available on request and all processing occurs within India.</li>
+					<li><strong>Professional advisors</strong> (legal, accounting) where required for our own compliance, under confidentiality obligations.</li>
+					<li><strong>Regulators or law enforcement</strong> where required by law, and only to the minimum extent required. We notify you of such requests unless legally prohibited.</li>
+				</ul>
+			</section>
+
+			<section id="retention">
+				<h2>Retention &amp; deletion</h2>
+				<p>We retain content you upload for as long as your firm's account is active, or as instructed by you in the DPA. On termination or on your written request, we delete or return your data within 30 days and confirm deletion in writing.</p>
+				<p>Billing records and minimum statutory records are retained as required by Indian law.</p>
+			</section>
+
+			<section id="rights">
+				<h2>Your rights under DPDP</h2>
+				<p>Under the Digital Personal Data Protection Act, 2023, you have the right to:</p>
+				<ul class="bullets">
+					<li>Access the personal data we hold about you.</li>
+					<li>Correct inaccurate personal data.</li>
+					<li>Erase your personal data, subject to statutory retention.</li>
+					<li>Nominate another individual to exercise these rights in the event of your death or incapacity.</li>
+					<li>Lodge a grievance with us and, subsequently, with the Data Protection Board of India.</li>
+				</ul>
+				<p>To exercise any of these rights, write to our Data Protection Officer. We respond within 30 days.</p>
+			</section>
+
+			<section id="contact" class="request-section">
+				<h2>Contact our DPO</h2>
+				<p>For any privacy question, data subject request, or grievance:</p>
+				<div class="cta-row">
+					<a class="btn btn-primary" href="mailto:dpo@accountic.com">Email dpo@accountic.com</a>
+					<a class="btn btn-secondary" href="/dpdp">See our DPDP posture</a>
+				</div>
+			</section>
+		</div>
+	</article>
+</PageLayout>

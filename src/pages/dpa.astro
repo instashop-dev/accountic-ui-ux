@@ -1,0 +1,107 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title="Data Processing Agreement"
+	description="Accountic's Data Processing Agreement under the DPDP Act, 2023. Available to all firm customers on request."
+	eyebrow="Data Processing Agreement"
+	heading="A DPA you can hand to a listed-company client without qualification."
+	lede="Under the DPDP Act, 2023, your firm is the Data Fiduciary. Accountic acts as a Data Processor, strictly on your instructions. This page summarises the terms; the executable DPA is issued on request."
+>
+	<article class="doc">
+		<aside class="doc-toc" aria-label="On this page">
+			<p class="toc-label">On this page</p>
+			<ol>
+				<li><a href="#summary">At a glance</a></li>
+				<li><a href="#scope">Scope &amp; roles</a></li>
+				<li><a href="#processing">Processing activities</a></li>
+				<li><a href="#subprocessors">Subprocessors</a></li>
+				<li><a href="#security">Security measures</a></li>
+				<li><a href="#transfers">International transfers</a></li>
+				<li><a href="#incidents">Incident notification</a></li>
+				<li><a href="#term">Term &amp; return of data</a></li>
+				<li><a href="#request">Request the full DPA</a></li>
+			</ol>
+		</aside>
+
+		<div class="doc-body">
+			<p class="doc-meta">Version 1.0 · Effective from date of execution · Governing law: India</p>
+
+			<section id="summary">
+				<h2>At a glance</h2>
+				<ul class="bullets">
+					<li>Your firm is the <strong>Data Fiduciary</strong>. Accountic is the <strong>Data Processor</strong>.</li>
+					<li>We process only what's required to deliver the service, only on your documented instructions.</li>
+					<li><strong>All processing occurs within India.</strong> No cross-border transfer of client personal data.</li>
+					<li>Your corpus and outputs are <strong>never used to train models</strong> serving any other firm or customer.</li>
+					<li>We notify you of any security incident involving your personal data without undue delay, within DPDP statutory timelines.</li>
+					<li>On termination, we delete or return your data within 30 days — whichever you elect in writing.</li>
+				</ul>
+			</section>
+
+			<section id="scope">
+				<h2>Scope &amp; roles</h2>
+				<p>This DPA applies to personal data we process on your behalf in connection with your use of Accountic's notice-response workflow — including notices you upload, prior-reply corpora you import, and metadata generated during analysis and drafting.</p>
+				<p>You remain responsible for obtaining the consents required from the data principals whose information appears in the documents you upload, and for providing each data principal the notice required under Section 5 of the DPDP Act, 2023.</p>
+			</section>
+
+			<section id="processing">
+				<h2>Processing activities</h2>
+				<p>We process personal data only to:</p>
+				<ol class="ordered">
+					<li>Classify and extract parameters from notices you upload.</li>
+					<li>Retrieve and verify citations from the Income Tax Act, CBDT circulars, and case-law repository.</li>
+					<li>Generate draft replies grounded in the notice, verified law, and your uploaded prior replies.</li>
+					<li>Produce audit logs suitable for peer review.</li>
+					<li>Provide and improve the service, under your documented instructions.</li>
+				</ol>
+				<p>We do not process your personal data for any other purpose, including training of general-purpose models.</p>
+			</section>
+
+			<section id="subprocessors">
+				<h2>Subprocessors</h2>
+				<p>We engage a limited set of subprocessors whose services are necessary to operate Accountic. Each subprocessor is bound by contractual terms at least as protective as this DPA, and all customer data processing occurs within India.</p>
+				<p>The current subprocessor list is available on request. We notify you of any intended change in writing at least 30 days in advance, and you may object in good faith.</p>
+			</section>
+
+			<section id="security">
+				<h2>Security measures</h2>
+				<p>We maintain technical and organisational measures appropriate to the sensitivity of the data processed. A non-exhaustive summary:</p>
+				<ul class="bullets">
+					<li>Encryption in transit (TLS 1.2+) and at rest (AES-256) with scheduled key rotation.</li>
+					<li>Least-privilege access controls and hardware-token 2FA for personnel with production access.</li>
+					<li>Tenant isolation such that cross-tenant access is structurally impossible.</li>
+					<li>SOC 2 Type II–compliant infrastructure via technology partner Thalia.</li>
+					<li>24×7 production monitoring and quarterly access reviews.</li>
+				</ul>
+				<p>The full list of measures is in Annex B of the executable DPA.</p>
+			</section>
+
+			<section id="transfers">
+				<h2>International transfers</h2>
+				<p>All personal data processed under this DPA is stored and processed within India. No cross-border transfer occurs without your express prior written instruction.</p>
+			</section>
+
+			<section id="incidents">
+				<h2>Incident notification</h2>
+				<p>We notify you of any personal-data breach affecting your data without undue delay after becoming aware, and in any event within 72 hours. Our notice includes the nature of the breach, the data affected, containment and remediation steps, and our point of contact for follow-up.</p>
+			</section>
+
+			<section id="term">
+				<h2>Term &amp; return of data</h2>
+				<p>This DPA remains in force for as long as we process personal data on your behalf. On termination or on your written request, we will, at your election, return or delete your personal data within 30 days, and provide written confirmation of deletion.</p>
+			</section>
+
+			<section id="request" class="request-section">
+				<h2>Request the full DPA</h2>
+				<p>The summary above is not a substitute for the executable agreement. To receive the current Data Processing Agreement, contact our security and legal team:</p>
+				<div class="cta-row">
+					<a class="btn btn-primary" href="mailto:security@accountic.com?subject=DPA%20Request">Email security@accountic.com</a>
+					<a class="btn btn-secondary" href="/contact">Use the contact form</a>
+				</div>
+			</section>
+		</div>
+	</article>
+</PageLayout>
+
