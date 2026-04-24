@@ -55,9 +55,45 @@ const pricingTiers = [
 						<a class="btn btn-secondary" href="#how-it-works">See how it works</a>
 					</div>
 
-					<p class="hero-microcopy">
-						₹200 per notice · 3 on the house · India-resident data · SOC 2 Type II
-					</p>
+					<ul class="trust-badges" aria-label="Compliance and trust">
+						<li>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+								<path d="m9 12 2 2 4-4"></path>
+							</svg>
+							<span>SOC 2 Type II</span>
+						</li>
+						<li>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<rect x="4" y="11" width="16" height="10" rx="2"></rect>
+								<path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+							</svg>
+							<span>DPDP-ready</span>
+						</li>
+						<li>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<circle cx="12" cy="12" r="9"></circle>
+								<path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+							</svg>
+							<span>India-resident data</span>
+						</li>
+						<li>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+								<path d="M14 3v6h6"></path>
+								<path d="m9 15 2 2 4-4"></path>
+							</svg>
+							<span>ICAI-aligned</span>
+						</li>
+						<li>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+								<circle cx="9" cy="7" r="4"></circle>
+								<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+							</svg>
+							<span>Built by CAs</span>
+						</li>
+					</ul>
 
 					{/* Floating sample-reply glass card */}
 					<div class="hero-card glass" aria-hidden="false">
@@ -114,6 +150,105 @@ const pricingTiers = [
 				</div>
 			</section>
 
+			{/* ─── SEE IT IN ACTION — diptych ─── */}
+			<section class="section action" aria-labelledby="action-title">
+				<div class="container">
+					<div class="section-head action-head">
+						<span class="eyebrow">See it in action</span>
+						<h2 id="action-title">From a 14-page reassessment notice to a filable reply.</h2>
+						<p class="lede">No screenshots, no demos — this is what the workflow produces. Citations verified, grounded in your firm's own prior positions.</p>
+					</div>
+
+					<div class="action-panel">
+						{/* Left: source notice */}
+						<article class="action-notice" aria-label="Source Income Tax notice">
+							<div class="notice-head">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="10" />
+									<path d="M12 2a14 14 0 0 0 0 20" />
+									<path d="M2 12h20" />
+								</svg>
+								<div>
+									<p class="notice-org">Income Tax Department, Government of India</p>
+									<p class="notice-dir">DIN: ITBA/AST/S/148/2025-26</p>
+								</div>
+								<span class="notice-stamp">INCOMING</span>
+							</div>
+							<div class="notice-body">
+								<p class="notice-sub">NOTICE UNDER SECTION 148</p>
+								<p class="notice-para">Whereas I have reason to believe that income chargeable to tax for the Assessment Year <strong>2021–22</strong> has escaped assessment within the meaning of section 147 of the Income Tax Act, 1961.</p>
+								<p class="notice-para muted-line">Particulars of escaped income include unexplained cash credits appearing in the books of accounts under section 68 of the Income Tax Act, 1961, aggregating to <strong>₹14,70,000</strong>…</p>
+								<div class="notice-dash"></div>
+								<div class="notice-meta">
+									<span><strong>Deadline</strong> 29 Apr 2026</span>
+									<span><strong>PAN</strong> ABCDE1234F</span>
+								</div>
+							</div>
+						</article>
+
+						{/* Middle: transformation flow */}
+						<div class="action-flow" aria-hidden="true">
+							<svg class="flow-arrow" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4 100 C 50 100, 70 100, 116 100" stroke="#10b981" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round" />
+								<path d="M108 94l8 6-8 6" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+							</svg>
+							<ul class="flow-chips">
+								<li>
+									<span class="chip-dot"></span>
+									Parsed &amp; classified
+								</li>
+								<li>
+									<span class="chip-dot"></span>
+									Researched IT Act + case law
+								</li>
+								<li>
+									<span class="chip-dot verified"></span>
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+									Every citation verified
+								</li>
+							</ul>
+						</div>
+
+						{/* Right: drafted reply */}
+						<article class="action-reply" aria-label="Generated reply draft">
+							<div class="reply-head">
+								<span class="reply-pill">Generated draft · Reply to s. 148</span>
+								<span class="reply-time">12m 48s</span>
+							</div>
+							<div class="reply-body">
+								<p class="reply-sub">Reply to Notice under Section 148 — AY 2021–22</p>
+								<p class="reply-para">With reference to the captioned notice, the assessee respectfully submits that the amounts credited to the books during the relevant previous year have been duly reconciled with verifiable banking sources and are supported by confirmations on record.</p>
+								<p class="reply-para">The aggregate of <strong>₹14,70,000</strong> represents sale proceeds from listed securities, already reflected in the return filed u/s 139(1). Consequently, the condition precedent for reassessment u/s 147 is not satisfied…</p>
+								<ul class="reply-chips">
+									<li>
+										<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+										s. 148 IT Act, 1961
+									</li>
+									<li>
+										<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+										CBDT Circular 549
+									</li>
+									<li>
+										<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+										ITO v. Lakhmani Mewal Das
+									</li>
+									<li>
+										<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+										Your prior reply — Rameshwar &amp; Co.
+									</li>
+								</ul>
+							</div>
+							<div class="reply-footer">
+								<span class="reply-verified">
+									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+									4 verified · 0 flagged · audit log attached
+								</span>
+							</div>
+						</article>
+					</div>
+				</div>
+			</section>
+
 			{/* ─── HOW IT WORKS ─── */}
 			<section class="section how" id="how-it-works" aria-labelledby="how-title">
 				<div class="container">
@@ -124,13 +259,92 @@ const pricingTiers = [
 					</div>
 
 					<ol class="steps">
-						{steps.map((s) => (
-							<li class="step">
-								<span class="step-n">{s.n}</span>
-								<h3>{s.title}</h3>
-								<p>{s.body}</p>
-							</li>
-						))}
+						<li class="step">
+							<div class="step-scene" aria-hidden="true">
+								<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="1" y="1" width="158" height="118" rx="20" fill="#fef3c7" />
+									<rect x="42" y="28" width="76" height="82" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+									<rect x="52" y="42" width="40" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="50" width="56" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="58" width="48" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="66" width="52" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="74" width="32" height="3" rx="1.5" fill="#e2e8f0" />
+									<g>
+										<circle cx="80" cy="22" r="14" fill="#10b981" />
+										<path d="M80 16v12M74 22l6-6 6 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									</g>
+								</svg>
+							</div>
+							<span class="step-n">{steps[0].n}</span>
+							<h3>{steps[0].title}</h3>
+							<p>{steps[0].body}</p>
+						</li>
+						<li class="step">
+							<div class="step-scene" aria-hidden="true">
+								<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="1" y="1" width="158" height="118" rx="20" fill="#fce7f3" />
+									<rect x="28" y="26" width="80" height="84" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+									<rect x="38" y="40" width="26" height="4" rx="2" fill="#10b981" opacity="0.55" />
+									<rect x="38" y="50" width="54" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="38" y="58" width="38" height="4" rx="2" fill="#10b981" opacity="0.55" />
+									<rect x="38" y="68" width="60" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="38" y="76" width="48" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="38" y="84" width="30" height="4" rx="2" fill="#10b981" opacity="0.55" />
+									<g>
+										<circle cx="115" cy="70" r="20" fill="#ffffff" stroke="#10b981" stroke-width="2.2" />
+										<path d="m128 83 8 8" stroke="#10b981" stroke-width="2.6" stroke-linecap="round" />
+										<circle cx="115" cy="70" r="11" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" />
+									</g>
+								</svg>
+							</div>
+							<span class="step-n">{steps[1].n}</span>
+							<h3>{steps[1].title}</h3>
+							<p>{steps[1].body}</p>
+						</li>
+						<li class="step">
+							<div class="step-scene" aria-hidden="true">
+								<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="1" y="1" width="158" height="118" rx="20" fill="#dbeafe" />
+									<rect x="30" y="24" width="78" height="84" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+									<rect x="40" y="36" width="46" height="3" rx="1.5" fill="#1e293b" />
+									<rect x="40" y="44" width="58" height="2.5" rx="1.25" fill="#cbd5e1" />
+									<rect x="40" y="50" width="52" height="2.5" rx="1.25" fill="#cbd5e1" />
+									<rect x="40" y="56" width="56" height="2.5" rx="1.25" fill="#cbd5e1" />
+									<rect x="40" y="70" width="22" height="8" rx="4" fill="#10b981" opacity="0.18" stroke="#10b981" stroke-width="0.9" />
+									<rect x="66" y="70" width="18" height="8" rx="4" fill="#10b981" opacity="0.18" stroke="#10b981" stroke-width="0.9" />
+									<rect x="88" y="70" width="14" height="8" rx="4" fill="#10b981" opacity="0.18" stroke="#10b981" stroke-width="0.9" />
+									<rect x="40" y="84" width="40" height="2.5" rx="1.25" fill="#cbd5e1" />
+									<g>
+										<path d="M112 90 135 67l-4-4L108 86z" fill="#10b981" />
+										<path d="m131 63 4 4 4-4-4-4z" fill="#059669" />
+										<circle cx="112" cy="90" r="2.5" fill="#1e293b" />
+									</g>
+								</svg>
+							</div>
+							<span class="step-n">{steps[2].n}</span>
+							<h3>{steps[2].title}</h3>
+							<p>{steps[2].body}</p>
+						</li>
+						<li class="step">
+							<div class="step-scene" aria-hidden="true">
+								<svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="1" y="1" width="158" height="118" rx="20" fill="#d1fae5" />
+									<rect x="42" y="20" width="76" height="82" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+									<rect x="52" y="32" width="40" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="40" width="56" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="48" width="48" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="56" width="52" height="3" rx="1.5" fill="#e2e8f0" />
+									<rect x="52" y="64" width="32" height="3" rx="1.5" fill="#e2e8f0" />
+									<g>
+										<circle cx="80" cy="94" r="14" fill="#10b981" />
+										<path d="M80 88v12M74 94l6 6 6-6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									</g>
+								</svg>
+							</div>
+							<span class="step-n">{steps[3].n}</span>
+							<h3>{steps[3].title}</h3>
+							<p>{steps[3].body}</p>
+						</li>
 					</ol>
 				</div>
 			</section>
@@ -218,9 +432,10 @@ const pricingTiers = [
 							</div>
 							<h3>Built by practicing CAs.</h3>
 							<p>
-								<strong>CA Vishesh Sangoi · CA Shreyas Sangoi · CA Rashid Faisal</strong> —
-								25+ years of Direct &amp; Indirect Tax practice. IT co-founders bring 15+ years
-								in production RAG and SOC-audited SaaS.
+								Built by <strong>DPS &amp; Co.</strong>, a Chartered Accountancy firm with
+								over <strong>45 years</strong> of Direct &amp; Indirect Tax practice. IT
+								co-founders bring 15+ years in production RAG and SOC-audited SaaS. Every
+								workflow calibrated by people who have drafted these replies themselves.
 							</p>
 						</article>
 					</div>
@@ -372,6 +587,43 @@ const pricingTiers = [
 				font-size: 0.85rem;
 				color: var(--eth-text-muted);
 				margin: 0;
+			}
+
+			/* Trust badge strip below CTAs */
+			.trust-badges {
+				list-style: none;
+				padding: 0.5rem 0.85rem;
+				margin: 0;
+				display: inline-flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 1.25rem;
+				background: rgba(255, 255, 255, 0.5);
+				border: 1px solid rgba(255, 255, 255, 0.8);
+				border-radius: 9999px;
+				backdrop-filter: var(--eth-glass-blur);
+				-webkit-backdrop-filter: var(--eth-glass-blur);
+				box-shadow: var(--eth-shadow-sm);
+			}
+
+			.trust-badges li {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				font-size: 0.78rem;
+				font-weight: 500;
+				color: var(--eth-text-secondary);
+				letter-spacing: -0.005em;
+			}
+
+			.trust-badges li svg { color: var(--eth-accent); }
+
+			@media (max-width: 560px) {
+				.trust-badges {
+					gap: 0.65rem;
+					padding: 0.6rem 0.85rem;
+				}
+				.trust-badges li { font-size: 0.72rem; }
 			}
 
 			/* Sample reply hero card — floating glass */
@@ -565,6 +817,282 @@ const pricingTiers = [
 				.stats-grid { grid-template-columns: 1fr; }
 			}
 
+			/* ─────────────────────────── See it in action — diptych */
+			.action { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+			.action-head { text-align: left; margin-inline: 0; }
+
+			.action-panel {
+				display: grid;
+				grid-template-columns: 1fr 120px 1fr;
+				gap: 1.25rem;
+				align-items: stretch;
+				background: var(--eth-showcase-gradient);
+				border-radius: var(--eth-layout-radius);
+				padding: clamp(1.5rem, 4vw, 2.5rem);
+				position: relative;
+			}
+
+			.action-notice,
+			.action-reply {
+				background: var(--eth-surface);
+				border: 1px solid var(--eth-border);
+				border-radius: var(--eth-card-radius);
+				padding: 0;
+				box-shadow: var(--eth-shadow);
+				display: flex;
+				flex-direction: column;
+				min-height: 320px;
+				overflow: hidden;
+			}
+
+			/* Notice card — kraft-paper tinted */
+			.action-notice {
+				background: linear-gradient(180deg, #fffbeb 0%, #fefce8 100%);
+				border-color: #eab308;
+				border-color: rgba(234, 179, 8, 0.35);
+				transform: rotate(-0.8deg);
+			}
+
+			.notice-head {
+				display: flex;
+				align-items: flex-start;
+				gap: 0.75rem;
+				padding: 1rem 1.1rem;
+				border-bottom: 1px dashed rgba(234, 179, 8, 0.35);
+				color: #78350f;
+				position: relative;
+			}
+
+			.notice-head > svg {
+				color: #92400e;
+				flex-shrink: 0;
+				margin-top: 2px;
+			}
+
+			.notice-org {
+				margin: 0;
+				font-size: 0.72rem;
+				font-weight: 600;
+				letter-spacing: 0.02em;
+				color: #78350f;
+			}
+
+			.notice-dir {
+				margin: 0;
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				font-size: 0.65rem;
+				color: #a16207;
+			}
+
+			.notice-stamp {
+				position: absolute;
+				top: 12px;
+				right: 14px;
+				font-size: 0.6rem;
+				font-weight: 700;
+				letter-spacing: 0.14em;
+				color: #b91c1c;
+				border: 1.5px solid #b91c1c;
+				padding: 0.15rem 0.5rem;
+				border-radius: 4px;
+				transform: rotate(6deg);
+				opacity: 0.75;
+			}
+
+			.notice-body { padding: 1rem 1.1rem 1.1rem; flex: 1; }
+
+			.notice-sub {
+				margin: 0 0 0.6rem;
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				color: #78350f;
+			}
+
+			.notice-para {
+				margin: 0 0 0.5rem;
+				font-size: 0.82rem;
+				line-height: 1.55;
+				color: #451a03;
+			}
+
+			.notice-para strong { color: #78350f; }
+			.notice-para.muted-line { color: #78350f; opacity: 0.75; }
+
+			.notice-dash {
+				height: 1px;
+				background-image: linear-gradient(to right, rgba(120, 53, 15, 0.35) 50%, transparent 50%);
+				background-size: 8px 1px;
+				margin: 0.75rem 0;
+			}
+
+			.notice-meta {
+				display: flex;
+				justify-content: space-between;
+				font-size: 0.72rem;
+				color: #78350f;
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+			}
+
+			.notice-meta strong { color: #451a03; font-weight: 700; }
+
+			/* Flow column — connecting chips + arrow */
+			.action-flow {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: 0.6rem;
+			}
+
+			.flow-arrow {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 0;
+				opacity: 0.6;
+			}
+
+			.flow-chips {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				position: relative;
+				z-index: 1;
+			}
+
+			.flow-chips li {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				background: var(--eth-surface);
+				border: 1px solid var(--eth-border);
+				border-radius: 9999px;
+				padding: 0.4rem 0.75rem;
+				font-size: 0.72rem;
+				font-weight: 500;
+				color: var(--eth-text);
+				box-shadow: var(--eth-shadow-sm);
+			}
+
+			.flow-chips li svg { color: var(--eth-accent); }
+
+			.chip-dot {
+				width: 6px;
+				height: 6px;
+				border-radius: 9999px;
+				background: var(--eth-text-muted);
+				flex-shrink: 0;
+			}
+
+			.chip-dot.verified {
+				background: var(--eth-accent);
+				box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+			}
+
+			/* Reply card — clean */
+			.action-reply {
+				transform: rotate(0.6deg);
+			}
+
+			.reply-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.75rem 1.1rem;
+				border-bottom: 1px solid var(--eth-border);
+				background: var(--eth-surface-alt);
+			}
+
+			.reply-pill {
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				font-size: 0.7rem;
+				font-weight: 600;
+				color: var(--eth-text);
+			}
+
+			.reply-time {
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				font-size: 0.7rem;
+				color: var(--eth-text-muted);
+			}
+
+			.reply-body { padding: 1rem 1.1rem 0.9rem; flex: 1; }
+
+			.reply-sub {
+				margin: 0 0 0.6rem;
+				font-size: 0.85rem;
+				font-weight: 600;
+				color: var(--eth-text);
+			}
+
+			.reply-para {
+				margin: 0 0 0.6rem;
+				font-size: 0.82rem;
+				line-height: 1.55;
+				color: var(--eth-text-secondary);
+			}
+
+			.reply-para strong { color: var(--eth-text); }
+
+			.reply-chips {
+				list-style: none;
+				padding: 0;
+				margin: 0.8rem 0 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.35rem;
+			}
+
+			.reply-chips li {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.3rem;
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent-hover);
+				font-size: 0.7rem;
+				font-weight: 600;
+				padding: 0.3rem 0.6rem;
+				border-radius: 9999px;
+			}
+
+			.reply-chips li svg { color: var(--eth-accent-hover); }
+
+			.reply-footer {
+				padding: 0.75rem 1.1rem;
+				border-top: 1px solid var(--eth-border);
+				background: var(--eth-surface-alt);
+			}
+
+			.reply-verified {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-size: 0.75rem;
+				font-weight: 600;
+				color: var(--eth-accent);
+			}
+
+			@media (max-width: 900px) {
+				.action-panel {
+					grid-template-columns: 1fr;
+					gap: 1rem;
+				}
+				.flow-arrow { display: none; }
+				.action-flow {
+					flex-direction: row;
+					justify-content: center;
+					flex-wrap: wrap;
+				}
+				.flow-chips { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+				.action-notice,
+				.action-reply { transform: none; }
+			}
+
 			/* ─────────────────────────── How it works */
 			.how .section-head { text-align: left; margin-inline: 0; }
 
@@ -584,6 +1112,19 @@ const pricingTiers = [
 				padding: var(--space-6);
 				transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 				box-shadow: var(--eth-shadow-sm);
+				overflow: hidden;
+			}
+
+			.step-scene {
+				margin: calc(var(--space-6) * -1) calc(var(--space-6) * -1) var(--space-6);
+				aspect-ratio: 160 / 120;
+				border-bottom: 1px solid var(--eth-border);
+			}
+
+			.step-scene svg {
+				width: 100%;
+				height: 100%;
+				display: block;
 			}
 
 			.step:hover {
