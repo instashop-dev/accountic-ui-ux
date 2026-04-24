@@ -1,0 +1,143 @@
+---
+import { SITE_TITLE } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container footer-inner">
+		<div class="col brand-col">
+			<a class="brand" href="/" aria-label={`${SITE_TITLE} — home`}>
+				<span class="brand-mark" aria-hidden="true">
+					<svg viewBox="0 0 32 32" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect x="1" y="1" width="30" height="30" rx="9" fill="#10B981" />
+						<path d="M10 21.5V10.5h3.8c2 0 3.2 1 3.2 2.5 0 1-.5 1.8-1.4 2.2 1.2.3 2 1.2 2 2.6 0 1.7-1.4 3-3.6 3H10Zm2.2-6.6h1.3c.9 0 1.5-.4 1.5-1.1 0-.8-.6-1.2-1.5-1.2h-1.3v2.3Zm0 4.7h1.6c1 0 1.7-.5 1.7-1.3s-.7-1.3-1.7-1.3h-1.6v2.6Z" fill="#fff" />
+					</svg>
+				</span>
+				<span class="brand-name">{SITE_TITLE}</span>
+			</a>
+			<p class="tagline">Income Tax notice replies in under 30 minutes. Built for Indian Chartered Accountants.</p>
+			<p class="legal-line">Infra by Thalia · SOC 2 Type II · India data residency · DPDP-ready</p>
+		</div>
+
+		<div class="col">
+			<h4>Product</h4>
+			<ul>
+				<li><a href="#how-it-works">How it works</a></li>
+				<li><a href="#why-accountic">Why Accountic</a></li>
+				<li><a href="#pricing">Pricing</a></li>
+				<li><a href="/blog">Blog</a></li>
+			</ul>
+		</div>
+
+		<div class="col">
+			<h4>Company</h4>
+			<ul>
+				<li><a href="#founders">Founding team</a></li>
+				<li><a href="/contact">Contact sales</a></li>
+				<li><a href="/security">Security &amp; trust</a></li>
+				<li><a href="/careers">Careers</a></li>
+			</ul>
+		</div>
+
+		<div class="col">
+			<h4>Legal</h4>
+			<ul>
+				<li><a href="/dpa">Data Processing Agreement</a></li>
+				<li><a href="/privacy">Privacy policy</a></li>
+				<li><a href="/terms">Terms of service</a></li>
+				<li><a href="/dpdp">DPDP compliance</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="container footer-meta">
+		<p>© {year} Accountic Technologies Pvt. Ltd. Made in India.</p>
+		<p class="muted">ICAI-aligned · For practicing CAs · Human review required on every draft.</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		margin-top: var(--space-20);
+		padding: var(--space-16) 0 var(--space-8);
+		color: var(--eth-text-secondary);
+		background: var(--eth-bg);
+		border-top: 1px solid var(--eth-border);
+	}
+
+	.footer-inner {
+		display: grid;
+		grid-template-columns: 1.6fr repeat(3, 1fr);
+		gap: var(--space-12);
+		padding-bottom: var(--space-8);
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		color: var(--eth-text);
+		font-weight: 600;
+		font-size: 1rem;
+	}
+
+	.brand-mark { display: inline-flex; }
+
+	.tagline {
+		margin-top: 1rem;
+		color: var(--eth-text-secondary);
+		max-width: 30ch;
+	}
+
+	.legal-line {
+		font-size: 0.85rem;
+		color: var(--eth-text-muted);
+	}
+
+	.col h4 {
+		color: var(--eth-text);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin: 0 0 var(--space-4);
+	}
+
+	.col ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.col a {
+		color: var(--eth-text-secondary);
+		font-size: 0.9rem;
+	}
+
+	.col a:hover { color: var(--eth-text); }
+
+	.footer-meta {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--space-4);
+		padding-top: var(--space-6);
+		border-top: 1px solid var(--eth-border);
+		font-size: 0.82rem;
+		color: var(--eth-text-muted);
+	}
+
+	.footer-meta p { margin: 0; color: inherit; }
+	.footer-meta .muted { text-align: right; }
+
+	@media (max-width: 900px) {
+		.footer-inner { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+	}
+
+	@media (max-width: 560px) {
+		.footer-inner { grid-template-columns: 1fr; }
+		.footer-meta { flex-direction: column; }
+		.footer-meta .muted { text-align: left; }
+	}
+</style>

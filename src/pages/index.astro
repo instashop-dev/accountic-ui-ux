@@ -1,0 +1,886 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const metaTitle = `${SITE_TITLE} — Income Tax notice replies in under 30 minutes`;
+const metaDescription =
+	'AI-powered Income Tax notice analysis and reply drafting for Indian Chartered Accountants. Every citation verified — or we return the credit. ₹200 per notice.';
+
+const steps = [
+	{ n: '01', title: 'Upload', body: 'Drop a notice PDF or scan — s. 139(9), 142(1), 143(2), 148, 245. Bulk-upload past replies to bootstrap firm memory on day one.' },
+	{ n: '02', title: 'Analyse', body: 'Accountic classifies the notice and extracts section, AY, demand, deadline, and grounds raised — then surfaces applicable law and case law.' },
+	{ n: '03', title: 'Draft', body: 'A reply grounded in the notice, verified IT Act + CBDT + case law, and your own prior positions. Every citation is checked before it reaches the draft.' },
+	{ n: '04', title: 'Export', body: 'Clean, portal-ready output with reasoning and citation audit log. Review, refine, and file — under your name, under your judgement.' },
+];
+
+const pricingTiers = [
+	{ name: 'Free trial', price: '₹0', cadence: 'one-time', blurb: '3 notices on us. No card required.', features: ['3 notices, lifetime', 'Full citation verification', 'Firm-memory upload', 'Email support'], cta: 'Start free', href: '#cta', highlight: false },
+	{ name: 'Basic', price: '₹2,000', cadence: '/ month', blurb: 'For solo practitioners and small books.', features: ['10 notices / month', '₹200 effective per notice', 'Soft quota — no mid-month cutoff', 'GST invoice with your GSTIN'], cta: 'Start free trial', href: '#cta', highlight: false },
+	{ name: 'Pro', price: '₹20,000', cadence: '/ month', blurb: 'For high-volume solo CAs and small firms.', features: ['100 notices / month', 'Firm-memory across clients', 'Bulk historical upload', 'Priority support'], cta: 'Start free trial', href: '#cta', highlight: true },
+	{ name: 'Firm', price: 'Custom', cadence: '', blurb: 'For 5–30-professional firms.', features: ['Higher quotas + seat controls', 'Role-based access (roadmap)', 'Data Processing Agreement', 'Dedicated onboarding'], cta: 'Contact sales', href: '/contact', highlight: false },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={metaTitle} description={metaDescription} />
+	</head>
+	<body>
+		<Header />
+
+		<main id="main">
+			{/* ─── ETHEREAL HERO ─── */}
+			<section class="hero">
+				<div class="container hero-inner">
+					<a class="hero-badge" href="#why-accountic" aria-label="Learn about Accountic">
+						<span class="badge-dot" aria-hidden="true"></span>
+						<span>LAUNCHING APRIL 2026 · FOR INDIAN CAs</span>
+					</a>
+
+					<h1 class="hero-title">
+						Draft an Income Tax<br/>
+						notice reply in <span class="highlight-green">30 minutes</span>.<br/>
+						Every citation verified.
+					</h1>
+
+					<p class="hero-subtitle">
+						AI-assisted drafting grounded in verified IT&nbsp;Act references, case law, and your own prior replies. If we miss a bad citation, the credit returns — automatically.
+					</p>
+
+					<div class="hero-cta">
+						<a class="btn btn-primary" href="#cta">Start free trial</a>
+						<a class="btn btn-secondary" href="#how-it-works">See how it works</a>
+					</div>
+
+					<p class="hero-microcopy">
+						₹200 per notice · 3 on the house · India-resident data · SOC 2 Type II
+					</p>
+
+					{/* Floating sample-reply glass card */}
+					<div class="hero-card glass" aria-hidden="false">
+						<div class="hc-head">
+							<span class="hc-pill">Sample reply · s. 148 Reassessment</span>
+							<span class="hc-status">
+								<span class="status-dot"></span> Verified
+							</span>
+						</div>
+						<div class="hc-body">
+							<p class="hc-meta">AY 2021–22 · Demand ₹14.7L · Deadline 29 Apr 2026</p>
+							<div class="hc-block">
+								<h4>Grounds raised</h4>
+								<p>Escaped income on unexplained cash credits under s.&nbsp;68 r/w s.&nbsp;148.</p>
+							</div>
+							<div class="hc-block">
+								<h4>Citations used <span class="chips-count">4 verified · 0 flagged</span></h4>
+								<ul class="hc-chips">
+									<li>s. 148 IT Act, 1961</li>
+									<li>CBDT Circular No. 549</li>
+									<li>ITO v. Lakhmani Mewal Das (SC, 1976)</li>
+									<li>Your prior reply — Rameshwar &amp; Co.</li>
+								</ul>
+							</div>
+							<div class="hc-footer">
+								<span class="hc-ok">
+									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M20 6 9 17l-5-5"></path>
+									</svg>
+									Citation audit log attached
+								</span>
+								<span class="hc-time">12m 48s</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			{/* ─── STATS ─── */}
+			<section class="section stats-section" aria-label="Key outcomes">
+				<div class="container stats-grid">
+					<div class="stat">
+						<p class="stat-value">3–4h <span class="arrow">→</span> <strong>30m</strong></p>
+						<p class="stat-label">Routine-notice turnaround, end-to-end</p>
+					</div>
+					<div class="stat">
+						<p class="stat-value">&lt; <strong>1%</strong></p>
+						<p class="stat-label">Target verified citation error rate</p>
+					</div>
+					<div class="stat">
+						<p class="stat-value"><strong>₹200</strong> <span class="arrow">/ notice</span></p>
+						<p class="stat-label">No per-seat fees. GST-compliant Indian billing.</p>
+					</div>
+				</div>
+			</section>
+
+			{/* ─── HOW IT WORKS ─── */}
+			<section class="section how" id="how-it-works" aria-labelledby="how-title">
+				<div class="container">
+					<div class="section-head">
+						<span class="eyebrow">The workflow</span>
+						<h2 id="how-title">Upload → Analyse → Draft → Export</h2>
+						<p class="lede">Four steps. One notice. Under thirty minutes. Human review at every stage — because the AO will read what <em>you</em> sign.</p>
+					</div>
+
+					<ol class="steps">
+						{steps.map((s) => (
+							<li class="step">
+								<span class="step-n">{s.n}</span>
+								<h3>{s.title}</h3>
+								<p>{s.body}</p>
+							</li>
+						))}
+					</ol>
+				</div>
+			</section>
+
+			{/* ─── WHY — ETHEREAL SHOWCASE ─── */}
+			<section class="section why" id="why-accountic" aria-labelledby="why-title">
+				<div class="container">
+					<div class="section-head">
+						<span class="eyebrow">Why Accountic</span>
+						<h2 id="why-title">Five reasons a senior partner will put their name on it.</h2>
+					</div>
+
+					<div class="cv-showcase">
+						<article class="cv-card cv-hero">
+							<div class="card-icon">
+								<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+									<path d="m9 12 2 2 4-4"></path>
+								</svg>
+							</div>
+							<h3>Citation verification — or the credit returns.</h3>
+							<p>
+								Every IT&nbsp;Act section, CBDT circular, and case cited in a draft is checked
+								against a live repository before the draft reaches you. If the layer misses
+								a bad citation, the credit is refunded automatically — no ticket, no review.
+							</p>
+							<p class="cv-meta">
+								No other Indian notice tool ships a refund commitment on citation accuracy —
+								because none has the verification layer to stand behind one.
+							</p>
+						</article>
+
+						<article class="cv-card glass-card">
+							<div class="card-icon">
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+									<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+								</svg>
+							</div>
+							<h3>Firm memory from day one.</h3>
+							<p>
+								Upload past notice-reply PDFs at onboarding. Accountic learns your drafting
+								voice, preferred grounds, and recurring client positions on the first run —
+								no tagging, no manual structuring.
+							</p>
+						</article>
+
+						<article class="cv-card glass-card">
+							<div class="card-icon">
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+									<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+								</svg>
+							</div>
+							<h3>India-first DPDP posture.</h3>
+							<p>
+								India-resident processing, consent-per-document, PII-aware pipelines, and
+								DPAs available to firm customers. A DPA you can hand to a listed-company
+								client without qualification.
+							</p>
+						</article>
+
+						<article class="cv-card glass-card">
+							<div class="card-icon">
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<line x1="12" y1="2" x2="12" y2="22"></line>
+									<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+								</svg>
+							</div>
+							<h3>IT-notice depth, not compliance breadth.</h3>
+							<p>
+								Competitors span GST, IT, MCA, customs, and company law in one tool. V1 does
+								one thing — Income Tax notices — to a standard a senior partner will put their name on.
+							</p>
+						</article>
+
+						<article class="cv-card glass-card" id="founders">
+							<div class="card-icon">
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+									<circle cx="9" cy="7" r="4"></circle>
+									<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+									<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+								</svg>
+							</div>
+							<h3>Built by practicing CAs.</h3>
+							<p>
+								<strong>CA Vishesh Sangoi · CA Shreyas Sangoi · CA Rashid Faisal</strong> —
+								25+ years of Direct &amp; Indirect Tax practice. IT co-founders bring 15+ years
+								in production RAG and SOC-audited SaaS.
+							</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			{/* ─── PRICING ─── */}
+			<section class="section pricing" id="pricing" aria-labelledby="pricing-title">
+				<div class="container">
+					<div class="section-head">
+						<span class="eyebrow">Pricing</span>
+						<h2 id="pricing-title">Per-notice pricing. No per-seat tax.</h2>
+						<p class="lede">
+							Billed per notice, packaged in monthly quotas. Soft quotas — a s.&nbsp;153A deadline
+							is not a good moment to discover a subscription limit.
+						</p>
+					</div>
+
+					<div class="tiers">
+						{pricingTiers.map((t) => (
+							<article class={`tier glass-card ${t.highlight ? 'featured' : ''}`}>
+								{t.highlight && <span class="tier-badge">Most popular</span>}
+								<h3 class="tier-name">{t.name}</h3>
+								<p class="tier-price">
+									<span class="tier-amount">{t.price}</span>
+									<span class="tier-cadence">{t.cadence}</span>
+								</p>
+								<p class="tier-blurb">{t.blurb}</p>
+								<ul class="tier-features">
+									{t.features.map((f) => (
+										<li>
+											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M20 6 9 17l-5-5"></path>
+											</svg>
+											<span>{f}</span>
+										</li>
+									))}
+								</ul>
+								<a class={`btn ${t.highlight ? 'btn-primary' : 'btn-secondary'}`} href={t.href}>{t.cta}</a>
+							</article>
+						))}
+					</div>
+
+					<p class="pricing-note">
+						All plans include GST-compliant invoicing with your GSTIN, Razorpay (NEFT / UPI / cards),
+						TDS-deductible where applicable. No USD billing. No foreign processors.
+					</p>
+				</div>
+			</section>
+
+			{/* ─── FINAL CTA ─── */}
+			<section class="section cta-section" id="cta">
+				<div class="container">
+					<div class="cta-card">
+						<span class="eyebrow cta-eyebrow">Join the April 2026 pilot cohort</span>
+						<h2>Draft your first three notices free.</h2>
+						<p>
+							3 notices on us. No card required. If the verification layer misses a citation, the credit returns — automatically.
+						</p>
+						<form class="cta-form" onsubmit="event.preventDefault(); alert('Thanks — we\\'ll be in touch.');">
+							<label class="sr-only" for="cta-email">Work email</label>
+							<input id="cta-email" name="email" type="email" placeholder="firm-email@yourca.in" required autocomplete="email" />
+							<button type="submit" class="btn btn-primary">Request access</button>
+						</form>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+
+		<style>
+			/* ─────────────────────────── Hero */
+			.hero {
+				position: relative;
+				min-height: 100vh;
+				min-height: 100dvh;
+				padding: 9rem 0 6rem;
+				margin-top: 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				background-color: var(--eth-bg);
+				background-image: var(--eth-hero-gradient);
+				overflow: visible;
+			}
+
+			.hero-inner {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				gap: 1.5rem;
+			}
+
+			.hero-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-size: 11px;
+				font-weight: 500;
+				letter-spacing: 0.14em;
+				padding: 0.35rem 0.85rem;
+				border-radius: 9999px;
+				color: var(--eth-text-secondary);
+				background: var(--eth-glass-bg);
+				border: 1px solid var(--eth-glass-border);
+				backdrop-filter: var(--eth-glass-blur);
+				-webkit-backdrop-filter: var(--eth-glass-blur);
+				box-shadow: var(--eth-shadow-sm);
+			}
+
+			.hero-badge:hover { color: var(--eth-text); }
+
+			.badge-dot {
+				width: 7px;
+				height: 7px;
+				border-radius: 9999px;
+				background: var(--eth-accent);
+				box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+			}
+
+			.hero-title {
+				font-size: clamp(2.2rem, 5.2vw, 4.2rem);
+				font-weight: 500;
+				letter-spacing: -0.04em;
+				line-height: 1.1;
+				max-width: 18ch;
+				margin: 0;
+			}
+
+			.hero-subtitle {
+				font-size: clamp(1rem, 1.6vw, 1.125rem);
+				color: var(--eth-text-secondary);
+				line-height: 1.65;
+				max-width: 52ch;
+				margin: 0;
+			}
+
+			.hero-cta {
+				display: inline-flex;
+				gap: 0.6rem;
+				flex-wrap: wrap;
+				justify-content: center;
+				margin-top: 0.75rem;
+			}
+
+			.hero-microcopy {
+				font-size: 0.85rem;
+				color: var(--eth-text-muted);
+				margin: 0;
+			}
+
+			/* Sample reply hero card — floating glass */
+			.hero-card {
+				margin-top: 3rem;
+				max-width: 620px;
+				width: 100%;
+				padding: 0;
+				overflow: hidden;
+				text-align: left;
+				background: rgba(255, 255, 255, 0.55);
+				border: 1px solid rgba(255, 255, 255, 0.8);
+			}
+
+			.hc-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.85rem 1.25rem;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+				font-size: 0.78rem;
+			}
+
+			.hc-pill {
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				color: var(--eth-text);
+				font-weight: 600;
+				font-size: 0.75rem;
+			}
+
+			.hc-status {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				color: var(--eth-accent);
+				font-weight: 600;
+			}
+
+			.status-dot {
+				width: 7px;
+				height: 7px;
+				border-radius: 9999px;
+				background: var(--eth-accent);
+				box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+			}
+
+			.hc-body {
+				padding: 1.25rem;
+			}
+
+			.hc-meta {
+				font-size: 0.82rem;
+				color: var(--eth-text-muted);
+				margin-bottom: 1rem;
+			}
+
+			.hc-block {
+				padding-top: 0.9rem;
+				border-top: 1px dashed rgba(0, 0, 0, 0.08);
+				margin-top: 0.9rem;
+			}
+
+			.hc-block h4 {
+				font-size: 0.68rem;
+				font-weight: 600;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--eth-text-muted);
+				margin: 0 0 0.5rem;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.hc-block p {
+				margin: 0;
+				color: var(--eth-text);
+				font-size: 0.92rem;
+			}
+
+			.chips-count {
+				color: var(--eth-accent);
+				letter-spacing: 0.04em;
+				text-transform: none;
+				font-weight: 600;
+				font-size: 0.68rem;
+			}
+
+			.hc-chips {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem;
+			}
+
+			.hc-chips li {
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent-hover);
+				font-size: 0.76rem;
+				font-weight: 500;
+				padding: 0.3rem 0.65rem;
+				border-radius: 9999px;
+				letter-spacing: -0.01em;
+			}
+
+			.hc-footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 1.1rem;
+				padding-top: 0.9rem;
+				border-top: 1px solid rgba(0, 0, 0, 0.06);
+				font-size: 0.8rem;
+			}
+
+			.hc-ok {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				color: var(--eth-accent);
+				font-weight: 600;
+			}
+
+			.hc-time {
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				color: var(--eth-text-muted);
+			}
+
+			/* ─────────────────────────── Sections */
+			.section {
+				padding: var(--space-20) 0;
+			}
+
+			.section-head {
+				max-width: 680px;
+				margin-bottom: var(--space-12);
+				text-align: center;
+				margin-inline: auto;
+			}
+
+			.section-head h2 { margin-top: 0.5rem; }
+
+			.lede {
+				font-size: 1rem;
+				color: var(--eth-text-secondary);
+				line-height: 1.7;
+			}
+
+			/* ─────────────────────────── Stats */
+			.stats-section { padding-top: 0; padding-bottom: var(--space-16); }
+
+			.stats-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1.25rem;
+				max-width: 960px;
+				margin-inline: auto;
+			}
+
+			.stat {
+				background: var(--eth-glass-bg);
+				border: 1px solid var(--eth-glass-border);
+				backdrop-filter: var(--eth-glass-blur);
+				-webkit-backdrop-filter: var(--eth-glass-blur);
+				box-shadow: var(--eth-shadow-sm);
+				border-radius: var(--eth-card-radius);
+				padding: var(--space-8);
+				text-align: center;
+			}
+
+			.stat-value {
+				font-size: clamp(1.75rem, 3.2vw, 2.25rem);
+				font-weight: 500;
+				letter-spacing: -0.03em;
+				color: var(--eth-text);
+				margin: 0 0 0.25rem;
+				font-variant-numeric: tabular-nums;
+			}
+
+			.stat-value strong { color: var(--eth-accent); font-weight: 600; }
+			.stat-value .arrow { color: var(--eth-text-muted); font-weight: 400; }
+
+			.stat-label {
+				margin: 0;
+				color: var(--eth-text-secondary);
+				font-size: 0.9rem;
+			}
+
+			@media (max-width: 820px) {
+				.stats-grid { grid-template-columns: 1fr; }
+			}
+
+			/* ─────────────────────────── How it works */
+			.how .section-head { text-align: left; margin-inline: 0; }
+
+			.steps {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 1.25rem;
+			}
+
+			.step {
+				background: var(--eth-surface);
+				border: 1px solid var(--eth-border);
+				border-radius: var(--eth-card-radius);
+				padding: var(--space-6);
+				transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+				box-shadow: var(--eth-shadow-sm);
+			}
+
+			.step:hover {
+				transform: translateY(-2px);
+				box-shadow: var(--eth-shadow);
+				border-color: var(--eth-border-light);
+			}
+
+			.step-n {
+				display: inline-block;
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				color: var(--eth-accent);
+				font-size: 0.75rem;
+				font-weight: 600;
+				letter-spacing: 0.1em;
+				margin-bottom: 0.75rem;
+			}
+
+			.step h3 {
+				margin: 0 0 0.5rem;
+				font-size: 1.1rem;
+				font-weight: 500;
+			}
+
+			.step p { margin: 0; font-size: 0.92rem; }
+
+			@media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+			@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+			/* ─────────────────────────── Why — ethereal showcase */
+			.why .section-head { text-align: left; margin-inline: 0; }
+
+			.cv-showcase {
+				background: var(--eth-showcase-gradient);
+				border-radius: var(--eth-layout-radius);
+				padding: clamp(1.5rem, 4vw, 3rem);
+				display: grid;
+				grid-template-columns: repeat(6, 1fr);
+				gap: 1.25rem;
+			}
+
+			.cv-card {
+				border-radius: var(--eth-card-radius);
+				padding: var(--space-8);
+				display: flex;
+				flex-direction: column;
+				transition: transform 200ms ease, box-shadow 200ms ease;
+			}
+
+			.cv-card:hover {
+				transform: translateY(-3px);
+				box-shadow: var(--eth-shadow);
+			}
+
+			.cv-card h3 {
+				font-size: 1.25rem;
+				font-weight: 500;
+				letter-spacing: -0.02em;
+				margin: 0 0 0.6rem;
+				color: var(--eth-text);
+			}
+
+			.cv-card p { margin: 0 0 0.6rem; color: var(--eth-text-secondary); }
+
+			.cv-card .cv-meta {
+				margin-top: auto;
+				padding-top: 0.75rem;
+				border-top: 1px solid rgba(255, 255, 255, 0.6);
+				color: var(--eth-text-muted);
+				font-size: 0.85rem;
+			}
+
+			.card-icon {
+				width: 44px;
+				height: 44px;
+				border-radius: 14px;
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent);
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 1rem;
+			}
+
+			.glass-card {
+				background: var(--eth-glass-bg);
+				border: 1px solid var(--eth-glass-border);
+				backdrop-filter: var(--eth-glass-blur);
+				-webkit-backdrop-filter: var(--eth-glass-blur);
+				box-shadow: var(--eth-shadow-sm);
+			}
+
+			.cv-hero {
+				grid-column: span 4;
+				background: var(--eth-surface);
+				border: 1px solid var(--eth-border);
+				box-shadow: var(--eth-shadow);
+			}
+
+			.cv-hero h3 { font-size: 1.6rem; }
+			.cv-hero .card-icon {
+				background: var(--eth-text);
+				color: #ffffff;
+			}
+
+			.cv-card:not(.cv-hero) { grid-column: span 2; }
+
+			@media (max-width: 900px) {
+				.cv-showcase { grid-template-columns: repeat(2, 1fr); }
+				.cv-hero { grid-column: 1 / -1; }
+				.cv-card:not(.cv-hero) { grid-column: span 1; }
+			}
+
+			@media (max-width: 560px) {
+				.cv-showcase { grid-template-columns: 1fr; padding: 1.25rem; }
+				.cv-hero, .cv-card:not(.cv-hero) { grid-column: 1 / -1; }
+			}
+
+			/* ─────────────────────────── Pricing */
+			.pricing .section-head { text-align: left; margin-inline: 0; }
+
+			.tiers {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 1rem;
+			}
+
+			.tier {
+				padding: var(--space-6);
+				display: flex;
+				flex-direction: column;
+				position: relative;
+				transition: transform 200ms ease, box-shadow 200ms ease;
+				background: var(--eth-surface);
+				border: 1px solid var(--eth-border);
+			}
+
+			.tier:hover {
+				transform: translateY(-3px);
+				box-shadow: var(--eth-shadow);
+			}
+
+			.tier.featured {
+				background: var(--eth-text);
+				color: #ffffff;
+				border-color: var(--eth-text);
+				box-shadow: var(--eth-shadow);
+			}
+
+			.tier.featured .tier-name { color: rgba(255, 255, 255, 0.7); }
+			.tier.featured .tier-amount { color: #ffffff; }
+			.tier.featured .tier-cadence { color: rgba(255, 255, 255, 0.65); }
+			.tier.featured .tier-blurb { color: rgba(255, 255, 255, 0.75); }
+			.tier.featured .tier-features li { color: rgba(255, 255, 255, 0.92); }
+			.tier.featured .tier-features svg { color: var(--eth-accent); }
+
+			.tier-badge {
+				position: absolute;
+				top: -12px;
+				right: 16px;
+				background: var(--eth-accent);
+				color: #fff;
+				font-size: 0.68rem;
+				font-weight: 600;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				padding: 0.35rem 0.65rem;
+				border-radius: 9999px;
+				box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+			}
+
+			.tier-name {
+				font-size: 0.72rem;
+				font-weight: 600;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: var(--eth-text-muted);
+				margin: 0;
+			}
+
+			.tier-price {
+				display: flex;
+				align-items: baseline;
+				gap: 0.35rem;
+				margin: 0.5rem 0 0.25rem;
+			}
+
+			.tier-amount {
+				font-size: clamp(1.75rem, 3vw, 2rem);
+				font-weight: 500;
+				letter-spacing: -0.03em;
+				color: var(--eth-text);
+				font-variant-numeric: tabular-nums;
+			}
+
+			.tier-cadence { color: var(--eth-text-muted); font-size: 0.9rem; }
+
+			.tier-blurb {
+				color: var(--eth-text-secondary);
+				font-size: 0.9rem;
+				margin: 0 0 1rem;
+				min-height: 3em;
+			}
+
+			.tier-features {
+				list-style: none;
+				padding: 0;
+				margin: 0 0 1.5rem;
+				display: grid;
+				gap: 0.55rem;
+				flex: 1;
+			}
+
+			.tier-features li {
+				display: flex;
+				align-items: flex-start;
+				gap: 0.55rem;
+				color: var(--eth-text);
+				font-size: 0.9rem;
+			}
+
+			.tier-features svg { color: var(--eth-accent); flex-shrink: 0; margin-top: 3px; }
+
+			.tier .btn { width: 100%; }
+
+			.pricing-note {
+				margin-top: var(--space-8);
+				text-align: center;
+				font-size: 0.88rem;
+				color: var(--eth-text-muted);
+			}
+
+			@media (max-width: 1000px) { .tiers { grid-template-columns: repeat(2, 1fr); } }
+			@media (max-width: 560px) { .tiers { grid-template-columns: 1fr; } }
+
+			/* ─────────────────────────── Final CTA */
+			.cta-section { padding: var(--space-20) 0; }
+
+			.cta-card {
+				background-color: var(--eth-bg);
+				background-image:
+					linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
+					radial-gradient(ellipse 80% 60% at 20% 40%, rgba(253, 230, 138, 0.45) 0%, transparent 100%),
+					radial-gradient(ellipse 70% 50% at 80% 60%, rgba(249, 168, 212, 0.35) 0%, transparent 100%),
+					radial-gradient(ellipse 60% 50% at 50% 80%, rgba(147, 197, 253, 0.3) 0%, transparent 100%);
+				border-radius: var(--eth-layout-radius);
+				padding: clamp(2rem, 5vw, 4rem);
+				text-align: center;
+				border: 1px solid rgba(255, 255, 255, 0.5);
+				box-shadow: var(--eth-shadow);
+			}
+
+			.cta-eyebrow { color: var(--eth-accent); }
+
+			.cta-card h2 {
+				margin: 0.5rem auto 0.75rem;
+				max-width: 18ch;
+			}
+
+			.cta-card p {
+				color: var(--eth-text-secondary);
+				max-width: 52ch;
+				margin: 0 auto 1.5rem;
+			}
+
+			.cta-form {
+				display: flex;
+				gap: 0.5rem;
+				max-width: 480px;
+				margin-inline: auto;
+			}
+
+			.cta-form input {
+				flex: 1;
+				padding: 0.85rem 1.1rem;
+				font-size: 0.95rem;
+				font-family: inherit;
+				border-radius: 9999px;
+				border: 1px solid var(--eth-border);
+				background: var(--eth-surface);
+				color: var(--eth-text);
+				min-height: 48px;
+			}
+
+			.cta-form input::placeholder { color: var(--eth-text-muted); }
+
+			.cta-form input:focus-visible {
+				outline: 2px solid var(--eth-accent);
+				outline-offset: 2px;
+				border-color: transparent;
+			}
+
+			.cta-form .btn { min-height: 48px; }
+
+			@media (max-width: 560px) {
+				.cta-form { flex-direction: column; }
+			}
+		</style>
+	</body>
+</html>

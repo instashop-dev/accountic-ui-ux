@@ -1,0 +1,291 @@
+/*
+  Accountic — Ethereal design system
+  Adapted from zerosettle.io's "Ethereal" (Dia-inspired) glassmorphism system.
+  Emerald accent, Inter font, pastel radial hero gradient, 2rem rounded glass cards.
+*/
+
+:root {
+	/* Base surfaces */
+	--eth-bg: #f8fafc;
+	--eth-surface: #ffffff;
+	--eth-surface-alt: #f1f5f9;
+	--eth-surface-elevated: #f1f5f9;
+
+	/* Text */
+	--eth-text: #1e293b;
+	--eth-text-secondary: #64748b;
+	--eth-text-muted: #94a3b8;
+
+	/* Accent (emerald) */
+	--eth-accent: #10b981;
+	--eth-accent-hover: #059669;
+	--eth-accent-soft: rgba(16, 185, 129, 0.12);
+
+	/* Borders */
+	--eth-border: #e2e8f0;
+	--eth-border-light: #cbd5e1;
+
+	/* Glass */
+	--eth-glass-bg: rgba(255, 255, 255, 0.4);
+	--eth-glass-bg-strong: rgba(255, 255, 255, 0.7);
+	--eth-glass-border: rgba(255, 255, 255, 0.8);
+	--eth-glass-blur: blur(40px);
+
+	/* Nav glass */
+	--eth-nav-glass: rgba(255, 255, 255, 0.55);
+	--eth-nav-glass-border: rgba(255, 255, 255, 0.7);
+	--eth-nav-glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+
+	/* Shape */
+	--eth-card-radius: 2rem;
+	--eth-layout-radius: 3rem;
+	--eth-pill-radius: 9999px;
+
+	/* Shadows */
+	--eth-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.05);
+	--eth-shadow-sm: 0 8px 32px rgba(0, 0, 0, 0.06);
+	--eth-shadow-accent: 0 2px 12px rgba(16, 185, 129, 0.25);
+	--eth-shadow-accent-hover: 0 4px 20px rgba(16, 185, 129, 0.35);
+
+	/* Signature hero gradient — triple radial pastel */
+	--eth-hero-gradient:
+		linear-gradient(180deg, transparent 0%, transparent 65%, var(--eth-bg) 100%),
+		radial-gradient(ellipse 70% 40% at 25% 40%, rgba(253, 230, 138, 0.5) 0%, transparent 100%),
+		radial-gradient(ellipse 60% 35% at 75% 30%, rgba(249, 168, 212, 0.4) 0%, transparent 100%),
+		radial-gradient(ellipse 50% 35% at 50% 55%, rgba(147, 197, 253, 0.3) 0%, transparent 100%);
+
+	--eth-showcase-gradient: linear-gradient(135deg, #dbeafe 0%, #fef3c7 40%, #fce7f3 100%);
+
+	/* Spacing */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+	--space-20: 5rem;
+	--space-24: 6rem;
+
+	/* Layout */
+	--container: 1200px;
+	--container-narrow: 880px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-sans), 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	font-size: 16px;
+	line-height: 1.6;
+	color: var(--eth-text);
+	background: var(--eth-bg);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: inherit;
+	color: var(--eth-text);
+	font-weight: 500;
+	letter-spacing: -0.03em;
+	line-height: 1.2;
+	margin: 0 0 var(--space-4);
+}
+
+h1 {
+	font-size: clamp(2rem, 4.6vw, 3.5rem);
+	font-weight: 500;
+	letter-spacing: -0.04em;
+}
+
+h2 {
+	font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+	font-weight: 500;
+	letter-spacing: -0.035em;
+}
+
+h3 {
+	font-size: clamp(1.125rem, 1.8vw, 1.35rem);
+	font-weight: 500;
+	letter-spacing: -0.02em;
+}
+
+h4 {
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+p {
+	margin: 0 0 var(--space-4);
+	color: var(--eth-text-secondary);
+	line-height: 1.65;
+}
+
+a {
+	color: var(--eth-text);
+	text-decoration: none;
+	transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+a:hover {
+	color: var(--eth-accent);
+}
+
+:focus-visible {
+	outline: 2px solid var(--eth-accent);
+	outline-offset: 3px;
+	border-radius: 6px;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+button { font-family: inherit; cursor: pointer; }
+
+/* Utilities */
+.container {
+	width: 100%;
+	max-width: var(--container);
+	margin-inline: auto;
+	padding-inline: var(--space-6);
+}
+
+@media (max-width: 640px) {
+	.container { padding-inline: var(--space-4); }
+}
+
+.eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--eth-text-secondary);
+}
+
+/* Buttons */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.35rem;
+	font-family: inherit;
+	font-size: 0.95rem;
+	font-weight: 500;
+	letter-spacing: -0.005em;
+	border-radius: var(--eth-pill-radius);
+	border: 1px solid transparent;
+	text-decoration: none;
+	transition: background 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease, transform 160ms ease;
+	min-height: 44px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.btn-primary {
+	background: var(--eth-accent);
+	color: #ffffff;
+	box-shadow: var(--eth-shadow-accent);
+}
+
+.btn-primary:hover {
+	background: var(--eth-accent-hover);
+	box-shadow: var(--eth-shadow-accent-hover);
+	color: #ffffff;
+}
+
+.btn-secondary {
+	background: var(--eth-glass-bg);
+	border: 1px solid var(--eth-glass-border);
+	backdrop-filter: var(--eth-glass-blur);
+	-webkit-backdrop-filter: var(--eth-glass-blur);
+	color: var(--eth-text);
+	box-shadow: var(--eth-shadow-sm);
+}
+
+.btn-secondary:hover {
+	background: var(--eth-glass-bg-strong);
+	color: var(--eth-text);
+}
+
+.btn-ghost {
+	background: transparent;
+	color: var(--eth-text-secondary);
+	border-color: transparent;
+}
+
+.btn-ghost:hover {
+	color: var(--eth-text);
+	background: var(--eth-surface-alt);
+}
+
+.btn:active { transform: translateY(1px); }
+
+/* Glass card */
+.glass {
+	background: var(--eth-glass-bg);
+	border: 1px solid var(--eth-glass-border);
+	backdrop-filter: var(--eth-glass-blur);
+	-webkit-backdrop-filter: var(--eth-glass-blur);
+	border-radius: var(--eth-card-radius);
+	box-shadow: var(--eth-shadow-sm);
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* Subtle entrance */
+@keyframes ethFadeUp {
+	from { opacity: 0; transform: translateY(8px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+	animation: ethFadeUp 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Highlight color for accent text in headings */
+.highlight-green {
+	background: var(--eth-accent);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	color: transparent;
+	font-weight: 500;
+}
