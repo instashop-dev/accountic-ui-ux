@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry, MarkdownHeading } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -7,9 +7,27 @@ import FormattedDate from '../components/FormattedDate.astro';
 import { getCollection } from 'astro:content';
 import { SITE_TITLE } from '../consts';
 
-type Props = CollectionEntry<'blog'>['data'] & { slug: string };
+type Props = CollectionEntry<'blog'>['data'] & { slug: string; headings?: MarkdownHeading[] };
 
-const { title, description, pubDate, updatedDate, pillar, author, readTime, tone, slug } = Astro.props;
+const { title, description, pubDate, updatedDate, pillar, author, readTime, tone, slug, headings = [] } =
+	Astro.props;
+
+/* Strip "CA " prefix, drop firm suffix, take first + last initial. */
+function getInitials(name: string): string {
+	const primary = name.replace(/^CA\s+/i, '').split(',')[0].trim();
+	const parts = primary.split(/\s+/).filter(Boolean);
+	if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+	return (parts[0] || 'DC').slice(0, 2).toUpperCase();
+}
+
+const initials = getInitials(author);
+
+/* Author role line: everything after the first comma, if any, else 'Accountic'. */
+const authorRole = author.includes(',') ? author.split(',').slice(1).join(',').trim() : 'Accountic';
+const authorName = author.split(',')[0].trim();
+
+/* Only H2s become mini-TOC entries; guard against empty headings. */
+const tocEntries = headings.filter((h) => h.depth === 2);
 
 /* Pick up to 3 related posts: same pillar first, then fill with latest others. */
 const allPosts = await getCollection('blog');
@@ -30,40 +48,124 @@ const related = [...sameP, ...otherP].slice(0, 3);
 	<body>
 		<Header />
 
+		{/* Thin reading-progress bar pinned to top of viewport */}
+		<div class="reading-progress" aria-hidden="true">
+			<div class="reading-progress-fill" data-progress-fill></div>
+		</div>
+
 		<main id="main">
 			<article class={`post post-tone-${tone}`}>
 				<header class="post-header">
 					<div class="container post-header-inner">
-						<a class="post-back" href="/blog" aria-label="Back to blog index">
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-								<path d="m15 18-6-6 6-6"></path>
-							</svg>
-							Blog
-						</a>
 
-						<span class={`post-pillar pillar-${tone}`}>{pillar}</span>
+						{/* Top chrome: back pill + share */}
+						<div class="post-top-row">
+							<a class="post-back" href="/blog" aria-label="Back to blog index">
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m15 18-6-6 6-6"></path>
+								</svg>
+								All posts
+							</a>
+
+							<div class="post-top-actions">
+								<button type="button" class="action-btn" data-copy-link aria-label="Copy link to this article">
+									<svg class="action-ico action-ico-default" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"/>
+										<path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"/>
+									</svg>
+									<svg class="action-ico action-ico-done" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M20 6 9 17l-5-5"/>
+									</svg>
+									<span class="action-label action-label-default">Copy link</span>
+									<span class="action-label action-label-done">Link copied</span>
+								</button>
+
+								<a class="action-btn" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.toString())}`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
+									<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+										<path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8 18v-7H5v7h3zM6.5 9.7A1.7 1.7 0 1 0 6.5 6.3a1.7 1.7 0 0 0 0 3.4zM18 18v-3.9c0-2.1-1.1-3.1-2.7-3.1-1.2 0-1.8.7-2.1 1.2V11h-3v7h3v-4c0-.2 0-.4.1-.6.2-.5.6-1 1.3-1 .9 0 1.3.7 1.3 1.7V18h3z"/>
+									</svg>
+									<span class="action-label">LinkedIn</span>
+								</a>
+							</div>
+						</div>
+
+						{/* Pillar chip */}
+						<span class={`post-pillar pillar-${tone}`}>
+							<span class={`pillar-dot dot-${tone}`} aria-hidden="true"></span>
+							{pillar}
+						</span>
 
 						<h1 class="post-title">{title}</h1>
 						<p class="post-dek">{description}</p>
 
-						<div class="post-meta">
-							<span class="post-author">
-								<span class="avatar-dot" aria-hidden="true"></span>
-								{author}
-							</span>
-							<span class="post-sep" aria-hidden="true">·</span>
-							<time datetime={pubDate.toISOString()}>
-								<FormattedDate date={pubDate} />
-							</time>
-							<span class="post-sep" aria-hidden="true">·</span>
-							<span>{readTime} min read</span>
-							{updatedDate && (
-								<>
-									<span class="post-sep" aria-hidden="true">·</span>
-									<span class="updated">Updated <FormattedDate date={updatedDate} /></span>
-								</>
-							)}
+						{/* Author / meta card */}
+						<div class="post-byline">
+							<div class={`byline-avatar avatar-${tone}`} aria-hidden="true">
+								<span>{initials}</span>
+							</div>
+							<div class="byline-main">
+								<div class="byline-name">{authorName}</div>
+								<div class="byline-role">{authorRole}</div>
+							</div>
+							<div class="byline-sep" aria-hidden="true"></div>
+							<dl class="byline-meta">
+								<div class="byline-meta-item">
+									<dt>Published</dt>
+									<dd>
+										<time datetime={pubDate.toISOString()}>
+											<FormattedDate date={pubDate} />
+										</time>
+									</dd>
+								</div>
+								<div class="byline-meta-item">
+									<dt>Read time</dt>
+									<dd>{readTime} min</dd>
+								</div>
+								{updatedDate && (
+									<div class="byline-meta-item byline-meta-updated">
+										<dt>Updated</dt>
+										<dd>
+											<time datetime={updatedDate.toISOString()}>
+												<FormattedDate date={updatedDate} />
+											</time>
+										</dd>
+									</div>
+								)}
+							</dl>
 						</div>
+
+						{/* Auto in-article TOC — only when there are 2+ H2s */}
+						{tocEntries.length > 1 && (
+							<details class="post-toc" open>
+								<summary class="post-toc-summary">
+									<span class="toc-label">
+										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<line x1="8" y1="6" x2="21" y2="6"/>
+											<line x1="8" y1="12" x2="21" y2="12"/>
+											<line x1="8" y1="18" x2="21" y2="18"/>
+											<line x1="3" y1="6" x2="3.01" y2="6"/>
+											<line x1="3" y1="12" x2="3.01" y2="12"/>
+											<line x1="3" y1="18" x2="3.01" y2="18"/>
+										</svg>
+										In this article
+										<span class="toc-count">{tocEntries.length}</span>
+									</span>
+									<svg class="toc-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<polyline points="6 9 12 15 18 9"></polyline>
+									</svg>
+								</summary>
+								<ol class="post-toc-list">
+									{tocEntries.map((h, i) => (
+										<li>
+											<a href={`#${h.slug}`}>
+												<span class="toc-num">{String(i + 1).padStart(2, '0')}</span>
+												<span class="toc-text">{h.text}</span>
+											</a>
+										</li>
+									))}
+								</ol>
+							</details>
+						)}
 					</div>
 				</header>
 
@@ -169,6 +271,36 @@ const related = [...sameP, ...otherP].slice(0, 3);
 				max-width: 780px;
 			}
 
+			/* Reading progress bar */
+			.reading-progress {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: transparent;
+				z-index: 100;
+				pointer-events: none;
+			}
+
+			.reading-progress-fill {
+				height: 100%;
+				width: 0;
+				background: linear-gradient(90deg, var(--eth-accent), #34d399);
+				box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+				transition: width 80ms ease-out;
+			}
+
+			/* Top row: back pill on the left, share actions on the right */
+			.post-top-row {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 0.75rem;
+				margin-bottom: 2rem;
+				flex-wrap: wrap;
+			}
+
 			.post-back {
 				display: inline-flex;
 				align-items: center;
@@ -176,34 +308,95 @@ const related = [...sameP, ...otherP].slice(0, 3);
 				color: var(--eth-text-secondary);
 				font-size: 0.85rem;
 				font-weight: 500;
-				margin-bottom: 1.5rem;
-				padding: 0.35rem 0.75rem;
-				background: rgba(255, 255, 255, 0.5);
+				padding: 0.45rem 0.9rem;
+				background: rgba(255, 255, 255, 0.55);
 				border: 1px solid rgba(255, 255, 255, 0.8);
 				border-radius: 9999px;
 				backdrop-filter: var(--eth-glass-blur);
 				-webkit-backdrop-filter: var(--eth-glass-blur);
+				transition: background 200ms ease, color 200ms ease, transform 200ms ease;
 			}
 
-			.post-back:hover { color: var(--eth-text); background: rgba(255, 255, 255, 0.7); }
+			.post-back:hover {
+				color: var(--eth-text);
+				background: rgba(255, 255, 255, 0.85);
+				transform: translateX(-2px);
+			}
 
+			.post-top-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+			.action-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				padding: 0.45rem 0.85rem;
+				background: rgba(255, 255, 255, 0.55);
+				border: 1px solid rgba(255, 255, 255, 0.8);
+				border-radius: 9999px;
+				backdrop-filter: var(--eth-glass-blur);
+				-webkit-backdrop-filter: var(--eth-glass-blur);
+				color: var(--eth-text-secondary);
+				font-family: inherit;
+				font-size: 0.82rem;
+				font-weight: 500;
+				cursor: pointer;
+				transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+				text-decoration: none;
+			}
+
+			.action-btn:hover {
+				background: rgba(255, 255, 255, 0.85);
+				color: var(--eth-text);
+			}
+
+			.action-btn.is-done {
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent-hover);
+				border-color: rgba(16, 185, 129, 0.25);
+			}
+
+			.action-ico-done,
+			.action-label-done { display: none; }
+			.action-btn.is-done .action-ico-default,
+			.action-btn.is-done .action-label-default { display: none; }
+			.action-btn.is-done .action-ico-done,
+			.action-btn.is-done .action-label-done { display: inline-flex; }
+
+			/* Pillar chip with tone-driven dot */
 			.post-pillar {
-				display: inline-block;
+				display: inline-flex;
+				align-items: center;
+				gap: 0.45rem;
 				font-size: 0.72rem;
 				font-weight: 600;
 				letter-spacing: 0.12em;
 				text-transform: uppercase;
-				padding: 0.35rem 0.8rem;
+				padding: 0.4rem 0.85rem;
 				border-radius: 9999px;
 				margin-bottom: 1.25rem;
+				border: 1px solid transparent;
 			}
 
-			.pillar-emerald { background: rgba(16, 185, 129, 0.14); color: #065f46; }
-			.pillar-amber   { background: rgba(245, 158, 11, 0.16); color: #78350f; }
-			.pillar-rose    { background: rgba(244, 114, 182, 0.16); color: #9d174d; }
-			.pillar-sky     { background: rgba(59, 130, 246, 0.14); color: #1e40af; }
-			.pillar-violet  { background: rgba(139, 92, 246, 0.14); color: #5b21b6; }
-			.pillar-stone   { background: rgba(100, 116, 139, 0.14); color: #334155; }
+			.pillar-emerald { background: rgba(16, 185, 129, 0.12); color: #065f46; border-color: rgba(16, 185, 129, 0.22); }
+			.pillar-amber   { background: rgba(245, 158, 11, 0.14); color: #78350f; border-color: rgba(245, 158, 11, 0.22); }
+			.pillar-rose    { background: rgba(244, 114, 182, 0.14); color: #9d174d; border-color: rgba(244, 114, 182, 0.24); }
+			.pillar-sky     { background: rgba(59, 130, 246, 0.12); color: #1e40af; border-color: rgba(59, 130, 246, 0.22); }
+			.pillar-violet  { background: rgba(139, 92, 246, 0.12); color: #5b21b6; border-color: rgba(139, 92, 246, 0.22); }
+			.pillar-stone   { background: rgba(100, 116, 139, 0.12); color: #334155; border-color: rgba(100, 116, 139, 0.2); }
+
+			.pillar-dot {
+				width: 6px;
+				height: 6px;
+				border-radius: 9999px;
+				display: inline-block;
+			}
+
+			.dot-emerald { background: #10b981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+			.dot-amber   { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
+			.dot-rose    { background: #f472b6; box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.2); }
+			.dot-sky     { background: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+			.dot-violet  { background: #8b5cf6; box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); }
+			.dot-stone   { background: #64748b; box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.2); }
 
 			.post-title {
 				font-size: clamp(2rem, 4vw, 3rem);
@@ -215,39 +408,221 @@ const related = [...sameP, ...otherP].slice(0, 3);
 			}
 
 			.post-dek {
-				font-size: clamp(1rem, 1.6vw, 1.15rem);
+				font-size: clamp(1.05rem, 1.6vw, 1.2rem);
 				color: var(--eth-text-secondary);
 				line-height: 1.65;
-				margin: 0 0 1.75rem;
+				margin: 0 0 2rem;
 				max-width: 60ch;
 			}
 
-			.post-meta {
-				display: flex;
-				flex-wrap: wrap;
+			/* Byline card */
+			.post-byline {
+				display: grid;
+				grid-template-columns: auto 1fr auto auto;
 				align-items: center;
-				gap: 0.5rem;
-				font-size: 0.88rem;
-				color: var(--eth-text-secondary);
+				gap: 1rem;
+				padding: 1rem 1.25rem;
+				background: rgba(255, 255, 255, 0.55);
+				border: 1px solid rgba(255, 255, 255, 0.8);
+				border-radius: 1rem;
+				backdrop-filter: var(--eth-glass-blur);
+				-webkit-backdrop-filter: var(--eth-glass-blur);
+				box-shadow: var(--eth-shadow-sm);
+				margin: 0 0 1.25rem;
 			}
 
-			.post-author {
+			.byline-avatar {
+				width: 40px;
+				height: 40px;
+				border-radius: 9999px;
 				display: inline-flex;
 				align-items: center;
-				gap: 0.45rem;
+				justify-content: center;
+				font-weight: 700;
+				font-size: 0.88rem;
+				color: #ffffff;
+				letter-spacing: 0.02em;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 2px rgba(255, 255, 255, 0.5);
+			}
+
+			.avatar-emerald { background: linear-gradient(135deg, #10b981, #34d399); }
+			.avatar-amber   { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+			.avatar-rose    { background: linear-gradient(135deg, #ec4899, #f472b6); }
+			.avatar-sky     { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+			.avatar-violet  { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+			.avatar-stone   { background: linear-gradient(135deg, #475569, #64748b); }
+
+			.byline-main { min-width: 0; }
+
+			.byline-name {
+				font-size: 0.95rem;
+				font-weight: 600;
 				color: var(--eth-text);
+				line-height: 1.3;
+			}
+
+			.byline-role {
+				font-size: 0.8rem;
+				color: var(--eth-text-muted);
+				line-height: 1.3;
+				margin-top: 1px;
+			}
+
+			.byline-sep {
+				width: 1px;
+				align-self: stretch;
+				background: rgba(0, 0, 0, 0.08);
+				margin: 0.1rem 0;
+			}
+
+			.byline-meta {
+				display: flex;
+				align-items: center;
+				gap: 1.25rem;
+				margin: 0;
+				font-size: 0.8rem;
+			}
+
+			.byline-meta-item { display: flex; flex-direction: column; gap: 1px; }
+
+			.byline-meta dt {
+				font-size: 0.68rem;
+				font-weight: 600;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--eth-text-muted);
+				margin: 0;
+				line-height: 1.2;
+			}
+
+			.byline-meta dd {
+				margin: 0;
+				color: var(--eth-text);
+				font-size: 0.88rem;
 				font-weight: 500;
+				font-variant-numeric: tabular-nums;
+				line-height: 1.3;
 			}
 
-			.avatar-dot {
-				width: 22px;
-				height: 22px;
+			.byline-meta-updated dd { color: var(--eth-accent-hover); }
+
+			/* In-article TOC */
+			.post-toc {
+				margin-top: 0.75rem;
+				background: var(--eth-surface);
+				border: 1px solid var(--eth-border);
+				border-radius: 1rem;
+				overflow: hidden;
+				box-shadow: var(--eth-shadow-sm);
+			}
+
+			.post-toc-summary {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0.9rem 1.25rem;
+				cursor: pointer;
+				list-style: none;
+				user-select: none;
+			}
+
+			.post-toc-summary::-webkit-details-marker { display: none; }
+
+			.toc-label {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.55rem;
+				font-size: 0.82rem;
+				font-weight: 600;
+				color: var(--eth-text);
+				letter-spacing: -0.005em;
+			}
+
+			.toc-label svg { color: var(--eth-accent); }
+
+			.toc-count {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				min-width: 20px;
+				padding: 0 0.4rem;
+				height: 20px;
 				border-radius: 9999px;
-				background: linear-gradient(135deg, var(--eth-accent), #0ea5e9);
+				background: var(--eth-accent-soft);
+				color: var(--eth-accent-hover);
+				font-size: 0.7rem;
+				font-variant-numeric: tabular-nums;
+				font-weight: 600;
 			}
 
-			.post-sep { color: var(--eth-border-light); }
-			.updated { font-style: italic; color: var(--eth-text-muted); }
+			.toc-chevron {
+				color: var(--eth-text-muted);
+				transition: transform 240ms ease;
+			}
+
+			.post-toc[open] .toc-chevron { transform: rotate(180deg); }
+
+			.post-toc-list {
+				list-style: none;
+				padding: 0.25rem 0.5rem 0.75rem;
+				margin: 0;
+				border-top: 1px solid var(--eth-border);
+				counter-reset: none;
+				display: grid;
+				gap: 2px;
+			}
+
+			.post-toc-list li { margin: 0; }
+
+			.post-toc-list a {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				align-items: baseline;
+				gap: 0.75rem;
+				padding: 0.6rem 0.75rem;
+				border-radius: 10px;
+				color: var(--eth-text);
+				font-size: 0.92rem;
+				line-height: 1.45;
+				text-decoration: none;
+				transition: background 180ms ease, color 180ms ease;
+			}
+
+			.post-toc-list a:hover {
+				background: var(--eth-surface-alt);
+				color: var(--eth-accent);
+			}
+
+			.toc-num {
+				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
+				font-size: 0.72rem;
+				font-weight: 600;
+				color: var(--eth-text-muted);
+				letter-spacing: 0.04em;
+				min-width: 1.8em;
+			}
+
+			.toc-text { color: inherit; }
+
+			.post-toc-list a:hover .toc-num { color: var(--eth-accent); }
+
+			@media (max-width: 640px) {
+				.post-byline {
+					grid-template-columns: auto 1fr;
+					gap: 0.85rem;
+				}
+				.byline-sep { display: none; }
+				.byline-meta {
+					grid-column: 1 / -1;
+					padding-top: 0.85rem;
+					margin-top: 0.15rem;
+					border-top: 1px dashed rgba(0, 0, 0, 0.08);
+					gap: 1rem;
+				}
+				.post-top-row { margin-bottom: 1.5rem; }
+				.post-top-actions .action-label { display: none; }
+				.action-btn { padding: 0.45rem; width: 34px; height: 34px; justify-content: center; }
+			}
 
 			/* ──────────────────────────── Post body (prose) */
 			.post-body-wrap {
@@ -487,5 +862,55 @@ const related = [...sameP, ...otherP].slice(0, 3);
 				.related-grid { grid-template-columns: 1fr; }
 			}
 		</style>
+
+		<script is:inline>
+			(function () {
+				/* Reading progress bar — tracks article scroll only, not header. */
+				const fill = document.querySelector('[data-progress-fill]');
+				const article = document.querySelector('.post');
+				if (fill && article) {
+					let ticking = false;
+					function update() {
+						const rect = article.getBoundingClientRect();
+						const viewportH = window.innerHeight;
+						const total = rect.height - viewportH;
+						const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 0));
+						const pct = total > 0 ? (scrolled / total) * 100 : 0;
+						fill.style.width = pct + '%';
+						ticking = false;
+					}
+					window.addEventListener(
+						'scroll',
+						function () {
+							if (!ticking) {
+								window.requestAnimationFrame(update);
+								ticking = true;
+							}
+						},
+						{ passive: true }
+					);
+					window.addEventListener('resize', update, { passive: true });
+					update();
+				}
+
+				/* Copy link to clipboard with 1.8s "Link copied" state. */
+				const copyBtn = document.querySelector('[data-copy-link]');
+				if (copyBtn && navigator.clipboard) {
+					copyBtn.addEventListener('click', function () {
+						navigator.clipboard
+							.writeText(location.href.split('#')[0])
+							.then(function () {
+								copyBtn.classList.add('is-done');
+								copyBtn.setAttribute('aria-label', 'Link copied');
+								setTimeout(function () {
+									copyBtn.classList.remove('is-done');
+									copyBtn.setAttribute('aria-label', 'Copy link to this article');
+								}, 1800);
+							})
+							.catch(function () {});
+					});
+				}
+			})();
+		</script>
 	</body>
 </html>
