@@ -1,21 +1,26 @@
 /**
- * Cloudflare Pages Function: POST /api/capture
+ * Astro server-side API route: POST /api/capture
  *
  * Accepts form submissions from the homepage CTA, contact page, and blog
  * subscribe forms, and forwards a notification email via Resend.
  *
- * Bindings expected (set in Cloudflare Pages → Settings → Environment variables,
- * and in `.dev.vars` for local `wrangler pages dev`):
+ * Runs inside the Cloudflare Worker built by @astrojs/cloudflare.
+ * Env vars must be set on the Worker (Cloudflare → Workers → Settings → Variables)
+ * and locally in `.dev.vars` (read by `wrangler dev` via `npm run preview`):
  *
  *   RESEND_API_KEY      — Resend API key
  *   SIGNUP_NOTIFY_TO    — destination inbox (comma-separated allowed)
  *   SIGNUP_NOTIFY_FROM  — verified-domain sender, or onboarding@resend.dev for testing
  */
 
+import type { APIRoute } from 'astro';
+
+export const prerender = false;
+
 interface Env {
-	RESEND_API_KEY: string;
-	SIGNUP_NOTIFY_TO: string;
-	SIGNUP_NOTIFY_FROM: string;
+	RESEND_API_KEY?: string;
+	SIGNUP_NOTIFY_TO?: string;
+	SIGNUP_NOTIFY_FROM?: string;
 }
 
 type Payload = {
@@ -29,8 +34,14 @@ type Payload = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-	if (!env.RESEND_API_KEY || !env.SIGNUP_NOTIFY_TO || !env.SIGNUP_NOTIFY_FROM) {
+export const POST: APIRoute = async ({ request, locals }) => {
+	const runtimeEnv = (locals as { runtime?: { env?: Env } } | undefined)?.runtime?.env ?? {};
+
+	const RESEND_API_KEY = runtimeEnv.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY;
+	const SIGNUP_NOTIFY_TO = runtimeEnv.SIGNUP_NOTIFY_TO ?? import.meta.env.SIGNUP_NOTIFY_TO;
+	const SIGNUP_NOTIFY_FROM = runtimeEnv.SIGNUP_NOTIFY_FROM ?? import.meta.env.SIGNUP_NOTIFY_FROM;
+
+	if (!RESEND_API_KEY || !SIGNUP_NOTIFY_TO || !SIGNUP_NOTIFY_FROM) {
 		return json({ error: 'Server misconfigured' }, 500);
 	}
 
@@ -66,16 +77,16 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 	}
 	const text = lines.join('\n');
 
-	const to = env.SIGNUP_NOTIFY_TO.split(',').map((s) => s.trim()).filter(Boolean);
+	const to = SIGNUP_NOTIFY_TO.split(',').map((s) => s.trim()).filter(Boolean);
 
 	const resendResp = await fetch('https://api.resend.com/emails', {
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer ${env.RESEND_API_KEY}`,
+			Authorization: `Bearer ${RESEND_API_KEY}`,
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			from: env.SIGNUP_NOTIFY_FROM,
+			from: SIGNUP_NOTIFY_FROM,
 			to,
 			reply_to: email,
 			subject,
@@ -84,8 +95,6 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 	});
 
 	if (!resendResp.ok) {
-		// Don't leak Resend's error body to the client; log it server-side
-		// (Cloudflare → Pages → Logs).
 		const detail = await resendResp.text().catch(() => '');
 		console.error('Resend send failed', resendResp.status, detail);
 		return json({ error: 'Send failed' }, 502);

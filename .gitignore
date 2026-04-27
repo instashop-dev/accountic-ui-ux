@@ -16,7 +16,9 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
-.dev.vars
+.dev.vars*
+!.dev.vars.example
+!.env.example
 
 # Cloudflare Wrangler
 .wrangler/
@@ -29,4 +31,3 @@ pnpm-debug.log*
 
 # Claude Code per-user settings
 .claude/settings.local.json
-
