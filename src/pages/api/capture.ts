@@ -5,8 +5,9 @@
  * subscribe forms, and forwards a notification email via Resend.
  *
  * Runs inside the Cloudflare Worker built by @astrojs/cloudflare.
- * Env vars must be set on the Worker (Cloudflare → Workers → Settings → Variables)
- * and locally in `.dev.vars` (read by `wrangler dev` via `npm run preview`):
+ * Env vars must be set on the Worker (Cloudflare → Workers → accountic-ui-ux
+ * → Settings → Variables and Secrets) and locally in `.dev.vars`
+ * (read by `wrangler dev` via `npm run preview`):
  *
  *   RESEND_API_KEY      — Resend API key
  *   SIGNUP_NOTIFY_TO    — destination inbox (comma-separated allowed)
@@ -14,14 +15,9 @@
  */
 
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const prerender = false;
-
-interface Env {
-	RESEND_API_KEY?: string;
-	SIGNUP_NOTIFY_TO?: string;
-	SIGNUP_NOTIFY_FROM?: string;
-}
 
 type Payload = {
 	email?: unknown;
@@ -34,12 +30,10 @@ type Payload = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const POST: APIRoute = async ({ request, locals }) => {
-	const runtimeEnv = (locals as { runtime?: { env?: Env } } | undefined)?.runtime?.env ?? {};
-
-	const RESEND_API_KEY = runtimeEnv.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY;
-	const SIGNUP_NOTIFY_TO = runtimeEnv.SIGNUP_NOTIFY_TO ?? import.meta.env.SIGNUP_NOTIFY_TO;
-	const SIGNUP_NOTIFY_FROM = runtimeEnv.SIGNUP_NOTIFY_FROM ?? import.meta.env.SIGNUP_NOTIFY_FROM;
+export const POST: APIRoute = async ({ request }) => {
+	const RESEND_API_KEY = (env as Record<string, string | undefined>).RESEND_API_KEY;
+	const SIGNUP_NOTIFY_TO = (env as Record<string, string | undefined>).SIGNUP_NOTIFY_TO;
+	const SIGNUP_NOTIFY_FROM = (env as Record<string, string | undefined>).SIGNUP_NOTIFY_FROM;
 
 	if (!RESEND_API_KEY || !SIGNUP_NOTIFY_TO || !SIGNUP_NOTIFY_FROM) {
 		return json({ error: 'Server misconfigured' }, 500);
