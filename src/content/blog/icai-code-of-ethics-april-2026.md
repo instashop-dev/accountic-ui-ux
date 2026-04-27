@@ -1,7 +1,8 @@
 ---
 title: 'ICAI Code of Ethics, 1 April 2026: AI as Management Consultancy'
-description: 'The ICAI has formally recognised AI tooling as a management consultancy service. This is the paragraph that matters for any CA using an AI workbench, and what "professional judgment" means when the tool drafts the first version.'
+description: 'The ICAI Code now treats AI tooling as a management consultancy service. What "professional judgment" means when the tool drafts the first version.'
 pubDate: '2026-04-28'
+updatedDate: '2026-04-27'
 pillar: 'ICAI Ethics'
 author: 'DPS & Co.'
 readTime: 5

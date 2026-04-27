@@ -1,7 +1,8 @@
 ---
 title: 'Section 143(2) Scrutiny: Drafting Conventions That Hold Up in Appeal'
-description: 'A s. 143(2) reply is not a s. 148 reply. Different standard, different tone, different structure. Here is what we have learned about drafting for scrutiny that survives first appeal.'
+description: 'A section 143(2) reply is not a section 148 reply. Different standard, tone, and structure — drafting conventions that survive first appeal.'
 pubDate: '2026-05-02'
+updatedDate: '2026-04-27'
 pillar: 'Income Tax Notices'
 author: 'CA Vishesh Sangoi, DPS & Co.'
 readTime: 6

@@ -1,7 +1,8 @@
 ---
 title: 'Case Law Note: Why ITO v. Lakhmani Mewal Das Still Decides Your s. 148 Reply'
-description: 'A 1976 Supreme Court decision that survived the s. 148A overhaul, the faceless regime, and every draft circular since. The "rational nexus" standard, explained for the CA drafting next Tuesday is reply.'
+description: 'A 1976 Supreme Court decision that survived the section 148A overhaul and the faceless regime. The "rational nexus" standard, in plain terms.'
 pubDate: '2026-04-25'
+updatedDate: '2026-04-27'
 pillar: 'Case Law Notes'
 author: 'DPS & Co.'
 readTime: 4

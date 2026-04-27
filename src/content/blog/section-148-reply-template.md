@@ -1,7 +1,8 @@
 ---
 title: 'Replying to a Section 148 Notice: The Template That Actually Holds Up'
-description: 'What a s. 148 reply looks like when it is drafted to survive the faceless assessing officer — grounds, citations, evidence, and the order of arguments that matters.'
+description: 'What a section 148 reply looks like when drafted to survive a faceless AO — grounds, citations, evidence, and the order of argument that matters.'
 pubDate: '2026-05-12'
+updatedDate: '2026-04-27'
 pillar: 'Income Tax Notices'
 author: 'CA Vishesh Sangoi, DPS & Co.'
 readTime: 8

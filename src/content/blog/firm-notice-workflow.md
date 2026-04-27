@@ -1,7 +1,8 @@
 ---
 title: 'How a Small CA Firm Actually Handles 40 Notices a Month'
-description: 'The operational playbook from a 12-CA firm in Mumbai that processes forty-plus IT notices every month — intake, routing, drafting, partner review, filing, and the one KPI that matters.'
+description: 'The operational playbook from a 12-CA Mumbai firm processing 40+ IT notices a month — intake, routing, drafting, partner review, and the one KPI that matters.'
 pubDate: '2026-04-22'
+updatedDate: '2026-04-27'
 pillar: 'Firm Operations'
 author: 'DPS & Co.'
 readTime: 7

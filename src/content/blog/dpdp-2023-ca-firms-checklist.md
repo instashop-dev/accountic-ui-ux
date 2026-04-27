@@ -1,7 +1,8 @@
 ---
 title: 'DPDP Act 2023: The Seven Things Every CA Firm Must Change Before Filing Season'
-description: 'Your firm is a Data Fiduciary. Your clients are Data Principals. Here is the concrete checklist — engagement letters, retention, DPAs, and the "no AI training on my data" commitment that your listed-company clients will ask for.'
+description: 'A practical DPDP checklist for CA firms — engagement-letter clauses, retention, DPAs, and the no-training commitment listed-company clients now ask for.'
 pubDate: '2026-05-05'
+updatedDate: '2026-04-27'
 pillar: 'DPDP Compliance'
 author: 'CA Rashid Faisal, DPS & Co.'
 readTime: 7
@@ -20,7 +21,7 @@ Under DPDP, when you process a client's personal data — and a tax notice conta
 - **Notice** under s. 5, at the time of collection.
 - **Purpose limitation** — you can only use the data for the engagement scope.
 - **Retention limits** — once the purpose is fulfilled, the data either goes back to the client or is deleted.
-- **Rights** under Chapter II — access, correction, erasure, grievance.
+- **Rights** under Chapter III — access, correction, erasure, grievance.
 
 Your engagement letter should spell every one of these out. A 2019-vintage engagement letter doesn't.
 

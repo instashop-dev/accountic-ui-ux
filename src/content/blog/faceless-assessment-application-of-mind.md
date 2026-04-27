@@ -1,7 +1,8 @@
 ---
 title: '"Application of Mind" in Faceless Assessment: What the ITAT Actually Expects'
-description: 'Three appellate orders in 2024–25 set aside assessment orders citing lack of application of mind. The same standard — and the same signal — applies to the reply you file.'
+description: 'ITAT benches have set aside assessment orders for lack of application of mind. The same standard — and the same signal — applies to the reply you file.'
 pubDate: '2026-05-08'
+updatedDate: '2026-04-27'
 pillar: 'Faceless Assessment'
 author: 'CA Shreyas Sangoi, DPS & Co.'
 readTime: 6
