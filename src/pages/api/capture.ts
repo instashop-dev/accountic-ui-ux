@@ -10,9 +10,8 @@
  * Bindings (wrangler.jsonc):
  *   SIGNUP_NOTIFY  — send_email binding pinned to info@accountic.in
  *
- * Env vars (Cloudflare → Workers → accountic-ui-ux → Settings → Variables,
- * and locally in `.dev.vars` for `wrangler dev`):
- *   SIGNUP_NOTIFY_FROM  — sender on a domain with Email Routing enabled
+ * No env vars required: from/to addresses are hardcoded since they're tied
+ * to the Email Routing setup on accountic.in.
  */
 
 import type { APIRoute } from 'astro';
@@ -33,13 +32,14 @@ type Payload = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const NOTIFY_TO = 'info@accountic.in';
+const NOTIFY_FROM = 'notify@accountic.in';
 
 export const POST: APIRoute = async ({ request }) => {
-	const e = env as Record<string, unknown>;
-	const SIGNUP_NOTIFY_FROM = e.SIGNUP_NOTIFY_FROM as string | undefined;
-	const SIGNUP_NOTIFY = e.SIGNUP_NOTIFY as { send: (msg: EmailMessage) => Promise<void> } | undefined;
+	const SIGNUP_NOTIFY = (env as Record<string, unknown>).SIGNUP_NOTIFY as
+		| { send: (msg: EmailMessage) => Promise<void> }
+		| undefined;
 
-	if (!SIGNUP_NOTIFY_FROM || !SIGNUP_NOTIFY) {
+	if (!SIGNUP_NOTIFY) {
 		return json({ error: 'Server misconfigured' }, 500);
 	}
 
@@ -76,14 +76,14 @@ export const POST: APIRoute = async ({ request }) => {
 	const text = lines.join('\n');
 
 	const mime = createMimeMessage();
-	mime.setSender({ name: 'Accountic Signups', addr: SIGNUP_NOTIFY_FROM });
+	mime.setSender({ name: 'Accountic Signups', addr: NOTIFY_FROM });
 	mime.setRecipient(NOTIFY_TO);
 	mime.setSubject(subject);
 	mime.setHeader('Reply-To', email);
 	mime.addMessage({ contentType: 'text/plain', data: text });
 
 	try {
-		await SIGNUP_NOTIFY.send(new EmailMessage(SIGNUP_NOTIFY_FROM, NOTIFY_TO, mime.asRaw()));
+		await SIGNUP_NOTIFY.send(new EmailMessage(NOTIFY_FROM, NOTIFY_TO, mime.asRaw()));
 	} catch (err) {
 		console.error('send_email failed', err);
 		return json({ error: 'Send failed' }, 502);
