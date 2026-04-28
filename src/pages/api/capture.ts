@@ -17,7 +17,6 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import { EmailMessage } from 'cloudflare:email';
-import { createMimeMessage } from 'mimetext';
 
 export const prerender = false;
 
@@ -75,15 +74,16 @@ export const POST: APIRoute = async ({ request }) => {
 	}
 	const text = lines.join('\n');
 
-	const mime = createMimeMessage();
-	mime.setSender({ name: 'Accountic Signups', addr: NOTIFY_FROM });
-	mime.setRecipient(NOTIFY_TO);
-	mime.setSubject(subject);
-	mime.setHeader('Reply-To', email);
-	mime.addMessage({ contentType: 'text/plain', data: text });
+	const raw = buildMime({
+		from: `Accountic Signups <${NOTIFY_FROM}>`,
+		to: NOTIFY_TO,
+		replyTo: email,
+		subject,
+		text,
+	});
 
 	try {
-		await SIGNUP_NOTIFY.send(new EmailMessage(NOTIFY_FROM, NOTIFY_TO, mime.asRaw()));
+		await SIGNUP_NOTIFY.send(new EmailMessage(NOTIFY_FROM, NOTIFY_TO, raw));
 	} catch (err) {
 		console.error('send_email failed', err);
 		return json({ error: 'Send failed' }, 502);
@@ -91,6 +91,35 @@ export const POST: APIRoute = async ({ request }) => {
 
 	return json({ ok: true });
 };
+
+function b64utf8(s: string): string {
+	const bytes = new TextEncoder().encode(s);
+	let bin = '';
+	for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+	return btoa(bin);
+}
+
+function encodeHeader(s: string): string {
+	return /[^\x20-\x7e]/.test(s) ? `=?utf-8?B?${b64utf8(s)}?=` : s;
+}
+
+function buildMime(opts: { from: string; to: string; replyTo: string; subject: string; text: string }): string {
+	const messageId = `<${crypto.randomUUID()}@accountic.in>`;
+	const date = new Date().toUTCString();
+	const headers = [
+		`From: ${encodeHeader(opts.from)}`,
+		`To: ${opts.to}`,
+		`Reply-To: ${opts.replyTo}`,
+		`Subject: ${encodeHeader(opts.subject)}`,
+		`Message-ID: ${messageId}`,
+		`Date: ${date}`,
+		'MIME-Version: 1.0',
+		'Content-Type: text/plain; charset=utf-8',
+		'Content-Transfer-Encoding: base64',
+	];
+	const body = b64utf8(opts.text).replace(/(.{76})/g, '$1\r\n');
+	return headers.join('\r\n') + '\r\n\r\n' + body + '\r\n';
+}
 
 function str(v: unknown, max = 4000): string {
 	if (typeof v !== 'string') return '';
