@@ -4,7 +4,7 @@ description: 'What a section 148 reply looks like when drafted to survive a face
 pubDate: '2026-05-12'
 updatedDate: '2026-04-27'
 pillar: 'Income Tax Notices'
-author: 'CA Vishesh Sangoi, DPS & Co.'
+author: 'Accountic Team'
 readTime: 8
 tone: 'emerald'
 featured: true

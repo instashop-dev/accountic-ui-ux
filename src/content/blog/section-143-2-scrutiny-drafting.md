@@ -4,7 +4,7 @@ description: 'A section 143(2) reply is not a section 148 reply. Different stand
 pubDate: '2026-05-02'
 updatedDate: '2026-04-27'
 pillar: 'Income Tax Notices'
-author: 'CA Vishesh Sangoi, DPS & Co.'
+author: 'Accountic Team'
 readTime: 6
 tone: 'amber'
 featured: false

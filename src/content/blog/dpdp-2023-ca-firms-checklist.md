@@ -4,7 +4,7 @@ description: 'A practical DPDP checklist for CA firms — engagement-letter clau
 pubDate: '2026-05-05'
 updatedDate: '2026-04-27'
 pillar: 'DPDP Compliance'
-author: 'CA Rashid Faisal, DPS & Co.'
+author: 'Accountic Team'
 readTime: 7
 tone: 'rose'
 featured: false

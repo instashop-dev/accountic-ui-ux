@@ -4,7 +4,7 @@ description: 'The ICAI Code now treats AI tooling as a management consultancy se
 pubDate: '2026-04-28'
 updatedDate: '2026-04-27'
 pillar: 'ICAI Ethics'
-author: 'DPS & Co.'
+author: 'Accountic Team'
 readTime: 5
 tone: 'violet'
 featured: false

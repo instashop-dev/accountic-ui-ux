@@ -4,7 +4,7 @@ description: 'A 1976 Supreme Court decision that survived the section 148A overh
 pubDate: '2026-04-25'
 updatedDate: '2026-04-27'
 pillar: 'Case Law Notes'
-author: 'DPS & Co.'
+author: 'Accountic Team'
 readTime: 4
 tone: 'stone'
 featured: false

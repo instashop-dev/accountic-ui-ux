@@ -4,7 +4,7 @@ description: 'The five recurring ways an AI-drafted Income Tax notice reply fail
 pubDate: '2026-04-27'
 updatedDate: '2026-04-27'
 pillar: 'Income Tax Notices'
-author: 'DPS & Co.'
+author: 'Accountic Team'
 readTime: 9
 tone: 'rose'
 featured: false

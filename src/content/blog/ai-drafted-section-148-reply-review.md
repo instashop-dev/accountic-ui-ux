@@ -4,7 +4,7 @@ description: "A senior CA's pre-signature checklist for an AI-drafted section 14
 pubDate: '2026-04-27'
 updatedDate: '2026-04-27'
 pillar: 'Income Tax Notices'
-author: 'CA Vishesh Sangoi, DPS & Co.'
+author: 'Accountic Team'
 readTime: 8
 tone: 'emerald'
 featured: false

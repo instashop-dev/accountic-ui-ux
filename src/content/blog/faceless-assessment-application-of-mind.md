@@ -4,7 +4,7 @@ description: 'ITAT benches have set aside assessment orders for lack of applicat
 pubDate: '2026-05-08'
 updatedDate: '2026-04-27'
 pillar: 'Faceless Assessment'
-author: 'CA Shreyas Sangoi, DPS & Co.'
+author: 'Accountic Team'
 readTime: 6
 tone: 'sky'
 featured: false

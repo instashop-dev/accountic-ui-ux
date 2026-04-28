@@ -4,7 +4,7 @@ description: 'The operational playbook from a 12-CA Mumbai firm processing 40+ I
 pubDate: '2026-04-22'
 updatedDate: '2026-04-27'
 pillar: 'Firm Operations'
-author: 'DPS & Co.'
+author: 'Accountic Team'
 readTime: 7
 tone: 'emerald'
 featured: false
