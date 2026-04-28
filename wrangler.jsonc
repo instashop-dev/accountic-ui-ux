@@ -9,5 +9,11 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"send_email": [
+		{
+			"name": "SIGNUP_NOTIFY",
+			"destination_address": "info@accountic.in"
+		}
+	]
 }

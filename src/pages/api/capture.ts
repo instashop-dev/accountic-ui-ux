@@ -2,20 +2,23 @@
  * Astro server-side API route: POST /api/capture
  *
  * Accepts form submissions from the homepage CTA, contact page, and blog
- * subscribe forms, and forwards a notification email via Resend.
+ * subscribe forms, and forwards a notification email via the Cloudflare
+ * `send_email` binding (Email Routing).
  *
  * Runs inside the Cloudflare Worker built by @astrojs/cloudflare.
- * Env vars must be set on the Worker (Cloudflare → Workers → accountic-ui-ux
- * → Settings → Variables and Secrets) and locally in `.dev.vars`
- * (read by `wrangler dev` via `npm run preview`):
  *
- *   RESEND_API_KEY      — Resend API key
- *   SIGNUP_NOTIFY_TO    — destination inbox (comma-separated allowed)
- *   SIGNUP_NOTIFY_FROM  — verified-domain sender, or onboarding@resend.dev for testing
+ * Bindings (wrangler.jsonc):
+ *   SIGNUP_NOTIFY  — send_email binding pinned to info@accountic.in
+ *
+ * Env vars (Cloudflare → Workers → accountic-ui-ux → Settings → Variables,
+ * and locally in `.dev.vars` for `wrangler dev`):
+ *   SIGNUP_NOTIFY_FROM  — sender on a domain with Email Routing enabled
  */
 
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
+import { EmailMessage } from 'cloudflare:email';
+import { createMimeMessage } from 'mimetext';
 
 export const prerender = false;
 
@@ -29,13 +32,14 @@ type Payload = {
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const NOTIFY_TO = 'info@accountic.in';
 
 export const POST: APIRoute = async ({ request }) => {
-	const RESEND_API_KEY = (env as Record<string, string | undefined>).RESEND_API_KEY;
-	const SIGNUP_NOTIFY_TO = (env as Record<string, string | undefined>).SIGNUP_NOTIFY_TO;
-	const SIGNUP_NOTIFY_FROM = (env as Record<string, string | undefined>).SIGNUP_NOTIFY_FROM;
+	const e = env as Record<string, unknown>;
+	const SIGNUP_NOTIFY_FROM = e.SIGNUP_NOTIFY_FROM as string | undefined;
+	const SIGNUP_NOTIFY = e.SIGNUP_NOTIFY as { send: (msg: EmailMessage) => Promise<void> } | undefined;
 
-	if (!RESEND_API_KEY || !SIGNUP_NOTIFY_TO || !SIGNUP_NOTIFY_FROM) {
+	if (!SIGNUP_NOTIFY_FROM || !SIGNUP_NOTIFY) {
 		return json({ error: 'Server misconfigured' }, 500);
 	}
 
@@ -71,26 +75,17 @@ export const POST: APIRoute = async ({ request }) => {
 	}
 	const text = lines.join('\n');
 
-	const to = SIGNUP_NOTIFY_TO.split(',').map((s) => s.trim()).filter(Boolean);
+	const mime = createMimeMessage();
+	mime.setSender({ name: 'Accountic Signups', addr: SIGNUP_NOTIFY_FROM });
+	mime.setRecipient(NOTIFY_TO);
+	mime.setSubject(subject);
+	mime.setHeader('Reply-To', email);
+	mime.addMessage({ contentType: 'text/plain', data: text });
 
-	const resendResp = await fetch('https://api.resend.com/emails', {
-		method: 'POST',
-		headers: {
-			Authorization: `Bearer ${RESEND_API_KEY}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			from: SIGNUP_NOTIFY_FROM,
-			to,
-			reply_to: email,
-			subject,
-			text,
-		}),
-	});
-
-	if (!resendResp.ok) {
-		const detail = await resendResp.text().catch(() => '');
-		console.error('Resend send failed', resendResp.status, detail);
+	try {
+		await SIGNUP_NOTIFY.send(new EmailMessage(SIGNUP_NOTIFY_FROM, NOTIFY_TO, mime.asRaw()));
+	} catch (err) {
+		console.error('send_email failed', err);
 		return json({ error: 'Send failed' }, 502);
 	}
 
