@@ -14,6 +14,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = '/og-default.png', type = 'website' } = Astro.props;
 ---
 
+<!-- Google tag (gtag.js) -->
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-GTWV7T54VV"></script>
+<script is:inline>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-GTWV7T54VV');
+</script>
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
