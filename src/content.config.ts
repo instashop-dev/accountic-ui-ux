@@ -1,17 +1,10 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { PILLARS, TONES } from './blog-meta';
 
-export const PILLARS = [
-	'Income Tax Notices',
-	'Faceless Assessment',
-	'DPDP Compliance',
-	'ICAI Ethics',
-	'Case Law Notes',
-	'Firm Operations',
-] as const;
-
-export const TONES = ['emerald', 'amber', 'rose', 'sky', 'violet', 'stone'] as const;
+export { PILLARS, TONES };
+export type { Pillar, Tone } from './blog-meta';
 
 const blog = defineCollection({
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),

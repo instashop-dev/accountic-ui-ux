@@ -1,18 +1,44 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import { SITE_TITLE } from '../../consts';
-import { PILLARS } from '../../content.config';
+import { PILLARS, type Pillar, type Tone } from '../../blog-meta';
 
 const metaTitle = `Blog · ${SITE_TITLE}`;
 const metaDescription =
 	"Field notes on Income Tax notices, faceless assessment, DPDP compliance, ICAI ethics, and the craft of running a CA firm in India.";
 
-const all = await getCollection('blog');
-const posts = all.sort((a, b) => +b.data.pubDate - +a.data.pubDate);
+type PostFrontmatter = {
+	title: string;
+	description: string;
+	pubDate: string;
+	pillar: Pillar;
+	author: string;
+	readTime: number;
+	tone: Tone;
+	featured?: boolean;
+};
+
+type Post = {
+	id: string;
+	data: Omit<PostFrontmatter, 'pubDate'> & { pubDate: Date };
+};
+
+const modules = import.meta.glob<{ frontmatter: PostFrontmatter }>('../../content/blog/*.md', { eager: true });
+
+const posts: Post[] = Object.entries(modules)
+	.map(([path, mod]) => {
+		const id = path.match(/\/([^/]+)\.md$/)?.[1] ?? '';
+		const fm = mod.frontmatter;
+		return {
+			id,
+			data: { ...fm, featured: !!fm.featured, pubDate: new Date(fm.pubDate) },
+		};
+	})
+	.sort((a, b) => +b.data.pubDate - +a.data.pubDate);
+
 const featured = posts.find((p) => p.data.featured) ?? posts[0];
 const rest = posts.filter((p) => p.id !== featured?.id);
 
