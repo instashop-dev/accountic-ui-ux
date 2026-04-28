@@ -9,7 +9,7 @@ import { PILLARS } from '../../content.config';
 
 const metaTitle = `Blog · ${SITE_TITLE}`;
 const metaDescription =
-	"Field notes from DPS & Co. on Income Tax notices, faceless assessment, DPDP compliance, ICAI ethics, and the craft of running a CA firm in India.";
+	"Field notes on Income Tax notices, faceless assessment, DPDP compliance, ICAI ethics, and the craft of running a CA firm in India.";
 
 const all = await getCollection('blog');
 const posts = all.sort((a, b) => +b.data.pubDate - +a.data.pubDate);
