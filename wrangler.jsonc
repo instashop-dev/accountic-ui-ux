@@ -54,22 +54,8 @@
 				"queue": "blog-publish"
 			}
 		],
-		"consumers": [
-			{
-				"queue": "blog-pipeline",
-				"max_batch_size": 5,
-				"max_batch_timeout": 30,
-				"max_retries": 3,
-				"dead_letter_queue": "blog-pipeline-dlq"
-			},
-			{
-				"queue": "blog-publish",
-				"max_batch_size": 5,
-				"max_batch_timeout": 30,
-				"max_retries": 3,
-				"dead_letter_queue": "blog-publish-dlq"
-			}
-		]
+		// consumers are defined in their own wrangler configs under src/workers/pipeline/
+		// (separate Workers deployment — cannot share entry point with the Astro site Worker)
 	},
 
 	"triggers": {
