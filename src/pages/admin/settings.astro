@@ -1,0 +1,121 @@
+---
+export const prerender = false;
+
+const runtime = (Astro.locals as { runtime?: { env?: { BLOG_DB?: D1Database } } }).runtime;
+const db = runtime?.env?.BLOG_DB;
+
+interface SettingRow { key: string; value: string; }
+let settings: Record<string, string> = {};
+let dbError = '';
+let saveSuccess = false;
+
+if (Astro.request.method === 'POST') {
+  if (db) {
+    try {
+      const form = await Astro.request.formData();
+      const keys = [
+        'generation_enabled',
+        'auto_publish',
+        'weekly_target',
+        'quality_threshold',
+        'daily_token_cap',
+        'ai_model',
+      ];
+      const stmts = keys.map((k) =>
+        db!.prepare(
+          `INSERT INTO settings (key, value) VALUES (?, ?)
+           ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = datetime('now')`,
+        ).bind(k, form.get(k) ?? ''),
+      );
+      await db.batch(stmts);
+      saveSuccess = true;
+    } catch (e) {
+      dbError = e instanceof Error ? e.message : String(e);
+    }
+  }
+}
+
+if (db) {
+  try {
+    const result = await db.prepare('SELECT key, value FROM settings').all<SettingRow>();
+    settings = Object.fromEntries(result.results.map((r) => [r.key, r.value]));
+  } catch (e) {
+    dbError = e instanceof Error ? e.message : String(e);
+  }
+}
+
+function val(key: string, fallback = ''): string {
+  return settings[key] ?? fallback;
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Settings — Accountic Admin</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; background: #f9fafb; color: #111; }
+      header { background: #1e1b4b; color: #fff; padding: 1rem 2rem; display: flex; gap: 2rem; align-items: center; }
+      header a { color: #c7d2fe; text-decoration: none; font-size: 0.9rem; }
+      header a:hover { text-decoration: underline; }
+      main { padding: 2rem; max-width: 640px; margin: 0 auto; }
+      h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+      form { background: #fff; border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 1rem; }
+      label { font-size: 0.9rem; font-weight: 600; display: flex; flex-direction: column; gap: 0.25rem; }
+      input[type=text], input[type=number] { border: 1px solid #d1d5db; border-radius: 4px; padding: 0.5rem; font-size: 0.9rem; }
+      .toggle-row { flex-direction: row; align-items: center; gap: 0.75rem; }
+      button[type=submit] { background: #1e1b4b; color: #fff; border: none; border-radius: 6px; padding: 0.6rem 1.25rem; font-size: 0.9rem; font-weight: 600; cursor: pointer; align-self: flex-start; }
+      .success { background: #dcfce7; color: #15803d; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
+      .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
+      small { color: #6b7280; font-weight: 400; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Accountic Admin</strong>
+      <a href="/admin/queue">Queue</a>
+      <a href="/admin/jobs">Jobs</a>
+      <a href="/admin/settings">Settings</a>
+      <a href="/admin/prompts">Prompts</a>
+    </header>
+    <main>
+      <h1>Pipeline Settings</h1>
+      {saveSuccess && <div class="success">Settings saved.</div>}
+      {dbError && <div class="error">{dbError}</div>}
+      <form method="POST">
+        <label class="toggle-row">
+          <input type="checkbox" name="generation_enabled" value="true"
+            checked={val('generation_enabled') === 'true'} />
+          Enable generation
+          <small>(master switch)</small>
+        </label>
+        <label class="toggle-row">
+          <input type="checkbox" name="auto_publish" value="true"
+            checked={val('auto_publish') === 'true'} />
+          Auto-publish approved drafts
+          <small>(skip manual review)</small>
+        </label>
+        <label>
+          Weekly target (articles)
+          <input type="number" name="weekly_target" value={val('weekly_target', '2')} min="1" max="50" />
+        </label>
+        <label>
+          Quality threshold (0–1)
+          <input type="number" name="quality_threshold" value={val('quality_threshold', '0.8')} min="0" max="1" step="0.05" />
+        </label>
+        <label>
+          Daily token cap
+          <input type="number" name="daily_token_cap" value={val('daily_token_cap', '200000')} min="10000" step="10000" />
+        </label>
+        <label>
+          AI model
+          <input type="text" name="ai_model" value={val('ai_model', 'claude-sonnet-4-6')} />
+          <small>e.g. claude-sonnet-4-6, claude-opus-4-7</small>
+        </label>
+        <button type="submit">Save settings</button>
+      </form>
+    </main>
+  </body>
+</html>

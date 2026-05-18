@@ -1,0 +1,144 @@
+import { generateId } from '../../lib/queue';
+
+interface Env {
+  BLOG_DB: D1Database;
+  GITHUB_TOKEN: string;
+}
+
+interface PublishMessage {
+  stage: string;
+  draft_id: string;
+}
+
+interface Draft {
+  id: string;
+  slug: string;
+  content: string;
+  frontmatter_json: string;
+  status: string;
+}
+
+interface FrontmatterData {
+  title?: string;
+  [key: string]: unknown;
+}
+
+const GITHUB_OWNER = 'instashop-dev';
+const GITHUB_REPO = 'accountic-ui-ux';
+const GITHUB_BRANCH = 'main';
+
+export default {
+  async queue(batch: MessageBatch<PublishMessage>, env: Env): Promise<void> {
+    const db = env.BLOG_DB;
+
+    for (const msg of batch.messages) {
+      const { draft_id } = msg.body;
+
+      if (!draft_id) {
+        console.warn('[publisher] Missing draft_id');
+        msg.ack();
+        continue;
+      }
+
+      const draft = await db
+        .prepare('SELECT id, slug, content, frontmatter_json, status FROM drafts WHERE id = ?')
+        .bind(draft_id)
+        .first<Draft>();
+
+      if (!draft) {
+        console.warn('[publisher] Draft not found:', draft_id);
+        msg.ack();
+        continue;
+      }
+
+      if (draft.status !== 'approved') {
+        console.warn('[publisher] Draft is not approved, skipping:', draft_id, draft.status);
+        msg.ack();
+        continue;
+      }
+
+      let fm: FrontmatterData = {};
+      try { fm = JSON.parse(draft.frontmatter_json) as FrontmatterData; } catch { /**/ }
+
+      const filePath = `src/content/blog/${draft.slug}.mdx`;
+      const commitMessage = `[ai-gen] ${fm.title ?? draft.slug} | draft_id=${draft.id}`;
+
+      // Check if file already exists (get current SHA for update vs create)
+      let existingSha: string | undefined;
+      try {
+        const checkResp = await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}?ref=${GITHUB_BRANCH}`,
+          {
+            headers: {
+              Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+              Accept: 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
+            },
+          },
+        );
+        if (checkResp.ok) {
+          const fileData = await checkResp.json() as { sha?: string };
+          existingSha = fileData.sha;
+        }
+      } catch { /* file doesn't exist, proceed with create */ }
+
+      const contentBase64 = btoa(unescape(encodeURIComponent(draft.content)));
+
+      const body: Record<string, unknown> = {
+        message: commitMessage,
+        content: contentBase64,
+        branch: GITHUB_BRANCH,
+      };
+      if (existingSha) body.sha = existingSha;
+
+      const resp = await fetch(
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+            Accept: 'application/vnd.github+json',
+            'Content-Type': 'application/json',
+            'X-GitHub-Api-Version': '2022-11-28',
+          },
+          body: JSON.stringify(body),
+        },
+      );
+
+      if (resp.ok) {
+        const postId = generateId();
+        const pubDate = (fm.pubDate as string | undefined) ?? new Date().toISOString().slice(0, 10);
+
+        await db.batch([
+          db.prepare(`UPDATE drafts SET status = 'published', updated_at = datetime('now') WHERE id = ?`)
+            .bind(draft_id),
+          db.prepare(
+            `INSERT OR IGNORE INTO posts (id, slug, title, description, pillar, tone, author, pub_date, read_time, source, status)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'ai', 'published')`,
+          ).bind(
+            postId,
+            draft.slug,
+            String(fm.title ?? draft.slug),
+            String(fm.description ?? ''),
+            String(fm.pillar ?? ''),
+            String(fm.tone ?? 'emerald'),
+            String(fm.author ?? 'Accountic Team'),
+            pubDate,
+            Number(fm.readTime ?? 5),
+          ),
+        ]);
+
+        console.log('[publisher] Published:', draft.slug);
+      } else {
+        const errorBody = await resp.text();
+        await db
+          .prepare(`UPDATE drafts SET status = 'publish_failed', error = ?, updated_at = datetime('now') WHERE id = ?`)
+          .bind(errorBody.slice(0, 2000), draft_id)
+          .run();
+        console.error('[publisher] GitHub API error:', resp.status, errorBody.slice(0, 200));
+      }
+
+      msg.ack();
+    }
+  },
+};

@@ -15,5 +15,67 @@
 			"name": "SIGNUP_NOTIFY",
 			"destination_address": "info@accountic.in"
 		}
-	]
+	],
+
+	// ── Blog Automation Infrastructure ────────────────────────────────────────
+	// Run `npm run blog:provision` to create these resources, then replace each
+	// REPLACE_AFTER_PROVISION value with the real ID printed by that script.
+
+	"d1_databases": [
+		{
+			"binding": "BLOG_DB",
+			"database_name": "blog-db",
+			"database_id": "685d4c17-2ab4-488a-a44a-4559a1f7e5b5"
+		}
+	],
+
+	"kv_namespaces": [
+		{
+			"binding": "BLOG_KV",
+			"id": "5383f5c4dec64258aebe1f9d1c209935"
+		}
+	],
+
+	"r2_buckets": [
+		{
+			"binding": "BLOG_ASSETS",
+			"bucket_name": "accountic-blog-assets"
+		}
+	],
+
+	"queues": {
+		"producers": [
+			{
+				"binding": "BLOG_PIPELINE_QUEUE",
+				"queue": "blog-pipeline"
+			},
+			{
+				"binding": "BLOG_PUBLISH_QUEUE",
+				"queue": "blog-publish"
+			}
+		],
+		"consumers": [
+			{
+				"queue": "blog-pipeline",
+				"max_batch_size": 5,
+				"max_batch_timeout": 30,
+				"max_retries": 3,
+				"dead_letter_queue": "blog-pipeline-dlq"
+			},
+			{
+				"queue": "blog-publish",
+				"max_batch_size": 5,
+				"max_batch_timeout": 30,
+				"max_retries": 3,
+				"dead_letter_queue": "blog-publish-dlq"
+			}
+		]
+	},
+
+	"triggers": {
+		"crons": [
+			"0 3 * * 1",
+			"0 4 * * *"
+		]
+	}
 }

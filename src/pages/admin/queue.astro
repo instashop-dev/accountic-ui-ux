@@ -1,0 +1,151 @@
+---
+export const prerender = false;
+
+interface Draft {
+  id: string;
+  slug: string;
+  status: string;
+  quality_report_json: string | null;
+  frontmatter_json: string;
+  created_at: string;
+  updated_at: string;
+}
+
+const runtime = (Astro.locals as { runtime?: { env?: { BLOG_DB?: D1Database } } }).runtime;
+const db = runtime?.env?.BLOG_DB;
+
+let drafts: Draft[] = [];
+let dbError = '';
+
+if (db) {
+  try {
+    const result = await db
+      .prepare(
+        `SELECT id, slug, status, quality_report_json, frontmatter_json, created_at, updated_at
+         FROM drafts
+         ORDER BY created_at DESC
+         LIMIT 100`,
+      )
+      .all<Draft>();
+    drafts = result.results;
+  } catch (e) {
+    dbError = e instanceof Error ? e.message : String(e);
+  }
+} else {
+  dbError = 'Database binding (BLOG_DB) not available.';
+}
+
+function statusBadge(status: string): string {
+  const map: Record<string, string> = {
+    ready: 'background:#16a34a;color:#fff',
+    failed: 'background:#dc2626;color:#fff',
+    approved: 'background:#2563eb;color:#fff',
+    rejected: 'background:#6b7280;color:#fff',
+    published: 'background:#7c3aed;color:#fff',
+    publish_failed: 'background:#ea580c;color:#fff',
+    pending: 'background:#d97706;color:#fff',
+  };
+  return map[status] ?? 'background:#e5e7eb;color:#111';
+}
+
+function parseTitle(frontmatterJson: string): string {
+  try {
+    return (JSON.parse(frontmatterJson) as { title?: string }).title ?? '(untitled)';
+  } catch {
+    return '(untitled)';
+  }
+}
+
+function parseScore(qualityJson: string | null): string {
+  if (!qualityJson) return '—';
+  try {
+    const r = JSON.parse(qualityJson) as { scores?: { readability?: number } };
+    return r.scores?.readability !== undefined
+      ? `Flesch ${r.scores.readability.toFixed(0)}`
+      : '—';
+  } catch {
+    return '—';
+  }
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Draft Queue — Accountic Admin</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; background: #f9fafb; color: #111; }
+      header { background: #1e1b4b; color: #fff; padding: 1rem 2rem; display: flex; gap: 2rem; align-items: center; }
+      header a { color: #c7d2fe; text-decoration: none; font-size: 0.9rem; }
+      header a:hover { text-decoration: underline; }
+      main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+      h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+      table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+      th { background: #f3f4f6; padding: 0.75rem 1rem; text-align: left; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+      td { padding: 0.75rem 1rem; border-top: 1px solid #e5e7eb; font-size: 0.9rem; vertical-align: middle; }
+      .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+      form { display: inline; }
+      button { cursor: pointer; border: none; border-radius: 4px; padding: 0.35rem 0.75rem; font-size: 0.8rem; font-weight: 600; margin-right: 0.25rem; }
+      .btn-approve { background: #16a34a; color: #fff; }
+      .btn-reject { background: #dc2626; color: #fff; }
+      .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
+      .empty { text-align: center; padding: 3rem; color: #6b7280; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Accountic Admin</strong>
+      <a href="/admin/queue">Queue</a>
+      <a href="/admin/jobs">Jobs</a>
+      <a href="/admin/settings">Settings</a>
+      <a href="/admin/prompts">Prompts</a>
+    </header>
+    <main>
+      <h1>Draft Queue</h1>
+      {dbError && <div class="error">{dbError}</div>}
+      {drafts.length === 0 && !dbError && <div class="empty">No drafts yet. Enable generation in Settings to start the pipeline.</div>}
+      {drafts.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>Title / Slug</th>
+              <th>Status</th>
+              <th>Quality</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {drafts.map((d) => (
+              <tr>
+                <td>
+                  <div>{parseTitle(d.frontmatter_json)}</div>
+                  <small style="color:#6b7280">{d.slug}</small>
+                </td>
+                <td>
+                  <span class="badge" style={statusBadge(d.status)}>{d.status}</span>
+                </td>
+                <td>{parseScore(d.quality_report_json)}</td>
+                <td style="white-space:nowrap">{d.created_at.slice(0, 16)}</td>
+                <td>
+                  {d.status === 'ready' && (
+                    <>
+                      <form method="POST" action={`/admin/api/drafts/${d.id}/approve`}>
+                        <button class="btn-approve" type="submit">Approve</button>
+                      </form>
+                      <form method="POST" action={`/admin/api/drafts/${d.id}/reject`}>
+                        <button class="btn-reject" type="submit">Reject</button>
+                      </form>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </main>
+  </body>
+</html>

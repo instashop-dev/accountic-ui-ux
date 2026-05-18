@@ -1,0 +1,118 @@
+---
+export const prerender = false;
+
+interface Job {
+  id: string;
+  stage: string;
+  status: string;
+  input_hash: string | null;
+  error: string | null;
+  created_at: string;
+}
+
+const runtime = (Astro.locals as { runtime?: { env?: { BLOG_DB?: D1Database } } }).runtime;
+const db = runtime?.env?.BLOG_DB;
+
+let jobs: Job[] = [];
+let dbError = '';
+
+if (db) {
+  try {
+    const result = await db
+      .prepare(
+        `SELECT id, stage, status, input_hash, error, created_at
+         FROM generation_jobs
+         ORDER BY created_at DESC
+         LIMIT 100`,
+      )
+      .all<Job>();
+    jobs = result.results;
+  } catch (e) {
+    dbError = e instanceof Error ? e.message : String(e);
+  }
+} else {
+  dbError = 'Database binding (BLOG_DB) not available.';
+}
+
+function statusColor(status: string): string {
+  if (status === 'done' || status === 'complete') return '#16a34a';
+  if (status === 'failed') return '#dc2626';
+  if (status === 'running') return '#2563eb';
+  return '#d97706';
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Generation Jobs — Accountic Admin</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; background: #f9fafb; color: #111; }
+      header { background: #1e1b4b; color: #fff; padding: 1rem 2rem; display: flex; gap: 2rem; align-items: center; }
+      header a { color: #c7d2fe; text-decoration: none; font-size: 0.9rem; }
+      header a:hover { text-decoration: underline; }
+      main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+      h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+      table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+      th { background: #f3f4f6; padding: 0.75rem 1rem; text-align: left; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+      td { padding: 0.75rem 1rem; border-top: 1px solid #e5e7eb; font-size: 0.875rem; vertical-align: middle; }
+      .status { font-weight: 600; }
+      .error-preview { color: #dc2626; font-size: 0.75rem; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      form { display: inline; }
+      button { cursor: pointer; border: none; border-radius: 4px; padding: 0.35rem 0.75rem; font-size: 0.8rem; font-weight: 600; background: #2563eb; color: #fff; }
+      .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
+      .empty { text-align: center; padding: 3rem; color: #6b7280; }
+      code { font-size: 0.75rem; color: #6b7280; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Accountic Admin</strong>
+      <a href="/admin/queue">Queue</a>
+      <a href="/admin/jobs">Jobs</a>
+      <a href="/admin/settings">Settings</a>
+      <a href="/admin/prompts">Prompts</a>
+    </header>
+    <main>
+      <h1>Generation Jobs</h1>
+      {dbError && <div class="error">{dbError}</div>}
+      {jobs.length === 0 && !dbError && <div class="empty">No generation jobs yet.</div>}
+      {jobs.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>Job ID</th>
+              <th>Stage</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Error</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {jobs.map((j) => (
+              <tr>
+                <td><code>{j.id.slice(0, 8)}…</code></td>
+                <td>{j.stage}</td>
+                <td class="status" style={`color:${statusColor(j.status)}`}>{j.status}</td>
+                <td style="white-space:nowrap">{j.created_at.slice(0, 16)}</td>
+                <td>
+                  {j.error && <div class="error-preview" title={j.error}>{j.error}</div>}
+                </td>
+                <td>
+                  {j.status === 'failed' && (
+                    <form method="POST" action={`/admin/api/jobs/${j.id}/replay`}>
+                      <button type="submit">Replay</button>
+                    </form>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </main>
+  </body>
+</html>

@@ -7,13 +7,23 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "npx tsx scripts/check-admin-middleware.ts",
     "build": "astro build",
     "preview": "npm run build && wrangler dev",
     "astro": "astro",
     "generate-types": "wrangler types",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "db:migrate": "wrangler d1 execute BLOG_DB --remote --file=migrations/001_init.sql",
+    "db:migrate:local": "wrangler d1 execute BLOG_DB --file=migrations/001_init.sql",
+    "db:migrate:phase3": "wrangler d1 execute BLOG_DB --remote --file=migrations/002_pipeline.sql",
+    "db:migrate:phase3:local": "wrangler d1 execute BLOG_DB --file=migrations/002_pipeline.sql",
+    "db:rollback:phase3": "wrangler d1 execute BLOG_DB --remote --file=migrations/002_rollback.sql",
+    "db:seed": "echo 'No seed data for production. Use migrations only.'",
+    "blog:validate": "npx tsx scripts/validate-post.ts",
+    "blog:generate-types": "wrangler types"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.51.0",
     "@astrojs/cloudflare": "^13.2.1",
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
