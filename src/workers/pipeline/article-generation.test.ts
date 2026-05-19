@@ -94,7 +94,7 @@ describe('article-generation worker', () => {
     const draftId = humanizeQueue.send.mock.calls[0][0].draft_id as string;
     const draft = await db.prepare('SELECT status, slug FROM drafts WHERE id = ?').bind(draftId).first<{ status: string; slug: string }>();
     expect(draft?.status).toBe('ready');
-    expect(draft?.slug).toBe('gst-basics-for-cas');
+    expect(draft?.slug).toBe('gst-itc-reversal-on-capital-goods');
   });
 
   it('tokens_used is incremented after successful generation', async () => {
