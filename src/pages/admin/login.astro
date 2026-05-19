@@ -1,15 +1,14 @@
 ---
 export const prerender = false;
 
-import { env } from 'cloudflare:workers';
-const adminToken = (env as unknown as { ADMIN_TOKEN?: string }).ADMIN_TOKEN;
+const ADMIN_PASSWORD = 'accounticadmin';
 
 let error = '';
 
 if (Astro.request.method === 'POST') {
   const form = await Astro.request.formData();
   const token = (form.get('token') ?? '').toString().trim();
-  if (adminToken && token === adminToken) {
+  if (token === ADMIN_PASSWORD) {
     Astro.cookies.set('admin_token', token, {
       httpOnly: true,
       secure: true,
@@ -47,7 +46,7 @@ if (Astro.request.method === 'POST') {
       <h1>Accountic Admin</h1>
       {error && <div class="error">{error}</div>}
       <form method="POST">
-        <label for="token">Admin token</label>
+        <label for="token">Password</label>
         <input id="token" type="password" name="token" autofocus autocomplete="current-password" />
         <button type="submit">Sign in</button>
       </form>
