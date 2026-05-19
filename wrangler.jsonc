@@ -1,4 +1,5 @@
 {
+	"account_id": "abae0a994f0f50196e9f8cfecc2df6f3",
 	"compatibility_date": "2026-04-27",
 	"compatibility_flags": ["global_fetch_strictly_public"],
 	"name": "accountic-ui-ux",
