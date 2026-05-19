@@ -104,13 +104,13 @@ export const GET: APIRoute = async () => {
             avg(double1) AS avg_tokens,
             avg(double2) AS avg_duration,
             avg(double3) AS avg_quality
-          FROM blog-pipeline-events
+          FROM "blog-pipeline-events"
           WHERE ${W7}`),
       ae(`SELECT
             blob2 AS stage,
             count() AS total,
             countIf(blob4='failure') AS failures
-          FROM blog-pipeline-events
+          FROM "blog-pipeline-events"
           WHERE ${W7}
           GROUP BY blob2
           ORDER BY total DESC`),
@@ -119,27 +119,27 @@ export const GET: APIRoute = async () => {
             blob2 AS stage,
             blob6 AS failed_gate,
             blob5 AS reason,
-            toString(timestamp) AS ts
-          FROM blog-pipeline-events
+            timestamp AS ts
+          FROM "blog-pipeline-events"
           WHERE blob4='failure' AND ${W7}
-          ORDER BY timestamp DESC
+          ORDER BY ts DESC
           LIMIT 20`),
       ae(`SELECT
-            toString(max(timestamp)) AS last_ts
-          FROM blog-pipeline-events
+            max(timestamp) AS last_ts
+          FROM "blog-pipeline-events"
           WHERE blob2='publisher' AND blob4='success' AND ${W7}`),
-      ae(`SELECT avg(double1) AS avg_tokens FROM blog-pipeline-events WHERE ${W7}`),
-      ae(`SELECT avg(double1) AS avg_tokens FROM blog-pipeline-events WHERE ${W1}`),
+      ae(`SELECT avg(double1) AS avg_tokens FROM "blog-pipeline-events" WHERE ${W7}`),
+      ae(`SELECT avg(double1) AS avg_tokens FROM "blog-pipeline-events" WHERE ${W1}`),
       ae(`SELECT
             toStartOfHour(timestamp) AS hour,
             count() AS cnt
-          FROM blog-pipeline-events
+          FROM "blog-pipeline-events"
           WHERE blob4='fallback' AND ${W7}
           GROUP BY hour
           ORDER BY cnt DESC
           LIMIT 1`),
-      ae(`SELECT blob4 AS outcome
-          FROM blog-pipeline-events
+      ae(`SELECT blob4 AS outcome, timestamp
+          FROM "blog-pipeline-events"
           WHERE blob2='publisher' AND ${W7}
           ORDER BY timestamp DESC
           LIMIT 10`),
