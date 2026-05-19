@@ -1,8 +1,14 @@
 import { generateId } from '../../lib/queue';
+import { findInternalLinks, injectInternalLinks } from '../../lib/linker';
+import { buildSchemaScriptBlock } from '../../lib/seo-schema';
+import { logEvent } from '../../lib/analytics';
+import { checkEmergencyStop, EmergencyStopError } from '../../lib/safety';
+import { redactSecrets } from '../../lib/redact';
 
 interface Env {
   BLOG_DB: D1Database;
   GITHUB_TOKEN: string;
+  BLOG_ANALYTICS?: AnalyticsEngineDataset;
 }
 
 interface PublishMessage {
@@ -33,12 +39,27 @@ export default {
 
     for (const msg of batch.messages) {
       const { draft_id } = msg.body;
+      const start = Date.now();
 
       if (!draft_id) {
         console.warn('[publisher] Missing draft_id');
         msg.ack();
         continue;
       }
+
+      // ── Emergency stop ─────────────────────────────────────────────────────
+      try {
+        await checkEmergencyStop(db);
+      } catch (e) {
+        if (e instanceof EmergencyStopError) {
+          console.warn('[publisher] Emergency stop active — acking message without processing');
+          msg.ack();
+          continue;
+        }
+        throw e;
+      }
+
+      logEvent(env, { event: 'article_publish_start', stage: 'publisher', article_id: draft_id, tokens_used: 0, duration_ms: 0, quality_score: 0, outcome: 'success' });
 
       const draft = await db
         .prepare('SELECT id, slug, content, frontmatter_json, status FROM drafts WHERE id = ?')
@@ -57,8 +78,41 @@ export default {
         continue;
       }
 
+      // ── Slug-level idempotency ─────────────────────────────────────────────
+      // If a post with this slug already exists, the draft was already published.
+      // Mark it published and ack without calling GitHub again.
+      const existingPost = await db
+        .prepare('SELECT id FROM posts WHERE slug = ?')
+        .bind(draft.slug)
+        .first<{ id: string }>();
+
+      if (existingPost) {
+        await db
+          .prepare(`UPDATE drafts SET status = 'published', updated_at = datetime('now') WHERE id = ?`)
+          .bind(draft_id)
+          .run();
+        logEvent(env, { event: 'article_published', stage: 'publisher', article_id: draft_id, tokens_used: 0, duration_ms: Date.now() - start, quality_score: 0, outcome: 'success', reason: 'idempotent_slug' });
+        msg.ack();
+        continue;
+      }
+
       let fm: FrontmatterData = {};
       try { fm = JSON.parse(draft.frontmatter_json) as FrontmatterData; } catch { /**/ }
+
+      // ── Internal link injection ─────────────────────────────────────────────
+      const internalLinks = await findInternalLinks(
+        db,
+        { tags: Array.isArray(fm.tags) ? fm.tags as string[] : [], pillar: String(fm.pillar ?? '') },
+        draft.slug,
+      );
+      const linkedContent = injectInternalLinks(draft.content, internalLinks);
+
+      // ── SEO schema injection ────────────────────────────────────────────────
+      const schemaBlock = buildSchemaScriptBlock(
+        { title: String(fm.title ?? ''), description: String(fm.description ?? ''), pubDate: String(fm.pubDate ?? ''), author: String(fm.author ?? 'Accountic Team'), slug: draft.slug, pillar: String(fm.pillar ?? '') },
+        linkedContent,
+      );
+      const finalContent = linkedContent + schemaBlock;
 
       const filePath = `src/content/blog/${draft.slug}.mdx`;
       const commitMessage = `[ai-gen] ${fm.title ?? draft.slug} | draft_id=${draft.id}`;
@@ -82,7 +136,7 @@ export default {
         }
       } catch { /* file doesn't exist, proceed with create */ }
 
-      const contentBase64 = btoa(unescape(encodeURIComponent(draft.content)));
+      const contentBase64 = btoa(unescape(encodeURIComponent(finalContent)));
 
       const body: Record<string, unknown> = {
         message: commitMessage,
@@ -110,8 +164,8 @@ export default {
         const pubDate = (fm.pubDate as string | undefined) ?? new Date().toISOString().slice(0, 10);
 
         await db.batch([
-          db.prepare(`UPDATE drafts SET status = 'published', updated_at = datetime('now') WHERE id = ?`)
-            .bind(draft_id),
+          db.prepare(`UPDATE drafts SET status = 'published', internal_links_added = ?, updated_at = datetime('now') WHERE id = ?`)
+            .bind(internalLinks.length, draft_id),
           db.prepare(
             `INSERT OR IGNORE INTO posts (id, slug, title, description, pillar, tone, author, pub_date, read_time, source, status)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'ai', 'published')`,
@@ -128,14 +182,17 @@ export default {
           ),
         ]);
 
-        console.log('[publisher] Published:', draft.slug);
+        logEvent(env, { event: 'article_published', stage: 'publisher', article_id: draft_id, tokens_used: 0, duration_ms: Date.now() - start, quality_score: 0, outcome: 'success' });
+        console.log('[publisher] Published:', draft.slug, 'links:', internalLinks.length);
       } else {
         const errorBody = await resp.text();
         await db
           .prepare(`UPDATE drafts SET status = 'publish_failed', error = ?, updated_at = datetime('now') WHERE id = ?`)
           .bind(errorBody.slice(0, 2000), draft_id)
           .run();
-        console.error('[publisher] GitHub API error:', resp.status, errorBody.slice(0, 200));
+        logEvent(env, { event: 'article_publish_failed', stage: 'publisher', article_id: draft_id, tokens_used: 0, duration_ms: Date.now() - start, quality_score: 0, outcome: 'failure', reason: `github_${resp.status}` });
+        // Redact to ensure response bodies never include credential echoes
+        console.error('[publisher] GitHub API error:', resp.status, redactSecrets(errorBody.slice(0, 200)));
       }
 
       msg.ack();

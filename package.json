@@ -13,11 +13,18 @@
     "astro": "astro",
     "generate-types": "wrangler types",
     "deploy": "npm run build && wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:build": "npm test && npx astro build",
     "db:migrate": "wrangler d1 execute BLOG_DB --remote --file=migrations/001_init.sql",
     "db:migrate:local": "wrangler d1 execute BLOG_DB --file=migrations/001_init.sql",
     "db:migrate:phase3": "wrangler d1 execute BLOG_DB --remote --file=migrations/002_pipeline.sql",
     "db:migrate:phase3:local": "wrangler d1 execute BLOG_DB --file=migrations/002_pipeline.sql",
     "db:rollback:phase3": "wrangler d1 execute BLOG_DB --remote --file=migrations/002_rollback.sql",
+    "db:migrate:phase4": "wrangler d1 execute BLOG_DB --remote --file=migrations/004_humanizer.sql",
+    "db:migrate:phase4:local": "wrangler d1 execute BLOG_DB --file=migrations/004_humanizer.sql",
+    "db:rollback:phase4": "wrangler d1 execute BLOG_DB --remote --file=migrations/004_rollback.sql",
     "db:seed": "echo 'No seed data for production. Use migrations only.'",
     "blog:validate": "npx tsx scripts/validate-post.ts",
     "blog:generate-types": "wrangler types"
@@ -32,6 +39,9 @@
     "sharp": "^0.34.3"
   },
   "devDependencies": {
+    "@vitest/coverage-istanbul": "^3.2.4",
+    "@vitest/coverage-v8": "^3.0.0",
+    "vitest": "^3.0.0",
     "wrangler": "^4.85.0"
   },
   "overrides": {

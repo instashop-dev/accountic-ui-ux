@@ -3,10 +3,14 @@ import { computeInputHash, generateId } from '../../lib/queue';
 import { scoreArticle } from '../../lib/quality';
 import { parseFrontmatter } from '../../lib/frontmatter';
 import { toSlug } from '../../lib/slug';
+import { logEvent } from '../../lib/analytics';
+import { checkEmergencyStop, EmergencyStopError, checkCircuitBreaker, CircuitBreakerError, budgetAllowsEnqueue } from '../../lib/safety';
 
 interface Env {
   BLOG_DB: D1Database;
+  BLOG_HUMANIZE_QUEUE: Queue;
   ANTHROPIC_API_KEY: string;
+  BLOG_ANALYTICS?: AnalyticsEngineDataset;
 }
 
 interface ArticleMessage {
@@ -40,11 +44,37 @@ export default {
 
     for (const msg of batch.messages) {
       const { outline_id } = msg.body;
+      const start = Date.now();
 
       if (!outline_id) {
         console.warn('[article-generation] Missing outline_id');
         msg.ack();
         continue;
+      }
+
+      // ── Emergency stop ─────────────────────────────────────────────────────
+      try {
+        await checkEmergencyStop(db);
+      } catch (e) {
+        if (e instanceof EmergencyStopError) {
+          console.warn('[article-generation] Emergency stop active — acking without processing:', outline_id);
+          msg.ack();
+          continue;
+        }
+        throw e;
+      }
+
+      // ── Circuit breaker ────────────────────────────────────────────────────
+      // Halt if ≥50% of article-generation jobs failed in the last hour.
+      try {
+        await checkCircuitBreaker(db, 'article-generation');
+      } catch (e) {
+        if (e instanceof CircuitBreakerError) {
+          console.warn('[article-generation] Circuit breaker open:', e.message);
+          msg.ack();
+          continue;
+        }
+        throw e;
       }
 
       const outline = await db
@@ -74,6 +104,8 @@ export default {
         continue;
       }
 
+      logEvent(env, { event: 'article_generation_start', stage: 'article-generation', article_id: outline_id, tokens_used: 0, duration_ms: 0, quality_score: 0, outcome: 'success' });
+
       // Idempotency check
       const inputHash = await computeInputHash({ outline_id, prompt_version: promptRow.version });
       const existingJob = await db
@@ -83,6 +115,7 @@ export default {
 
       if (existingJob) {
         console.log('[article-generation] Idempotent skip for outline:', outline_id);
+        logEvent(env, { event: 'article_generation_skipped', stage: 'article-generation', article_id: outline_id, tokens_used: 0, duration_ms: Date.now() - start, quality_score: 0, outcome: 'skipped', reason: 'idempotent' });
         msg.ack();
         continue;
       }
@@ -129,7 +162,7 @@ export default {
       await incrementTokensUsed(db, result.inputTokens + result.outputTokens);
 
       // Parse frontmatter from the generated MDX
-      const { data: fm, content: bodyContent } = parseFrontmatter(result.text);
+      const { data: fm } = parseFrontmatter(result.text);
       const fullContent = result.text;
 
       // Generate slug from title
@@ -164,8 +197,14 @@ export default {
 
       if (qualityReport.passed) {
         console.log('[article-generation] Draft ready:', draftId, slug);
+        // Pre-enqueue budget check: only dispatch humanizer work if budget allows
+        if (await budgetAllowsEnqueue(db, 2000, 'humanizer')) {
+          await env.BLOG_HUMANIZE_QUEUE.send({ draft_id: draftId });
+        }
+        logEvent(env, { event: 'article_generated', stage: 'article-generation', article_id: draftId, tokens_used: result.inputTokens + result.outputTokens, duration_ms: Date.now() - start, quality_score: qualityReport.scores.readability, outcome: 'success' });
       } else {
         console.warn('[article-generation] Draft failed quality gate:', draftId, qualityReport.errors);
+        logEvent(env, { event: 'article_generation_failed', stage: 'article-generation', article_id: draftId, tokens_used: result.inputTokens + result.outputTokens, duration_ms: Date.now() - start, quality_score: qualityReport.scores.readability, outcome: 'failure' });
       }
 
       msg.ack();

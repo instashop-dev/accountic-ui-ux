@@ -1,0 +1,263 @@
+---
+export const prerender = false;
+
+import { env } from 'cloudflare:workers';
+import type { AnalyticsData } from './api/analytics';
+
+// Staging gate: analytics routes are inactive unless ANALYTICS_ENABLED='true'
+const cfEnv = env as unknown as { ANALYTICS_ENABLED?: string };
+if (cfEnv.ANALYTICS_ENABLED !== 'true') {
+  return new Response('Not Found', { status: 404 });
+}
+
+// Security headers on the page response itself (meta tag alone is insufficient)
+Astro.response.headers.set('X-Robots-Tag', 'noindex');
+Astro.response.headers.set('Cache-Control', 'private, no-store');
+
+interface ApiResponse extends Partial<AnalyticsData> {
+  error?: string;
+}
+
+let data: ApiResponse = {};
+let fetchError = '';
+
+try {
+  const url = new URL('/admin/api/analytics', Astro.url);
+  const res = await fetch(url.toString(), {
+    headers: { Authorization: Astro.request.headers.get('Authorization') ?? '' },
+  });
+  data = (await res.json()) as ApiResponse;
+  if (data.error) {
+    fetchError = data.error;
+  }
+} catch (err) {
+  fetchError = err instanceof Error ? err.message : 'Failed to reach analytics endpoint';
+}
+
+const hasData = !fetchError && data.total_events !== undefined;
+
+function pct(n: number, total: number): string {
+  if (!total) return '0%';
+  return ((n / total) * 100).toFixed(1) + '%';
+}
+
+function fmtMins(mins: number | null | undefined): string {
+  if (mins == null) return '—';
+  if (mins < 60) return `${mins}m`;
+  return `${Math.floor(mins / 60)}h ${mins % 60}m`;
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Analytics — Accountic Admin</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; background: #f9fafb; color: #111; }
+      header { background: #1e1b4b; color: #fff; padding: 1rem 2rem; display: flex; gap: 2rem; align-items: center; }
+      header a { color: #c7d2fe; text-decoration: none; font-size: 0.9rem; }
+      header a:hover { text-decoration: underline; }
+      header a.active { color: #fff; font-weight: 600; }
+      main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+      h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+      .subtitle { color: #6b7280; font-size: 0.85rem; margin-bottom: 1.5rem; }
+      .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; }
+      .warn-banner { background: #fef3c7; color: #92400e; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; }
+
+      /* Metric cards */
+      .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+      @media (max-width: 900px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+      .card { background: #fff; border-radius: 8px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+      .card-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin-bottom: 0.4rem; }
+      .card-value { font-size: 1.75rem; font-weight: 700; color: #1e1b4b; }
+      .card-sub { font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem; }
+
+      /* Health panel */
+      .health-panel { background: #fff; border-radius: 8px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
+      .health-panel h2 { font-size: 1rem; margin: 0 0 1rem; }
+      .health-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; }
+      .health-item { padding: 0.75rem 1rem; border-radius: 6px; background: #f3f4f6; }
+      .health-item.ok { background: #f0fdf4; color: #166534; }
+      .health-item.warn { background: #fef3c7; color: #92400e; }
+      .health-item.crit { background: #fee2e2; color: #991b1b; }
+      .health-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.7; }
+      .health-value { font-size: 0.9rem; font-weight: 600; margin-top: 0.2rem; }
+
+      /* Tables */
+      .section { margin-bottom: 2rem; }
+      .section h2 { font-size: 1rem; margin-bottom: 0.75rem; color: #374151; }
+      table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+      th { background: #f3f4f6; padding: 0.65rem 1rem; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #374151; }
+      td { padding: 0.65rem 1rem; border-top: 1px solid #e5e7eb; font-size: 0.875rem; vertical-align: middle; }
+      .rate-ok { color: #16a34a; font-weight: 600; }
+      .rate-warn { color: #d97706; font-weight: 600; }
+      .rate-crit { color: #dc2626; font-weight: 600; }
+      .empty { text-align: center; padding: 2rem; color: #6b7280; font-size: 0.9rem; background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+      code { font-size: 0.75rem; color: #6b7280; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Accountic Admin</strong>
+      <a href="/admin/queue">Queue</a>
+      <a href="/admin/jobs">Jobs</a>
+      <a href="/admin/analytics" class="active">Analytics</a>
+      <a href="/admin/settings">Settings</a>
+      <a href="/admin/prompts">Prompts</a>
+    </header>
+    <main>
+      <h1>Pipeline Analytics</h1>
+      <p class="subtitle">Last 7 days · data refreshes approximately every minute</p>
+
+      {fetchError && (
+        fetchError.includes('not configured')
+          ? <div class="warn-banner">⚠ {fetchError}</div>
+          : <div class="error">Error: {fetchError}</div>
+      )}
+
+      {hasData && (
+        <>
+          {/* Summary metric cards */}
+          <div class="cards">
+            <div class="card">
+              <div class="card-label">Total Events (7d)</div>
+              <div class="card-value">{(data.total_events ?? 0).toLocaleString()}</div>
+              <div class="card-sub">{data.success_count ?? 0} success · {data.failure_count ?? 0} failure</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Success Rate</div>
+              <div class="card-value">{pct(data.success_count ?? 0, data.total_events ?? 0)}</div>
+              <div class="card-sub">{data.fallback_count ?? 0} fallback · {data.skipped_count ?? 0} skipped</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Avg Tokens Used</div>
+              <div class="card-value">{(data.avg_tokens_used ?? 0).toLocaleString()}</div>
+              <div class="card-sub">per pipeline event</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Avg Quality Score</div>
+              <div class="card-value">{data.avg_quality_score?.toFixed(2) ?? '—'}</div>
+              <div class="card-sub">Flesch readability basis</div>
+            </div>
+          </div>
+
+          {/* Operational health panel */}
+          {(() => {
+            const fp = data.fallback_spike;
+            const tp = data.token_spike;
+            const streak = data.publish_failure_streak ?? 0;
+            const backlog = data.queue_backlog_age_mins;
+            const lastPub = data.last_publish_ts;
+            return (
+              <div class="health-panel">
+                <h2>Operational Health</h2>
+                <div class="health-grid">
+                  <div class={`health-item ${lastPub ? 'ok' : 'warn'}`}>
+                    <div class="health-label">Last Successful Publish</div>
+                    <div class="health-value">
+                      {lastPub ? lastPub.slice(0, 16).replace('T', ' ') : 'None in 7 days'}
+                    </div>
+                  </div>
+                  <div class={`health-item ${backlog == null ? 'ok' : backlog > 1440 ? 'crit' : backlog > 120 ? 'warn' : 'ok'}`}>
+                    <div class="health-label">Queue Backlog Age</div>
+                    <div class="health-value">{backlog == null ? 'Queue empty' : fmtMins(backlog) + ' oldest draft'}</div>
+                  </div>
+                  <div class={`health-item ${fp?.detected ? 'warn' : 'ok'}`}>
+                    <div class="health-label">Fallback Spike</div>
+                    <div class="health-value">
+                      {fp?.detected
+                        ? `Detected — ${fp.max_hourly} in 1h at ${fp.hour?.slice(0, 13) ?? '?'}`
+                        : 'Normal'}
+                    </div>
+                  </div>
+                  <div class={`health-item ${tp?.detected ? 'warn' : 'ok'}`}>
+                    <div class="health-label">Token Usage</div>
+                    <div class="health-value">
+                      {tp?.detected
+                        ? `Spike — 24h avg ${(tp.avg_24h ?? 0).toLocaleString()} vs 7d ${(tp.avg_7d ?? 0).toLocaleString()}`
+                        : 'Normal'}
+                    </div>
+                  </div>
+                  <div class={`health-item ${streak >= 3 ? 'crit' : 'ok'}`}>
+                    <div class="health-label">Publish Failure Streak</div>
+                    <div class="health-value">
+                      {streak >= 3 ? `${streak} consecutive failures` : 'Healthy'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Per-stage breakdown */}
+          <div class="section">
+            <h2>Stage Breakdown (7d)</h2>
+            {(data.by_stage?.length ?? 0) === 0
+              ? <div class="empty">No stage data yet.</div>
+              : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Stage</th>
+                      <th>Total Events</th>
+                      <th>Failures</th>
+                      <th>Failure Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.by_stage!.map((s) => {
+                      const rate = s.total ? s.failures / s.total : 0;
+                      const rateClass = rate > 0.4 ? 'rate-crit' : rate > 0.2 ? 'rate-warn' : 'rate-ok';
+                      return (
+                        <tr>
+                          <td>{s.stage}</td>
+                          <td>{s.total.toLocaleString()}</td>
+                          <td>{s.failures}</td>
+                          <td class={rateClass}>{(rate * 100).toFixed(1)}%</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )
+            }
+          </div>
+
+          {/* Recent failures */}
+          <div class="section">
+            <h2>Recent Failures (last 20)</h2>
+            {(data.recent_failures?.length ?? 0) === 0
+              ? <div class="empty">No failures in the last 7 days.</div>
+              : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Article ID</th>
+                      <th>Stage</th>
+                      <th>Failed Gate</th>
+                      <th>Reason</th>
+                      <th>Timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.recent_failures!.map((f) => (
+                      <tr>
+                        <td><code>{f.article_id}</code></td>
+                        <td>{f.stage}</td>
+                        <td>{f.failed_gate || '—'}</td>
+                        <td style="max-width:400px;word-break:break-word">{f.reason || '—'}</td>
+                        <td style="white-space:nowrap;color:#6b7280;font-size:0.8rem">{f.ts.slice(0, 16)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )
+            }
+          </div>
+        </>
+      )}
+    </main>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 import { createAIClient, checkTokenBudget, incrementTokensUsed } from '../../lib/ai';
 import { generateId, articleMessage } from '../../lib/queue';
+import { checkEmergencyStop, EmergencyStopError, budgetAllowsEnqueue } from '../../lib/safety';
 
 interface Env {
   BLOG_DB: D1Database;
@@ -32,6 +33,18 @@ export default {
         console.warn('[outline-generation] Missing topic_id in message');
         msg.ack();
         continue;
+      }
+
+      // ── Emergency stop ─────────────────────────────────────────────────────
+      try {
+        await checkEmergencyStop(db);
+      } catch (e) {
+        if (e instanceof EmergencyStopError) {
+          console.warn('[outline-generation] Emergency stop active — acking without processing:', topic_id);
+          msg.ack();
+          continue;
+        }
+        throw e;
       }
 
       const topic = await db
@@ -112,8 +125,11 @@ export default {
           .bind(topic_id)
           .run();
 
-        // Dispatch article generation
-        await env.BLOG_PIPELINE_QUEUE.send(articleMessage(outlineId));
+        // Pre-enqueue budget check: only dispatch article work if downstream has token headroom.
+        // Outline is stored even if skipped — admin can trigger article generation from the queue UI.
+        if (await budgetAllowsEnqueue(db, 4000, 'article-generation')) {
+          await env.BLOG_PIPELINE_QUEUE.send(articleMessage(outlineId));
+        }
         console.log('[outline-generation] Outline created for topic:', topic_id);
       } catch (e) {
         const errMsg = e instanceof Error ? e.message : String(e);

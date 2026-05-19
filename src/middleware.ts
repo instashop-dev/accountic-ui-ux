@@ -1,4 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
+import { env } from 'cloudflare:workers';
 
 const UNAUTHORIZED = JSON.stringify({ error: 'Unauthorized' });
 
@@ -7,8 +8,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  const runtime = (context.locals as { runtime?: { env?: { ADMIN_TOKEN?: string } } }).runtime;
-  const adminToken = runtime?.env?.ADMIN_TOKEN;
+  const adminToken = (env as unknown as { ADMIN_TOKEN?: string }).ADMIN_TOKEN;
 
   const authHeader = context.request.headers.get('Authorization') ?? '';
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';

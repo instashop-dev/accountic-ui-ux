@@ -52,11 +52,28 @@
 			{
 				"binding": "BLOG_PUBLISH_QUEUE",
 				"queue": "blog-publish"
+			},
+			{
+				"binding": "BLOG_HUMANIZE_QUEUE",
+				"queue": "blog-humanize"
 			}
 		],
-		// consumers are defined in their own wrangler configs under src/workers/pipeline/
-		// (separate Workers deployment — cannot share entry point with the Astro site Worker)
+		"consumers": [
+			{
+				"queue": "blog-humanize",
+				"max_batch_size": 1,
+				"max_batch_timeout": 30,
+				"max_retries": 3
+			}
+		]
 	},
+
+	"analytics_engine_datasets": [
+		{
+			"binding": "BLOG_ANALYTICS",
+			"dataset": "blog-pipeline-events"
+		}
+	],
 
 	"triggers": {
 		"crons": [

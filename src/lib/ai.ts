@@ -9,6 +9,7 @@ export interface GenerateParams {
   user: string;
   maxTokens?: number;
   model?: string;
+  temperature?: number;
 }
 
 export interface GenerateResult {
@@ -50,7 +51,7 @@ export function createAIClient(env: { ANTHROPIC_API_KEY: string }) {
 
     for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
       try {
-        const response = await client.messages.create({
+        const createParams: Parameters<typeof client.messages.create>[0] = {
           model,
           max_tokens: maxTokens,
           system: [
@@ -61,7 +62,11 @@ export function createAIClient(env: { ANTHROPIC_API_KEY: string }) {
             },
           ],
           messages: [{ role: 'user', content: params.user }],
-        });
+        };
+        if (params.temperature !== undefined) {
+          (createParams as Record<string, unknown>).temperature = params.temperature;
+        }
+        const response = await client.messages.create(createParams);
 
         const text = response.content
           .filter((b) => b.type === 'text')

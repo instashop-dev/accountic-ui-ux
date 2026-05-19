@@ -1,6 +1,8 @@
 import { createAIClient, checkTokenBudget, incrementTokensUsed } from '../../lib/ai';
 import { generateId, outlineMessage } from '../../lib/queue';
 import { PILLARS } from '../../blog-meta';
+import { checkEmergencyStop, EmergencyStopError, budgetAllowsEnqueue } from '../../lib/safety';
+import { safeErrorMessage } from '../../lib/redact';
 
 interface Env {
   BLOG_DB: D1Database;
@@ -27,6 +29,18 @@ export default {
     for (const msg of batch.messages) {
       const count = Math.min(msg.body.count ?? 10, 10);
 
+      // ── Emergency stop ─────────────────────────────────────────────────────
+      try {
+        await checkEmergencyStop(db);
+      } catch (e) {
+        if (e instanceof EmergencyStopError) {
+          console.warn('[topic-discovery] Emergency stop active — acking without processing');
+          msg.ack();
+          continue;
+        }
+        throw e;
+      }
+
       // Fetch active prompt
       const promptRow = await db
         .prepare('SELECT system_prompt, user_prompt_template FROM prompts WHERE stage = ? AND is_active = 1')
@@ -45,7 +59,7 @@ export default {
       try {
         await checkTokenBudget(db, estimatedTokens);
       } catch (e) {
-        console.warn('[topic-discovery] Token budget exceeded, skipping:', e);
+        console.warn('[topic-discovery] Token budget exceeded, skipping');
         msg.ack();
         continue;
       }
@@ -54,7 +68,7 @@ export default {
       try {
         result = await ai.generate({ system: promptRow.system_prompt, user: userPrompt });
       } catch (e) {
-        console.error('[topic-discovery] AI call failed:', e);
+        console.error('[topic-discovery] AI call failed:', safeErrorMessage(e));
         msg.retry();
         continue;
       }
@@ -95,12 +109,17 @@ export default {
             .bind(id, candidate.title, candidate.pillar, candidate.rationale ?? '', 'pending')
             .run();
 
-          // Dispatch outline message
-          await env.BLOG_PIPELINE_QUEUE.send(outlineMessage(id));
-          existingTitles.add(candidate.title.toLowerCase());
-          inserted++;
+          // Pre-enqueue budget check: only dispatch outline work if downstream has token headroom.
+          // Topic is inserted even if skipped — admin can replay pending topics later.
+          if (await budgetAllowsEnqueue(db, 1500, 'outline-generation')) {
+            await env.BLOG_PIPELINE_QUEUE.send(outlineMessage(id));
+            existingTitles.add(candidate.title.toLowerCase());
+            inserted++;
+          } else {
+            existingTitles.add(candidate.title.toLowerCase());
+          }
         } catch (e) {
-          console.warn('[topic-discovery] Insert failed (likely duplicate):', candidate.title, e);
+          console.warn('[topic-discovery] Insert failed (likely duplicate):', candidate.title, safeErrorMessage(e));
         }
       }
 

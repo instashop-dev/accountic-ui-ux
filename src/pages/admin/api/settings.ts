@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
@@ -11,9 +12,8 @@ const ALLOWED_KEYS = new Set([
   'ai_model',
 ]);
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const runtime = (locals as { runtime?: { env?: { BLOG_DB?: D1Database } } }).runtime;
-  const db = runtime?.env?.BLOG_DB;
+export const POST: APIRoute = async ({ request }) => {
+  const db = (env as unknown as { BLOG_DB?: D1Database }).BLOG_DB;
 
   if (!db) {
     return new Response(JSON.stringify({ error: 'Database not available' }), { status: 503 });

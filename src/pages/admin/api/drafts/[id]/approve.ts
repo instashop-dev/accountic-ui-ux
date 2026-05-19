@@ -1,17 +1,17 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { publishMessage } from '../../../../../lib/queue';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ params, locals }) => {
+export const POST: APIRoute = async ({ params }) => {
   const { id } = params;
   if (!id) {
     return new Response(JSON.stringify({ error: 'Missing draft id' }), { status: 400 });
   }
 
-  const runtime = (locals as { runtime?: { env?: { BLOG_DB?: D1Database; BLOG_PUBLISH_QUEUE?: Queue } } }).runtime;
-  const db = runtime?.env?.BLOG_DB;
-  const queue = runtime?.env?.BLOG_PUBLISH_QUEUE;
+  const db = (env as unknown as { BLOG_DB?: D1Database; BLOG_PUBLISH_QUEUE?: Queue }).BLOG_DB;
+  const queue = (env as unknown as { BLOG_DB?: D1Database; BLOG_PUBLISH_QUEUE?: Queue }).BLOG_PUBLISH_QUEUE;
 
   if (!db) {
     return new Response(JSON.stringify({ error: 'Database not available' }), { status: 503 });
@@ -25,9 +25,9 @@ export const POST: APIRoute = async ({ params, locals }) => {
   if (!draft) {
     return new Response(JSON.stringify({ error: 'Draft not found' }), { status: 404 });
   }
-  if (draft.status !== 'ready') {
+  if (draft.status !== 'ready' && draft.status !== 'humanized') {
     return new Response(
-      JSON.stringify({ error: `Draft status is '${draft.status}', not 'ready'` }),
+      JSON.stringify({ error: `Draft status is '${draft.status}', expected 'ready' or 'humanized'` }),
       { status: 409 },
     );
   }

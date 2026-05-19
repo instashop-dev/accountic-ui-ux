@@ -1,8 +1,8 @@
 ---
 export const prerender = false;
 
-const runtime = (Astro.locals as { runtime?: { env?: { BLOG_DB?: D1Database } } }).runtime;
-const db = runtime?.env?.BLOG_DB;
+import { env } from 'cloudflare:workers';
+const db = (env as unknown as { BLOG_DB?: D1Database }).BLOG_DB;
 
 interface SettingRow { key: string; value: string; }
 let settings: Record<string, string> = {};
@@ -77,6 +77,7 @@ function val(key: string, fallback = ''): string {
       <strong>Accountic Admin</strong>
       <a href="/admin/queue">Queue</a>
       <a href="/admin/jobs">Jobs</a>
+      <a href="/admin/analytics">Analytics</a>
       <a href="/admin/settings">Settings</a>
       <a href="/admin/prompts">Prompts</a>
     </header>
