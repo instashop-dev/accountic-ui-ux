@@ -199,7 +199,7 @@ export default {
       };
 
       // Run quality gate
-      const qualityReport = scoreArticle(fullContent, fm);
+      const qualityReport = scoreArticle(fullContent, fm, slug);
 
       const draftId = generateId();
       const draftStatus = qualityReport.passed ? 'ready' : 'failed';

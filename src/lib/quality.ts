@@ -6,6 +6,7 @@ export interface QualityReport {
     readability: number;
     originality: boolean;
     schemaValid: boolean;
+    audienceVoiceValid: boolean;
   };
   errors: string[];
 }
@@ -18,6 +19,7 @@ const READABILITY_THRESHOLD = 20;
 export function scoreArticle(
   content: string,
   frontmatter: Record<string, unknown>,
+  slug?: string,
 ): QualityReport {
   const errors: string[] = [];
 
@@ -26,6 +28,7 @@ export function scoreArticle(
   const originality = hasOriginalityMarker(body);
   const schemaResult = validatePostFrontmatter(frontmatter);
   const schemaValid = schemaResult.success;
+  const audienceVoiceValid = checkAudienceVoice(body, slug);
 
   if (readability < READABILITY_THRESHOLD) {
     errors.push(
@@ -40,10 +43,15 @@ export function scoreArticle(
   if (!schemaValid && !schemaResult.success) {
     errors.push(...schemaResult.errors);
   }
+  if (!audienceVoiceValid) {
+    errors.push(
+      'Audience mismatch: slug signals assessee audience but article body lacks second-person assessee voice (e.g. "your notice", "you received", "your reply")',
+    );
+  }
 
   return {
     passed: errors.length === 0,
-    scores: { readability, originality, schemaValid },
+    scores: { readability, originality, schemaValid, audienceVoiceValid },
     errors,
   };
 }
@@ -143,6 +151,25 @@ function hasNamedCaseStudy(text: string): boolean {
   const caseStudyPattern = /(?:case study|case scenario|example:|scenario:|practitioner note|firm scenario|client scenario)/i;
   const courtCasePattern = /\bvs?\.\s+[A-Z][a-z]+|\b(?:HC|SC|ITAT|CIT)\b.*\b\d{4}\b/;
   return caseStudyPattern.test(text) || courtCasePattern.test(text);
+}
+
+// ── Audience voice check ──────────────────────────────────────────────────────
+
+const ASSESSEE_SLUG_PATTERNS = ['for-assessees', 'taxpayer', 'what-to-do-when', 'guide-for-individuals'];
+
+function detectAssesseeSlug(slug: string): boolean {
+  const lower = slug.toLowerCase();
+  return ASSESSEE_SLUG_PATTERNS.some(p => lower.includes(p));
+}
+
+function hasAssesseeVoice(text: string): boolean {
+  // Second-person possessive phrases tied to the notice or reply context
+  return /\b(?:your\s+(?:notice|reply|response|assessment|recorded\s+reasons|case|grounds|AO|records)|you\s+(?:received|got|have\s+received|filed|need\s+to|should|must))\b/i.test(text);
+}
+
+function checkAudienceVoice(body: string, slug?: string): boolean {
+  if (!slug || !detectAssesseeSlug(slug)) return true;
+  return hasAssesseeVoice(body);
 }
 
 // ── Preprocessing ─────────────────────────────────────────────────────────────

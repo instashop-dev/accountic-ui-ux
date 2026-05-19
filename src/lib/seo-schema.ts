@@ -124,10 +124,68 @@ export function generateBreadcrumbSchema(pillar: string, slug: string, title: st
   return JSON.stringify(schema);
 }
 
+// ── HowTo schema ─────────────────────────────────────────────────────────────
+
+function extractHowToSteps(content: string): Array<{ name: string; text: string }> {
+  const stepRe = /^\s*(\d+)\.\s+(.+)/;
+  const numbered: Array<{ num: number; text: string }> = [];
+
+  for (const line of content.split('\n')) {
+    const m = stepRe.exec(line);
+    if (m) numbered.push({ num: parseInt(m[1], 10), text: m[2].trim() });
+  }
+
+  if (numbered.length < 3) return [];
+
+  let best: typeof numbered = [];
+  let run: typeof numbered = [numbered[0]];
+
+  for (let i = 1; i < numbered.length; i++) {
+    if (numbered[i].num === numbered[i - 1].num + 1) {
+      run.push(numbered[i]);
+    } else {
+      if (run.length > best.length) best = run;
+      run = [numbered[i]];
+    }
+  }
+  if (run.length > best.length) best = run;
+
+  if (best.length < 3) return [];
+
+  return best.map(({ text }) => {
+    const clean = text.replace(/\*\*([^*]+)\*\*/g, '$1');
+    return { name: clean.slice(0, 60), text: clean };
+  });
+}
+
+export function generateHowToSchema(content: string, title: string, description: string): string | null {
+  const steps = extractHowToSteps(content);
+  if (steps.length < 3) return null;
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: title,
+    description,
+    step: steps.map(s => ({
+      '@type': 'HowToStep',
+      name: s.name,
+      text: s.text,
+    })),
+  };
+
+  return JSON.stringify(schema);
+}
+
+// ── Schema script block ───────────────────────────────────────────────────────
+
 export function buildSchemaScriptBlock(
   frontmatter: ArticleFrontmatter,
   content: string,
 ): string {
+  // Guard: skip injection if article already has an inline JSON-LD block
+  if (content.includes('<script type="application/ld+json"')) return '';
+
   const schemas: unknown[] = [];
 
   try { schemas.push(JSON.parse(generateArticleSchema(frontmatter))); } catch { /**/ }
@@ -135,6 +193,11 @@ export function buildSchemaScriptBlock(
   const faq = generateFAQSchema(content);
   if (faq) {
     try { schemas.push(JSON.parse(faq)); } catch { /**/ }
+  }
+
+  const howTo = generateHowToSchema(content, String(frontmatter.title ?? ''), String(frontmatter.description ?? ''));
+  if (howTo) {
+    try { schemas.push(JSON.parse(howTo)); } catch { /**/ }
   }
 
   try {

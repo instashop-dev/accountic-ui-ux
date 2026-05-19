@@ -3,6 +3,7 @@ import {
   generateArticleSchema,
   generateFAQSchema,
   generateBreadcrumbSchema,
+  generateHowToSchema,
   buildSchemaScriptBlock,
 } from './seo-schema';
 import { GST_ITC_ARTICLE } from '../test-fixtures/articles/index';
@@ -116,10 +117,62 @@ describe('generateBreadcrumbSchema', () => {
   });
 });
 
+describe('generateHowToSchema', () => {
+  const SEVEN_STEPS = Array.from({ length: 7 }, (_, i) =>
+    `${i + 1}. Step ${i + 1} description text`,
+  ).join('\n');
+
+  it('returns non-null and valid JSON for a 7-step workflow', () => {
+    const result = generateHowToSchema(SEVEN_STEPS, 'How to Reply', 'A guide.');
+    expect(result).not.toBeNull();
+    expect(() => JSON.parse(result!)).not.toThrow();
+  });
+
+  it('produces HowTo schema with correct type and 7 steps', () => {
+    const parsed = JSON.parse(generateHowToSchema(SEVEN_STEPS, 'How to Reply', 'A guide.')!);
+    expect(parsed['@type']).toBe('HowTo');
+    expect(parsed.name).toBe('How to Reply');
+    expect(parsed.description).toBe('A guide.');
+    expect(parsed.step).toHaveLength(7);
+    expect(parsed.step[0]['@type']).toBe('HowToStep');
+  });
+
+  it('returns null for a 2-step list (below threshold)', () => {
+    const twoSteps = '1. First step\n2. Second step';
+    expect(generateHowToSchema(twoSteps, 'T', 'D')).toBeNull();
+  });
+
+  it('returns null when no numbered list is present', () => {
+    expect(generateHowToSchema('## Introduction\n\nSome content.', 'T', 'D')).toBeNull();
+  });
+
+  it('returns null for non-sequential numbering (1, 1, 2)', () => {
+    const nonSeq = '1. First\n1. Also first\n2. Second';
+    expect(generateHowToSchema(nonSeq, 'T', 'D')).toBeNull();
+  });
+
+  it('strips markdown bold markers from step name', () => {
+    const boldSteps = [
+      '1. **Obtain your recorded reasons** — request them formally',
+      '2. **Check jurisdiction** — verify the rank',
+      '3. **Reconcile the amount** — match every rupee',
+    ].join('\n');
+    const parsed = JSON.parse(generateHowToSchema(boldSteps, 'T', 'D')!);
+    expect(parsed.step[0].name).not.toContain('**');
+    expect(parsed.step[0].name).toContain('Obtain your recorded reasons');
+  });
+
+  it('truncates step name to 60 characters', () => {
+    const longStep = '1. ' + 'A'.repeat(80) + '\n2. Short\n3. Also short';
+    const parsed = JSON.parse(generateHowToSchema(longStep, 'T', 'D')!);
+    expect(parsed.step[0].name.length).toBeLessThanOrEqual(60);
+  });
+});
+
 describe('buildSchemaScriptBlock', () => {
   it('returns a non-empty string containing the script tag', () => {
     const result = buildSchemaScriptBlock(COMPLETE_FM, '## FAQ\n\n### Q?\nA.');
-    expect(result).toContain('<script type="application/ld+json">');
+    expect(result).toContain('<script type="application/ld+json"');
     expect(result.length).toBeGreaterThan(50);
   });
 
@@ -128,10 +181,25 @@ describe('buildSchemaScriptBlock', () => {
       { title: 'ITC Guide', slug: 'itc-guide', pillar: 'Income Tax Notices' },
       GST_ITC_ARTICLE,
     );
-    expect(result).toContain('<script type="application/ld+json">');
+    expect(result).toContain('<script type="application/ld+json"');
     // Extract the JSON between the tags
     const jsonStart = result.indexOf('[');
     const jsonEnd = result.lastIndexOf(']') + 1;
     expect(() => JSON.parse(result.slice(jsonStart, jsonEnd))).not.toThrow();
+  });
+
+  it('includes HowTo schema when content has a 3+ step workflow', () => {
+    const steps = '1. Do first thing\n2. Do second thing\n3. Do third thing';
+    const result = buildSchemaScriptBlock(COMPLETE_FM, steps);
+    const jsonStart = result.indexOf('[');
+    const jsonEnd = result.lastIndexOf(']') + 1;
+    const schemas = JSON.parse(result.slice(jsonStart, jsonEnd)) as Array<{ '@type': string }>;
+    expect(schemas.some(s => s['@type'] === 'HowTo')).toBe(true);
+  });
+
+  it('returns empty string when content already contains a JSON-LD script block', () => {
+    const contentWithSchema = 'Some article text.\n<script type="application/ld+json" set:html={`[]`} />';
+    const result = buildSchemaScriptBlock(COMPLETE_FM, contentWithSchema);
+    expect(result).toBe('');
   });
 });
