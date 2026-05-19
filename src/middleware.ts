@@ -18,7 +18,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const token = bearerToken || cookieToken;
 
   if (token !== ADMIN_PASSWORD) {
-    if (bearerToken) {
+    if (context.url.pathname.startsWith('/admin/api/')) {
       return new Response(UNAUTHORIZED, {
         status: 401,
         headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },

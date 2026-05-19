@@ -24,7 +24,10 @@ let fetchError = '';
 try {
   const url = new URL('/admin/api/analytics', Astro.url);
   const res = await fetch(url.toString(), {
-    headers: { Authorization: Astro.request.headers.get('Authorization') ?? '' },
+    headers: {
+      Authorization: Astro.request.headers.get('Authorization') ?? '',
+      Cookie: Astro.request.headers.get('Cookie') ?? '',
+    },
   });
   data = (await res.json()) as ApiResponse;
   if (data.error) {
