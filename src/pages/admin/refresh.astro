@@ -7,6 +7,7 @@ import { listSnapshots } from '../../lib/snapshot';
 type CfEnv = {
   BLOG_DB?: D1Database;
   BLOG_ASSETS?: R2Bucket;
+  ANALYTICS_ENABLED?: string;
 };
 
 interface StalePost {
@@ -30,6 +31,7 @@ interface RefreshJob {
 const cfEnv = env as unknown as CfEnv;
 const db = cfEnv.BLOG_DB;
 const r2 = cfEnv.BLOG_ASSETS;
+const analyticsEnabled = cfEnv.ANALYTICS_ENABLED === 'true';
 
 let stalePosts: StalePost[] = [];
 let recentJobs: RefreshJob[] = [];
@@ -125,7 +127,7 @@ if (r2) {
       <strong>Accountic Admin</strong>
       <a href="/admin/queue">Queue</a>
       <a href="/admin/jobs">Jobs</a>
-      <a href="/admin/analytics">Analytics</a>
+      {analyticsEnabled && <a href="/admin/analytics">Analytics</a>}
       <a href="/admin/refresh" class="active">Refresh</a>
       <a href="/admin/settings">Settings</a>
       <a href="/admin/prompts">Prompts</a>

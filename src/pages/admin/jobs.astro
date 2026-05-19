@@ -12,6 +12,7 @@ interface Job {
 
 import { env } from 'cloudflare:workers';
 const db = (env as unknown as { BLOG_DB?: D1Database }).BLOG_DB;
+const analyticsEnabled = (env as unknown as { ANALYTICS_ENABLED?: string }).ANALYTICS_ENABLED === 'true';
 
 let jobs: Job[] = [];
 let dbError = '';
@@ -72,7 +73,7 @@ function statusColor(status: string): string {
       <strong>Accountic Admin</strong>
       <a href="/admin/queue">Queue</a>
       <a href="/admin/jobs">Jobs</a>
-      <a href="/admin/analytics">Analytics</a>
+      {analyticsEnabled && <a href="/admin/analytics">Analytics</a>}
       <a href="/admin/refresh">Refresh</a>
       <a href="/admin/settings">Settings</a>
       <a href="/admin/prompts">Prompts</a>
