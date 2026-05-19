@@ -41,11 +41,15 @@
 - [x] 5.3 Confirm `reason` values longer than 500 chars are truncated in the Recent Failures table — test with a synthetic long string in a fixture event
 - [x] 5.4 Confirm that killing the Analytics Engine fetch (e.g. invalid token) shows an error banner on the analytics page but does NOT affect `/admin/queue` or any other admin page loaded in the same session
 
-## 6. Verification
+## 6. Production Deployment
 
-- [ ] 6.1 Deploy to Cloudflare Workers (`npm run deploy` or `wrangler deploy`) and navigate to `/admin/analytics` — confirm metric cards and Operational Health panel render with real data
-- [ ] 6.2 Temporarily unset `CF_API_TOKEN` secret and reload — confirm the warning banner appears and no broken UI
-- [ ] 6.3 Verify the "Analytics" nav link appears and is functional on all four existing admin pages
-- [ ] 6.4 Confirm no regressions on Queue, Jobs, Settings, and Prompts pages
-- [ ] 6.5 Confirm Operational Health panel shows "Last successful publish" with a real timestamp, and all five indicators render without error
-<!-- Tasks 6.x require a live Cloudflare deployment with CF_API_TOKEN + CF_ACCOUNT_ID secrets provisioned -->
+- [x] 6.1 Provision production secrets: `wrangler secret put CF_API_TOKEN` and `wrangler secret put CF_ACCOUNT_ID` (skip if already present from Phase 4)
+- [x] 6.2 Deploy code via CI: `git push origin main` — confirm GitHub Actions build passes
+- [x] 6.3 Pre-flip check: confirm both routes return 404 before enabling — `curl -sI -H "Authorization: Bearer <ADMIN_TOKEN>" https://<host>/admin/analytics` should return HTTP 404
+- [x] 6.4 Go-live flip: `wrangler secret put ANALYTICS_ENABLED` (value: `true`)
+- [x] 6.5 Auth check: confirm unauthenticated request to `/admin/analytics` returns HTTP 401; authenticated request returns HTTP 200
+- [x] 6.6 Header check: `curl -sI -H "Authorization: Bearer <ADMIN_TOKEN>" https://<host>/admin/analytics` — confirm `x-robots-tag: noindex` and `cache-control: private, no-store` in response headers
+- [x] 6.7 Dashboard renders: navigate to `/admin/analytics` — page loads without error; empty states ("No failures in last 7 days", "None in 7 days", "Queue empty") are acceptable if pipeline has not run yet
+- [x] 6.8 Nav links: confirm "Analytics" link is present and functional on Queue, Jobs, Settings, and Prompts pages
+- [x] 6.9 Failure isolation: temporarily set `CF_API_TOKEN` to an invalid value → analytics page shows error banner; load `/admin/queue` and `/admin/jobs` and confirm they render normally → restore correct token
+- [ ] 6.10 Post-pipeline validation: after the next scheduled pipeline run completes, revisit `/admin/analytics` and confirm metric cards, stage breakdown, and Operational Health indicators populate with real data

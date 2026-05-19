@@ -3,16 +3,19 @@ import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
-// Staging-only endpoint. Writes a deterministic batch of synthetic Analytics Engine
-// events so the dashboard can be verified without waiting for real pipeline traffic.
+// Verification endpoint. Writes a deterministic batch of synthetic Analytics Engine
+// events to exercise every dashboard scenario without waiting for real pipeline traffic.
 //
-// Protected by STAGING_SEED_TOKEN — a separate secret that MUST NOT be provisioned
-// in production. If STAGING_SEED_TOKEN is absent, this endpoint returns 404.
+// Requires STAGING_SEED_TOKEN secret to be provisioned — this secret should only be
+// set when you explicitly need to seed test data. Remove it afterward.
+// Never run against a production environment with live user traffic.
 //
 // Usage:
-//   curl -X POST https://<staging-host>/admin/api/analytics-seed \
+//   wrangler secret put STAGING_SEED_TOKEN
+//   curl -X POST https://<host>/admin/api/analytics-seed \
 //     -H "Authorization: Bearer <ADMIN_TOKEN>" \
 //     -H "X-Seed-Token: <STAGING_SEED_TOKEN>"
+//   # Wait 60–90s for Analytics Engine ingestion, then check /admin/analytics
 
 interface SeedEnv {
   ANALYTICS_ENABLED?: string;
