@@ -1,7 +1,9 @@
 import { defineMiddleware } from 'astro:middleware';
+import { env } from 'cloudflare:workers';
 
-const ADMIN_PASSWORD = 'accounticadmin';
 const UNAUTHORIZED = JSON.stringify({ error: 'Unauthorized' });
+
+type CfEnv = { ADMIN_PASSWORD?: string };
 
 export const onRequest = defineMiddleware(async (context, next) => {
   if (!context.url.pathname.startsWith('/admin/')) {
@@ -12,12 +14,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
+  const adminPassword = (env as unknown as CfEnv).ADMIN_PASSWORD;
+  if (!adminPassword) {
+    throw new Error('ADMIN_PASSWORD secret is not configured');
+  }
+
   const authHeader = context.request.headers.get('Authorization') ?? '';
   const bearerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
   const cookieToken = context.cookies.get('admin_token')?.value ?? '';
   const token = bearerToken || cookieToken;
 
-  if (token !== ADMIN_PASSWORD) {
+  if (token !== adminPassword) {
     if (context.url.pathname.startsWith('/admin/api/')) {
       return new Response(UNAUTHORIZED, {
         status: 401,

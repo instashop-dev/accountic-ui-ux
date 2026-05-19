@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
+import { ADMIN_SECURITY_HEADERS, validateCsrf } from '../../../lib/admin-security';
 
 export const prerender = false;
 
@@ -12,11 +13,24 @@ const ALLOWED_KEYS = new Set([
   'ai_model',
 ]);
 
+const FORBIDDEN = JSON.stringify({ error: 'Forbidden' });
+
 export const POST: APIRoute = async ({ request }) => {
+  const expectedOrigin = new URL(request.url).origin;
+  if (!validateCsrf(request, expectedOrigin)) {
+    return new Response(FORBIDDEN, {
+      status: 403,
+      headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
+    });
+  }
+
   const db = (env as unknown as { BLOG_DB?: D1Database }).BLOG_DB;
 
   if (!db) {
-    return new Response(JSON.stringify({ error: 'Database not available' }), { status: 503 });
+    return new Response(JSON.stringify({ error: 'Database not available' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
+    });
   }
 
   const form = await request.formData();

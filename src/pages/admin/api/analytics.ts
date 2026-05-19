@@ -1,12 +1,12 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
+import { ADMIN_SECURITY_HEADERS } from '../../../lib/admin-security';
 
 export const prerender = false;
 
 const SECURITY_HEADERS = {
   'Content-Type': 'application/json',
-  'X-Robots-Tag': 'noindex',
-  'Cache-Control': 'private, no-store',
+  ...ADMIN_SECURITY_HEADERS,
 };
 
 function errResponse(message: string): Response {

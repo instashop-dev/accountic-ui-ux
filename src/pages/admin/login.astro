@@ -1,14 +1,17 @@
 ---
 export const prerender = false;
 
-const ADMIN_PASSWORD = 'accounticadmin';
+import { env } from 'cloudflare:workers';
+
+const adminPassword = (env as unknown as { ADMIN_PASSWORD?: string }).ADMIN_PASSWORD;
+if (!adminPassword) throw new Error('ADMIN_PASSWORD secret is not configured');
 
 let error = '';
 
 if (Astro.request.method === 'POST') {
   const form = await Astro.request.formData();
   const token = (form.get('token') ?? '').toString().trim();
-  if (token === ADMIN_PASSWORD) {
+  if (token === adminPassword) {
     Astro.cookies.set('admin_token', token, {
       httpOnly: true,
       secure: true,

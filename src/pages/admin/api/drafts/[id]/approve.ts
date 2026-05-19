@@ -1,20 +1,37 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import { publishMessage } from '../../../../../lib/queue';
+import { ADMIN_SECURITY_HEADERS, validateCsrf } from '../../../../../lib/admin-security';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ params }) => {
+const FORBIDDEN = JSON.stringify({ error: 'Forbidden' });
+
+export const POST: APIRoute = async ({ params, request }) => {
+  const expectedOrigin = new URL(request.url).origin;
+  if (!validateCsrf(request, expectedOrigin)) {
+    return new Response(FORBIDDEN, {
+      status: 403,
+      headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
+    });
+  }
+
   const { id } = params;
   if (!id) {
-    return new Response(JSON.stringify({ error: 'Missing draft id' }), { status: 400 });
+    return new Response(JSON.stringify({ error: 'Missing draft id' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
+    });
   }
 
   const db = (env as unknown as { BLOG_DB?: D1Database; BLOG_PUBLISH_QUEUE?: Queue }).BLOG_DB;
   const queue = (env as unknown as { BLOG_DB?: D1Database; BLOG_PUBLISH_QUEUE?: Queue }).BLOG_PUBLISH_QUEUE;
 
   if (!db) {
-    return new Response(JSON.stringify({ error: 'Database not available' }), { status: 503 });
+    return new Response(JSON.stringify({ error: 'Database not available' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
+    });
   }
 
   const draft = await db
@@ -23,12 +40,15 @@ export const POST: APIRoute = async ({ params }) => {
     .first<{ id: string; status: string }>();
 
   if (!draft) {
-    return new Response(JSON.stringify({ error: 'Draft not found' }), { status: 404 });
+    return new Response(JSON.stringify({ error: 'Draft not found' }), {
+      status: 404,
+      headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
+    });
   }
   if (draft.status !== 'ready' && draft.status !== 'humanized') {
     return new Response(
       JSON.stringify({ error: `Draft status is '${draft.status}', expected 'ready' or 'humanized'` }),
-      { status: 409 },
+      { status: 409, headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS } },
     );
   }
 

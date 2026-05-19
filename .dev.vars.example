@@ -1,0 +1,9 @@
+# Copy this file to .dev.vars for local development with wrangler dev.
+# .dev.vars is gitignored and never committed.
+#
+# Provision production secrets with:
+#   wrangler secret put ADMIN_PASSWORD
+#   wrangler secret put GITHUB_TOKEN
+
+ADMIN_PASSWORD=your-local-dev-password
+GITHUB_TOKEN=your-github-pat

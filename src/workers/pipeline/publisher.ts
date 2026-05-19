@@ -4,6 +4,7 @@ import { buildSchemaScriptBlock } from '../../lib/seo-schema';
 import { logEvent } from '../../lib/analytics';
 import { checkEmergencyStop, EmergencyStopError } from '../../lib/safety';
 import { redactSecrets } from '../../lib/redact';
+import { validateSlug } from '../../lib/admin-security';
 
 interface Env {
   BLOG_DB: D1Database;
@@ -127,6 +128,16 @@ export default {
 
       if (draft.status !== 'approved') {
         console.warn('[publisher] Draft is not approved, skipping:', draft_id, draft.status);
+        msg.ack();
+        continue;
+      }
+
+      if (!validateSlug(draft.slug)) {
+        console.error('[publisher] Invalid slug rejected:', draft.slug);
+        await db
+          .prepare(`UPDATE drafts SET status = 'publish_failed', error = ?, updated_at = datetime('now') WHERE id = ?`)
+          .bind('Invalid slug: failed path-traversal guard', draft_id)
+          .run();
         msg.ack();
         continue;
       }

@@ -2,20 +2,20 @@ import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import { refreshMessage } from '../../../lib/queue';
 import { loadSnapshot } from '../../../lib/snapshot';
+import { ADMIN_SECURITY_HEADERS, validateCsrf, validateSlug } from '../../../lib/admin-security';
 
 export const prerender = false;
 
-const SECURITY_HEADERS = {
-  'Content-Type': 'application/json',
-  'X-Robots-Tag': 'noindex',
-  'Cache-Control': 'private, no-store',
-};
+const JSON_HEADERS = { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS };
 
 type CfEnv = {
   BLOG_DB?: D1Database;
   BLOG_REFRESH_QUEUE?: Queue;
   BLOG_ASSETS?: R2Bucket;
   GITHUB_TOKEN?: string;
+  GITHUB_OWNER?: string;
+  GITHUB_REPO?: string;
+  GITHUB_BRANCH?: string;
 };
 
 interface PostRow {
@@ -25,22 +25,29 @@ interface PostRow {
   source: string;
 }
 
+const FORBIDDEN = JSON.stringify({ error: 'Forbidden' });
+
 function ok(body: unknown): Response {
-  return new Response(JSON.stringify(body), { status: 200, headers: SECURITY_HEADERS });
+  return new Response(JSON.stringify(body), { status: 200, headers: JSON_HEADERS });
 }
 
 function err(message: string): Response {
-  return new Response(JSON.stringify({ error: message }), { status: 200, headers: SECURITY_HEADERS });
+  return new Response(JSON.stringify({ error: message }), { status: 200, headers: JSON_HEADERS });
 }
 
-const GITHUB_OWNER = 'instashop-dev';
-const GITHUB_REPO = 'accountic-ui-ux';
-const GITHUB_BRANCH = 'main';
-
 export const POST: APIRoute = async ({ request, url }) => {
+  const expectedOrigin = new URL(request.url).origin;
+  if (!validateCsrf(request, expectedOrigin)) {
+    return new Response(FORBIDDEN, { status: 403, headers: JSON_HEADERS });
+  }
+
   const cfEnv = env as unknown as CfEnv;
   const db = cfEnv.BLOG_DB;
   if (!db) return err('Database not available');
+
+  const GITHUB_OWNER = cfEnv.GITHUB_OWNER ?? 'instashop-dev';
+  const GITHUB_REPO = cfEnv.GITHUB_REPO ?? 'accountic-ui-ux';
+  const GITHUB_BRANCH = cfEnv.GITHUB_BRANCH ?? 'main';
 
   const pathname = url.pathname;
 
@@ -62,6 +69,10 @@ export const POST: APIRoute = async ({ request, url }) => {
       .bind(post_id)
       .first<PostRow>();
     if (!post) return err('Post not found');
+
+    if (!validateSlug(post.slug)) {
+      return new Response(JSON.stringify({ error: 'Invalid slug' }), { status: 400, headers: JSON_HEADERS });
+    }
 
     const token = cfEnv.GITHUB_TOKEN;
     if (!token) return err('GITHUB_TOKEN not configured');
@@ -129,6 +140,10 @@ export const POST: APIRoute = async ({ request, url }) => {
   if (!post) return err('Not found');
   if (post.source !== 'ai') return err('Only AI-authored posts can be refreshed');
 
+  if (!validateSlug(post.slug)) {
+    return new Response(JSON.stringify({ error: 'Invalid slug' }), { status: 400, headers: JSON_HEADERS });
+  }
+
   const queue = cfEnv.BLOG_REFRESH_QUEUE;
   if (!queue) return err('BLOG_REFRESH_QUEUE not available');
 
@@ -139,5 +154,5 @@ export const POST: APIRoute = async ({ request, url }) => {
 export const GET: APIRoute = () =>
   new Response(JSON.stringify({ error: 'Method not allowed' }), {
     status: 405,
-    headers: SECURITY_HEADERS,
+    headers: JSON_HEADERS,
   });
