@@ -25,7 +25,7 @@
  */
 
 import { execSync } from 'node:child_process';
-import { writeFileSync, unlinkSync } from 'node:fs';
+import { readFileSync, writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -138,8 +138,6 @@ const ACCOUNT_ID = 'abae0a994f0f50196e9f8cfecc2df6f3';
 const QUEUE_ID = '1e8d77ab12064f8597361803663f47dc'; // blog-pipeline
 
 function getWranglerOAuthToken(): string {
-  const { readFileSync } = require('node:fs') as typeof import('node:fs');
-  const { join } = require('node:path') as typeof import('node:path');
   const configPath = join(
     process.env.APPDATA ?? `${process.env.HOME}/.config`,
     'xdg.config/.wrangler/config/default.toml',

@@ -93,7 +93,7 @@ export default {
 
       let result: { text: string; inputTokens: number; outputTokens: number };
       try {
-        result = await ai.generate({ system: promptRow.system_prompt, user: userPrompt, maxTokens: 2048 });
+        result = await ai.generate({ system: promptRow.system_prompt, user: userPrompt, maxTokens: 3500 });
       } catch (e) {
         const errMsg = e instanceof Error ? e.message : String(e);
         console.error('[outline-generation] AI call failed:', errMsg);
