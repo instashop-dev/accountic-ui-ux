@@ -1,0 +1,98 @@
+{
+	"name": "accountic-blog-pipeline",
+	"main": "src/workers/pipeline/index.ts",
+	"compatibility_date": "2026-04-27",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true
+	},
+
+	// ── Cron Triggers ─────────────────────────────────────────────────────────
+	// Weekly topic discovery (Monday 03:00 UTC) + daily refresh scan (04:00 UTC)
+	"triggers": {
+		"crons": [
+			"0 3 * * 1",
+			"0 4 * * *"
+		]
+	},
+
+	// ── Data Storage ──────────────────────────────────────────────────────────
+	"d1_databases": [
+		{
+			"binding": "BLOG_DB",
+			"database_name": "blog-db",
+			"database_id": "685d4c17-2ab4-488a-a44a-4559a1f7e5b5"
+		}
+	],
+
+	"kv_namespaces": [
+		{
+			"binding": "BLOG_KV",
+			"id": "5383f5c4dec64258aebe1f9d1c209935"
+		}
+	],
+
+	"r2_buckets": [
+		{
+			"binding": "BLOG_ASSETS",
+			"bucket_name": "accountic-blog-assets"
+		}
+	],
+
+	"analytics_engine_datasets": [
+		{
+			"binding": "BLOG_ANALYTICS",
+			"dataset": "blog-pipeline-events"
+		}
+	],
+
+	// ── Queues ────────────────────────────────────────────────────────────────
+	// Producers allow the pipeline workers to enqueue messages for downstream stages.
+	// Consumers register this worker as the handler for each queue.
+	"queues": {
+		"producers": [
+			{
+				"binding": "BLOG_PIPELINE_QUEUE",
+				"queue": "blog-pipeline"
+			},
+			{
+				"binding": "BLOG_HUMANIZE_QUEUE",
+				"queue": "blog-humanize"
+			},
+			{
+				"binding": "BLOG_PUBLISH_QUEUE",
+				"queue": "blog-publish"
+			},
+			{
+				"binding": "BLOG_REFRESH_QUEUE",
+				"queue": "blog-refresh"
+			}
+		],
+		"consumers": [
+			{
+				"queue": "blog-pipeline",
+				"max_batch_size": 1,
+				"max_batch_timeout": 30,
+				"max_retries": 3
+			},
+			{
+				"queue": "blog-humanize",
+				"max_batch_size": 1,
+				"max_batch_timeout": 30,
+				"max_retries": 3
+			},
+			{
+				"queue": "blog-publish",
+				"max_batch_size": 1,
+				"max_batch_timeout": 30,
+				"max_retries": 3
+			},
+			{
+				"queue": "blog-refresh",
+				"max_batch_size": 1,
+				"max_batch_timeout": 30,
+				"max_retries": 3
+			}
+		]
+	}
+}

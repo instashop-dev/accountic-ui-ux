@@ -25,7 +25,13 @@
     "db:migrate:phase4": "wrangler d1 execute BLOG_DB --remote --file=migrations/004_humanizer.sql",
     "db:migrate:phase4:local": "wrangler d1 execute BLOG_DB --file=migrations/004_humanizer.sql",
     "db:rollback:phase4": "wrangler d1 execute BLOG_DB --remote --file=migrations/004_rollback.sql",
+    "db:migrate:phase6": "wrangler d1 execute BLOG_DB --remote --file=migrations/006_refresh.sql",
+    "db:migrate:phase6:local": "wrangler d1 execute BLOG_DB --file=migrations/006_refresh.sql",
+    "db:rollback:phase6": "wrangler d1 execute BLOG_DB --remote --file=migrations/006_rollback.sql",
     "db:seed": "echo 'No seed data for production. Use migrations only.'",
+    "blog:deploy": "wrangler deploy --config wrangler.pipeline.jsonc",
+    "blog:provision": "wrangler queues create blog-pipeline && wrangler queues create blog-humanize && wrangler queues create blog-publish && wrangler queues create blog-refresh",
+    "blog:generate": "wrangler queues send blog-pipeline --message-body '{\"stage\":\"topic-discovery\",\"count\":3}'",
     "blog:validate": "npx tsx scripts/validate-post.ts",
     "blog:generate-types": "wrangler types"
   },

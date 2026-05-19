@@ -247,8 +247,121 @@ Or to disable the refresh system entirely:
 |---|---|
 | `/admin/queue` | Review AI-generated drafts (Approve / Reject) |
 | `/admin/jobs` | Monitor generation jobs, replay failed ones |
+| `/admin/analytics` | Pipeline health dashboard (Analytics Engine + D1) |
+| `/admin/refresh` | Trigger/monitor content refresh; restore from snapshots |
 | `/admin/settings` | Configure pipeline settings |
 | `/admin/prompts` | View and edit versioned generation prompts |
-| `/admin/analytics` | Pipeline health dashboard (Analytics Engine + D1) |
 
-All paths require `Authorization: Bearer <ADMIN_TOKEN>` header.
+All paths require a valid session cookie (set via `/admin/login`).
+
+---
+
+## Two-Worker Architecture
+
+The system deploys two Cloudflare Workers on every push to `main`:
+
+| Worker | Config | Purpose |
+|---|---|---|
+| `accountic-ui-ux` | `wrangler.jsonc` | Astro site + admin UI + API routes |
+| `accountic-blog-pipeline` | `wrangler.pipeline.jsonc` | Queue consumers + cron triggers |
+
+### Checking both workers are deployed
+
+```bash
+# List all workers in the account
+wrangler whoami
+npx wrangler deployments list             # Astro worker
+npx wrangler deployments list --name accountic-blog-pipeline  # pipeline worker
+```
+
+Or check via Cloudflare dashboard: **Workers & Pages → Overview** — both workers should appear with recent deployment timestamps.
+
+### Deploying the pipeline worker manually
+
+```bash
+npm run blog:deploy
+# equivalent to: wrangler deploy --config wrangler.pipeline.jsonc
+```
+
+### Rolling back the pipeline worker
+
+```bash
+# Option 1: Redeploy a previous version (safe — queue messages accumulate, not dropped)
+wrangler rollback --name accountic-blog-pipeline
+
+# Option 2: Fully remove the worker (queue consumers go offline; messages queue up)
+wrangler delete --name accountic-blog-pipeline
+```
+
+The Astro site is completely unaffected by pipeline worker downtime.
+
+### Verifying queue consumers are registered
+
+```bash
+wrangler queues list
+# Each queue should show consumer_count: 1
+```
+
+Or in the Cloudflare dashboard: **Workers & Pages → Queues** → click each queue → confirm "Consumers" shows `accountic-blog-pipeline`.
+
+---
+
+## Admin Login
+
+The admin UI uses cookie-based authentication.
+
+**How it works:**
+1. User visits `/admin/login` and submits the form with the `ADMIN_TOKEN` value
+2. On success, a signed session cookie is set and the user is redirected to `/admin/queue`
+3. `src/middleware.ts` checks the cookie on every `/admin/*` request (except `/admin/login` and `/admin/logout`)
+4. On cookie mismatch or expiry, the middleware redirects to `/admin/login`
+5. `/admin/logout` clears the cookie and redirects to `/admin/login`
+
+**Provisioning `ADMIN_TOKEN`:**
+```bash
+# Generate a strong random token
+openssl rand -hex 32
+
+# Store it as a Cloudflare Worker secret
+wrangler secret put ADMIN_TOKEN
+```
+
+**Lost access:**
+```bash
+# Overwrite the token with a new value — takes effect immediately on next deploy
+wrangler secret put ADMIN_TOKEN
+git push origin main   # triggers redeploy
+```
+
+---
+
+## Phase 6 — Refresh on Manual Trigger (CLI)
+
+To manually queue a specific post for refresh from the command line:
+
+```bash
+# 1. Get the post's ID
+wrangler d1 execute BLOG_DB --remote --command="SELECT id, slug FROM posts WHERE source='ai' AND status='published' ORDER BY published_at DESC LIMIT 10"
+
+# 2. Queue a refresh via the admin API (replace <host> and tokens)
+curl -X POST https://<host>/admin/api/refresh \
+  -b "admin_session=<session_cookie>" \
+  -H "Content-Type: application/json" \
+  -d '{"post_id": "<id>"}'
+```
+
+Or use the `/admin/refresh` page UI (recommended).
+
+---
+
+## npm Scripts Reference
+
+| Script | Description |
+|---|---|
+| `npm run blog:deploy` | Deploy pipeline worker (`wrangler.pipeline.jsonc`) |
+| `npm run blog:provision` | Create all four Cloudflare Queues (run once on new environment) |
+| `npm run blog:generate` | Send a topic-discovery message to `blog-pipeline` queue |
+| `npm run db:migrate:phase6` | Apply Phase 6 D1 migration (refresh schema) |
+| `npm run db:rollback:phase6` | Roll back Phase 6 D1 migration |
+| `npm test` | Run all unit + integration tests |
+| `npm run test:build` | Run tests then Astro build (pre-release gate) |
