@@ -1,0 +1,328 @@
+---
+export const prerender = false;
+
+import { env } from 'cloudflare:workers';
+import { listSnapshots } from '../../lib/snapshot';
+
+type CfEnv = {
+  BLOG_DB?: D1Database;
+  BLOG_ASSETS?: R2Bucket;
+};
+
+interface StalePost {
+  id: string;
+  slug: string;
+  title: string;
+  pub_date: string;
+  last_refreshed_at: string | null;
+  refresh_count: number;
+}
+
+interface RefreshJob {
+  post_id: string;
+  slug: string;
+  status: string;
+  failed_gate: string | null;
+  duration_ms: number | null;
+  created_at: string;
+}
+
+const cfEnv = env as unknown as CfEnv;
+const db = cfEnv.BLOG_DB;
+const r2 = cfEnv.BLOG_ASSETS;
+
+let stalePosts: StalePost[] = [];
+let recentJobs: RefreshJob[] = [];
+let dbError = '';
+
+if (db) {
+  try {
+    const [postsResult, jobsResult] = await Promise.all([
+      db.prepare(
+        `SELECT id, slug, title, pub_date, last_refreshed_at, refresh_count
+         FROM posts
+         WHERE source = 'ai' AND status = 'published'
+           AND (last_refreshed_at IS NULL OR last_refreshed_at < datetime('now', '-60 days'))
+         ORDER BY COALESCE(last_refreshed_at, pub_date) ASC
+         LIMIT 50`,
+      ).all<StalePost>(),
+      db.prepare(
+        `SELECT rj.post_id, p.slug, rj.status, rj.failed_gate, rj.duration_ms, rj.created_at
+         FROM refresh_jobs rj
+         JOIN posts p ON p.id = rj.post_id
+         ORDER BY rj.created_at DESC
+         LIMIT 20`,
+      ).all<RefreshJob>(),
+    ]);
+    stalePosts = postsResult.results;
+    recentJobs = jobsResult.results;
+  } catch (e) {
+    dbError = e instanceof Error ? e.message : 'Database error';
+  }
+}
+
+// Fetch snapshot keys for stale posts (capped at 5 most recent)
+const snapshotKeys: Record<string, string[]> = {};
+if (r2) {
+  await Promise.all(
+    stalePosts.map(async (post) => {
+      const keys = await listSnapshots(r2, post.id);
+      snapshotKeys[post.id] = keys.slice(0, 5);
+    }),
+  );
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Refresh — Accountic Admin</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; background: #f9fafb; color: #111; }
+      header { background: #1e1b4b; color: #fff; padding: 1rem 2rem; display: flex; gap: 2rem; align-items: center; }
+      header a { color: #c7d2fe; text-decoration: none; font-size: 0.9rem; }
+      header a:hover { text-decoration: underline; }
+      header a.active { color: #fff; font-weight: 600; }
+      main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+      h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+      .subtitle { color: #6b7280; font-size: 0.85rem; margin-bottom: 1.5rem; }
+      .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; }
+      .section { margin-bottom: 2rem; }
+      .section h2 { font-size: 1rem; margin-bottom: 0.75rem; color: #374151; }
+      table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+      th { background: #f3f4f6; padding: 0.65rem 1rem; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #374151; }
+      td { padding: 0.65rem 1rem; border-top: 1px solid #e5e7eb; font-size: 0.875rem; vertical-align: middle; }
+      .empty { text-align: center; padding: 2rem; color: #6b7280; font-size: 0.9rem; background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+      code { font-size: 0.75rem; color: #6b7280; }
+      .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+      .badge-success { background: #dcfce7; color: #166534; }
+      .badge-failed { background: #fee2e2; color: #991b1b; }
+      .badge-skipped { background: #f3f4f6; color: #374151; }
+      .btn { display: inline-block; padding: 0.35rem 0.75rem; border-radius: 4px; font-size: 0.8rem; font-weight: 500; cursor: pointer; border: none; }
+      .btn-primary { background: #4f46e5; color: #fff; }
+      .btn-primary:hover { background: #4338ca; }
+      .btn-secondary { background: #e0e7ff; color: #3730a3; }
+      .btn-secondary:hover { background: #c7d2fe; }
+      .snapshot-badge { background: #e0e7ff; color: #3730a3; font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px; cursor: pointer; border: none; }
+      .inline-feedback { font-size: 0.8rem; margin-left: 0.5rem; }
+      .ok { color: #16a34a; }
+      .fail { color: #dc2626; }
+
+      /* Modal */
+      dialog { border: none; border-radius: 8px; padding: 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.15); max-width: 480px; width: 90%; }
+      dialog::backdrop { background: rgba(0,0,0,0.4); }
+      dialog h3 { margin: 0 0 1rem; font-size: 1rem; }
+      .snapshot-list { list-style: none; padding: 0; margin: 0 0 1rem; }
+      .snapshot-list li { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; }
+      .snapshot-list li:last-child { border-bottom: none; }
+      .dialog-close { float: right; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #6b7280; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Accountic Admin</strong>
+      <a href="/admin/queue">Queue</a>
+      <a href="/admin/jobs">Jobs</a>
+      <a href="/admin/analytics">Analytics</a>
+      <a href="/admin/refresh" class="active">Refresh</a>
+      <a href="/admin/settings">Settings</a>
+      <a href="/admin/prompts">Prompts</a>
+    </header>
+    <main>
+      <h1>Content Refresh</h1>
+      <p class="subtitle">Posts are refreshed every 60 days. Trigger manually or restore from a snapshot.</p>
+
+      {dbError && <div class="error">Database error: {dbError}</div>}
+
+      {/* Stale posts */}
+      <div class="section">
+        <h2>Posts Due for Refresh ({stalePosts.length})</h2>
+        {stalePosts.length === 0 ? (
+          <div class="empty">No posts due for refresh</div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Published</th>
+                <th>Last Refreshed</th>
+                <th>Refresh Count</th>
+                <th>Snapshots</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stalePosts.map((post) => (
+                <tr id={`row-${post.id}`}>
+                  <td>{post.title}</td>
+                  <td><code>{post.slug}</code></td>
+                  <td>{post.pub_date}</td>
+                  <td>{post.last_refreshed_at ?? 'Never'}</td>
+                  <td>{post.refresh_count}</td>
+                  <td>
+                    {snapshotKeys[post.id]?.length > 0 ? (
+                      <button
+                        class="snapshot-badge"
+                        data-post-id={post.id}
+                        data-slug={post.slug}
+                        data-snapshots={JSON.stringify(snapshotKeys[post.id])}
+                        onclick={`openSnapshotModal('${post.id}','${post.slug}',this)`}
+                      >
+                        {snapshotKeys[post.id].length} snapshot{snapshotKeys[post.id].length !== 1 ? 's' : ''}
+                      </button>
+                    ) : (
+                      <span style="color:#9ca3af;font-size:0.8rem">none</span>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-primary"
+                      onclick={`triggerRefresh('${post.id}', this)`}
+                    >
+                      Trigger Refresh
+                    </button>
+                    <span class="inline-feedback" id={`fb-${post.id}`}></span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {/* Recent refresh jobs */}
+      <div class="section">
+        <h2>Recent Refresh Jobs</h2>
+        {recentJobs.length === 0 ? (
+          <div class="empty">No refresh jobs yet</div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Slug</th>
+                <th>Status</th>
+                <th>Failed Gate</th>
+                <th>Duration</th>
+                <th>Started At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentJobs.map((job) => (
+                <tr>
+                  <td><code>{job.slug}</code></td>
+                  <td>
+                    <span class={`badge badge-${job.status === 'success' ? 'success' : job.status === 'skipped' ? 'skipped' : 'failed'}`}>
+                      {job.status}
+                    </span>
+                  </td>
+                  <td>{job.failed_gate ?? '—'}</td>
+                  <td>{job.duration_ms != null ? `${(job.duration_ms / 1000).toFixed(1)}s` : '—'}</td>
+                  <td>{job.created_at}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </main>
+
+    {/* Snapshot restore modal */}
+    <dialog id="snapshot-modal">
+      <button class="dialog-close" onclick="document.getElementById('snapshot-modal').close()">×</button>
+      <h3 id="modal-title">Snapshots</h3>
+      <ul class="snapshot-list" id="modal-snapshot-list"></ul>
+      <p id="modal-restore-feedback" style="font-size:0.85rem;min-height:1.2em"></p>
+    </dialog>
+
+    <script>
+      const AUTH = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('admin_token='))?.split('=')[1] ?? '';
+      const authHeaders = {
+        'Content-Type': 'application/json',
+        ...(AUTH ? { Authorization: `Bearer ${AUTH}` } : {}),
+      };
+
+      async function triggerRefresh(postId, btn) {
+        btn.disabled = true;
+        btn.textContent = 'Queuing…';
+        const fb = document.getElementById(`fb-${postId}`);
+        try {
+          const res = await fetch('/admin/api/refresh', {
+            method: 'POST',
+            headers: authHeaders,
+            body: JSON.stringify({ post_id: postId }),
+          });
+          const data = await res.json();
+          if (data.queued) {
+            fb.className = 'inline-feedback ok';
+            fb.textContent = '✓ Queued';
+            btn.textContent = 'Queued';
+          } else {
+            fb.className = 'inline-feedback fail';
+            fb.textContent = data.error ?? 'Failed';
+            btn.disabled = false;
+            btn.textContent = 'Trigger Refresh';
+          }
+        } catch (e) {
+          fb.className = 'inline-feedback fail';
+          fb.textContent = 'Network error';
+          btn.disabled = false;
+          btn.textContent = 'Trigger Refresh';
+        }
+      }
+
+      function openSnapshotModal(postId, slug, btn) {
+        const modal = document.getElementById('snapshot-modal');
+        const list = document.getElementById('modal-snapshot-list');
+        const title = document.getElementById('modal-title');
+        const fb = document.getElementById('modal-restore-feedback');
+        title.textContent = `Snapshots — ${slug}`;
+        fb.textContent = '';
+        modal.showModal();
+
+        const keys = btn?.dataset?.snapshots ? JSON.parse(btn.dataset.snapshots) : [];
+        if (keys.length === 0) {
+          list.innerHTML = '<li style="color:#6b7280;font-size:0.85rem">No snapshots available</li>';
+          return;
+        }
+        list.innerHTML = keys.map(key => {
+          const filename = key.split('/').pop()?.replace('.mdx','') ?? key;
+          // Convert timestamp format back: 2026-05-19T10-30-00-000Z → 2026-05-19T10:30:00Z
+          const ts = filename.replace(/(\d{4}-\d{2}-\d{2}T\d{2})-(\d{2})-(\d{2})-\d+Z/, '$1:$2:$3Z');
+          let displayTs = ts;
+          try { displayTs = new Date(ts).toLocaleString(); } catch { /**/ }
+          return `<li>
+            <span style="font-size:0.82rem;color:#374151">${displayTs}</span>
+            <button class="btn btn-secondary" onclick="restoreSnapshot('${postId}','${key}')">Restore</button>
+          </li>`;
+        }).join('');
+      }
+
+      async function restoreSnapshot(postId, snapshotKey) {
+        const fb = document.getElementById('modal-restore-feedback');
+        fb.textContent = 'Restoring…';
+        fb.style.color = '#374151';
+        try {
+          const res = await fetch('/admin/api/refresh/restore', {
+            method: 'POST',
+            headers: authHeaders,
+            body: JSON.stringify({ post_id: postId, snapshot_key: snapshotKey }),
+          });
+          const data = await res.json();
+          if (data.restored) {
+            fb.style.color = '#16a34a';
+            fb.textContent = `✓ Restored (commit ${data.commit_sha?.slice(0,7) ?? '?'})`;
+          } else {
+            fb.style.color = '#dc2626';
+            fb.textContent = `Error: ${data.error ?? 'Unknown error'}`;
+          }
+        } catch {
+          fb.style.color = '#dc2626';
+          fb.textContent = 'Network error';
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -122,24 +122,35 @@ Verify Analytics Engine dataset has data (run after at least one pipeline execut
 wrangler analytics engine sql "SELECT count() FROM blog-pipeline-events LIMIT 1"
 ```
 
-**Staging gate:** The analytics dashboard is inactive by default (`ANALYTICS_ENABLED` unset). Routes return 404 until this secret is explicitly set to `true`. Do NOT set `ANALYTICS_ENABLED` on production until the staging verification checklist passes — see `docs/staging-verification-analytics.md`.
+**Rollout gate:** The dashboard is inactive by default — routes return 404 until `ANALYTICS_ENABLED=true` is provisioned. Deploy the code first, verify the 404, then flip the gate. See `docs/staging-verification-analytics.md` for the full production verification checklist.
 
-**Synthetic seed events (staging only):**
+**Deployment sequence:**
 
 ```bash
-# Writes 22 deterministic test events to Analytics Engine for dashboard verification.
-# Requires STAGING_SEED_TOKEN secret — never provision this on production.
-wrangler secret put STAGING_SEED_TOKEN   # staging only
+# 1. Provision secrets (once)
+wrangler secret put CF_API_TOKEN    # "Account Analytics: Read" permission
+wrangler secret put CF_ACCOUNT_ID
 
-curl -X POST https://<staging-host>/admin/api/analytics-seed \
-  -H "Authorization: Bearer <ADMIN_TOKEN>" \
-  -H "X-Seed-Token: <STAGING_SEED_TOKEN>"
-# Wait 60–90 seconds for AE ingestion lag, then verify at /admin/analytics
+# 2. Deploy
+git push origin main
+
+# 3. Confirm routes are inactive (HTTP 404)
+curl -sI -H "Authorization: Bearer <ADMIN_TOKEN>" https://<host>/admin/analytics | head -1
+
+# 4. Go live
+wrangler secret put ANALYTICS_ENABLED   # value: true
+
+# 5. Verify — see docs/staging-verification-analytics.md
 ```
 
-**Production rollout:** After all staging checks pass, set `ANALYTICS_ENABLED=true` on the production Worker. Never set `STAGING_SEED_TOKEN` on production.
+**Rollback (no redeploy needed):**
 
-**Rollback:** Delete `src/pages/admin/analytics.astro`, `src/pages/admin/api/analytics.ts`, and `src/pages/admin/api/analytics-seed.ts`; revert the nav `<a href="/admin/analytics">` additions in `queue.astro`, `jobs.astro`, `settings.astro`, `prompts.astro`. Remove `ANALYTICS_ENABLED` secret from production. No D1 changes, no wrangler.jsonc changes.
+```bash
+wrangler secret delete ANALYTICS_ENABLED
+# Routes return 404 immediately; pipeline and all other admin pages unaffected
+```
+
+To fully remove the feature: delete `src/pages/admin/analytics.astro`, `src/pages/admin/api/analytics.ts`, and `src/pages/admin/api/analytics-seed.ts`; revert the Analytics nav link in `queue.astro`, `jobs.astro`, `settings.astro`, `prompts.astro`. No D1 or wrangler.jsonc changes required.
 
 ### Phase 5 — Testing Infrastructure Notes
 
@@ -156,6 +167,79 @@ This confirms test fixtures don't break the Astro content layer and all pipeline
 npm test                  # all unit + integration tests (vitest run)
 npm run test:coverage     # same + Istanbul branch coverage report (threshold: 80%)
 ```
+
+---
+
+## Phase 6 — Content Refresh System
+
+### Queue Provisioning (once, before deploy)
+
+```bash
+wrangler queues create blog-refresh
+```
+
+Verify it was created:
+```bash
+wrangler queues list
+# Should include: blog-refresh
+```
+
+### D1 Migration
+
+Apply Phase 6 schema additions (additive — no data loss):
+
+```bash
+# Remote (production)
+wrangler d1 execute BLOG_DB --remote --file=migrations/006_refresh.sql
+
+# Local preview
+wrangler d1 execute BLOG_DB --file=migrations/006_refresh.sql
+```
+
+Rollback:
+```bash
+wrangler d1 execute BLOG_DB --remote --file=migrations/006_rollback.sql
+```
+
+### Deploy
+
+```bash
+git push origin main
+# GitHub Actions handles: npm ci → npm test → astro build → wrangler deploy
+```
+
+### How the Refresh System Works
+
+1. The daily cron (`0 4 * * *`) queries posts where `source = 'ai'` and `last_refreshed_at < now - 60 days` (or never refreshed).
+2. Each stale post gets a `{ stage: 'refresh', post_id }` message on the `blog-refresh` queue.
+3. The refresh worker: (a) snapshots the current MDX to R2 under `snapshots/{post_id}/{timestamp}.mdx`, (b) regenerates the article via the full AI pipeline, (c) runs quality + regression gates, (d) commits the updated MDX to GitHub if all gates pass.
+4. On success, `posts.last_refreshed_at` is updated and `posts.refresh_count` is incremented.
+5. The `/admin/refresh` page shows stale posts, lets operators trigger manual refreshes, and provides per-post snapshot restore.
+
+### Manual Refresh Trigger
+
+Via admin UI at `/admin/refresh` → click "Trigger Refresh" next to any post.
+
+Via CLI (emergency):
+```bash
+wrangler d1 execute BLOG_DB --remote --command="SELECT id, slug FROM posts WHERE source='ai' AND status='published' LIMIT 5"
+# Use the post id in the admin UI trigger, or enqueue directly via the API endpoint
+```
+
+### Rollback a Refreshed Post
+
+1. Navigate to `/admin/refresh`
+2. Find the post and click the snapshot count badge
+3. Select the desired snapshot timestamp and click "Restore"
+4. The snapshot MDX is committed to GitHub, overwriting the refreshed version
+
+Or to disable the refresh system entirely:
+```bash
+# Remove consumer entry for blog-refresh from wrangler.jsonc and redeploy
+# The cron dispatch will silently no-op if BLOG_REFRESH_QUEUE binding is missing
+```
+
+---
 
 ### Admin Dashboard Paths
 

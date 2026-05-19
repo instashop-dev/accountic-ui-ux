@@ -3,6 +3,7 @@ import { topicDiscoveryMessage, refreshMessage } from '../../lib/queue';
 interface Env {
   BLOG_DB: D1Database;
   BLOG_PIPELINE_QUEUE: Queue;
+  BLOG_REFRESH_QUEUE?: Queue;
 }
 
 interface Post {
@@ -40,12 +41,19 @@ export default {
         .slice(0, 19);
 
       const stalePosts = await db
-        .prepare('SELECT id, updated_at FROM posts WHERE updated_at < ? AND source = ?')
-        .bind(sixtyDaysAgo, 'ai')
+        .prepare(
+          `SELECT id FROM posts WHERE source = 'ai' AND status = 'published'
+           AND (last_refreshed_at IS NULL OR last_refreshed_at < ?)`,
+        )
+        .bind(sixtyDaysAgo)
         .all<Post>();
 
-      for (const post of stalePosts.results) {
-        await env.BLOG_PIPELINE_QUEUE.send(refreshMessage(post.id));
+      if (!env.BLOG_REFRESH_QUEUE) {
+        console.warn('[cron] BLOG_REFRESH_QUEUE binding absent — skipping refresh dispatch');
+      } else {
+        for (const post of stalePosts.results) {
+          await env.BLOG_REFRESH_QUEUE.send(refreshMessage(post.id));
+        }
       }
 
       console.log(`[cron] Dispatched ${stalePosts.results.length} refresh messages`);
