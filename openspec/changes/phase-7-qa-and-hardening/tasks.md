@@ -44,10 +44,10 @@
 
 ## 8. Production Deployment & Verification
 
-- [ ] 8.1 Push to `main` and confirm both `wrangler deploy` steps in CI pass; verify `accountic-blog-pipeline` Worker appears in the Cloudflare dashboard
-- [ ] 8.2 Verify in the Cloudflare Queues dashboard that all four queues show a consumer registered
-- [ ] 8.3 Work through all 11 steps of `docs/staging-verification-analytics.md` against production — provision `CF_API_TOKEN` and `CF_ACCOUNT_ID` secrets, flip `ANALYTICS_ENABLED`, verify auth gating, security headers, dashboard render, and nav links
-- [ ] 8.4 Seed analytics test data on production: `POST /admin/api/analytics-seed` with `STAGING_SEED_TOKEN`; wait 90 seconds; confirm the analytics dashboard shows populated metrics
-- [ ] 8.5 Manually trigger a content refresh from `/admin/refresh` on production; confirm a `refresh_jobs` row is inserted in D1 and the post's `last_refreshed_at` is updated
-- [ ] 8.6 Confirm no regressions on Queue, Jobs, Settings, and Prompts pages after all changes
-- [ ] 8.7 Remove `STAGING_SEED_TOKEN` secret after verification: `wrangler secret delete STAGING_SEED_TOKEN`
+- [ ] 8.1 Push to `main`, confirm CI passes; run `npm run verify:production` to confirm `accountic-blog-pipeline` worker is deployed (requires PRODUCTION_HOST, ADMIN_TOKEN, CF_API_TOKEN, CF_ACCOUNT_ID)
+- [ ] 8.2 Confirmed by `npm run verify:production` — checks queue consumer count via CF API
+- [ ] 8.3 Provision `CF_API_TOKEN`, `CF_ACCOUNT_ID`, then `wrangler secret put ANALYTICS_ENABLED` (value: true); run `npm run verify:production` with `ANALYTICS_ENABLED=true` to verify auth gating, headers, and dashboard content
+- [ ] 8.4 Run `npm run verify:production` with `STAGING_SEED_TOKEN` set — seeds analytics, waits 90s, verifies total_events > 0
+- [ ] 8.5 Confirmed by `npm run verify:production` — auto-discovers a post from D1, triggers refresh via API, polls for `refresh_jobs` row and `last_refreshed_at` update
+- [ ] 8.6 Confirmed by `npm run verify:production` — checks all 6 admin pages for 200 + expected content + auth blocking
+- [ ] 8.7 Confirmed by `npm run verify:production` — deletes STAGING_SEED_TOKEN via CF API after seed test

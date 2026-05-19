@@ -32,6 +32,7 @@
     "blog:deploy": "wrangler deploy --config wrangler.pipeline.jsonc",
     "blog:provision": "wrangler queues create blog-pipeline && wrangler queues create blog-humanize && wrangler queues create blog-publish && wrangler queues create blog-refresh",
     "blog:generate": "wrangler queues send blog-pipeline --message-body '{\"stage\":\"topic-discovery\",\"count\":3}'",
+    "verify:production": "tsx scripts/verify-production.ts",
     "blog:validate": "npx tsx scripts/validate-post.ts",
     "blog:generate-types": "wrangler types"
   },
