@@ -34,7 +34,9 @@
     "blog:generate": "wrangler queues send blog-pipeline --message-body '{\"stage\":\"topic-discovery\",\"count\":3}'",
     "verify:production": "tsx scripts/verify-production.ts",
     "blog:validate": "npx tsx scripts/validate-post.ts",
-    "blog:generate-types": "wrangler types"
+    "blog:generate-types": "wrangler types",
+    "db:seed-prompts": "tsx scripts/seed-prompts.ts",
+    "blog:trigger-article": "tsx scripts/trigger-article.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.51.0",

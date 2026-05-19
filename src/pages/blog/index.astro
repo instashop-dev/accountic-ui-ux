@@ -3,6 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
+import { getCollection } from 'astro:content';
 import { SITE_TITLE } from '../../consts';
 import { PILLARS, type Pillar, type Tone } from '../../blog-meta';
 
@@ -10,33 +11,38 @@ const metaTitle = `Blog · ${SITE_TITLE}`;
 const metaDescription =
 	"Field notes on Income Tax notices, faceless assessment, DPDP compliance, ICAI ethics, and the craft of running a CA firm in India.";
 
-type PostFrontmatter = {
-	title: string;
-	description: string;
-	pubDate: string;
-	pillar: Pillar;
-	author: string;
-	readTime: number;
-	tone: Tone;
-	featured?: boolean;
-};
-
 type Post = {
 	id: string;
-	data: Omit<PostFrontmatter, 'pubDate'> & { pubDate: Date };
+	data: {
+		title: string;
+		description: string;
+		pubDate: Date;
+		pillar: Pillar;
+		author: string;
+		readTime: number;
+		tone: Tone;
+		featured: boolean;
+	};
 };
 
-const modules = import.meta.glob<{ frontmatter: PostFrontmatter }>('../../content/blog/*.md', { eager: true });
+// getCollection picks up both .md and .mdx files via the content config glob pattern.
+// This replaces the old import.meta.glob('*.md') which silently excluded .mdx files.
+const allPosts = await getCollection('blog');
 
-const posts: Post[] = Object.entries(modules)
-	.map(([path, mod]) => {
-		const id = path.match(/\/([^/]+)\.md$/)?.[1] ?? '';
-		const fm = mod.frontmatter;
-		return {
-			id,
-			data: { ...fm, featured: !!fm.featured, pubDate: new Date(fm.pubDate) },
-		};
-	})
+const posts: Post[] = allPosts
+	.map((entry) => ({
+		id: entry.id,
+		data: {
+			title: entry.data.title,
+			description: entry.data.description,
+			pubDate: entry.data.pubDate,
+			pillar: entry.data.pillar,
+			author: entry.data.author,
+			readTime: entry.data.readTime,
+			tone: entry.data.tone,
+			featured: !!entry.data.featured,
+		},
+	}))
 	.sort((a, b) => +b.data.pubDate - +a.data.pubDate);
 
 const featured = posts.find((p) => p.data.featured) ?? posts[0];

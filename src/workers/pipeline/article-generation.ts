@@ -161,13 +161,42 @@ export default {
 
       await incrementTokensUsed(db, result.inputTokens + result.outputTokens);
 
-      // Parse frontmatter from the generated MDX
-      const { data: fm } = parseFrontmatter(result.text);
-      const fullContent = result.text;
+      // Build frontmatter from outline JSON + topic data.
+      // The article prompt instructs Claude NOT to write frontmatter (it's pipeline
+      // responsibility), so we construct it here from structured data we already have.
+      //
+      // Strip any ```mdx ... ``` wrapper and/or embedded frontmatter Claude may have
+      // written despite instructions — publisher builds frontmatter from structured data.
+      const fullContent = stripArticleOutput(result.text);
 
-      // Generate slug from title
-      const title = String(fm.title ?? topic?.title ?? 'untitled');
-      const slug = toSlug(title);
+      let outlineMeta: {
+        title?: string;
+        description?: string;
+        readTime?: number;
+        slug?: string;
+        pillar?: string;
+      } = {};
+      try {
+        outlineMeta = JSON.parse(outline.outline_json) as typeof outlineMeta;
+      } catch { /**/ }
+
+      const title = String(outlineMeta.title ?? topic?.title ?? 'untitled');
+      const slug = outlineMeta.slug ? outlineMeta.slug : toSlug(title);
+
+      // Estimate read time from word count if not in outline (~200 wpm)
+      const wordCount = fullContent.match(/\b\w+\b/g)?.length ?? 0;
+      const estimatedReadTime = outlineMeta.readTime ?? Math.max(3, Math.round(wordCount / 200));
+
+      const fm = {
+        title,
+        description: String(outlineMeta.description ?? ''),
+        pubDate: new Date().toISOString().slice(0, 10), // YYYY-MM-DD string
+        pillar: topic?.pillar ?? outlineMeta.pillar ?? 'Income Tax Notices',
+        author: 'Accountic Team',
+        readTime: estimatedReadTime,
+        tone: 'emerald',
+        featured: false,
+      };
 
       // Run quality gate
       const qualityReport = scoreArticle(fullContent, fm);
@@ -217,4 +246,19 @@ async function failJob(db: D1Database, jobId: string, error: string): Promise<vo
     .prepare(`UPDATE generation_jobs SET status = 'failed', error = ?, updated_at = datetime('now') WHERE id = ?`)
     .bind(error, jobId)
     .run();
+}
+
+/**
+ * Clean raw model output before storing as draft content.
+ * - Strips a wrapping ```mdx / ``` code fence if Claude wrapped its response
+ * - Strips any embedded YAML frontmatter (pipeline builds frontmatter from structured data)
+ */
+function stripArticleOutput(raw: string): string {
+  let content = raw.trim();
+  // Strip outer code fence (```mdx ... ``` or ``` ... ```)
+  const fenceMatch = content.match(/^```(?:mdx|markdown|md)?\r?\n([\s\S]*?)\r?\n```\s*$/);
+  if (fenceMatch) content = fenceMatch[1].trim();
+  // Strip embedded frontmatter
+  content = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '').trimStart();
+  return content;
 }

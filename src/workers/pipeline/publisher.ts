@@ -26,12 +26,65 @@ interface Draft {
 
 interface FrontmatterData {
   title?: string;
+  description?: string;
+  pubDate?: string;
+  pillar?: string;
+  author?: string;
+  readTime?: number;
+  tone?: string;
+  featured?: boolean;
+  tags?: string[];
   [key: string]: unknown;
 }
 
 const GITHUB_OWNER = 'instashop-dev';
 const GITHUB_REPO = 'accountic-ui-ux';
 const GITHUB_BRANCH = 'main';
+
+// ── Content cleaning helpers ──────────────────────────────────────────────────
+
+/**
+ * Strip a wrapping ```mdx ... ``` or ``` ... ``` code fence if Claude
+ * wrapped its entire output in one (a common model behaviour).
+ */
+function stripCodeFence(raw: string): string {
+  const trimmed = raw.trim();
+  const fenceMatch = trimmed.match(/^```(?:mdx|markdown|md)?\r?\n([\s\S]*?)\r?\n```\s*$/);
+  return fenceMatch ? fenceMatch[1].trim() : trimmed;
+}
+
+/**
+ * Strip a YAML frontmatter block (--- ... ---) from the top of the content.
+ * The article-generation prompt tells Claude not to write frontmatter, but
+ * it sometimes does anyway — we always build it from structured pipeline data.
+ */
+function stripEmbeddedFrontmatter(raw: string): string {
+  return raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '').trimStart();
+}
+
+/**
+ * Build a YAML frontmatter block from the structured frontmatter object.
+ * Values come from the pipeline (outline JSON + topic row), not from Claude.
+ */
+function buildFrontmatterBlock(fm: FrontmatterData): string {
+  const esc = (s: string) => String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  const lines = [
+    '---',
+    `title: "${esc(String(fm.title ?? ''))}"`,
+    `description: "${esc(String(fm.description ?? ''))}"`,
+    `pubDate: ${String(fm.pubDate ?? new Date().toISOString().slice(0, 10))}`,
+    `pillar: "${esc(String(fm.pillar ?? ''))}"`,
+    `author: "${esc(String(fm.author ?? 'Accountic Team'))}"`,
+    `readTime: ${Number(fm.readTime ?? 5)}`,
+    `tone: "${esc(String(fm.tone ?? 'emerald'))}"`,
+    `featured: ${Boolean(fm.featured ?? false)}`,
+    '---',
+    '',
+  ];
+  return lines.join('\n');
+}
+
+// ── Worker ────────────────────────────────────────────────────────────────────
 
 export default {
   async queue(batch: MessageBatch<PublishMessage>, env: Env): Promise<void> {
@@ -99,20 +152,28 @@ export default {
       let fm: FrontmatterData = {};
       try { fm = JSON.parse(draft.frontmatter_json) as FrontmatterData; } catch { /**/ }
 
+      // ── Clean article body ─────────────────────────────────────────────────
+      // Strip any ```mdx ... ``` wrapper Claude may have added, then strip any
+      // embedded frontmatter Claude wrote (we always build it from pipeline data).
+      const cleanBody = stripEmbeddedFrontmatter(stripCodeFence(draft.content));
+
       // ── Internal link injection ─────────────────────────────────────────────
       const internalLinks = await findInternalLinks(
         db,
         { tags: Array.isArray(fm.tags) ? fm.tags as string[] : [], pillar: String(fm.pillar ?? '') },
         draft.slug,
       );
-      const linkedContent = injectInternalLinks(draft.content, internalLinks);
+      const linkedBody = injectInternalLinks(cleanBody, internalLinks);
 
       // ── SEO schema injection ────────────────────────────────────────────────
       const schemaBlock = buildSchemaScriptBlock(
         { title: String(fm.title ?? ''), description: String(fm.description ?? ''), pubDate: String(fm.pubDate ?? ''), author: String(fm.author ?? 'Accountic Team'), slug: draft.slug, pillar: String(fm.pillar ?? '') },
-        linkedContent,
+        linkedBody,
       );
-      const finalContent = linkedContent + schemaBlock;
+
+      // ── Assemble final MDX file: frontmatter + body + schema ───────────────
+      const frontmatterBlock = buildFrontmatterBlock(fm);
+      const finalContent = frontmatterBlock + linkedBody + schemaBlock;
 
       const filePath = `src/content/blog/${draft.slug}.mdx`;
       const commitMessage = `[ai-gen] ${fm.title ?? draft.slug} | draft_id=${draft.id}`;
@@ -127,6 +188,7 @@ export default {
               Authorization: `Bearer ${env.GITHUB_TOKEN}`,
               Accept: 'application/vnd.github+json',
               'X-GitHub-Api-Version': '2022-11-28',
+              'User-Agent': 'accountic-blog-pipeline/1.0',
             },
           },
         );
@@ -154,6 +216,7 @@ export default {
             Accept: 'application/vnd.github+json',
             'Content-Type': 'application/json',
             'X-GitHub-Api-Version': '2022-11-28',
+            'User-Agent': 'accountic-blog-pipeline/1.0',
           },
           body: JSON.stringify(body),
         },

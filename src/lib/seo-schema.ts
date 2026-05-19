@@ -146,5 +146,15 @@ export function buildSchemaScriptBlock(
   } catch { /**/ }
 
   if (schemas.length === 0) return '';
-  return `\n<script type="application/ld+json">${JSON.stringify(schemas)}</script>`;
+
+  // MDX parses `{` as a JSX expression — raw JSON inside a <script> tag breaks the build.
+  // Use Astro's `set:html` directive with a template literal so the JSON is a valid JS
+  // expression that acorn can parse, and Astro injects it as raw HTML at render time.
+  // Escape backticks and template-literal `${` sequences that appear inside the JSON string.
+  const jsonStr = JSON.stringify(schemas)
+    .replace(/\\/g, '\\\\')   // escape existing backslashes first
+    .replace(/`/g, '\\`')     // escape backticks
+    .replace(/\$\{/g, '\\${'); // escape template-literal interpolations
+
+  return `\n<script type="application/ld+json" set:html={\`${jsonStr}\`} />`;
 }

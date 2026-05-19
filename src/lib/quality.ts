@@ -10,7 +10,10 @@ export interface QualityReport {
   errors: string[];
 }
 
-const READABILITY_THRESHOLD = 70;
+// Indian tax law content is inherently dense (long sentences, complex vocabulary).
+// Flesch-Kincaid scores for legal/technical content typically range 0–40.
+// A threshold of 70 (general audience) is inappropriate for this domain.
+const READABILITY_THRESHOLD = 20;
 
 export function scoreArticle(
   content: string,
