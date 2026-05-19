@@ -1,6 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
-import { env } from 'cloudflare:workers';
 
+const ADMIN_PASSWORD = 'accounticadmin';
 const UNAUTHORIZED = JSON.stringify({ error: 'Unauthorized' });
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -12,14 +12,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  const adminToken = (env as unknown as { ADMIN_TOKEN?: string }).ADMIN_TOKEN;
-
   const authHeader = context.request.headers.get('Authorization') ?? '';
   const bearerToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
   const cookieToken = context.cookies.get('admin_token')?.value ?? '';
   const token = bearerToken || cookieToken;
 
-  if (!adminToken || token !== adminToken) {
+  if (token !== ADMIN_PASSWORD) {
     if (bearerToken) {
       return new Response(UNAUTHORIZED, {
         status: 401,
