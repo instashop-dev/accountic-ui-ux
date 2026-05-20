@@ -1,0 +1,336 @@
+---
+title: "DPDP Act Compliance for CA Firms: A Client Data Audit Guide"
+description: "Practical DPDP Act audit framework for CA firms handling client PAN, Aadhaar and financial data. Step-by-step compliance checklist inside."
+pubDate: 2026-05-20
+pillar: "DPDP Compliance"
+author: "Accountic Team"
+readTime: 20
+tone: "emerald"
+featured: false
+---
+```mdx
+---
+title: "DPDP Act Compliance for CA Firms: A Client Data Audit Guide"
+description: "Practical DPDP Act audit framework for CA firms handling client PAN, Aadhaar and financial data. Step-by-step compliance checklist inside."
+pubDate: 2025-01-28
+pillar: "DPDP Compliance"
+author: "Accountic Team"
+readTime: 18
+tone: "violet"
+featured: false
+---
+
+# DPDP Act Compliance for CA Firms: A Client Data Audit Guide
+
+Every CA firm in India is sitting on a mountain of personal data. PAN cards, Aadhaar copies, bank statements, salary slips, ITRs, GST returns — collected without a second thought, stored wherever convenient, shared with portals and vendors on the assumption that professional confidentiality covers everything. It does not. The Digital Personal Data Protection Act, 2023 has changed the rules, and the firms that treat this as someone else's problem will find themselves explaining that position to the Data Protection Board.
+
+This guide gives you the framework to audit your practice, fix the gaps, and document your compliance — without hiring an external consultant for every step.
+
+---
+
+## Why CA Firms Are in the DPDP Act's Direct Line of Fire
+
+Let us be direct: CA firms are not peripheral participants in the DPDP Act's compliance universe. They are among the most data-intensive professional service providers in the country, and the Act reaches them fully.
+
+Every time you collect a client's PAN, Aadhaar, bank account number, salary certificate or ITR, you are processing personal data as defined under Section 2(t) of the Act. Financial account details and biometric identifiers (Aadhaar is biometric-linked) sit at the higher-sensitivity end of that spectrum. The volume, sensitivity and variety of data flowing through even a mid-size CA firm would make any data regulator pay attention.
+
+Here is the part most practitioners miss: **there is no SME exemption for sensitive financial data.** The Act does not provide a carve-out for firms below a certain revenue threshold or client count. A sole practitioner who files returns for 15 individuals still processes personal data and still carries fiduciary obligations. Size determines whether you are classified as a Significant Data Fiduciary — it does not determine whether the Act applies.
+
+The penalty exposure is real and asymmetric. Non-compliance under Section 33 of the Act can attract penalties up to **₹250 crore per instance**. A single data breach involving 50 clients' Aadhaar and bank details is not one incident — it can be argued as 50 separate non-compliances. The arithmetic is uncomfortable.
+
+One more point that trips up practitioners waiting for implementing rules: **fiduciary obligations attach the moment you collect data.** You do not get to defer compliance until the Central Government notifies all subsidiary rules. Processing is happening now, obligations are live now, and the Board will assess your conduct from the Act's commencement date.
+
+---
+
+## DPDP Act 101: Key Definitions Every CA Must Internalise
+
+Before you can audit anything, you need to be clear on the statutory vocabulary. These are not academic distinctions — they determine who is liable and for what.
+
+### Data Fiduciary vs Data Processor
+
+A **Data Fiduciary** determines the purpose and means of processing personal data. A **Data Processor** processes data on the Fiduciary's instructions. When your firm instructs Tally or a cloud accounting platform to store client data, your firm is the Fiduciary and the software vendor is the Processor. When you outsource bookkeeping to a freelance accountant and tell them which client's ledger to update, the freelancer is the Processor. **Primary liability stays with you.** The Processor carrying no independent purpose does not reduce your exposure — it redistributes risk, not accountability.
+
+### Personal Data vs Sensitive Data
+
+Under the Act, personal data is any data that can identify an individual. Sensitive personal data includes financial account details, Aadhaar numbers, biometric data and health information. For CA firms, almost everything you handle qualifies — PAN numbers, bank statements, salary details, Aadhaar copies for KYC, and client DMAT or investment data. Higher sensitivity means higher protection obligations: stronger security, tighter access controls, and more granular consent.
+
+### Consent vs Legitimate Use
+
+This distinction matters enormously for how you structure your engagement letters. Tax filing and statutory audit may qualify as **legitimate use** under Section 7 — processing necessary for a function mandated by law. But the moment you use client contact data to pitch them insurance products, refer them to a financial planner who pays you a referral fee, or add them to a marketing newsletter, you have moved outside legitimate use and into territory that requires **fresh, specific consent**. Most engagement letters in circulation today do not draw this line at all.
+
+### Data Principal Rights
+
+Your clients are **Data Principals** under the Act. They can demand access to what data you hold, request correction of inaccuracies, and ask for erasure once the purpose is served. These are not aspirational rights — they are enforceable. Your firm must have a documented workflow to respond to these requests before a client actually submits one, not after.
+
+---
+
+## Scoping the Audit: Mapping Every Data Touch-Point in Your Practice
+
+You cannot audit what you have not mapped. The first and most important pre-work for any DPDP compliance exercise is a complete data flow map — every point where personal data enters, moves through, and exits your firm.
+
+### Intake Channels
+
+Start with how data comes in. Most firms receive client documents through multiple uncontrolled channels simultaneously:
+
+- **Email** — often unencrypted, sitting in multiple staff inboxes
+- **WhatsApp** — used routinely for document sharing despite offering no data-at-rest protection for your storage
+- **Client portals** — if you use one; at least this is a controlled channel
+- **Walk-in physical documents** — Aadhaar copies, PAN cards, bank statements handed across a desk and then scanned or filed
+
+Each of these is a collection point and must be logged as such. The Act's obligations begin at collection, so you need to know exactly where collection happens.
+
+### Internal Flow Mapping
+
+Once data enters the firm, trace where it travels. A typical flow looks like this:
+
+```
+Client Email → Staff Inbox → Download to Desktop → 
+Upload to Tally / Tax Software → Shared Network Drive → 
+Cloud Backup (Google Drive / OneDrive) → Articled Clerk Access
+```
+
+Every node in this chain is a processing activity. Shared network drives with no access controls, cloud folders synced to personal devices, and backup servers with no encryption policies are all compliance gaps hiding in plain sight.
+
+### Third-Party Processors
+
+List every external system or service that touches client data:
+
+- Tax filing software: Taxmann, ClearTax, Winman, Saral TaxOffice
+- Payroll software: GreytHR, Keka, RazorpayX Payroll
+- Cloud accounting: QuickBooks, Zoho Books, Tally on Cloud
+- Communication tools: Gmail, Outlook 365, WhatsApp Business
+- Courier and document delivery services handling physical returns
+
+These vendors are processing personal data on your instructions. You need contracts with them, not just end-user licence agreements.
+
+### Exit Points
+
+Finally, map where data goes out. Every submission to the Income Tax department, GSTN portal, MCA21, RBI-regulated entities, banks, or foreign tax authorities is an exit point. Each one needs a documented legal basis — statutory obligation for most, but not for all.
+
+---
+
+## The 7-Step Client Data Audit Framework for CA Firms
+
+This framework is designed to be executed by a partner and a senior manager over four to six weeks, without external consultants, provided you are disciplined about documentation at each step.
+
+### Step 1 — Data Discovery
+
+Catalogue every location where personal data lives in your practice. Do not limit this to digital files. Physical documents — signed ITRs, identity copies in client folders, paper-based KYC forms — are in scope. Create a master inventory spreadsheet with columns for: data type, storage location, format (physical/digital), access level, and estimated volume. This is your baseline for everything that follows.
+
+### Step 2 — Legal Basis Mapping
+
+For each processing activity identified in Step 1, assign a valid legal basis under the Act:
+
+| Processing Activity | Likely Legal Basis | Notes |
+|---|---|---|
+| Filing income tax returns | Legitimate Use (Section 7) | Mandated by Income Tax Act |
+| Statutory audit under Companies Act | Legitimate Use (Section 7) | Legal obligation on the company |
+| Sending tax planning advisory | Consent | Must be specific and granular |
+| Cross-selling financial products | Consent | Separate consent required |
+| Retaining ITRs post-engagement | Legitimate Use / Statutory Retention | Must specify Section 44AA basis |
+| Marketing newsletters | Consent | Pre-existing relationship insufficient |
+| Sharing data with GSTN | Legal Obligation | GST Act mandates this |
+
+If you cannot assign a valid legal basis, that processing activity must stop until you can.
+
+### Step 3 — Consent Audit
+
+Pull every engagement letter and client onboarding form currently in use. Check them against the Act's requirements for valid consent: specific, informed, unconditional, and unambiguous. Flag documents that contain bundled consent, vague purpose descriptions ("tax and compliance purposes"), pre-ticked boxes, or consent buried in general terms. These are invalid on their face. Section 6 of the Act is clear: consent must be free, specific, informed and unambiguous.
+
+### Step 4 — Vendor Due Diligence
+
+Using your list of third-party processors from the scoping exercise, check whether you have a Data Processing Agreement (DPA) with each vendor. Most CA firms will find they have a click-through EULA, or nothing at all. Rate each vendor: Green (DPA in place, DPDP-aligned), Amber (some contractual terms, gaps present), Red (no data protection contract). Prioritise Red vendors for immediate remediation.
+
+### Step 5 — Retention Schedule Review
+
+Cross-reference your data inventory against your current retention practice. Identify data that has no active legal basis for retention — completed engagements from five or more years ago with no pending dispute or statutory obligation. Prepare a deletion schedule, but do not execute it until you have documented the legal basis for what you are keeping. Deleting the wrong things prematurely is as problematic as keeping everything.
+
+### Step 6 — Security Controls Assessment
+
+Evaluate your current technical safeguards against a minimum standard: encryption at rest and in transit, role-based access control, multi-factor authentication on all client-data-facing portals, and a documented incident response plan. This does not require a cybersecurity firm. A partner with a checklist and honest answers can complete a first-pass assessment in a day.
+
+### Step 7 — Gap Register
+
+Everything identified in Steps 1–6 that falls short of the Act's requirements goes into a Gap Register. For each gap, record: a description, a risk rating (High / Medium / Low), an owner (partner or staff member responsible), a remediation action, and a deadline. This register is a living document — it is also your primary evidence of good faith if the Board ever investigates.
+
+---
+
+## Auditing Consent: Fixing Your Engagement Letters and Client Onboarding Forms
+
+This is the section most CA firms need to act on immediately, because most engagement letters currently in circulation would not survive a DPDP scrutiny.
+
+### What a Valid Consent Notice Must Contain
+
+Under Section 5 and 6 of the Act, a consent notice must clearly state:
+
+1. **Who you are** — the Data Fiduciary's identity
+2. **What data you are collecting** — specific categories, not a generic sweep
+3. **Why you are collecting it** — each distinct purpose named separately
+4. **Who you will share it with** — specific third parties or categories of third parties
+5. **How the client can withdraw consent** — a clear, accessible mechanism
+
+"I consent to share my data for tax and compliance purposes" fails items 2, 3, 4 and 5 simultaneously. It is the kind of language that will be exhibit A in a client complaint to the Data Protection Board.
+
+### The Separate-Purpose Rule in Practice
+
+Consider a typical CA-client relationship. You file their ITR, provide tax planning advice, and occasionally refer them to an investment advisor who sends you a referral commission. These are three distinct purposes. **Each one needs independent consent.**
+
+Consent for ITR filing can reasonably be covered under legitimate use — it is a statutory obligation. Tax planning advice sits in a grey area — seek express consent to be safe. The referral to the investment advisor is squarely a marketing and commercial activity — you need consent that names the advisor or category of advisor, states that a commercial relationship exists, and is separately accepted.
+
+### Retrofitting Legacy Engagement Letters
+
+Do not replace your existing engagement letters wholesale without legal review — they contain important liability and scope provisions. Instead, **add a DPDP-specific Data Processing Notice as an annexure**. This notice should:
+
+- List each processing purpose with its legal basis
+- Name the third-party categories involved (tax portals, cloud storage, payroll software)
+- State the retention period for each data category
+- Include a withdrawal mechanism and a contact name for data requests
+
+For legacy clients — those onboarded before the Act — you must re-consent them before you process their data for any new purpose. A simple, clearly worded email with a reply consent mechanism is sufficient if properly timestamped and archived.
+
+---
+
+## Data Retention and Deletion: Building a Defensible Purge Schedule
+
+Every CA's instinct is to keep everything, forever. The Income Tax Act, the Companies Act, and years of professional caution have created a culture of retention. The DPDP Act pushes firmly in the opposite direction. Reconciling these two forces requires a documented, tiered approach — not a choice between them.
+
+### Reconciling Tax Law with Privacy Law
+
+Section 44AA of the Income Tax Act requires books of account to be maintained for six years from the end of the relevant assessment year. This is a statutory obligation and creates a valid legal basis for retaining the underlying financial data for that period. **Document this basis explicitly in your retention policy.** The DPDP Act does not override statutory retention requirements — it requires you to be able to articulate why you are retaining data and for how long.
+
+### The Three-Tier Retention Framework
+
+| Tier | Data Category | Retention Basis | Action |
+|---|---|---|---|
+| Tier 1: Active Client Data | Current client's PAN, Aadhaar, current-year ITR, live GST data | Active engagement + statutory obligation | Retain, review annually |
+| Tier 2: Completed Engagement | Prior years' ITRs, old bank statements, completed audit files | Section 44AA statutory hold (6 years from AY end) | Retain with documented basis, restricted access |
+| Tier 3: Expired Retention | Data older than statutory period, non-statutory client communication, marketing databases | No valid ongoing legal basis | Immediate deletion candidate |
+
+Work through your data inventory and assign every dataset to one of these three tiers. Tier 3 items have no defensible basis for retention and should be scheduled for immediate secure deletion.
+
+### How to Actually Delete Data (This Matters)
+
+Moving a file to the Recycle Bin is not deletion. Pressing Delete in Outlook is not deletion. For the DPDP Act, deletion means the data is unrecoverable. Use certified data erasure tools for digital files (Eraser, DBAN, or equivalent) and cross-cut shredding for physical documents. Cloud-hosted data must be deleted at the storage level, not just unlinked from your folder interface.
+
+**Maintain a deletion log** with: date of deletion, data category, storage location cleared, method of deletion, and the name of the staff member who executed it. This log is audit evidence — it proves you took the obligation seriously.
+
+One specific risk to audit: cloud auto-sync. If your staff use Google Drive or OneDrive with desktop sync enabled, deleted files may have auto-synced copies on personal devices. Audit your sharing settings and sync configurations as part of every retention review cycle.
+
+---
+
+## Security Controls Checklist: Technical and Organisational Measures Your Firm Needs Now
+
+The DPDP Act requires Data Fiduciaries to implement "reasonable security safeguards." The Act does not prescribe a specific technical standard, but the Data Protection Board will assess what was "reasonable" based on the sensitivity of the data and the resources available to your firm. For a firm handling Aadhaar and financial data, the bar is not low.
+
+### Technical Controls
+
+**Encryption at rest and in transit.** Client documents stored on laptops, USB drives, or local servers must be encrypted. Sending a PDF with a client's bank statement over unencrypted email — or worse, over WhatsApp — does not meet this standard. Use encrypted email (TLS-enforced), secure file-sharing portals, or password-protected encrypted files as a minimum. WhatsApp's end-to-end encryption covers transit, but the recipient device storage and WhatsApp's own metadata practices are not within your control.
+
+**Role-based access control.** Every staff member should have access only to the client data necessary for their specific work. An articled clerk working on a manufacturing client's GST compliance has no need to access that client's personal income tax data, family trust details, or director-level salary information. Implement access tiers in your practice management software and review permissions quarterly.
+
+**Multi-factor authentication.** Enable MFA on every portal that carries client data: the Income Tax e-filing portal, GST portal, MCA21, Traces, your cloud accounting platform, and your internal cloud storage. This is a non-negotiable minimum. A single compromised staff password should not be sufficient to access a client's complete financial history.
+
+### Organisational Controls
+
+**Incident response plan.** The DPDP Act requires notification to the Data Protection Board within **72 hours** of becoming aware of a personal data breach. Most firms have no internal procedure for even detecting a breach, let alone escalating and reporting it. Write a one-page incident response procedure that specifies: who determines if an event is a breach, who makes the Board notification, and which clients must be individually informed. Test it once a year with a tabletop scenario.
+
+**Staff training.** Every employee who touches client data — from your senior manager to the receptionist who scans Aadhaar copies — must receive annual DPDP awareness training. The training need not be elaborate: a 90-minute session covering what constitutes personal data, how to handle and share it, what to do if they suspect a breach, and how to respond if a client asks about their data. Keep attendance records. They are audit evidence.
+
+---
+
+## Managing Third-Party Risk: Vendor Contracts and Sub-Processor Obligations
+
+Your liability as Data Fiduciary does not end when you hand data to a software platform or an outsourced accountant. It follows the data. The Act is explicit: you must ensure that your Data Processors provide adequate safeguards through a binding contract.
+
+### What a DPDP-Compliant Data Processing Agreement Must Cover
+
+| DPA Clause | What It Must Say |
+|---|---|
+| Purpose Limitation | Processor may only use data for the purposes you specify, nothing else |
+| Confidentiality | Processor staff are bound by confidentiality obligations |
+| Security Standards | Processor must maintain security equivalent to your own obligations |
+| Sub-processor Restrictions | Processor cannot engage further sub-processors without your written approval |
+| Breach Notification | Processor must notify you within a defined window (24–48 hours recommended) of becoming aware of any breach |
+| Data Return / Deletion | On contract termination, processor must return or certifiably delete all data |
+| Audit Rights | You reserve the right to audit the processor's compliance, or to request evidence of third-party audits |
+
+Send DPA requests to every vendor on your third-party list. Many larger vendors (Microsoft, Google, Zoho) already have data processing addenda — locate and execute them. Smaller vendors may need you to provide a template.
+
+### Cloud Software and Cross-Border Transfers
+
+This is an emerging risk point. Several cloud-based tax and accounting tools used by Indian CA firms host data on servers outside India. The DPDP Act allows personal data to be transferred to countries approved by the Central Government under Section 16. **That list has not yet been published.** Until it is, cross-border transfers sit in a legal grey area. Review your key software vendors and check their data residency terms. Where data is hosted in India, document this. Where it is hosted offshore, flag it as a Tier 1 risk in your Gap Register.
+
+### Outsourced Staff Are Processors, Not Partners
+
+Freelance bookkeepers, virtual assistants, outsourced payroll managers — these are Data Processors under the Act. An NDA alone is not sufficient. They need a DPA covering the clauses above, and they need to be contractually prohibited from using client data for any purpose other than the work you have assigned. This applies even if they are individual professionals rather than companies.
+
+---
+
+## Appointing a Data Protection Officer: Do CA Firms Need One?
+
+The straightforward answer for most practices: you are probably not required to appoint a formal Data Protection Officer under the Act. The mandatory DPO requirement under Section 10 applies only to **Significant Data Fiduciaries** — a category that will be notified by the Central Government based on volume of data processed, sensitivity, and potential impact on national security or public order. Most CA firms will not meet this threshold initially.
+
+However, **"not required" and "not recommended" are different things.** Designating an internal Privacy Officer — a partner or senior manager with clear ownership of DPDP compliance — is a straightforward best-practice measure that costs you nothing and demonstrates accountability if the Board ever investigates.
+
+### What the Privacy Officer Should Own
+
+- The annual DPDP audit cycle from scoping to Gap Register closure
+- Responding to Data Principal access, correction and erasure requests within the statutory timeframe
+- Vendor DPA execution and annual vendor review
+- Breach detection, internal escalation and Board notification
+- Staff training coordination and attendance record maintenance
+
+### Formalising the Appointment
+
+For a partnership firm, pass a **partnership resolution** naming the Privacy Officer and defining their responsibilities. For a proprietorship, document a self-designation in your practice's written policies. This formality matters: the Data Protection Board may ask for evidence that your firm took active steps to assign privacy accountability. A WhatsApp message to a colleague does not constitute a formal appointment.
+
+---
+
+## Responding to Client Rights Requests: A Practical Workflow
+
+A client submits a data rights request. What does your firm do? If the answer is "figure it out at the time," that is a compliance gap. You need a documented procedure in place before the first request lands.
+
+### The Response Workflow
+
+**Step 1 — Receive and Log.** Designate a single intake channel for data rights requests (a dedicated email address works well: privacy@yourfirmname.com). Log every request in a register with: date received, client name, type of request, assigned handler, and due date.
+
+**Step 2 — Verify Identity.** Before disclosing any data, verify that the requestor is the Data Principal (your client) or an authorised nominee. A PAN-linked identity check or a verification call is sufficient for most purposes.
+
+**Step 3 — Execute the Request.**
+
+| Right | What You Must Do | Practical Challenge |
+|---|---|---|
+| Right to Access | Provide a complete summary of all personal data held across all systems | Requires searching tax software, email, physical files, cloud storage |
+| Right to Correction | Update the identified error in all systems where that data is stored | Requires coordinated update across multiple platforms |
+| Right to Erasure | Delete data where no statutory retention obligation exists | Must check retention schedule before deleting; document the check |
+| Right to Grievance Redressal | Acknowledge within a defined period; provide a named contact | Log every complaint and its resolution |
+| Nominee Rights | Accept data requests from a client's legal nominee after death | Include nominee designation in your onboarding forms proactively |
+
+**Step 4 — Respond in Writing.** Confirm completion of the request in writing to the client, including what action was taken, what data was provided or deleted, and what data (if any) was retained and why.
+
+**Step 5 — Update the Log.** Close the request in your register with the date of completion. This log is evidence of your firm's responsiveness — maintain it for at least three years.
+
+---
+
+## Audit Documentation and Evidence: What the Data Protection Board Will Look For
+
+If the Data Protection Board investigates your firm — whether from a client complaint, a reported breach, or a routine inquiry — what they will ask for is documentation. Oral explanations of good intentions carry no weight. The following records constitute your compliance evidence base.
+
+### Records of Processing Activities (RoPA)
+
+The RoPA is your master register of every processing activity in the firm. For each activity, record:
+
+- Name and description of the processing activity
+- Categories of personal data involved
+- Legal basis for processing
+- Purpose(s) for which data is processed
+- Categories of data recipients (internal teams, external vendors, regulators)
+- Retention period
+- Security measures in place
+
+This is a living document — update it every time you add a new service line, onboard a new vendor, or change a processing purpose. A static document last updated at implementation is worse than no document, because it demonstrates that you treated compliance as a one-time exercise.
+
+### Consent Artefacts
+
+For every client from whom you have obtained consent, retain a **timestamped record** of: the version of consent notice presented, the date consent was given, the channel through which it was given (email reply, portal checkbox, signed annexure), and any subsequent withdrawal. Cloud-based engagement letter platforms with version control and audit trails serve this purpose well. A physical file of
+<script type="application/ld+json" set:html={`[{"@context":"https://schema.org","@type":"Article","headline":"DPDP Act Compliance for CA Firms: A Client Data Audit Guide","description":"Practical DPDP Act audit framework for CA firms handling client PAN, Aadhaar and financial data. Step-by-step compliance checklist inside.","datePublished":"2026-05-20","author":{"@type":"Person","name":"Accountic Team"},"publisher":{"@type":"Organization","name":"Accountic","url":"https://accountic.in"},"url":"https://accountic.in/blog/dpdp-act-compliance-for-ca-firms-a-client-data-audit-guide/"},{"@context":"https://schema.org","@type":"HowTo","name":"DPDP Act Compliance for CA Firms: A Client Data Audit Guide","description":"Practical DPDP Act audit framework for CA firms handling client PAN, Aadhaar and financial data. Step-by-step compliance checklist inside.","step":[{"@type":"HowToStep","name":"Who you are — the Data Fiduciary's identity","text":"Who you are — the Data Fiduciary's identity"},{"@type":"HowToStep","name":"What data you are collecting — specific categories, not a ge","text":"What data you are collecting — specific categories, not a generic sweep"},{"@type":"HowToStep","name":"Why you are collecting it — each distinct purpose named sepa","text":"Why you are collecting it — each distinct purpose named separately"},{"@type":"HowToStep","name":"Who you will share it with — specific third parties or categ","text":"Who you will share it with — specific third parties or categories of third parties"},{"@type":"HowToStep","name":"How the client can withdraw consent — a clear, accessible me","text":"How the client can withdraw consent — a clear, accessible mechanism"}]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://accountic.in"},{"@type":"ListItem","position":2,"name":"DPDP Compliance","item":"https://accountic.in/blog/?pillar=DPDP%20Compliance"},{"@type":"ListItem","position":3,"name":"DPDP Act Compliance for CA Firms: A Client Data Audit Guide","item":"https://accountic.in/blog/dpdp-act-compliance-for-ca-firms-a-client-data-audit-guide/"}]}]`} />
