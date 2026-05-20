@@ -51,7 +51,7 @@ export function createAIClient(env: { ANTHROPIC_API_KEY: string }) {
 
     for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
       try {
-        const createParams: Parameters<typeof client.messages.create>[0] = {
+        const createParams: Parameters<typeof client.messages.stream>[0] = {
           model,
           max_tokens: maxTokens,
           system: [
@@ -66,7 +66,11 @@ export function createAIClient(env: { ANTHROPIC_API_KEY: string }) {
         if (params.temperature !== undefined) {
           (createParams as Record<string, unknown>).temperature = params.temperature;
         }
-        const response = await client.messages.create(createParams);
+        // Use streaming to avoid Cloudflare's 30-second subrequest idle timeout.
+        // Long completions (articles, 6000 tokens) take 60-90 s non-streaming but
+        // stream their first bytes within ~2 s, keeping the connection alive.
+        // finalMessage() collects all chunks and returns the same Message shape.
+        const response = await client.messages.stream(createParams).finalMessage();
 
         const text = response.content
           .filter((b) => b.type === 'text')

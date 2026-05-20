@@ -74,5 +74,5 @@ export const POST: APIRoute = async ({ params, request }) => {
     ).bind(generateId(), stage, nextVersion, systemPrompt, userPromptTemplate),
   ]);
 
-  return Response.redirect('/admin/prompts', 303);
+  return Response.redirect(new URL('/admin/prompts', request.url).href, 303);
 };

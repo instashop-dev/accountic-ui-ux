@@ -37,5 +37,5 @@ export const POST: APIRoute = async ({ params, request }) => {
     .bind(id)
     .run();
 
-  return Response.redirect('/admin/queue', 303);
+  return Response.redirect(new URL('/admin/queue', request.url).href, 303);
 };

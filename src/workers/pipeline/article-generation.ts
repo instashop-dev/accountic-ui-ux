@@ -16,6 +16,7 @@ interface Env {
 interface ArticleMessage {
   stage: string;
   outline_id: string;
+  _replay_job_id?: string;
 }
 
 interface OutlineRow {
@@ -120,11 +121,21 @@ export default {
         continue;
       }
 
-      const jobId = generateId();
-      await db
-        .prepare('INSERT INTO generation_jobs (id, stage, status, input_hash, stage_payload) VALUES (?, ?, ?, ?, ?)')
-        .bind(jobId, 'article-generation', 'running', inputHash, JSON.stringify({ outline_id }))
-        .run();
+      // On replay, reuse the existing job row so it doesn't stay stuck at
+      // 'pending'. On a fresh run, insert a new row as usual.
+      const replayJobId = msg.body._replay_job_id;
+      const jobId = replayJobId ?? generateId();
+      if (replayJobId) {
+        await db
+          .prepare(`UPDATE generation_jobs SET status = 'running', error = NULL, updated_at = datetime('now') WHERE id = ?`)
+          .bind(replayJobId)
+          .run();
+      } else {
+        await db
+          .prepare('INSERT INTO generation_jobs (id, stage, status, input_hash, stage_payload) VALUES (?, ?, ?, ?, ?)')
+          .bind(jobId, 'article-generation', 'running', inputHash, JSON.stringify({ outline_id }))
+          .run();
+      }
 
       // Parse outline for read_time estimate
       let outlineParsed: { estimated_read_time?: number } = {};

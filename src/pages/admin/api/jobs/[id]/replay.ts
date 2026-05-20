@@ -45,8 +45,8 @@ export const POST: APIRoute = async ({ params, request }) => {
     });
   }
 
-  if (job.status !== 'failed') {
-    return new Response(JSON.stringify({ error: 'Only failed jobs can be replayed' }), {
+  if (job.status !== 'failed' && job.status !== 'running') {
+    return new Response(JSON.stringify({ error: 'Only failed or stuck running jobs can be replayed' }), {
       status: 409,
       headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
     });
@@ -57,14 +57,23 @@ export const POST: APIRoute = async ({ params, request }) => {
     .bind(id)
     .run();
 
-  if (queue && job.stage_payload) {
+  if (queue) {
     try {
-      const payload = JSON.parse(job.stage_payload) as object;
-      await queue.send(payload);
+      // stage_payload stores the original handler params (e.g. { outline_id })
+      // but does NOT include a `stage` field. The queue router in index.ts
+      // dispatches based on msg.body.stage, so we must inject it here.
+      const payload = job.stage_payload
+        ? (JSON.parse(job.stage_payload) as Record<string, unknown>)
+        : {};
+      // Pass the original job id so the handler updates this row instead of
+      // inserting a new one, preventing the job from being stuck at 'pending'.
+      await queue.send({ stage: job.stage, ...payload, _replay_job_id: job.id });
     } catch {
       await queue.send({ stage: job.stage, replay_job_id: job.id });
     }
   }
 
-  return Response.redirect('/admin/jobs', 303);
+  // Response.redirect() requires an absolute URL in Cloudflare Workers.
+  const redirectUrl = new URL('/admin/jobs', request.url).href;
+  return Response.redirect(redirectUrl, 303);
 };

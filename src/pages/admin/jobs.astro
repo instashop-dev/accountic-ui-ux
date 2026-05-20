@@ -106,7 +106,7 @@ function statusColor(status: string): string {
                   {j.error && <div class="error-preview" title={j.error}>{j.error}</div>}
                 </td>
                 <td>
-                  {j.status === 'failed' && (
+                  {(j.status === 'failed' || j.status === 'running') && (
                     <form method="POST" action={`/admin/api/jobs/${j.id}/replay`}>
                       <button type="submit">Replay</button>
                     </form>

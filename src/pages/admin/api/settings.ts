@@ -55,5 +55,5 @@ export const POST: APIRoute = async ({ request }) => {
 
   await db.batch(stmts);
 
-  return Response.redirect('/admin/settings', 303);
+  return Response.redirect(new URL('/admin/settings', request.url).href, 303);
 };

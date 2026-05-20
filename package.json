@@ -31,12 +31,12 @@
     "db:seed": "echo 'No seed data for production. Use migrations only.'",
     "blog:deploy": "wrangler deploy --config wrangler.pipeline.jsonc",
     "blog:provision": "wrangler queues create blog-pipeline && wrangler queues create blog-humanize && wrangler queues create blog-publish && wrangler queues create blog-refresh",
-    "blog:generate": "wrangler queues send blog-pipeline --message-body '{\"stage\":\"topic-discovery\",\"count\":3}'",
-    "verify:production": "tsx scripts/verify-production.ts",
+    "blog:generate": "npx tsx scripts/generate-blog.ts",
+    "verify:production": "npx tsx scripts/verify-production.ts",
     "blog:validate": "npx tsx scripts/validate-post.ts",
     "blog:generate-types": "wrangler types",
-    "db:seed-prompts": "tsx scripts/seed-prompts.ts",
-    "blog:trigger-article": "tsx scripts/trigger-article.ts"
+    "db:seed-prompts": "npx tsx scripts/seed-prompts.ts",
+    "blog:trigger-article": "npx tsx scripts/trigger-article.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.51.0",

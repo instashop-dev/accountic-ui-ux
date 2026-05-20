@@ -61,5 +61,5 @@ export const POST: APIRoute = async ({ params, request }) => {
     await queue.send(publishMessage(id));
   }
 
-  return Response.redirect('/admin/queue', 303);
+  return Response.redirect(new URL('/admin/queue', request.url).href, 303);
 };
