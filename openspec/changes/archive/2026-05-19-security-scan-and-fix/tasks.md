@@ -47,6 +47,6 @@
 
 ## 9. Provision secrets and verify
 
-- [ ] 9.1 Run `wrangler secret put ADMIN_PASSWORD` for the production Worker (outside of source code — operational step, document in PR description)
+- [x] 9.1 Run `wrangler secret put ADMIN_PASSWORD` for the production Worker (outside of source code — operational step, document in PR description)
 - [ ] 9.2 Verify local dev works by creating `.dev.vars` with `ADMIN_PASSWORD=<dev-password>` and running `wrangler dev`
 - [x] 9.3 Run TypeScript type-check (`npx tsc --noEmit`) to confirm no type errors introduced
