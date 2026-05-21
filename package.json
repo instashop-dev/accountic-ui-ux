@@ -36,7 +36,9 @@
     "blog:validate": "npx tsx scripts/validate-post.ts",
     "blog:generate-types": "wrangler types",
     "db:seed-prompts": "npx tsx scripts/seed-prompts.ts",
-    "blog:trigger-article": "npx tsx scripts/trigger-article.ts"
+    "blog:trigger-article": "npx tsx scripts/trigger-article.ts",
+    "blog:detect-similar": "npx tsx scripts/detect-similar-posts.ts",
+    "blog:delete-similar": "npx tsx scripts/delete-similar-posts.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.51.0",
