@@ -4,7 +4,10 @@ export const PILLARS = [
 	'DPDP Compliance',
 	'ICAI Ethics',
 	'Case Law Notes',
-	'Firm Operations',
+	'CA Firm Automation',
+	'AI Tools for Indian CAs',
+	'GST Automation',
+	'Audit Technology',
 ] as const;
 
 export type Pillar = (typeof PILLARS)[number];

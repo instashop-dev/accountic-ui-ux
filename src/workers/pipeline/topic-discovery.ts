@@ -53,7 +53,22 @@ export default {
         continue;
       }
 
-      const userPrompt = promptRow.user_prompt_template.replace('{{count}}', String(count));
+      // ── Build coverage brief for editorial-aware generation ────────────────
+      const pillarCountRows = await db
+        .prepare("SELECT pillar, COUNT(*) as count FROM topics WHERE status != 'failed' GROUP BY pillar")
+        .all<{ pillar: string; count: number }>();
+
+      const recentTitleRows = await db
+        .prepare(
+          "SELECT title FROM topics WHERE status != 'failed' AND created_at >= datetime('now', '-90 days') ORDER BY created_at DESC LIMIT 300",
+        )
+        .all<{ title: string }>();
+
+      const coverageBrief = buildCoverageBrief(pillarCountRows.results, recentTitleRows.results);
+
+      const userPrompt = promptRow.user_prompt_template
+        .replace('{{coverage_brief}}', coverageBrief)
+        .replace('{{count}}', String(count));
 
       const estimatedTokens = 2000;
       try {
@@ -85,9 +100,9 @@ export default {
         continue;
       }
 
-      // Fetch existing titles for deduplication
+      // Fetch existing titles for deduplication (topics + published posts)
       const existingRows = await db
-        .prepare('SELECT title FROM topics')
+        .prepare('SELECT title FROM topics UNION SELECT title FROM posts')
         .all<{ title: string }>();
       const existingTitles = new Set(existingRows.results.map((r) => r.title.toLowerCase()));
 
@@ -134,4 +149,34 @@ function extractJson(text: string): string {
   const end = text.lastIndexOf(']');
   if (start === -1 || end === -1) throw new Error('No JSON array found in response');
   return text.slice(start, end + 1);
+}
+
+/**
+ * Builds a compact editorial coverage brief for injection into the topic-discovery prompt.
+ *
+ * Two sections:
+ *   1. Per-pillar counts (all-time, excluding failed topics) — signals saturation balance
+ *   2. Recent titles (last 90 days, up to 300) — enables semantic recency dedup by the AI
+ *
+ * If both sections are empty (first run), returns an empty string so the replacement
+ * in a template that contains `{{coverage_brief}}` is graceful.
+ */
+export function buildCoverageBrief(
+  pillarCounts: Array<{ pillar: string; count: number }>,
+  recentTitles: Array<{ title: string }>,
+): string {
+  if (pillarCounts.length === 0 && recentTitles.length === 0) return '';
+
+  const countMap = new Map(pillarCounts.map((r) => [r.pillar, r.count]));
+  const countsSection = PILLARS.map((p) => `- ${p}: ${countMap.get(p) ?? 0}`).join('\n');
+
+  const titlesSection =
+    recentTitles.length > 0
+      ? recentTitles.map((r) => `- ${r.title}`).join('\n')
+      : '(none in the last 90 days)';
+
+  return (
+    `Per-pillar topic counts (all time, excluding failed):\n${countsSection}\n\n` +
+    `Topics covered in the last 90 days (most recent first):\n${titlesSection}`
+  );
 }
