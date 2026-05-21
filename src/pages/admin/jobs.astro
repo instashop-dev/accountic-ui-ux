@@ -66,6 +66,9 @@ function statusColor(status: string): string {
       .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
       .empty { text-align: center; padding: 3rem; color: #6b7280; }
       code { font-size: 0.75rem; color: #6b7280; }
+      .trigger-bar { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+      button.trigger { background: #1e1b4b; color: #fff; border: none; border-radius: 6px; padding: 0.55rem 1.25rem; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+      button.trigger:hover { background: #312e81; }
     </style>
   </head>
   <body>
@@ -81,6 +84,11 @@ function statusColor(status: string): string {
     </header>
     <main>
       <h1>Generation Jobs</h1>
+      <div class="trigger-bar">
+        <form method="POST" action="/admin/api/generate">
+          <button type="submit" class="trigger">Generate 1 Post</button>
+        </form>
+      </div>
       {dbError && <div class="error">{dbError}</div>}
       {jobs.length === 0 && !dbError && <div class="empty">No generation jobs yet.</div>}
       {jobs.length > 0 && (
