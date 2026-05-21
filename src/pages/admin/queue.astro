@@ -70,6 +70,16 @@ function parseScore(qualityJson: string | null): string {
     return '—';
   }
 }
+
+function parseErrors(qualityJson: string | null): string[] {
+  if (!qualityJson) return [];
+  try {
+    const r = JSON.parse(qualityJson) as { errors?: string[] };
+    return r.errors ?? [];
+  } catch {
+    return [];
+  }
+}
 ---
 
 <!doctype html>
@@ -95,6 +105,9 @@ function parseScore(qualityJson: string | null): string {
       .btn-reject { background: #dc2626; color: #fff; }
       .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
       .empty { text-align: center; padding: 3rem; color: #6b7280; }
+      .quality-errors { margin-top: 0.4rem; padding: 0; list-style: none; }
+      .quality-errors li { color: #dc2626; font-size: 0.75rem; margin-top: 0.2rem; }
+      .btn-override { background: #d97706; color: #fff; }
     </style>
   </head>
   <body>
@@ -134,13 +147,25 @@ function parseScore(qualityJson: string | null): string {
                 <td>
                   <span class="badge" style={statusBadge(d.status)}>{d.status}</span>
                 </td>
-                <td>{parseScore(d.quality_report_json)}</td>
+                <td>
+                  {parseScore(d.quality_report_json)}
+                  {d.status === 'failed' && parseErrors(d.quality_report_json).length > 0 && (
+                    <ul class="quality-errors">
+                      {parseErrors(d.quality_report_json).map((e) => <li>• {e}</li>)}
+                    </ul>
+                  )}
+                </td>
                 <td style="white-space:nowrap;color:#6b7280;font-size:0.8rem">{d.humanized_at ? d.humanized_at.slice(0, 16) : '—'}</td>
                 <td style="white-space:nowrap">{d.created_at.slice(0, 16)}</td>
                 <td>
                   {d.status === 'humanized' && (
                     <form method="POST" action={`/admin/api/drafts/${d.id}/approve`} style="display:inline;margin-right:0.25rem">
                       <button class="btn-publish" type="submit">Publish</button>
+                    </form>
+                  )}
+                  {d.status === 'failed' && (
+                    <form method="POST" action={`/admin/api/drafts/${d.id}/approve`} style="display:inline;margin-right:0.25rem">
+                      <button class="btn-override" type="submit">Override &amp; Publish</button>
                     </form>
                   )}
                   {(d.status === 'ready' || d.status === 'humanized') && (

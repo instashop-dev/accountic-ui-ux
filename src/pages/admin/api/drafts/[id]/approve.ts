@@ -45,9 +45,9 @@ export const POST: APIRoute = async ({ params, request }) => {
       headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS },
     });
   }
-  if (draft.status !== 'ready' && draft.status !== 'humanized') {
+  if (draft.status !== 'ready' && draft.status !== 'humanized' && draft.status !== 'failed') {
     return new Response(
-      JSON.stringify({ error: `Draft status is '${draft.status}', expected 'ready' or 'humanized'` }),
+      JSON.stringify({ error: `Draft status is '${draft.status}', expected 'ready', 'humanized', or 'failed'` }),
       { status: 409, headers: { 'Content-Type': 'application/json', ...ADMIN_SECURITY_HEADERS } },
     );
   }
