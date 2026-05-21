@@ -126,8 +126,8 @@ export default {
         continue;
       }
 
-      if (draft.status !== 'approved') {
-        console.warn('[publisher] Draft is not approved, skipping:', draft_id, draft.status);
+      if (draft.status !== 'approved' && draft.status !== 'humanized') {
+        console.warn('[publisher] Draft not ready to publish, skipping:', draft_id, draft.status);
         msg.ack();
         continue;
       }

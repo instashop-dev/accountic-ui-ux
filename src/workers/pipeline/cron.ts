@@ -28,10 +28,10 @@ export default {
 
     const cron = event.cron;
 
-    // Weekly topic discovery: every Monday at 03:00 UTC
-    if (cron === '0 3 * * 1') {
-      await env.BLOG_PIPELINE_QUEUE.send(topicDiscoveryMessage(10));
-      console.log('[cron] Dispatched topic-discovery message');
+    // Daily article generation: every day at 03:00 UTC
+    if (cron === '0 3 * * *') {
+      await env.BLOG_PIPELINE_QUEUE.send(topicDiscoveryMessage(3));
+      console.log('[cron] Dispatched topic-discovery message (count=3)');
     }
 
     // Daily refresh scan: every day at 04:00 UTC

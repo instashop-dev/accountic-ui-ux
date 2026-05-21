@@ -9,10 +9,10 @@
 	},
 
 	// ── Cron Triggers ─────────────────────────────────────────────────────────
-	// Weekly topic discovery (Monday 03:00 UTC) + daily refresh scan (04:00 UTC)
+	// Daily article generation (03:00 UTC) + daily refresh/token-reset (04:00 UTC)
 	"triggers": {
 		"crons": [
-			"0 3 * * 1",
+			"0 3 * * *",
 			"0 4 * * *"
 		]
 	},

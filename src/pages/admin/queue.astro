@@ -91,6 +91,7 @@ function parseScore(qualityJson: string | null): string {
       .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
       form { display: inline; }
       button { cursor: pointer; border: none; border-radius: 4px; padding: 0.35rem 0.75rem; font-size: 0.8rem; font-weight: 600; margin-right: 0.25rem; }
+      .btn-publish { background: #16a34a; color: #fff; }
       .btn-reject { background: #dc2626; color: #fff; }
       .error { background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
       .empty { text-align: center; padding: 3rem; color: #6b7280; }
@@ -137,6 +138,11 @@ function parseScore(qualityJson: string | null): string {
                 <td style="white-space:nowrap;color:#6b7280;font-size:0.8rem">{d.humanized_at ? d.humanized_at.slice(0, 16) : '—'}</td>
                 <td style="white-space:nowrap">{d.created_at.slice(0, 16)}</td>
                 <td>
+                  {d.status === 'humanized' && (
+                    <form method="POST" action={`/admin/api/drafts/${d.id}/approve`} style="display:inline;margin-right:0.25rem">
+                      <button class="btn-publish" type="submit">Publish</button>
+                    </form>
+                  )}
                   {(d.status === 'ready' || d.status === 'humanized') && (
                     <form method="POST" action={`/admin/api/drafts/${d.id}/reject`}>
                       <button class="btn-reject" type="submit">Reject</button>
