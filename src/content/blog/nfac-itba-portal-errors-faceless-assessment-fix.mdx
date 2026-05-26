@@ -1,0 +1,131 @@
+---
+title: "NFAC Portal Errors: Fix ITBA Submission Failures"
+description: "Step-by-step troubleshooting guide for CAs facing DIN verification failures and document upload errors on the ITBA portal during faceless assessment proceedings."
+pubDate: 2026-05-26
+pillar: "Faceless Assessment"
+author: "Accountic Team"
+readTime: 9
+tone: "emerald"
+featured: false
+---
+# NFAC Portal Errors: Fix ITBA Submission Failures
+
+ITBA submission failures are not a minor inconvenience. When a response fails to upload during a live NFAC proceeding — especially in AY 2024-25 or AY 2025-26 cases where demand notices have already been issued — you are one missed deadline away from an ex-parte assessment order. This guide cuts straight to the fixes.
+
+---
+
+## Why ITBA Portal Failures Derail Faceless Assessments
+
+NFAC proceedings operate on hard statutory deadlines. Under the [faceless assessment](/blog/faceless-assessment-adjournment-requests-what-actually-works/) framework, if your client's response is not on record by the specified date, the Assessing Unit can proceed without it — and the resulting ex-parte order is far harder to undo than the original submission would have been.
+
+The failure categories that cause the most damage are DIN mismatches on notice verification, document upload rejections with cryptic error codes, session timeouts mid-upload, and DSC or emSigner authentication errors at the final submission step. Each of these has a different root cause and a different fix.
+
+One critical point that trips up even experienced practitioners: the ITBA portal and the e-Filing portal (incometax.gov.in) are completely separate systems with separate credentials, separate DSC registrations, and separate helpdesks. Solutions that work for one portal rarely apply to the other. Treating them as the same system wastes time you may not have.
+
+---
+
+## DIN Verification Failures: Causes and Instant Fixes
+
+The Document Identification Number printed on a notice is the portal's authentication key for your response. Any mismatch — even a trailing space or wrong case — causes the ITBA system to reject the DIN as invalid, blocking you from linking your reply to the correct proceeding.
+
+The most common cause is copy-paste from the notice PDF. PDF text extraction routinely introduces invisible trailing spaces, em-dashes rendered as hyphens, or character encoding anomalies. Notices issued under older ITBA builds also carry legacy DIN prefixes (typically a different alphabetical block) that the updated validation logic rejects even when the number appears visually correct.
+
+Follow this workflow to resolve DIN failures before the deadline lapses:
+
+1. Open the ITBA portal and navigate to **e-Proceedings > Verify Notice** module — do not attempt response submission until the DIN validates here first.
+2. Manually type the DIN digit by digit directly into the verification field — never copy-paste from the PDF, even if it looks clean.
+3. If the DIN still fails, open the original notice PDF in Adobe Acrobat, select the DIN text, and check the character count in the status bar against the expected format (typically 20 characters including slashes).
+4. Cross-check the DIN against the notice available under **My Account > Notices/Orders** on the ITBA portal — the portal-stored version will always have the canonical format.
+5. If the portal-stored DIN differs from the PDF-printed DIN, this is a legacy prefix issue. Raise an ITBA helpdesk ticket under category **"e-Proceedings — DIN Mismatch"** immediately and simultaneously send a preliminary response by email to preserve your timestamp.
+6. If the DIN validates in the Verify Notice module but still fails during response submission, clear your browser cache completely, restart the session, and retry — session state corruption is a separate and very common cause of this specific failure pattern.
+
+When to escalate: if the DIN mismatch persists after steps 1 through 6, contact the jurisdictional CIT(IT) helpdesk directly by phone — do not rely solely on e-Nivaran for DIN issues, as those tickets are frequently misrouted to the e-Filing team who have no visibility into ITBA proceedings.
+
+---
+
+## Document Upload Errors: Error Codes Decoded
+
+ITBA's upload engine returns error codes that sound technical but are actionable once you know what they actually mean. Stop guessing and map the code directly to the fix.
+
+| Error Code | What It Actually Means | Immediate Fix |
+| --- | --- | --- |
+| ERR-DOC-001 | Single file exceeds the 5 MB size limit | Compress PDF using Smallpdf or Adobe's Reduce File Size; for scanned docs, reduce scan DPI from 300 to 150 for text-heavy submissions |
+| ERR-DOC-004 | MIME type not accepted — system detects file format different from extension declared | Re-save the file natively (e.g., open in Word and Save As PDF); do not rename a .doc file to .pdf |
+| ERR-DOC-007 | PDF is not PDF/A compliant — standard PDF export used instead of PDF/A-1b | Re-export using Adobe Acrobat's "Save as PDF/A" or use LibreOffice with PDF/A-1b checkbox enabled |
+| ERR-DOC-012 | File name contains disallowed characters or exceeds 50-character limit | Rename to alphanumerics only, no spaces, no brackets, no special characters — use underscores if needed |
+| Silent rejection (no error shown) | Batch upload queue overflow or session token expiry mid-upload | Switch to single-file upload mode; re-login and upload files one at a time in order of priority |
+
+The PDF/A compliance issue deserves special attention. Most CAs export directly from Word or scan to standard PDF. ITBA's document repository requires PDF/A-1b for archival integrity. Standard PDF passes visual inspection but fails the portal's MIME validation silently or throws ERR-DOC-007. Convert your files before you arrive at the portal, not after a failure.
+
+File naming is the most underrated failure point. A file named "Balance Sheet (FY 2023-24) — Revised.pdf" will fail silently or throw ERR-DOC-012 every time. Rename it to "BalanceSheet_FY2324_Revised.pdf" before upload.
+
+---
+
+## Step-by-Step Submission Recovery Workflow
+
+When a submission fails during an active proceeding, work through this sequence in order. Do not skip steps — the sequence is designed to isolate the failure layer systematically.
+
+1. Switch to **Google Chrome** (latest stable version) immediately — ITBA is tested on Chrome and exhibits known rendering failures on Firefox, Edge, and Safari that are not documented in any official advisory.
+2. Clear Chrome's cache and cookies completely (**Settings > Privacy > Clear Browsing Data > All Time**), then close and reopen the browser — do not use the same session tab.
+3. Open an **Incognito window** and log in fresh — this eliminates extension conflicts and cached session tokens as variables.
+4. Re-register your DSC on the ITBA portal under **Profile > DSC Management** even if it was previously registered — ITBA sessions occasionally invalidate DSC bindings without warning.
+5. Verify that **emSigner** is running (check the system tray icon) and, if absent, launch it as Administrator by right-clicking the executable — non-administrator launches fail silently on Windows 10 and 11.
+6. Check emSigner's port status at **http://localhost:1585** in your browser — if the page does not load, another application is blocking port 1585; close Zoom, Teams, or VPN clients that commonly claim this port, then restart emSigner.
+7. If the portal submission still fails after steps 1 through 6, prepare your response documents and send them immediately to **nfac.helpdesk@incometax.gov.in** with the subject line: `URGENT — Portal Submission Failure — PAN: [XXXXXXXXXX] — AY 2024-25 — Proceeding ID: [XXXXXXXXX]` — this email timestamp becomes your proof of timely response.
+8. In the email body, state the specific error code or failure behaviour, attach all response documents, include your CA registration number, and request acknowledgment — keep the email below 10 MB total to avoid mail server rejection.
+9. Call the NFAC toll-free helpline (1800-103-4786) immediately after sending the email and note the complaint/ticket number provided — this call record corroborates your good-faith submission attempt.
+10. Take **timestamped screenshots** of every failed submission attempt — capture the error message, the proceeding page with the PAN and AY visible, and your system clock in the same frame — these screenshots are essential if you need to request an adjournment or build an appellate record showing the failure was portal-attributable.
+
+---
+
+## DSC and emSigner Errors on ITBA: Quick Diagnostics
+
+The single most common DSC error on ITBA is practitioners assuming that a DSC registered on the e-Filing portal is automatically valid on ITBA. It is not. ITBA requires a completely separate DSC registration, and this catches practitioners off guard during high-pressure submission windows.
+
+Class 2 DSCs are no longer issued by certifying authorities, but existing Class 2 certificates may still be presented by clients. For authorised representative submissions on NFAC, Class 3 DSC is required. If your DSC token holds a Class 2 certificate, the submission will fail at the signing step with no useful error message — check the certificate class in your token management software before entering the proceeding.
+
+Windows 11 has created a specific and well-documented problem with USB token driver compatibility. Many Epass 2003 and WatchData tokens ship with drivers that are not digitally signed for Windows 11's stricter driver validation. If your token is not detected by emSigner despite appearing in Device Manager, roll back to the driver version recommended by your certifying authority (usually available on their website under "Legacy Drivers") — this resolves the issue in most cases without any OS changes.
+
+If emSigner fails to detect the token even after reinstalling drivers, run the **Microsoft USB Troubleshooter**, check that the USB port is not a USB 3.2 Gen 2 port (some tokens are incompatible — try a USB 2.0 port or hub), and ensure no other signing application is holding exclusive access to the token.
+
+---
+
+## Escalation Paths When Self-Help Fails
+
+A CA in Mumbai is handling an AY 2024-25 scrutiny case under faceless assessment. The response deadline is 5:00 PM today. The ITBA portal has been returning ERR-DOC-007 since 10:00 AM despite multiple attempts with different browsers. The DSC registers, emSigner runs clean, but the document upload fails at 99% every time.
+
+Here is the correct escalation sequence in this situation:
+
+First, send the email submission to **nfac.helpdesk@incometax.gov.in** immediately — do not wait for a ticket resolution that will not come in time. Use the subject line format: `Portal Failure — Submission Unable — PAN: AAAAA0000A — AY 2024-25 — Proceeding ID: [ID]`. Attach the complete response, all supporting documents, and a screenshot of the error.
+
+Second, raise an **ITBA helpdesk ticket** — not an e-Nivaran grievance. Select category **"Faceless Assessment — Document Upload Error"** specifically. E-Nivaran is appropriate for refund and registration issues; NFAC-specific portal failures are resolved faster through the ITBA helpdesk channel because they reach a different team.
+
+Third, if the deadline is within 24 hours and the ticket is unresolved, draft a formal letter requesting adjournment under **Section 282B** of the Income Tax Act, citing the portal failure with supporting evidence (screenshots, email delivery receipts, ticket number). Submit this letter to the NFAC via email and retain proof of sending.
+
+**CPGRAMS** (the PMO grievance portal) is a last resort — it creates a paper trail and sometimes accelerates resolution when NFAC tickets stall, but response times are unpredictable and should not be your primary channel on deadline day.
+
+---
+
+## Prevention Checklist: Avoiding ITBA Failures Before They Happen
+
+Every ITBA submission failure seen in practice was preventable. The practitioners who never face deadline crises from portal issues follow one discipline: they treat submission as a two-day process, not a same-day event.
+
+Build this pre-submission workflow into your practice for every NFAC response:
+
+1. **48 hours before deadline** — Audit your submission environment: confirm Chrome is on the latest version, check that emSigner launches without errors, verify DSC token expiry date (tokens expiring within 30 days should be renewed immediately, not after a failure), and confirm your ITBA DSC registration is active under Profile settings.
+2. **48 hours before deadline** — Convert all documents to PDF/A-1b format, compress each file below 4 MB (leaving headroom below the 5 MB limit), rename every file using only alphanumerics and underscores, and verify total submission size stays within the portal's aggregate limit.
+3. **36 hours before deadline** — Conduct a test login to the ITBA portal, navigate to the specific proceeding, and verify the DIN using the Verify Notice module — resolve any DIN issues now, not on deadline day.
+4. **36 hours before deadline** — Do a dry run of the document upload by uploading a single non-critical document in the proceeding (if the interface permits a draft save) to confirm there are no environment-level upload failures before you commit the full response.
+5. **24 hours before deadline** — Make the actual submission. Log the submission with a timestamped screenshot showing the acknowledgment number, your system clock, and the proceeding details in a dedicated NFAC Submissions log file — maintain one per client, per AY.
+6. **Immediately after submission** — Download and save the submission acknowledgment PDF from the portal. Do not assume the portal record is sufficient — servers fail, records get archived, and in an appellate proceeding you will want a locally stored, timestamped copy of proof of submission.
+
+Maintaining a timestamped submission log is not optional housekeeping — it is your first line of defence in any future adjournment request, revision petition, or appellate proceeding where the question of timely compliance arises.
+
+---
+
+## Your Next Step
+
+If you have an active ITBA submission due within the next 72 hours, open the ITBA portal right now, navigate to Verify Notice, and confirm your DIN resolves cleanly. Then check that emSigner is running and your DSC registration is active on ITBA — not just on e-Filing. These two checks take five minutes and eliminate the majority of last-minute failures before they happen.
+
+If you are building a practice-level protocol, create a one-page NFAC Submission Checklist based on the prevention workflow above and make it mandatory for every team member handling faceless assessment responses. The CAs who never miss NFAC deadlines due to portal errors are not lucky — they are prepared.
+<script type="application/ld+json" set:html={`[{"@context":"https://schema.org","@type":"Article","headline":"NFAC Portal Errors: Fix ITBA Submission Failures","description":"Step-by-step troubleshooting guide for CAs facing DIN verification failures and document upload errors on the ITBA portal during faceless assessment proceedings.","datePublished":"2026-05-26","author":{"@type":"Person","name":"Accountic Team"},"publisher":{"@type":"Organization","name":"Accountic","url":"https://accountic.in"},"url":"https://accountic.in/blog/nfac-itba-portal-errors-faceless-assessment-fix/"},{"@context":"https://schema.org","@type":"HowTo","name":"NFAC Portal Errors: Fix ITBA Submission Failures","description":"Step-by-step troubleshooting guide for CAs facing DIN verification failures and document upload errors on the ITBA portal during faceless assessment proceedings.","step":[{"@type":"HowToStep","name":"Switch to Google Chrome (latest stable version) immediately ","text":"Switch to Google Chrome (latest stable version) immediately — ITBA is tested on Chrome and exhibits known rendering failures on Firefox, Edge, and Safari that are not documented in any official advisory."},{"@type":"HowToStep","name":"Clear Chrome's cache and cookies completely (Settings > Priv","text":"Clear Chrome's cache and cookies completely (Settings > Privacy > Clear Browsing Data > All Time), then close and reopen the browser — do not use the same session tab."},{"@type":"HowToStep","name":"Open an Incognito window and log in fresh — this eliminates ","text":"Open an Incognito window and log in fresh — this eliminates extension conflicts and cached session tokens as variables."},{"@type":"HowToStep","name":"Re-register your DSC on the ITBA portal under Profile > DSC ","text":"Re-register your DSC on the ITBA portal under Profile > DSC Management even if it was previously registered — ITBA sessions occasionally invalidate DSC bindings without warning."},{"@type":"HowToStep","name":"Verify that emSigner is running (check the system tray icon)","text":"Verify that emSigner is running (check the system tray icon) and, if absent, launch it as Administrator by right-clicking the executable — non-administrator launches fail silently on Windows 10 and 11."},{"@type":"HowToStep","name":"Check emSigner's port status at http://localhost:1585 in you","text":"Check emSigner's port status at http://localhost:1585 in your browser — if the page does not load, another application is blocking port 1585; close Zoom, Teams, or VPN clients that commonly claim this port, then restart emSigner."},{"@type":"HowToStep","name":"If the portal submission still fails after steps 1 through 6","text":"If the portal submission still fails after steps 1 through 6, prepare your response documents and send them immediately to nfac.helpdesk@incometax.gov.in with the subject line: \`URGENT — Portal Submission Failure — PAN: [XXXXXXXXXX] — AY 2024-25 — Proceeding ID: [XXXXXXXXX]\` — this email timestamp becomes your proof of timely response."},{"@type":"HowToStep","name":"In the email body, state the specific error code or failure ","text":"In the email body, state the specific error code or failure behaviour, attach all response documents, include your CA registration number, and request acknowledgment — keep the email below 10 MB total to avoid mail server rejection."},{"@type":"HowToStep","name":"Call the NFAC toll-free helpline (1800-103-4786) immediately","text":"Call the NFAC toll-free helpline (1800-103-4786) immediately after sending the email and note the complaint/ticket number provided — this call record corroborates your good-faith submission attempt."},{"@type":"HowToStep","name":"Take timestamped screenshots of every failed submission atte","text":"Take timestamped screenshots of every failed submission attempt — capture the error message, the proceeding page with the PAN and AY visible, and your system clock in the same frame — these screenshots are essential if you need to request an adjournment or build an appellate record showing the failure was portal-attributable."}]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://accountic.in"},{"@type":"ListItem","position":2,"name":"Faceless Assessment","item":"https://accountic.in/blog/?pillar=Faceless%20Assessment"},{"@type":"ListItem","position":3,"name":"NFAC Portal Errors: Fix ITBA Submission Failures","item":"https://accountic.in/blog/nfac-itba-portal-errors-faceless-assessment-fix/"}]}]`} />
