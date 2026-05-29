@@ -1,0 +1,128 @@
+---
+title: "DPDP Act 2023: Data Retention & Deletion Policy for CA Firms"
+description: "Build a defensible data retention schedule and deletion workflow for ITR workpapers, PAN/Aadhaar copies, and GST records under DPDP Act 2023."
+pubDate: 2026-05-29
+pillar: "DPDP Compliance"
+author: "Accountic Team"
+readTime: 12
+tone: "emerald"
+featured: false
+---
+# DPDP Act 2023: Data Retention & Deletion Policy for CA Firms
+
+If your firm processes PAN cards, Aadhaar copies, bank statements, or ITR workpapers for even twenty clients, you are already a significant data fiduciary under the Digital Personal Data Protection Act 2023. Most CA firms are not ready for that label—and the Data Protection Board of India will not care that you were busy with the tax season when it investigates.
+
+This guide gives you a working retention schedule, a deletion workflow, and a defensible policy structure you can implement this quarter.
+
+---
+
+## Why CA Firms Are High-Risk Under DPDP Act 2023
+
+The average mid-size CA firm in India processes personal data for hundreds of clients simultaneously—PAN numbers, Aadhaar details, salary slips, bank statements, and shareholding records. Every single one of those documents qualifies as "personal data" under the DPDP Act, and in many cases the financial data qualifies as sensitive in nature.
+
+The penalties are not notional. Unlawful retention or processing without a legitimate purpose can attract penalties of up to ₹250 crore per breach under the Act. That figure is calibrated to corporate offenders, but the Board has no obligation to treat a CA firm any differently.
+
+What makes the exposure worse is structural. Most practices have never documented a purpose-limitation policy, have no formal consent framework at onboarding, and keep client files indefinitely out of habit. That combination—large data volumes, no documented lawful basis, and no deletion schedule—is exactly the profile the Board will prioritise in early enforcement.
+
+---
+
+## Retention Periods by Record Type: The Master Schedule
+
+Before you can delete anything lawfully, you need to know how long each record type must be kept. The table below maps your most common document categories to the applicable statutory requirement and the DPDP-compatible retention ceiling.
+
+| Record Type | Applicable Law | Mandatory Retention Period | DPDP Notes |
+| --- | --- | --- | --- |
+| ITR workpapers and computation sheets | Income Tax Act, Section 44AA | 6 years from the end of the relevant Assessment Year (e.g., AY 2024-25 records until 31 March 2031) | Retain under "legal obligation" basis; document in your privacy notice |
+| GST returns, invoices, and input credit records | GST Rule 56 | 72 months (6 years) from the due date of the annual return | Same legal obligation basis applies; no fresh consent needed |
+| Audit files (statutory and tax audit) | ICAI guidelines / Companies Act 2013 | 7 years from the date of the audit report | Retain under legal obligation; note in engagement letter |
+| Engagement letters and fee agreements | Contractual / ICAI | Duration of engagement + 3 years for limitation purposes | Contractual necessity basis; review at disengagement |
+| PAN card copy (KYC onboarding only) | PMLA / Income Tax Act | Retain during engagement; delete within 30 days post-disengagement if no other obligation applies | No ongoing statutory obligation after verification = delete |
+| Aadhaar copy (KYC onboarding only) | Aadhaar Act 2016 read with DPDP | Delete once purpose (identity verification) is fulfilled unless another statute compels retention | Explicit consent or legal obligation required for continued holding |
+| Bank statements (not forming part of audit evidence) | None specific | Delete once the purpose of preparation is complete | Purpose limitation strictly applies; do not retain "just in case" |
+| Salary slips and payroll data | Income Tax Act, PF Act | 6 years from the relevant AY for tax purposes | Retain under legal obligation; flag expiry dates in DMS |
+
+The key principle from DPDP: retention beyond a statutory minimum requires a fresh, documented lawful basis. "We always keep everything" is not a basis.
+
+---
+
+## Designing a Lawful Basis & Consent Framework for Retained Data
+
+Every document in your filing system needs to be mapped to one of three DPDP lawful bases: consent freely given, a legal obligation under statute, or a legitimate use as defined under the Act. For CA firms, most retention falls cleanly into "legal obligation"—but only if you have documented it.
+
+Statutory retention under the Income Tax Act, GST law, and the Companies Act does not require you to collect fresh consent from clients. It does, however, require you to describe that retention in your privacy notice so that data principals know their records are being held and why.
+
+The more problematic category is data you have retained out of convenience rather than compulsion. PAN and Aadhaar copies held beyond the KYC stage, bank statements kept after filing is complete, and correspondence containing personal details that has no statutory retention requirement—all of these need either explicit client consent documented at engagement level or a clear contractual necessity argument. A generic line in your engagement letter saying "we may retain your data" will not survive scrutiny.
+
+Firms that act as data processors for corporate clients face an additional layer. Your retention schedule must align with the corporate client's own DPDP obligations as data fiduciary. If your client is required to delete certain employee data by a particular date, you cannot retain your copy of that data beyond that date without their written authorisation.
+
+---
+
+## Step-by-Step: Building Your Firm's Deletion Workflow
+
+Knowing the retention periods is the easy part. The harder discipline is executing deletion on schedule and maintaining proof that you did so. Here is the operational workflow to implement:
+
+1. Audit your current data inventory across all storage locations—local server, cloud drives, email archives, physical filing cabinets, and any third-party platforms used by the firm. Assign each file category a retention expiry date based on the master schedule above.
+2. Configure retention labels in your Document Management System (DMS) or set up a spreadsheet tracker with calculated expiry dates and conditional formatting to flag records approaching their deletion window 90 days in advance.
+3. Schedule a quarterly deletion sweep: on the first working Monday of January, April, July, and October, your designated privacy lead reviews all records flagged as expired or approaching expiry in the previous quarter.
+4. Apply the two-person authorisation rule before any deletion is executed—the privacy lead proposes the deletion list and a partner provides written sign-off, creating an auditable approval chain that demonstrates the decision was intentional and reviewed.
+5. Execute deletion using the correct method for each medium: certified cross-cut shredding for physical files, cryptographic erasure or DoD-standard overwrite for local digital storage, and vendor-confirmed deletion certificates for cloud platforms such as Google Workspace or Microsoft 365.
+6. Record every deletion event in your Deletion Register: record type, pseudonymised client identifier, date of deletion, method used, and name of the approving partner. Retain this register for at least three years after the deletion event.
+7. Where a client has formally requested erasure under DPDP's right-to-erasure provisions, issue a written closure notice confirming which data has been deleted, which data is being retained under a statutory obligation, and the expected deletion date for the latter.
+
+This workflow takes roughly half a day per quarter for a firm of twenty staff once the initial setup is complete. The cost of not having it is measurably higher.
+
+---
+
+## Practical Example: Handling a Departing Client's File
+
+**Client Scenario:**
+
+Priya Textiles Pvt. Ltd. disengages from your firm in September 2025 after you complete their GST returns and income tax filing for AY 2024-25. They move to a different firm. Within 48 hours you receive a written disengagement letter. What do you do with their file?
+
+**Step 1 — Segregate the file by record type.** The ITR computation, Form 3CD tax audit report, and GST annual return workpapers for AY 2024-25 must be retained until 31 March 2031 under Section 44AA and GST Rule 56. These are flagged in your DMS under the "legal obligation" basis and the client ID is pseudonymised for your Deletion Register.
+
+**Step 2 — Identify records with no surviving statutory obligation.** The Aadhaar copy collected at onboarding for identity verification, the bank statements used only for preparing provisional financials, and any WhatsApp-forwarded salary slips that are not part of your audit evidence file—none of these have a surviving statutory retention obligation. These must be deleted within 30 days of disengagement.
+
+**Step 3 — Execute and log the split deletion.** Non-statutory records are deleted immediately using the firm's standard secure deletion protocol. The Deletion Register is updated. The partner signs off.
+
+**Step 4 — Issue the client communication.** Within 7 days of disengagement, send Priya Textiles a brief written confirmation:
+
+> *"We confirm receipt of your disengagement letter dated [date]. Records related to your statutory filings (Income Tax AY 2024-25 and GST returns) are being retained until [specific dates] under our legal obligations. Personal data held solely for onboarding and operational purposes has been permanently deleted. You may contact our Data Protection Lead at [email] for any queries."*
+
+This template is short, specific, and demonstrates both your awareness of DPDP and your professionalism at disengagement. Keep a copy of every such notice in your records.
+
+---
+
+## Technology Stack: Tools to Automate Retention & Deletion
+
+The tools do not need to be expensive—they need to be configured correctly. Most CA firms already have software in place that could enforce retention schedules but have never been set up to do so.
+
+Document Management Systems like SharePoint, Zoho Docs, or Accountic's document vault allow you to apply retention label policies per folder or document type. Set these labels to match your master schedule: six years for ITR workpapers, six years for GST records, thirty days post-disengagement for KYC-only documents. Once configured, the DMS can generate automated alerts and, in some platforms, execute deletion without manual intervention.
+
+Practice management platforms should be configured to flag client files for review ninety days before their retention expiry date and route the alert to your designated privacy lead. This prevents the quarterly sweep from becoming a surprise. If your platform does not support this natively, a Power Automate flow linked to your DMS is a workable alternative.
+
+For firms that are not yet running a full DMS, a Microsoft Excel or Google Sheets tracker with a calculated expiry column and conditional formatting for red/amber/green status is a minimum viable solution. It is not elegant, but it is auditable—which is what the Board will ask to see.
+
+---
+
+## Drafting Your Policy Document: Key Clauses Checklist
+
+A retention and deletion workflow is only defensible before the Data Protection Board if it is supported by a written policy. Here is the minimum structure your firm's Data Retention and Deletion Policy must contain:
+
+1. **Scope clause:** Define precisely which record types are covered (digital, physical, email archives), which storage media are in scope, and whether the policy extends to data held by third-party processors—your cloud vendor, any outsourced bookkeeping service, or a payroll platform. If a processor holds personal data on your behalf, your policy governs their retention obligations through the data processing agreement.
+2. **Roles and responsibilities:** Name a Data Protection Officer or privacy lead with explicit accountability for schedule adherence, quarterly deletion sweeps, Deletion Register maintenance, and responding to data principal requests. The role does not need to be full-time, but it must be assigned in writing.
+3. **Lawful basis mapping:** Include an appendix or schedule that maps each record category to its lawful basis (legal obligation, consent, or legitimate use) with the relevant statutory citation. This is the document the Board will ask for first.
+4. **Legal hold and exceptions clause:** Provide a formal mechanism to suspend scheduled deletion when records become subject to litigation, a regulatory inquiry, or a statutory notice—for example, a Section 148 Income Tax Act reassessment notice that brings AY 2024-25 back into active dispute. Once the hold is lifted, the deletion clock resumes.
+5. **Data principal rights procedure:** Set out how the firm handles erasure requests, access requests, and correction requests within the DPDP-mandated timelines. Include the escalation path if a request is refused on statutory-obligation grounds.
+6. **Annual review requirement:** Specify that the policy must be reviewed and, where necessary, updated at least once every twelve months or whenever a new data category is onboarded by the firm. Date-stamp every version and maintain a version history.
+
+A policy without these six clauses will be treated as incomplete. A policy with them, supported by a Deletion Register and documented workflows, demonstrates that data protection is an operational reality in your firm—not a PDF sitting in a drawer.
+
+---
+
+## Your Concrete Next Step
+
+Do not wait for the DPDP Rules to be fully notified before you act. The Act is in force, the Board is being constituted, and early enforcement typically targets the most visible non-compliant actors in professional services.
+
+This week, take one practical action: open a spreadsheet, list every document category your firm holds, assign a retention expiry rule from the master schedule above, and identify the three oldest client files in your system. Check whether any of them contain personal data with no surviving statutory basis. If they do, you already have your first deletion event—and the evidence that your firm's DPDP risk is real, immediate, and manageable with the right workflow in place.
+<script type="application/ld+json" set:html={`[{"@context":"https://schema.org","@type":"Article","headline":"DPDP Act 2023: Data Retention & Deletion Policy for CA Firms","description":"Build a defensible data retention schedule and deletion workflow for ITR workpapers, PAN/Aadhaar copies, and GST records under DPDP Act 2023.","datePublished":"2026-05-29","author":{"@type":"Person","name":"Accountic Team"},"publisher":{"@type":"Organization","name":"Accountic","url":"https://accountic.in"},"url":"https://accountic.in/blog/dpdp-act-data-retention-deletion-policy-ca-firms/"},{"@context":"https://schema.org","@type":"HowTo","name":"DPDP Act 2023: Data Retention & Deletion Policy for CA Firms","description":"Build a defensible data retention schedule and deletion workflow for ITR workpapers, PAN/Aadhaar copies, and GST records under DPDP Act 2023.","step":[{"@type":"HowToStep","name":"Audit your current data inventory across all storage locatio","text":"Audit your current data inventory across all storage locations—local server, cloud drives, email archives, physical filing cabinets, and any third-party platforms used by the firm. Assign each file category a retention expiry date based on the master schedule above."},{"@type":"HowToStep","name":"Configure retention labels in your Document Management Syste","text":"Configure retention labels in your Document Management System (DMS) or set up a spreadsheet tracker with calculated expiry dates and conditional formatting to flag records approaching their deletion window 90 days in advance."},{"@type":"HowToStep","name":"Schedule a quarterly deletion sweep: on the first working Mo","text":"Schedule a quarterly deletion sweep: on the first working Monday of January, April, July, and October, your designated privacy lead reviews all records flagged as expired or approaching expiry in the previous quarter."},{"@type":"HowToStep","name":"Apply the two-person authorisation rule before any deletion ","text":"Apply the two-person authorisation rule before any deletion is executed—the privacy lead proposes the deletion list and a partner provides written sign-off, creating an auditable approval chain that demonstrates the decision was intentional and reviewed."},{"@type":"HowToStep","name":"Execute deletion using the correct method for each medium: c","text":"Execute deletion using the correct method for each medium: certified cross-cut shredding for physical files, cryptographic erasure or DoD-standard overwrite for local digital storage, and vendor-confirmed deletion certificates for cloud platforms such as Google Workspace or Microsoft 365."},{"@type":"HowToStep","name":"Record every deletion event in your Deletion Register: recor","text":"Record every deletion event in your Deletion Register: record type, pseudonymised client identifier, date of deletion, method used, and name of the approving partner. Retain this register for at least three years after the deletion event."},{"@type":"HowToStep","name":"Where a client has formally requested erasure under DPDP's r","text":"Where a client has formally requested erasure under DPDP's right-to-erasure provisions, issue a written closure notice confirming which data has been deleted, which data is being retained under a statutory obligation, and the expected deletion date for the latter."}]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://accountic.in"},{"@type":"ListItem","position":2,"name":"DPDP Compliance","item":"https://accountic.in/blog/?pillar=DPDP%20Compliance"},{"@type":"ListItem","position":3,"name":"DPDP Act 2023: Data Retention & Deletion Policy for CA Firms","item":"https://accountic.in/blog/dpdp-act-data-retention-deletion-policy-ca-firms/"}]}]`} />
