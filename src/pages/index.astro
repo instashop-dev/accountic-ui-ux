@@ -14,98 +14,98 @@ const modules = [
 		name: 'Notice Workflow',
 		description: 'Draft IT notice replies (s. 142(1), 143(3), 148A) grounded in verified case law and IT Act sections.',
 		chip: 'Notice PDF → filed reply in < 30 min',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`,
 	},
 	{
 		id: 'appeal-drafting',
 		name: 'Appeal Drafting',
 		description: 'Prepare formal tax appeals before CIT(A) and ITAT — grounds of appeal, addition-by-addition rebuttals, and final PDF/DOCX.',
 		chip: 'Appeal ready for CIT(A) & ITAT',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h11"/><path d="m15 15 2 2 4-4"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h11"/><path d="m15 15 2 2 4-4"/></svg>`,
 	},
 	{
 		id: 'broker-ledger',
 		name: 'Broker Ledger',
 		description: 'Convert broker tradebooks to Tally journal vouchers via a 4-stage FIFO engine — equity, ETF, F&O, and commodity.',
 		chip: 'Tradebook → Tally in minutes',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
 	},
 	{
 		id: 'ledger-predictor',
 		name: 'Ledger Predictor',
 		description: 'Classify bank-statement transactions to the right Tally ledger via a 10-stage cascade plus Claude review, then push vouchers.',
 		chip: '90–98% auto-classified, hands-free',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>`,
 	},
 	{
 		id: 'tally-ocr',
 		name: 'Tally OCR',
 		description: 'Extract supplier invoices (PDF, image, Word) via Azure DI and push GST-split Purchase vouchers directly into TallyPrime.',
 		chip: 'Invoice → Tally Purchase voucher',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
 	},
 	{
 		id: 'vouching',
 		name: 'Vouching',
 		description: 'Match Tally entries against source documents (invoices, bank statements) and render SA 230-compliant audit verdicts.',
 		chip: 'Audit-ready working papers, auto-built',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
 	},
 	{
 		id: 'tds-reconciliation',
 		name: 'TDS Reconciliation',
 		description: 'Audit TDS compliance per vendor, per bill, per FY — matched against statutory section rates and party exemptions.',
 		chip: 'Every vendor TDS-checked automatically',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>`,
 	},
 	{
 		id: 'gstr-2b',
 		name: 'GSTR-2B Reconciliation',
 		description: 'Reconcile your GSTR-2B ITC statement against the purchase register — bucketed mismatches by rule tag, export-ready.',
 		chip: 'A day of reconciliation → minutes',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
 	},
 	{
 		id: 'balance-sheet-builder',
 		name: 'Balance Sheet Builder',
 		description: 'Turn trial balances into Schedule III financial statements — BS, P&L, Cash Flow, and Notes — for any entity type.',
 		chip: 'Trial balance → Schedule III statements',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>`,
 	},
 	{
 		id: 'debtor-followup',
 		name: 'Debtor Follow-up',
 		description: 'Sync Sundry Debtor balances from Tally, auto-score risk per debtor, and send chase emails in configurable runs.',
 		chip: 'Auto-scored AR with chase emails',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
 	},
 	{
 		id: 'book-rag',
 		name: 'Book Q&amp;A',
 		description: 'Ask questions on the Income Tax Act 1961 &amp; 2025 and get citation-first answers grounded in statute — never hallucinated.',
 		chip: 'Citation-first answers, never invented',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="7" x2="16" y2="7"/><line x1="12" y1="11" x2="16" y2="11"/><line x1="12" y1="15" x2="14" y2="15"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="7" x2="16" y2="7"/><line x1="12" y1="11" x2="16" y2="11"/><line x1="12" y1="15" x2="14" y2="15"/></svg>`,
 	},
 	{
 		id: 'knowledge-base',
 		name: 'Knowledge Base',
 		description: 'Maintain your firm\'s private RAG store — case history, judgements, CBDT circulars, and Taxmann commentary — per-org isolated.',
 		chip: 'Your firm’s private, isolated RAG',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>`,
 	},
 	{
 		id: 'sales-bills',
 		name: 'Sales Bills',
 		description: 'Generate GST-compliant invoices for your firm\'s own billing, email them to clients, and post to Tally as sales vouchers.',
 		chip: 'GST invoice → Tally sales voucher',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
 	},
 	{
 		id: 'tally-agent',
 		name: 'Tally Agent',
 		description: 'A Windows system-tray connector that bridges Accountic cloud to your local TallyPrime instance — no manual export/import.',
 		chip: 'Live bridge to your TallyPrime',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
 	},
 ];
 
@@ -143,57 +143,80 @@ const platformFeatures = [
 	{
 		title: 'Multi-tenant org model',
 		desc: 'Owner / Admin / Member roles with invite flow. Every firm\'s data is fully isolated — no cross-org retrieval is possible by construction.',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
 	},
 	{
 		title: 'Credit billing — 1 credit = ₹1',
 		desc: 'Credits are debited before work begins. Automatic HTTP 402 if insufficient; full refund on system failure. Top-ups available any time.',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
 	},
 	{
 		title: 'LLM observability via Langfuse',
 		desc: 'Every LLM call is traced end-to-end. Admins see spend per org, per module, per document — full auditability, no black box.',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
 	},
 	{
 		title: 'OTP auth via SMS (MSG91)',
 		desc: 'No password to remember or leak. SMS OTP signup keeps access tied to the practitioner\'s mobile number.',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`,
+		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`,
 	},
 	{
 		title: 'Real-time collaborative editing',
 		desc: 'WebSocket-powered live sync on notice drafts via PieSocket. Multiple users can review and annotate the same draft simultaneously.',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
 	},
 	{
 		title: 'Super Admin console',
 		desc: 'Cross-org usage and cost dashboards, user impersonation for support, credit overrides, and full org management in one place.',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>`,
+		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>`,
 	},
 ];
 
 const stats = [
-	{ value: '₹1,000', label: 'Free credits to try every module' },
 	{ value: '14', label: 'Live workflows · 20+ in development' },
-	{ value: '45 yrs', label: 'Of CA practice behind every rule' },
 	{ value: '0', label: 'Hallucinated citations, by design' },
+	{ value: '45 yrs', label: 'Of CA practice behind every rule' },
+	{ value: '₹1,000', label: 'Free credits to try every module' },
 ];
 
 const painPoints = [
 	{
 		title: 'Every compliance task starts from scratch',
 		desc: 'Notices, balance sheets, appeals, TDS audits — each one rebuilds the same work from zero, against a statutory deadline.',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>`,
 	},
 	{
 		title: 'Reconciliation is still done by hand',
 		desc: 'GSTR-2B, TDS, bank statements, broker tradebooks — matched line by line in spreadsheets, then re-keyed into Tally one voucher at a time.',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
 	},
 	{
 		title: 'Nothing leaves an audit trail',
 		desc: 'CSV cleanups and copy-paste move data into Tally, but nothing records why an entry was classified the way it was — or where a citation came from.',
-		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+	},
+];
+
+const whyReasons = [
+	{
+		title: 'Tally-native across every module.',
+		desc: 'Every workflow posts directly into TallyPrime — vouchers, ledger masters, XML imports. No middleware, no re-keying, no CSV gymnastics. What Accountic produces, Tally accepts.',
+		meta: 'Works with your existing Tally company and chart of accounts from day one.',
+		lead: true,
+	},
+	{
+		title: 'Zero hallucination — deterministic-first.',
+		desc: 'Rule-based pipelines handle everything they can. The LLM only reviews what deterministic logic cannot resolve. Every output is traceable to a source.',
+	},
+	{
+		title: 'India-first DPDP posture.',
+		desc: 'Processed and stored inside India. Consent-per-document, PII-aware pipelines. DPAs available for firm customers — a DPA you can hand to a listed-company client without qualification.',
+	},
+	{
+		id: 'founders',
+		title: 'Built jointly by CAs and engineers.',
+		desc: 'Co-developed with a CA firm carrying <strong>45 years</strong> of Direct &amp; Indirect Tax practice. Every workflow calibrated by people who have filed these returns and drafted these replies themselves.',
+	},
+	{
+		title: 'SOC 2 Type II certified infrastructure.',
+		desc: 'The technology partner behind Accountic holds SOC 2 Type II certification. Encrypted in transit and at rest. Every action logged and auditable end-to-end.',
 	},
 ];
 
@@ -239,6 +262,29 @@ const pricingTiers = [
 		highlight: false,
 	},
 ];
+
+const faqs = [
+	{
+		q: 'Is our firm’s data processed inside India?',
+		a: 'Yes. Everything is processed and stored inside India, with consent-per-document and PII-aware pipelines. Accountic is DPDP-ready, and a Data Processing Agreement is available for firm customers — one you can hand to a listed-company client without qualification.',
+	},
+	{
+		q: 'How does Accountic avoid hallucinated citations?',
+		a: 'It is deterministic-first. Rule-based pipelines handle everything they can, and the LLM only reviews what deterministic logic cannot resolve. Every output is traceable to a source, with human review on every output.',
+	},
+	{
+		q: 'Does it work with our existing TallyPrime?',
+		a: 'Yes. Every module posts directly into TallyPrime — vouchers, ledger masters, and XML imports — working with your existing Tally company and chart of accounts from day one. No middleware, no re-keying, no CSV gymnastics.',
+	},
+	{
+		q: 'How does billing work?',
+		a: '1 credit = ₹1, debited before work begins. If credits are insufficient you get an automatic HTTP 402; on system failure, a full refund. Manual top-ups are available any time. Every plan includes GST-compliant invoicing with your GSTIN via Razorpay (NEFT / UPI / cards). No USD billing, no foreign processors.',
+	},
+	{
+		q: 'Who is Accountic built for, and by whom?',
+		a: 'It is co-developed with a CA firm carrying 45 years of Direct & Indirect Tax practice, calibrated by people who have filed these returns themselves. It fits solo practitioners, in-house accounting teams, and 5–30-professional firms.',
+	},
+];
 ---
 
 <!doctype html>
@@ -251,205 +297,145 @@ const pricingTiers = [
 
 		<main id="main">
 
-			{/* ─── HERO ─── */}
+			{/* ─────────────── HERO ─────────────── */}
 			<section class="hero">
-				<div class="container hero-inner">
-					<a class="hero-badge" href="#modules" aria-label="See all Accountic modules">
-						<span class="badge-dot" aria-hidden="true"></span>
-						<span>EARLY ACCESS 2026 · FOR CAs, ACCOUNTING TEAMS &amp; FIRMS</span>
-					</a>
+				<div class="wrap hero-grid">
+					<div class="hero-copy">
+						<p class="kicker rv"><span class="kicker-tick" aria-hidden="true"></span>EARLY ACCESS 2026 · FOR CAs, ACCOUNTING TEAMS &amp; FIRMS</p>
 
-					<h1 class="hero-title">
-						The accounting work that fills your week —<br/>
-						<span class="highlight-green">Accountic’s AI finishes it in minutes.</span>
-					</h1>
+						<h1 class="hero-title rv">
+							The accounting work that fills your week —
+							<span class="accent">Accountic’s AI finishes it in minutes.</span>
+						</h1>
 
-					<p class="hero-subtitle">
-						Accountic's AI runs the compliance, reconciliation, and reporting your team repeats every week — finishing in minutes what used to take hours, and cutting the cost of every workflow. All posted straight into TallyPrime.
-					</p>
+						<p class="hero-sub rv">
+							Accountic's AI runs the compliance, reconciliation, and reporting your team repeats every week — finishing in minutes what used to take hours, and cutting the cost of every workflow. All posted straight into TallyPrime.
+						</p>
 
-					<div class="hero-cta">
-						<a class="btn btn-primary" href="https://app.accountic.in/signup">Start free — ₹1,000 credits</a>
-						<a class="btn btn-secondary" href="#modules">See all 14 modules</a>
+						<div class="hero-cta rv">
+							<a class="btn btn--solid" href="https://app.accountic.in/signup">Start free — ₹1,000 credits</a>
+							<a class="btn btn--line" href="#modules">
+								See all 14 modules
+								<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+							</a>
+						</div>
+
+						<p class="hero-note rv">No credit card · ₹1,000 in credits to start · cancel anytime</p>
+
+						<ul class="trust rv" aria-label="Platform compliance and trust signals">
+							<li>Built by CAs</li>
+							<li>India-resident data</li>
+							<li>DPDP-ready</li>
+							<li>SOC 2 Type II</li>
+							<li>Tally-native</li>
+						</ul>
 					</div>
 
-					<p class="hero-cta-note">
-						<span class="hero-cta-check" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
-						No credit card · ₹1,000 in credits to start · cancel anytime
-					</p>
-
-					<ul class="trust-badges" aria-label="Platform compliance and trust signals">
-						<li>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-							<span>Built by CAs</span>
-						</li>
-						<li>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
-							<span>India-resident data</span>
-						</li>
-						<li>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-							<span>DPDP-ready</span>
-						</li>
-						<li>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-							<span>SOC 2 Type II</span>
-						</li>
-						<li>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-							<span>Tally-native</span>
-						</li>
-					</ul>
-
-					{/* Product mockup — three documents processed in parallel */}
-					<div class="hero-visual" role="img" aria-label="Accountic automation platform: three different documents — an income-tax notice, a bank statement, and a supplier invoice — are processed in parallel into a drafted reply, posted Tally vouchers, and a GST purchase voucher.">
-						<div class="hv-window">
-							<div class="hv-bar">
-								<span class="hv-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-								<span class="hv-tab">Accountic · Automation Platform</span>
-								<span class="hv-live"><span class="hv-live-dot" aria-hidden="true"></span>Draft ready</span>
+					{/* Hero instrument panel — document in → verified → Tally voucher out */}
+					<div class="panel rv" role="img" aria-label="Accountic automation readout: an income-tax notice, a bank statement, and a supplier invoice are each processed into a drafted reply with verified citations, 847 posted Tally vouchers, and a GST purchase voucher — with zero hallucinations and all data kept in India.">
+						<div class="panel-head">
+							<span class="panel-name"><span class="panel-glyph" aria-hidden="true"></span>accountic · automation</span>
+							<span class="panel-status"><span class="panel-status-dot" aria-hidden="true"></span>LIVE</span>
+						</div>
+						<div class="panel-body">
+							<div class="flow">
+								<div class="flow-io flow-io--in">
+									<span class="flow-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+									<span class="flow-meta"><strong>Notice_143(3).pdf</strong><em>s.143(3) scrutiny · SCN</em></span>
+								</div>
+								<span class="flow-arrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+								<div class="flow-io flow-io--out">
+									<span class="flow-meta"><strong class="typein">Drafted reply</strong><em>7 citations verified</em></span>
+									<span class="flow-check" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+								</div>
 							</div>
-							<div class="hv-body hv-body--flows">
-								<div class="hv-flow-row">
-									<div class="hv-io hv-io--in">
-										<span class="hv-io-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-										<span class="hv-io-meta"><strong>Notice_143(3).pdf</strong><em>s.143(3) scrutiny · SCN</em></span>
-									</div>
-									<span class="hv-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-									<div class="hv-io hv-io--out">
-										<span class="hv-io-meta"><strong>Drafted reply</strong><em>7 citations verified</em></span>
-										<span class="hv-io-check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
-									</div>
+							<div class="flow">
+								<div class="flow-io flow-io--in">
+									<span class="flow-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
+									<span class="flow-meta"><strong>HDFC_statement.csv</strong><em>847 transactions</em></span>
 								</div>
-								<div class="hv-flow-row">
-									<div class="hv-io hv-io--in">
-										<span class="hv-io-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
-										<span class="hv-io-meta"><strong>HDFC_statement.csv</strong><em>847 transactions</em></span>
-									</div>
-									<span class="hv-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-									<div class="hv-io hv-io--out">
-										<span class="hv-io-meta"><strong>847 Tally vouchers</strong><em>Classified & posted</em></span>
-										<span class="hv-io-check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
-									</div>
+								<span class="flow-arrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+								<div class="flow-io flow-io--out">
+									<span class="flow-meta"><strong>847 Tally vouchers</strong><em>Classified &amp; posted</em></span>
+									<span class="flow-check" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
 								</div>
-								<div class="hv-flow-row">
-									<div class="hv-io hv-io--in">
-										<span class="hv-io-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
-										<span class="hv-io-meta"><strong>Supplier_invoice.pdf</strong><em>GST-split extracted</em></span>
-									</div>
-									<span class="hv-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-									<div class="hv-io hv-io--out">
-										<span class="hv-io-meta"><strong>Purchase voucher</strong><em>Pushed to TallyPrime</em></span>
-										<span class="hv-io-check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
-									</div>
-								</div>
-							<div class="hv-foot">
-								<span class="hv-stat hv-stat--ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>0 hallucinations</span>
-								<span class="hv-stat">All data stays in India</span>
-								<span class="hv-stat hv-stat--time">3 workflows in parallel</span>
 							</div>
+							<div class="flow">
+								<div class="flow-io flow-io--in">
+									<span class="flow-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+									<span class="flow-meta"><strong>Supplier_invoice.pdf</strong><em>GST-split extracted</em></span>
+								</div>
+								<span class="flow-arrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+								<div class="flow-io flow-io--out">
+									<span class="flow-meta"><strong>Purchase voucher</strong><em>Pushed to TallyPrime</em></span>
+									<span class="flow-check" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+								</div>
+							</div>
+						</div>
+						<div class="panel-foot">
+							<span class="foot-stat foot-stat--ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>0 HALLUCINATIONS</span>
+							<span class="foot-stat">DATA IN INDIA</span>
+							<span class="foot-stat">3 IN PARALLEL</span>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			{/* ─── STATS STRIP ─── */}
-			<section class="stats-strip" aria-label="Platform statistics">
-				<div class="container">
-					<ul class="stats-list">
-						{stats.map((s) => (
-							<li class="stat-item">
-								<span class="stat-value">{s.value}</span>
-								<span class="stat-label">{s.label}</span>
-							</li>
-						))}
-					</ul>
+			{/* ─────────────── STATS ─────────────── */}
+			<section class="stats" aria-label="Platform statistics">
+				<div class="wrap stats-grid">
+					{stats.map((s) => (
+						<div class="stat rv">
+							<span class="stat-value" data-count={s.value}>{s.value}</span>
+							<span class="stat-label">{s.label}</span>
+						</div>
+					))}
 				</div>
 			</section>
 
-			{/* ─── PROBLEM ─── */}
-			<section class="section problem-section" aria-labelledby="problem-title">
-				<div class="container">
-					<div class="section-head problem-head">
-						<span class="section-label">The problem</span>
+			{/* ─────────────── PROBLEM ─────────────── */}
+			<section class="section problem" aria-labelledby="problem-title">
+				<div class="wrap">
+					<div class="sec-head rv">
+						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>THE PROBLEM</p>
 						<h2 id="problem-title">Compliance work eats the week. Then it repeats.</h2>
-						<p class="lede">
-							The high-judgment work your firm is paid for keeps getting buried under the manual work around it. Three things slow every Indian practice down.
-						</p>
+						<p class="lede">The high-judgment work your firm is paid for keeps getting buried under the manual work around it. Three things slow every Indian practice down.</p>
 					</div>
 
-					<ul class="pain-grid" aria-label="Problems Accountic solves">
-						{painPoints.map((p) => (
-							<li class="pain-card">
-								<div class="pain-icon" aria-hidden="true" set:html={p.icon} />
+					<ul class="pain-list">
+						{painPoints.map((p, i) => (
+							<li class="pain rv">
+								<span class="pain-num">{String(i + 1).padStart(2, '0')}</span>
 								<h3>{p.title}</h3>
 								<p>{p.desc}</p>
 							</li>
 						))}
 					</ul>
 
-					<p class="problem-bridge">
+					<p class="bridge rv">
 						Accountic takes on all three — <strong>fourteen workflows</strong> that draft, reconcile, classify, and post straight into Tally, with a verifiable trail behind every output. Twenty more are in development.
 					</p>
 				</div>
 			</section>
 
-			{/* ─── MODULES GRID ─── */}
-			<section class="section modules-section" id="modules" aria-labelledby="modules-title">
-				<div class="container">
-					<div class="section-head modules-head">
-						<span class="section-label">The platform</span>
-						<h2 id="modules-title">14 modules live. 20+ more coming.</h2>
-						<p class="lede">
-							Every module is purpose-built for Indian accounting workflows, posts directly to TallyPrime, and runs the same zero-hallucination verification stack. Pick the workflows your firm needs — they all work together.
-						</p>
-					</div>
-
-					<ul class="modules-grid" aria-label="Accountic modules">
-						{modules.map((m) => (
-							<li class="module-card glass-card">
-								<div class="module-icon" aria-hidden="true" set:html={m.icon} />
-								<h3 class="module-name" set:html={m.name} />
-								<p class="module-desc" set:html={m.description} />
-								<span class="module-chip">{m.chip}</span>
-							</li>
-						))}
-						<li class="module-card module-card--soon">
-							<div class="module-icon module-icon--soon" aria-hidden="true">
-								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-							</div>
-							<h3 class="module-name">20+ modules coming</h3>
-							<p class="module-desc">More workflows that transform how accountants, departments, and firms work — shipping through 2026.</p>
-							<a class="module-soon-link" href="https://app.accountic.in/signup">Join the waitlist
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</section>
-
-			{/* ─── HOW IT WORKS ─── */}
-			<section class="section how-it-works" id="how-it-works" aria-labelledby="hiw-title">
-				<div class="container">
-					<div class="section-head">
-						<span class="section-label">How it works</span>
+			{/* ─────────────── HOW IT WORKS — dark graphite band ─────────────── */}
+			<section class="band" id="how-it-works" aria-labelledby="hiw-title">
+				<div class="wrap">
+					<div class="sec-head sec-head--dark rv">
+						<p class="kicker kicker--dark"><span class="kicker-tick" aria-hidden="true"></span>HOW IT WORKS</p>
 						<h2 id="hiw-title">One platform. Three kinds of work.</h2>
-						<p class="lede">
-							Whatever your team repeats every week — drafting compliance replies, turning raw data into Tally vouchers, or running firm operations — the pattern is the same: upload, let Accountic do the work, post the result.
-						</p>
+						<p class="lede lede--dark">Whatever your team repeats every week — drafting compliance replies, turning raw data into Tally vouchers, or running firm operations — the pattern is the same: upload, let Accountic do the work, post the result.</p>
 					</div>
 
-					<ol class="hiw-families" aria-label="How Accountic workflows run">
-						{workflowFamilies.map((fam) => (
-							<li class="hiw-family glass-card">
-								<h3 class="hiw-family-label">{fam.label}</h3>
-								<p class="hiw-family-desc">{fam.desc}</p>
-								<ol class="hiw-family-steps">
-									{fam.steps.map((s, i) => (
-										<li class="hiw-family-step">
-											<span class="hiw-family-num" aria-hidden="true">{i + 1}</span>
-											<span>{s}</span>
-										</li>
+					<ol class="families">
+						{workflowFamilies.map((fam, i) => (
+							<li class="family rv">
+								<span class="family-idx">{String(i + 1).padStart(2, '0')}</span>
+								<h3>{fam.label}</h3>
+								<p class="family-desc">{fam.desc}</p>
+								<ol class="steps">
+									{fam.steps.map((s, j) => (
+										<li><span class="step-num">{j + 1}</span><span>{s}</span></li>
 									))}
 								</ol>
 							</li>
@@ -458,87 +444,75 @@ const pricingTiers = [
 				</div>
 			</section>
 
-			{/* ─── WHY ACCOUNTIC — DIFFERENTIATORS ─── */}
+			{/* ─────────────── MODULES — tabular spec sheet ─────────────── */}
+			<section class="section modules" id="modules" aria-labelledby="modules-title">
+				<div class="wrap">
+					<div class="sec-head rv">
+						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>THE PLATFORM</p>
+						<h2 id="modules-title">14 modules live. 20+ more coming.</h2>
+						<p class="lede">Every module is purpose-built for Indian accounting workflows, posts directly to TallyPrime, and runs the same zero-hallucination verification stack. Pick the workflows your firm needs — they all work together.</p>
+					</div>
+
+					<ul class="mod-table" aria-label="Accountic modules">
+						{modules.map((m, i) => (
+							<li class="mod-row rv">
+								<span class="mod-idx">{String(i + 1).padStart(2, '0')}</span>
+								<span class="mod-ic" aria-hidden="true" set:html={m.icon} />
+								<span class="mod-main">
+									<span class="mod-name" set:html={m.name} />
+									<span class="mod-desc" set:html={m.description} />
+								</span>
+								<span class="mod-chip">{m.chip}</span>
+							</li>
+						))}
+						<li class="mod-row mod-row--soon rv">
+							<span class="mod-idx">+</span>
+							<span class="mod-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
+							<span class="mod-main">
+								<span class="mod-name">20+ modules coming</span>
+								<span class="mod-desc">More workflows that transform how accountants, departments, and firms work — shipping through 2026.</span>
+							</span>
+							<a class="mod-soon-link" href="https://app.accountic.in/signup">Join the waitlist
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			{/* ─────────────── WHY ACCOUNTIC ─────────────── */}
 			<section class="section why" id="why-accountic" aria-labelledby="why-title">
-				<div class="container">
-					<div class="section-head why-head">
-						<span class="section-label">Why Accountic</span>
+				<div class="wrap">
+					<div class="sec-head rv">
+						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>WHY ACCOUNTIC</p>
 						<h2 id="why-title">Five reasons CA firms trust this on firm letterhead.</h2>
 					</div>
 
-					<div class="cv-showcase">
-						<article class="cv-card cv-hero">
-							<div class="card-icon" aria-hidden="true">
-								<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-							</div>
-							<h3>Tally-native across every module.</h3>
-							<p>
-								Every workflow posts directly into TallyPrime — vouchers, ledger masters, XML imports.
-								No middleware, no re-keying, no CSV gymnastics. What Accountic produces, Tally accepts.
-							</p>
-							<p class="cv-meta">
-								Works with your existing Tally company and chart of accounts from day one.
-							</p>
-						</article>
-
-						<article class="cv-card glass-card">
-							<div class="card-icon" aria-hidden="true">
-								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-							</div>
-							<h3>Zero hallucination — deterministic-first.</h3>
-							<p>
-								Rule-based pipelines handle everything they can. The LLM only reviews what deterministic logic cannot resolve. Every output is traceable to a source.
-							</p>
-						</article>
-
-						<article class="cv-card glass-card">
-							<div class="card-icon" aria-hidden="true">
-								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
-							</div>
-							<h3>India-first DPDP posture.</h3>
-							<p>
-								Processed and stored inside India. Consent-per-document, PII-aware pipelines. DPAs available for firm customers — a DPA you can hand to a listed-company client without qualification.
-							</p>
-						</article>
-
-						<article class="cv-card glass-card" id="founders">
-							<div class="card-icon" aria-hidden="true">
-								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-							</div>
-							<h3>Built jointly by CAs and engineers.</h3>
-							<p>
-								Co-developed with a CA firm carrying <strong>45 years</strong> of Direct &amp; Indirect Tax practice. Every workflow calibrated by people who have filed these returns and drafted these replies themselves.
-							</p>
-						</article>
-
-						<article class="cv-card glass-card">
-							<div class="card-icon" aria-hidden="true">
-								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-							</div>
-							<h3>SOC 2 Type II certified infrastructure.</h3>
-							<p>
-								The technology partner behind Accountic holds SOC 2 Type II certification. Encrypted in transit and at rest. Every action logged and auditable end-to-end.
-							</p>
-						</article>
+					<div class="why-grid">
+						{whyReasons.map((r) => (
+							<article class={`why-card rv ${r.lead ? 'why-card--lead' : ''}`} id={r.id}>
+								<h3 set:html={r.title} />
+								<p set:html={r.desc} />
+								{r.meta && <p class="why-meta">{r.meta}</p>}
+							</article>
+						))}
 					</div>
 				</div>
 			</section>
 
-			{/* ─── PLATFORM FEATURES ─── */}
-			<section class="section platform-section" id="platform" aria-labelledby="platform-title">
-				<div class="container">
-					<div class="section-head platform-head">
-						<span class="section-label">Platform</span>
+			{/* ─────────────── PLATFORM ─────────────── */}
+			<section class="section platform" id="platform" aria-labelledby="platform-title">
+				<div class="wrap">
+					<div class="sec-head rv">
+						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>PLATFORM</p>
 						<h2 id="platform-title">Built for the whole firm, not just one practitioner.</h2>
-						<p class="lede">
-							Multi-tenancy, billing controls, real-time collaboration, and full LLM observability come standard on every plan. No add-ons.
-						</p>
+						<p class="lede">Multi-tenancy, billing controls, real-time collaboration, and full LLM observability come standard on every plan. No add-ons.</p>
 					</div>
 
-					<ul class="platform-grid" aria-label="Platform features">
+					<ul class="plat-grid" aria-label="Platform features">
 						{platformFeatures.map((f) => (
-							<li class="platform-card glass-card">
-								<div class="platform-icon" aria-hidden="true" set:html={f.icon} />
+							<li class="plat rv">
+								<span class="plat-ic" aria-hidden="true" set:html={f.icon} />
 								<h3>{f.title}</h3>
 								<p>{f.desc}</p>
 							</li>
@@ -547,73 +521,86 @@ const pricingTiers = [
 				</div>
 			</section>
 
-			{/* ─── PRICING ─── */}
+			{/* ─────────────── PRICING ─────────────── */}
 			<section class="section pricing" id="pricing" aria-labelledby="pricing-title">
-				<div class="container">
-					<div class="section-head pricing-head">
-						<span class="section-label">Pricing</span>
+				<div class="wrap">
+					<div class="sec-head rv">
+						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>PRICING</p>
 						<h2 id="pricing-title">Same verification standard on every plan.</h2>
-						<p class="lede">
-							From free trial to firm tier — every plan gives you access to the full Accountic platform with the same zero-hallucination verification, Tally-native posting, and India-resident data processing. The cheaper plan isn't the lighter plan.
-						</p>
+						<p class="lede">From free trial to firm tier — every plan gives you access to the full Accountic platform with the same zero-hallucination verification, Tally-native posting, and India-resident data processing. The cheaper plan isn't the lighter plan.</p>
 					</div>
 
 					<div class="tiers">
 						{pricingTiers.map((t) => (
-							<article class={`tier glass-card ${t.highlight ? 'featured' : ''}`}>
-								{t.highlight && <span class="tier-badge">Most popular</span>}
+							<article class={`tier rv ${t.highlight ? 'tier--pro' : ''}`}>
+								{t.highlight && <span class="tier-tag">MOST POPULAR</span>}
 								<h3 class="tier-name">{t.name}</h3>
-								<p class="tier-price">
-									<span class="tier-amount">{t.price}</span>
-									<span class="tier-cadence">{t.cadence}</span>
-								</p>
+								<p class="tier-price"><span class="tier-amount">{t.price}</span><span class="tier-cad">{t.cadence}</span></p>
 								<p class="tier-blurb">{t.blurb}</p>
-								<ul class="tier-features">
+								<ul class="tier-feats">
 									{t.features.map((f) => (
 										<li>
-											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+											<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
 											<span>{f}</span>
 										</li>
 									))}
 								</ul>
-								<a class={`btn ${t.highlight ? 'btn-primary' : 'btn-secondary'}`} href={t.href}>{t.cta}</a>
+								<a class={`btn ${t.highlight ? 'btn--solid' : 'btn--line'} tier-cta`} href={t.href}>{t.cta}</a>
 							</article>
 						))}
 					</div>
 
-					<p class="pricing-note">
+					<p class="pricing-note rv">
 						1 credit = ₹1. Credit consumption varies by module and document volume. Manual top-ups are available on all plans at any time. All plans include GST-compliant invoicing with your GSTIN, Razorpay (NEFT / UPI / cards), TDS-deductible where applicable. No USD billing. No foreign processors.
 					</p>
 				</div>
 			</section>
 
-			{/* ─── FINAL CTA ─── */}
-			<section class="section cta-section" id="cta">
-				<div class="container">
-					<div class="cta-card" data-capture data-source="homepage-cta" data-endpoint="/api/capture">
+			{/* ─────────────── FAQ ─────────────── */}
+			<section class="section faq" aria-labelledby="faq-title">
+				<div class="wrap faq-wrap">
+					<div class="sec-head rv">
+						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>FAQ</p>
+						<h2 id="faq-title">Questions CA firms ask first.</h2>
+					</div>
+
+					<div class="faq-list">
+						{faqs.map((f) => (
+							<details class="faq-item rv">
+								<summary>
+									<span>{f.q}</span>
+									<span class="faq-mark" aria-hidden="true"></span>
+								</summary>
+								<div class="faq-a"><p>{f.a}</p></div>
+							</details>
+						))}
+					</div>
+				</div>
+			</section>
+
+			{/* ─────────────── FINAL CTA ─────────────── */}
+			<section class="section cta" id="cta">
+				<div class="wrap">
+					<div class="cta-card rv" data-capture data-source="homepage-cta" data-endpoint="/api/capture">
 						<div class="cta-form-state" data-state="form">
-							<span class="eyebrow cta-eyebrow">Get early access to the full platform</span>
+							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>GET EARLY ACCESS TO THE FULL PLATFORM</p>
 							<h2>Start free. Try every module.</h2>
-							<p>
-								₹1,000 free credits — no card required. Access all 14 modules. Every output posts directly into TallyPrime, with all data processed inside India.
-							</p>
+							<p class="cta-body">₹1,000 free credits — no card required. Access all 14 modules. Every output posts directly into TallyPrime, with all data processed inside India.</p>
 							<form class="cta-form" data-capture-form novalidate>
 								<label class="sr-only" for="cta-email">Work email</label>
 								<input id="cta-email" name="email" type="email" placeholder="firm-email@yourca.in" required autocomplete="email" />
-								<button type="submit" class="btn btn-primary">Request access</button>
+								<button type="submit" class="btn btn--solid">Request access</button>
 							</form>
 							<p class="cta-error" data-capture-error role="alert" hidden>Please enter a valid work email.</p>
 						</div>
 
 						<div class="cta-thanks-state" data-state="thanks" hidden>
 							<div class="cta-thanks-icon" aria-hidden="true">
-								<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
 							</div>
-							<span class="eyebrow cta-eyebrow">You're on the list</span>
+							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>YOU'RE ON THE LIST</p>
 							<h2>Thanks — we'll be in touch.</h2>
-							<p>
-								We received <strong data-capture-email>your email</strong> and one of the founders will reach out within one business day with your pilot-cohort details.
-							</p>
+							<p class="cta-body">We received <strong data-capture-email>your email</strong> and one of the founders will reach out within one business day with your pilot-cohort details.</p>
 							<p class="cta-thanks-meta">In the meantime, you can <a href="/security">read our security posture</a> or <a href="/contact">book a demo</a>.</p>
 						</div>
 					</div>
@@ -625,980 +612,617 @@ const pricingTiers = [
 		<Footer />
 
 		<style>
-			/* ─────────────────────────── Hero */
-			.hero {
-				position: relative;
-				padding: 8.5rem 0 5rem;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				background-color: var(--eth-bg);
-				background-image: var(--eth-hero-gradient);
-				overflow: visible;
+			/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5
+			 * genre: modern-minimal · macrostructure: Workbench · theme: Cobalt
+			 * enrichment: hand-built instrument panel (Tier A) + dark graphite band
+			 * nav: N13 (bordered + ⌘K) · footer: Ft5 statement · tone: modern-minimal
+			 * anchor hue: electric cobalt (oklch 58% 0.20 256)
+			 */
+
+			:global(html), :global(body) { overflow-x: clip; }
+
+			body {
+				background: var(--color-paper);
+				color: var(--color-ink-2);
+				font-family: var(--font-sans);
+				-webkit-font-smoothing: antialiased;
 			}
 
-			.hero-inner {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				text-align: center;
-				gap: 1.5rem;
+			main { display: block; }
+
+			.wrap {
+				max-width: var(--wrap);
+				margin-inline: auto;
+				padding-inline: clamp(1rem, 4vw, 1.5rem);
 			}
 
-			.hero-badge {
+			.section { padding-block: clamp(3.5rem, 8vw, var(--space-4xl)); }
+
+			/* ── Shared typographic elements ── */
+			.kicker {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.5rem;
-				font-size: 11px;
-				font-weight: 500;
-				letter-spacing: 0.14em;
-				padding: 0.35rem 0.85rem;
-				border-radius: 9999px;
-				color: var(--eth-text-secondary);
-				background: var(--eth-glass-bg);
-				border: 1px solid var(--eth-glass-border);
-				backdrop-filter: var(--eth-glass-blur);
-				-webkit-backdrop-filter: var(--eth-glass-blur);
-				box-shadow: var(--eth-shadow-sm);
+				gap: var(--space-xs);
+				margin: 0 0 var(--space-md);
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				letter-spacing: 0.08em;
+				color: var(--color-ink-4);
+				overflow-wrap: anywhere;
 			}
 
-			.hero-badge:hover { color: var(--eth-text); }
+			.kicker-tick { width: 6px; height: 6px; border-radius: var(--radius-2xs); background: var(--color-accent); flex-shrink: 0; }
+			.kicker--dark { color: var(--color-on-dark-2); }
 
-			.badge-dot {
-				width: 7px;
-				height: 7px;
-				border-radius: 9999px;
-				background: var(--eth-accent);
-				box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-				flex-shrink: 0;
+			h1, h2, h3 { font-family: var(--font-display); font-style: normal; color: var(--color-ink); }
+
+			.sec-head { max-width: 46ch; margin-bottom: var(--space-2xl); }
+			.sec-head h2 {
+				margin: 0;
+				font-size: var(--text-4xl);
+				font-weight: 600;
+				line-height: 1.08;
+				letter-spacing: -0.025em;
+				overflow-wrap: anywhere;
+			}
+			.sec-head--dark h2 { color: var(--color-on-dark); }
+
+			.lede {
+				margin: var(--space-md) 0 0;
+				font-size: var(--text-lg);
+				line-height: 1.6;
+				color: var(--color-ink-3);
+				max-width: 60ch;
+			}
+			.lede--dark { color: var(--color-on-dark-2); }
+
+			.accent { color: var(--color-accent-2); }
+
+			/* ── Buttons ── */
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: var(--space-xs);
+				min-height: 46px;
+				padding-inline: 1.25rem;
+				border-radius: var(--radius-sm);
+				font-family: var(--font-display);
+				font-size: var(--text-sm2);
+				font-weight: 600;
+				white-space: nowrap;
+				transition: background-color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+			}
+
+			.btn--solid { background: var(--color-accent-2); color: var(--color-accent-ink); }
+			.btn--solid:hover { background: var(--color-accent-3); }
+
+			.btn--line {
+				background: transparent;
+				color: var(--color-ink);
+				border: 1px solid var(--color-rule-2);
+			}
+			.btn--line svg { transition: transform var(--dur-2) var(--ease-out); }
+			.btn--line:hover { border-color: var(--color-accent); color: var(--color-accent-2); }
+			.btn--line:hover svg { transform: translateX(3px); }
+
+			:where(a, button, input, summary):focus-visible {
+				outline: 2px solid var(--color-focus);
+				outline-offset: 2px;
+				border-radius: var(--radius-xs);
+			}
+
+			/* ── Reveal ── */
+			.rv { opacity: 0; transform: translateY(10px); transition: opacity var(--dur-4) var(--ease-out), transform var(--dur-4) var(--ease-out); }
+			.rv.is-in { opacity: 1; transform: none; }
+			/* Safety net: if JS never runs, content must still be visible. */
+			@media (scripting: none) { .rv { opacity: 1; transform: none; } }
+
+			/* ─────────────── HERO ─────────────── */
+			.hero { padding-block: var(--space-3xl) var(--space-4xl); border-bottom: 1px solid var(--color-rule); }
+
+			.hero-grid {
+				display: grid;
+				grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+				gap: clamp(2rem, 5vw, 4rem);
+				align-items: center;
 			}
 
 			.hero-title {
-				font-size: clamp(2.2rem, 5.2vw, 4.2rem);
-				font-weight: 500;
-				letter-spacing: -0.04em;
-				line-height: 1.1;
-				max-width: 18ch;
 				margin: 0;
-			}
-
-			.hero-subtitle {
-				font-size: clamp(1rem, 1.6vw, 1.125rem);
-				color: var(--eth-text-secondary);
-				line-height: 1.65;
-				max-width: 52ch;
-				margin: 0;
-			}
-
-			.hero-cta {
-				display: inline-flex;
-				gap: 0.6rem;
-				flex-wrap: wrap;
-				justify-content: center;
-				margin-top: 0.75rem;
-			}
-
-			/* Risk-reversal microcopy under the CTA */
-			.hero-cta-note {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4rem;
-				margin: 0.35rem 0 0;
-				font-size: 0.82rem;
-				font-weight: 500;
-				color: var(--eth-text-muted);
-			}
-
-			.hero-cta-check {
-				display: inline-flex;
-				color: var(--eth-accent);
-				flex-shrink: 0;
-			}
-
-			/* Trust badge strip */
-			.trust-badges {
-				list-style: none;
-				padding: 0.5rem 0.85rem;
-				margin: 0;
-				display: inline-flex;
-				flex-wrap: wrap;
-				justify-content: center;
-				gap: 1.25rem;
-				background: rgba(255, 255, 255, 0.5);
-				border: 1px solid rgba(255, 255, 255, 0.8);
-				border-radius: 9999px;
-				backdrop-filter: var(--eth-glass-blur);
-				-webkit-backdrop-filter: var(--eth-glass-blur);
-				box-shadow: var(--eth-shadow-sm);
-			}
-
-			.trust-badges li {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.35rem;
-				font-size: 0.78rem;
-				font-weight: 500;
-				color: var(--eth-text-secondary);
-			}
-
-			.trust-badges li svg { color: var(--eth-accent); flex-shrink: 0; }
-
-			@media (max-width: 600px) {
-				.trust-badges { gap: 0.65rem; padding: 0.6rem 0.85rem; }
-				.trust-badges li { font-size: 0.72rem; }
-			}
-
-			/* ─────────────────────────── Hero product mockup */
-			.hero-visual {
-				width: 100%;
-				max-width: 860px;
-				margin-top: 2.75rem;
-				animation: ethFadeUp 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
-				animation-delay: 120ms;
-			}
-
-			.hv-window {
-				border-radius: 1.25rem;
-				background: var(--eth-glass-bg-strong);
-				border: 1px solid var(--eth-glass-border);
-				backdrop-filter: var(--eth-glass-blur);
-				-webkit-backdrop-filter: var(--eth-glass-blur);
-				box-shadow: var(--eth-shadow);
-				overflow: hidden;
-				text-align: left;
-			}
-
-			.hv-bar {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				padding: 0.7rem 1rem;
-				border-bottom: 1px solid var(--eth-border);
-				background: rgba(255, 255, 255, 0.55);
-			}
-
-			.hv-dots { display: inline-flex; gap: 0.35rem; flex-shrink: 0; }
-			.hv-dots i { width: 9px; height: 9px; border-radius: 9999px; background: var(--eth-border-light); }
-
-			.hv-tab {
-				font-size: 0.78rem;
+				font-size: var(--text-5xl);
 				font-weight: 600;
-				color: var(--eth-text);
+				line-height: 1.04;
+				letter-spacing: -0.03em;
+				max-width: 16ch;
+				overflow-wrap: anywhere;
+			}
+
+			.hero-sub {
+				margin: var(--space-lg) 0 0;
+				font-size: var(--text-xl);
+				line-height: 1.55;
 				letter-spacing: -0.01em;
+				color: var(--color-ink-3);
+				max-width: 48ch;
 			}
 
-			.hv-live {
+			.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
+
+			.hero-note {
+				margin: var(--space-md) 0 0;
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				color: var(--color-ink-4);
+			}
+
+			.trust {
+				list-style: none;
+				margin: var(--space-xl) 0 0;
+				padding: var(--space-md) 0 0;
+				border-top: 1px solid var(--color-rule);
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--space-xs) var(--space-lg);
+			}
+			.trust li {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.4rem;
-				margin-left: auto;
-				font-size: 0.7rem;
-				font-weight: 600;
-				color: var(--eth-accent-hover);
-				background: var(--eth-accent-soft);
-				padding: 0.25rem 0.6rem;
-				border-radius: 9999px;
-				flex-shrink: 0;
+				gap: var(--space-2xs);
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				color: var(--color-ink-3);
+			}
+			.trust li::before { content: '✓'; color: var(--color-accent); font-size: 0.7rem; }
+
+			/* Hero instrument panel */
+			.panel {
+				background: var(--color-paper-2);
+				border: 1px solid var(--color-rule-2);
+				border-radius: var(--radius-lg);
+				overflow: hidden;
 			}
 
-			.hv-live-dot {
-				width: 6px;
-				height: 6px;
-				border-radius: 9999px;
-				background: var(--eth-accent);
-				box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
-			}
-
-			.hv-body {
-				display: flex;
-				flex-direction: column;
-				gap: 0.7rem;
-				padding: 1.25rem;
-			}
-
-			.hv-flow-row {
-				display: grid;
-				grid-template-columns: 1fr auto 1fr;
-				gap: 0.75rem;
-				align-items: center;
-			}
-
-			.hv-io {
+			.panel-head {
 				display: flex;
 				align-items: center;
-				gap: 0.6rem;
-				padding: 0.6rem 0.7rem;
-				border-radius: 0.75rem;
-				background: var(--eth-surface);
-				border: 1px solid var(--eth-border);
+				justify-content: space-between;
+				gap: var(--space-sm);
+				padding: 0.7rem 1rem;
+				border-bottom: 1px solid var(--color-rule);
+				background: var(--color-paper);
+			}
+
+			.panel-name {
+				display: inline-flex;
+				align-items: center;
+				gap: var(--space-xs);
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				letter-spacing: 0.04em;
+				color: var(--color-ink-3);
+			}
+			.panel-glyph { width: 10px; height: 10px; border-radius: 3px; border: 1.5px solid var(--color-accent); }
+
+			.panel-status {
+				display: inline-flex;
+				align-items: center;
+				gap: var(--space-2xs);
+				font-family: var(--font-mono);
+				font-size: 0.66rem;
+				letter-spacing: 0.08em;
+				color: var(--color-accent-2);
+			}
+			.panel-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
+
+			.panel-body { display: flex; flex-direction: column; gap: var(--space-sm); padding: var(--space-md); }
+
+			.flow { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-sm); align-items: center; }
+
+			.flow-io {
+				display: flex;
+				align-items: center;
+				gap: var(--space-xs);
 				min-width: 0;
+				padding: 0.6rem 0.65rem;
+				border: 1px solid var(--color-rule);
+				border-radius: var(--radius-sm);
+				background: var(--color-paper);
 			}
+			.flow-io--out { border-color: color-mix(in oklab, var(--color-accent) 32%, var(--color-rule)); background: var(--color-accent-soft); }
 
-			.hv-io--out {
-				background: var(--eth-accent-soft);
-				border-color: rgba(16, 185, 129, 0.2);
-			}
-
-			.hv-io-icon { display: inline-flex; color: var(--eth-accent); flex-shrink: 0; }
-
-			.hv-io-meta { display: flex; flex-direction: column; min-width: 0; }
-			.hv-io-meta strong {
-				font-size: 0.78rem;
-				color: var(--eth-text);
-				font-weight: 600;
+			.flow-ic { display: inline-flex; color: var(--color-ink-3); flex-shrink: 0; }
+			.flow-meta { display: flex; flex-direction: column; min-width: 0; }
+			.flow-meta strong {
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				font-weight: 500;
+				color: var(--color-ink);
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
-			.hv-io-meta em { font-size: 0.66rem; color: var(--eth-text-muted); font-style: normal; }
+			.flow-meta em { font-style: normal; font-size: 0.66rem; color: var(--color-ink-4); }
+			.flow-io--out .flow-meta { margin-right: auto; }
+			.flow-io--out .flow-meta strong { color: var(--color-accent-2); }
+			.flow-io--out .flow-meta em { color: var(--color-ink-3); }
+			.flow-check { display: inline-flex; color: var(--color-accent); flex-shrink: 0; }
+			.flow-arrow { display: inline-flex; align-items: center; justify-content: center; color: var(--color-ink-4); flex-shrink: 0; }
 
-			.hv-io--out .hv-io-meta { margin-right: auto; }
-
-			.hv-io-check { display: inline-flex; color: var(--eth-accent-hover); flex-shrink: 0; }
-
-			.hv-arrow {
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				color: var(--eth-accent);
-				flex-shrink: 0;
-			}
-
-			.hv-foot {
+			.panel-foot {
 				display: flex;
 				flex-wrap: wrap;
-				align-items: center;
-				gap: 1rem;
-				padding: 0.7rem 1.25rem;
-				border-top: 1px solid var(--eth-border);
-				background: rgba(255, 255, 255, 0.45);
+				gap: var(--space-xs) var(--space-md);
+				padding: 0.7rem 1rem;
+				border-top: 1px solid var(--color-rule);
+				background: var(--color-paper);
 			}
-
-			.hv-stat {
+			.foot-stat {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.35rem;
-				font-size: 0.72rem;
-				font-weight: 500;
-				color: var(--eth-text-secondary);
+				gap: var(--space-2xs);
+				font-family: var(--font-mono);
+				font-size: 0.64rem;
+				letter-spacing: 0.06em;
+				color: var(--color-ink-4);
+			}
+			.foot-stat--ok { color: var(--color-accent-2); }
+			.foot-stat--ok svg { color: var(--color-accent); }
+
+			@media (max-width: 34rem) {
+				.flow { grid-template-columns: 1fr; gap: var(--space-2xs); }
+				.flow-arrow { transform: rotate(90deg); justify-self: start; margin-left: 0.5rem; }
 			}
 
-			.hv-stat--ok { color: var(--eth-accent-hover); font-weight: 600; }
-			.hv-stat--time { margin-left: auto; color: var(--eth-text-muted); }
-
-			@media (max-width: 680px) {
-				.hv-flow-row { grid-template-columns: 1fr; gap: 0.4rem; }
-				.hv-arrow { transform: rotate(90deg); }
-				.hv-foot { gap: 0.6rem 1rem; }
-				.hv-stat--time { margin-left: 0; flex-basis: 100%; }
-			}
-
-			/* ─────────────────────────── Stats strip */
-			.stats-strip {
-				border-top: 1px solid var(--eth-border);
-				border-bottom: 1px solid var(--eth-border);
-				background: var(--eth-surface);
-				padding: 2.5rem 0;
-			}
-
-			.stats-list {
-				list-style: none;
-				padding: 0;
-				margin: 0;
+			/* ─────────────── STATS ─────────────── */
+			.stats { border-bottom: 1px solid var(--color-rule); background: var(--color-paper); }
+			.stats-grid {
 				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				gap: 1rem;
-				text-align: center;
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+				padding-block: var(--space-2xl);
 			}
-
-			.stat-item {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 0.25rem;
-				padding: 0 1rem;
-				border-right: 1px solid var(--eth-border);
-			}
-
-			.stat-item:last-child { border-right: none; }
-
+			.stat { padding-inline: var(--space-lg); border-right: 1px solid var(--color-rule); }
+			.stat:first-child { padding-left: 0; }
+			.stat:last-child { border-right: none; }
 			.stat-value {
-				font-size: clamp(1.75rem, 3vw, 2.25rem);
+				display: block;
+				font-family: var(--font-display);
+				font-size: clamp(2rem, 4vw, 2.75rem);
 				font-weight: 600;
-				letter-spacing: -0.04em;
-				color: var(--eth-text);
-				font-variant-numeric: tabular-nums;
-			}
-
-			.stat-label {
-				font-size: 0.82rem;
-				color: var(--eth-text-muted);
-				font-weight: 500;
-			}
-
-			@media (max-width: 640px) {
-				.stats-list { grid-template-columns: repeat(2, 1fr); }
-				.stat-item:nth-child(2) { border-right: none; }
-				.stat-item:nth-child(3) { border-right: 1px solid var(--eth-border); }
-				.stat-item:nth-child(1),
-				.stat-item:nth-child(2) { border-bottom: 1px solid var(--eth-border); padding-bottom: 1.5rem; }
-				.stat-item:nth-child(3),
-				.stat-item:nth-child(4) { padding-top: 1.5rem; }
-			}
-
-			/* ─────────────────────────── Sections */
-			.section {
-				padding: var(--space-20) 0;
-			}
-
-			.section-head {
-				max-width: 680px;
-				margin-bottom: var(--space-12);
-				text-align: center;
-				margin-inline: auto;
-			}
-
-			.section-head h2 { margin-top: 0.5rem; }
-
-			.lede {
-				font-size: 1rem;
-				color: var(--eth-text-secondary);
-				line-height: 1.7;
-				max-width: 62ch;
-				margin-inline: auto;
-				margin-bottom: 0;
-			}
-
-			/* ─────────────────────────── Problem */
-			.problem-section { padding-bottom: var(--space-12); }
-
-			.pain-grid {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1rem;
-			}
-
-			.pain-card {
-				padding: var(--space-8);
-				border-radius: var(--eth-card-radius);
-				background: var(--eth-surface);
-				border: 1px solid var(--eth-border);
-				display: flex;
-				flex-direction: column;
-				gap: 0.6rem;
-			}
-
-			.pain-icon {
-				width: 44px;
-				height: 44px;
-				border-radius: 14px;
-				background: var(--eth-surface-alt);
-				color: var(--eth-text-secondary);
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				flex-shrink: 0;
-				margin-bottom: 0.25rem;
-			}
-
-			.pain-card h3 {
-				font-size: 1.05rem;
-				font-weight: 600;
-				letter-spacing: -0.02em;
-				margin: 0;
-				color: var(--eth-text);
-			}
-
-			.pain-card p {
-				margin: 0;
-				font-size: 0.9rem;
-				color: var(--eth-text-secondary);
-				line-height: 1.6;
-			}
-
-			.problem-bridge {
-				margin: var(--space-12) auto 0;
-				max-width: 60ch;
-				text-align: center;
-				font-size: 1.05rem;
-				line-height: 1.6;
-				color: var(--eth-text-secondary);
-			}
-
-			.problem-bridge strong { color: var(--eth-accent-hover); font-weight: 600; }
-
-			@media (max-width: 860px) { .pain-grid { grid-template-columns: 1fr; } }
-
-			/* ─────────────────────────── Modules grid */
-			.modules-section { padding-bottom: var(--space-24); }
-
-			.modules-head { margin-bottom: var(--space-12); }
-
-			.modules-grid {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				gap: 1rem;
-			}
-
-			.module-card {
-				display: flex;
-				flex-direction: column;
-				gap: 0.75rem;
-				padding: var(--space-8);
-				position: relative;
-				transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
-			}
-
-			.module-card:hover {
-				transform: translateY(-3px);
-				box-shadow: var(--eth-shadow);
-				border-color: rgba(16, 185, 129, 0.18);
-			}
-
-			/* Coming-soon card — visually muted, dashed border */
-			.module-card--soon {
-				background: transparent;
-				border: 1px dashed var(--eth-border-light);
-				box-shadow: none;
-			}
-
-			.module-card--soon:hover {
-				transform: translateY(-3px);
-				border-color: rgba(16, 185, 129, 0.3);
-				box-shadow: var(--eth-shadow-sm);
-			}
-
-			.module-icon--soon {
-				background: var(--eth-surface-alt);
-				color: var(--eth-text-muted);
-			}
-
-			.module-card--soon .module-name { color: var(--eth-text-secondary); }
-
-			.module-soon-link {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.35rem;
-				margin-top: auto;
-				align-self: flex-start;
-				font-size: 0.8rem;
-				font-weight: 600;
-				color: var(--eth-accent-hover);
-			}
-
-			.module-soon-link svg { transition: transform 200ms ease; }
-			.module-soon-link:hover svg { transform: translateX(3px); }
-
-			.module-icon {
-				width: 44px;
-				height: 44px;
-				border-radius: 14px;
-				background: var(--eth-accent-soft);
-				color: var(--eth-accent);
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				flex-shrink: 0;
-			}
-
-			.module-name {
-				font-size: 1.05rem;
-				font-weight: 600;
-				letter-spacing: -0.02em;
-				margin: 0;
-				color: var(--eth-text);
-			}
-
-			.module-desc {
-				margin: 0;
-				font-size: 0.9rem;
-				color: var(--eth-text-secondary);
-				line-height: 1.6;
-				flex: 1;
-			}
-
-			.module-chip {
-				display: inline-flex;
-				align-self: flex-start;
-				margin-top: auto;
-				padding: 0.3rem 0.65rem;
-				font-family: 'ui-monospace', 'SF Mono', Consolas, monospace;
-				font-size: 0.68rem;
-				font-weight: 600;
-				letter-spacing: 0.04em;
-				background: var(--eth-accent-soft);
-				color: var(--eth-accent-hover);
-				border: 1px solid rgba(16, 185, 129, 0.18);
-				border-radius: 9999px;
-			}
-
-			@media (max-width: 1024px) {
-				.modules-grid { grid-template-columns: repeat(2, 1fr); }
-			}
-
-			@media (max-width: 520px) {
-				.modules-grid { grid-template-columns: 1fr; }
-			}
-
-			/* ─────────────────────────── How it works */
-			.how-it-works {
-				background: var(--eth-surface);
-				border-top: 1px solid var(--eth-border);
-				border-bottom: 1px solid var(--eth-border);
-			}
-
-			.hiw-families {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1rem;
-			}
-
-			.hiw-family {
-				padding: var(--space-8);
-				border-radius: var(--eth-card-radius);
-				display: flex;
-				flex-direction: column;
-				transition: transform 200ms ease, box-shadow 200ms ease;
-			}
-
-			.hiw-family:hover {
-				transform: translateY(-3px);
-				box-shadow: var(--eth-shadow);
-			}
-
-			.hiw-family-label {
-				font-size: 1.05rem;
-				font-weight: 600;
-				letter-spacing: -0.02em;
-				margin: 0 0 0.35rem;
-				color: var(--eth-text);
-			}
-
-			.hiw-family-desc {
-				margin: 0 0 1.25rem;
-				font-size: 0.88rem;
-				color: var(--eth-text-muted);
-				line-height: 1.5;
-			}
-
-			.hiw-family-steps {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: flex;
-				flex-direction: column;
-				gap: 0.85rem;
-			}
-
-			.hiw-family-step {
-				display: flex;
-				gap: 0.75rem;
-				align-items: flex-start;
-				font-size: 0.9rem;
-				color: var(--eth-text-secondary);
-				line-height: 1.5;
-			}
-
-			.hiw-family-num {
-				flex-shrink: 0;
-				width: 26px;
-				height: 26px;
-				border-radius: 9999px;
-				background: var(--eth-accent-soft);
-				border: 1px solid rgba(16, 185, 129, 0.25);
-				color: var(--eth-accent-hover);
-				font-size: 0.72rem;
-				font-weight: 700;
-				font-variant-numeric: tabular-nums;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			@media (max-width: 800px) {
-				.hiw-families { grid-template-columns: 1fr; }
-			}
-
-			/* ─────────────────────────── Why Accountic */
-			.why .section-head { text-align: left; margin-inline: 0; }
-			.why-head { max-width: none; }
-
-			.cv-showcase {
-				background: var(--eth-showcase-gradient);
-				border-radius: var(--eth-layout-radius);
-				padding: clamp(1.5rem, 4vw, 3rem);
-				display: grid;
-				grid-template-columns: repeat(6, 1fr);
-				gap: 1.25rem;
-			}
-
-			.cv-card {
-				border-radius: var(--eth-card-radius);
-				padding: var(--space-8);
-				display: flex;
-				flex-direction: column;
-				transition: transform 200ms ease, box-shadow 200ms ease;
-			}
-
-			.cv-card:hover {
-				transform: translateY(-3px);
-				box-shadow: var(--eth-shadow);
-			}
-
-			.cv-card h3 {
-				font-size: 1.25rem;
-				font-weight: 500;
-				letter-spacing: -0.02em;
-				margin: 0 0 0.6rem;
-				color: var(--eth-text);
-			}
-
-			.cv-card p { margin: 0 0 0.6rem; color: var(--eth-text-secondary); }
-
-			.cv-card p strong { color: var(--eth-text); font-weight: 600; }
-
-			.cv-card .cv-meta {
-				margin-top: auto;
-				padding-top: 0.75rem;
-				border-top: 1px solid rgba(255, 255, 255, 0.6);
-				color: var(--eth-text-muted);
-				font-size: 0.85rem;
-			}
-
-			.card-icon {
-				width: 44px;
-				height: 44px;
-				border-radius: 14px;
-				background: var(--eth-accent-soft);
-				color: var(--eth-accent);
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				margin-bottom: 1rem;
-				flex-shrink: 0;
-			}
-
-			.glass-card {
-				background: var(--eth-glass-bg);
-				border: 1px solid var(--eth-glass-border);
-				backdrop-filter: var(--eth-glass-blur);
-				-webkit-backdrop-filter: var(--eth-glass-blur);
-				box-shadow: var(--eth-shadow-sm);
-			}
-
-			.cv-hero {
-				grid-column: span 4;
-				background: var(--eth-surface);
-				border: 1px solid var(--eth-border);
-				box-shadow: var(--eth-shadow);
-			}
-
-			.cv-hero h3 { font-size: 1.6rem; }
-
-			.cv-hero .card-icon {
-				background: var(--eth-text);
-				color: #ffffff;
-			}
-
-			.cv-card:not(.cv-hero) { grid-column: span 2; }
-
-			@media (max-width: 900px) {
-				.cv-showcase { grid-template-columns: repeat(2, 1fr); }
-				.cv-hero { grid-column: 1 / -1; }
-				.cv-card:not(.cv-hero) { grid-column: span 1; }
-			}
-
-			@media (max-width: 560px) {
-				.cv-showcase { grid-template-columns: 1fr; padding: 1.25rem; }
-				.cv-hero, .cv-card:not(.cv-hero) { grid-column: 1 / -1; }
-			}
-
-			/* ─────────────────────────── Platform features */
-			.platform-section { background: var(--eth-bg); }
-			.platform-head { margin-bottom: var(--space-12); }
-
-			.platform-grid {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1rem;
-			}
-
-			.platform-card {
-				padding: var(--space-8);
-				border-radius: var(--eth-card-radius);
-				display: flex;
-				flex-direction: column;
-				gap: 0.75rem;
-				transition: transform 200ms ease, box-shadow 200ms ease;
-			}
-
-			.platform-card:hover {
-				transform: translateY(-2px);
-				box-shadow: var(--eth-shadow);
-			}
-
-			.platform-icon {
-				width: 40px;
-				height: 40px;
-				border-radius: 12px;
-				background: var(--eth-accent-soft);
-				color: var(--eth-accent);
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				flex-shrink: 0;
-			}
-
-			.platform-card h3 {
-				font-size: 0.95rem;
-				font-weight: 600;
-				letter-spacing: -0.01em;
-				margin: 0;
-				color: var(--eth-text);
-			}
-
-			.platform-card p {
-				margin: 0;
-				font-size: 0.88rem;
-				color: var(--eth-text-secondary);
-				line-height: 1.65;
-			}
-
-			@media (max-width: 900px) { .platform-grid { grid-template-columns: repeat(2, 1fr); } }
-			@media (max-width: 560px) { .platform-grid { grid-template-columns: 1fr; } }
-
-			/* ─────────────────────────── Pricing */
-			.pricing .section-head { text-align: left; margin-inline: 0; }
-			.pricing-head { max-width: none; }
-			.pricing-head .lede { margin-inline: 0; max-width: 62ch; }
-
-			.tiers {
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				gap: 1rem;
-			}
-
-			.tier {
-				padding: var(--space-6);
-				display: flex;
-				flex-direction: column;
-				position: relative;
-				transition: transform 200ms ease, box-shadow 200ms ease;
-				background: var(--eth-surface);
-				border: 1px solid var(--eth-border);
-			}
-
-			.tier:hover {
-				transform: translateY(-3px);
-				box-shadow: var(--eth-shadow);
-			}
-
-			.tier.featured {
-				background: var(--eth-text);
-				color: #ffffff;
-				border-color: var(--eth-text);
-				box-shadow: var(--eth-shadow);
-			}
-
-			.tier.featured .tier-name { color: rgba(255, 255, 255, 0.7); }
-			.tier.featured .tier-amount { color: #ffffff; }
-			.tier.featured .tier-cadence { color: rgba(255, 255, 255, 0.65); }
-			.tier.featured .tier-blurb { color: rgba(255, 255, 255, 0.75); }
-			.tier.featured .tier-features li { color: rgba(255, 255, 255, 0.92); }
-			.tier.featured .tier-features svg { color: var(--eth-accent); }
-
-			.tier-badge {
-				position: absolute;
-				top: -12px;
-				right: 16px;
-				background: var(--eth-accent);
-				color: #fff;
-				font-size: 0.68rem;
-				font-weight: 600;
-				letter-spacing: 0.08em;
-				text-transform: uppercase;
-				padding: 0.35rem 0.65rem;
-				border-radius: 9999px;
-				box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
-			}
-
-			.tier-name {
-				font-size: 0.72rem;
-				font-weight: 600;
-				letter-spacing: 0.14em;
-				text-transform: uppercase;
-				color: var(--eth-text-muted);
-				margin: 0;
-			}
-
-			.tier-price {
-				display: flex;
-				align-items: baseline;
-				gap: 0.35rem;
-				margin: 0.5rem 0 0.25rem;
-			}
-
-			.tier-amount {
-				font-size: clamp(1.75rem, 3vw, 2rem);
-				font-weight: 500;
 				letter-spacing: -0.03em;
-				color: var(--eth-text);
+				color: var(--color-ink);
+				font-variant-numeric: tabular-nums;
+			}
+			.stat-label { display: block; margin-top: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink-3); line-height: 1.4; }
+
+			@media (max-width: 48rem) {
+				.stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl) 0; }
+				.stat { padding-inline: var(--space-md); }
+				.stat:nth-child(odd) { padding-left: 0; }
+				.stat:nth-child(2) { border-right: none; }
+			}
+
+			/* ─────────────── PROBLEM ─────────────── */
+			.pain-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: var(--space-xl);
+			}
+			.pain { padding-top: var(--space-md); border-top: 1px solid var(--color-rule-2); }
+			.pain-num { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent-2); }
+			.pain h3 { margin: var(--space-sm) 0 var(--space-xs); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; }
+			.pain p { margin: 0; font-size: var(--text-body); line-height: 1.6; color: var(--color-ink-3); }
+
+			.bridge {
+				margin: var(--space-2xl) 0 0;
+				max-width: 62ch;
+				font-size: var(--text-lg);
+				line-height: 1.55;
+				color: var(--color-ink-2);
+			}
+			.bridge strong { color: var(--color-accent-2); font-weight: 600; }
+
+			@media (max-width: 52rem) { .pain-list { grid-template-columns: 1fr; gap: var(--space-lg); } }
+
+			/* ─────────────── HOW IT WORKS — dark band ─────────────── */
+			.band { background: var(--color-graphite); padding-block: var(--space-4xl); }
+
+			.families {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: var(--space-xl);
+			}
+			.family { padding-top: var(--space-md); border-top: 1px solid var(--color-rule-dark); }
+			.family-idx { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent); }
+			.family h3 { margin: var(--space-sm) 0 var(--space-2xs); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; color: var(--color-on-dark); }
+			.family-desc { margin: 0 0 var(--space-lg); font-size: var(--text-sm2); color: var(--color-on-dark-2); }
+
+			.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-md); }
+			.steps li { display: flex; gap: var(--space-sm); align-items: flex-start; font-size: var(--text-sm2); line-height: 1.5; color: var(--color-on-dark-2); }
+			.step-num {
+				flex-shrink: 0;
+				width: 24px; height: 24px;
+				display: inline-flex; align-items: center; justify-content: center;
+				border: 1px solid var(--color-rule-dark);
+				border-radius: var(--radius-xs);
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				color: var(--color-accent);
 				font-variant-numeric: tabular-nums;
 			}
 
-			.tier-cadence { color: var(--eth-text-muted); font-size: 0.9rem; }
+			@media (max-width: 52rem) { .families { grid-template-columns: 1fr; gap: var(--space-lg); } }
 
-			.tier-blurb {
-				color: var(--eth-text-secondary);
-				font-size: 0.9rem;
-				margin: 0 0 1rem;
-				min-height: 3em;
-			}
-
-			.tier-features {
-				list-style: none;
-				padding: 0;
-				margin: 0 0 1.5rem;
+			/* ─────────────── MODULES — tabular ─────────────── */
+			.mod-table { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-rule); }
+			.mod-row {
 				display: grid;
-				gap: 0.55rem;
-				flex: 1;
+				grid-template-columns: 2.25rem 2.25rem minmax(0, 1fr) auto;
+				align-items: center;
+				gap: var(--space-md);
+				padding: var(--space-lg) var(--space-xs);
+				border-bottom: 1px solid var(--color-rule);
+				/* keep the reveal (opacity/transform) working alongside the hover tint */
+				transition: background-color var(--dur-1) var(--ease-out), opacity var(--dur-4) var(--ease-out), transform var(--dur-4) var(--ease-out);
+			}
+			.mod-row:hover { background: var(--color-paper-2); }
+			.mod-idx { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-ink-4); font-variant-numeric: tabular-nums; }
+			.mod-ic {
+				display: inline-flex; align-items: center; justify-content: center;
+				width: 36px; height: 36px;
+				border: 1px solid var(--color-rule); border-radius: var(--radius-sm);
+				color: var(--color-ink-3);
+			}
+			.mod-row:hover .mod-ic { color: var(--color-accent); border-color: color-mix(in oklab, var(--color-accent) 30%, var(--color-rule)); }
+			.mod-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+			.mod-name { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; letter-spacing: -0.01em; color: var(--color-ink); }
+			.mod-desc { font-size: var(--text-body); line-height: 1.5; color: var(--color-ink-3); }
+			.mod-chip {
+				justify-self: end;
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				color: var(--color-accent-2);
+				background: var(--color-accent-soft);
+				border-radius: var(--radius-pill);
+				padding: 0.3rem 0.7rem;
+				white-space: nowrap;
+			}
+			.mod-row--soon { border-bottom: none; }
+			.mod-row--soon .mod-ic { color: var(--color-ink-4); border-style: dashed; }
+			.mod-row--soon .mod-name { color: var(--color-ink-2); }
+			.mod-soon-link {
+				justify-self: end;
+				display: inline-flex; align-items: center; gap: var(--space-2xs);
+				font-family: var(--font-display); font-weight: 600;
+				font-size: var(--text-sm2); color: var(--color-accent-2);
+				white-space: nowrap;
+			}
+			.mod-soon-link svg { transition: transform var(--dur-2) var(--ease-out); }
+			.mod-soon-link:hover svg { transform: translateX(3px); }
+
+			@media (max-width: 46rem) {
+				.mod-row { grid-template-columns: 2rem minmax(0, 1fr); grid-template-areas: 'idx main' 'chip chip'; row-gap: var(--space-sm); }
+				.mod-idx { grid-area: idx; }
+				.mod-ic { display: none; }
+				.mod-main { grid-area: main; }
+				.mod-chip, .mod-soon-link { grid-area: chip; justify-self: start; }
 			}
 
-			.tier-features li {
-				display: flex;
-				align-items: flex-start;
-				gap: 0.55rem;
-				color: var(--eth-text);
-				font-size: 0.9rem;
+			/* ─────────────── WHY ─────────────── */
+			.why-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--color-rule); border-left: 1px solid var(--color-rule); }
+			.why-card {
+				padding: var(--space-xl);
+				border-right: 1px solid var(--color-rule);
+				border-bottom: 1px solid var(--color-rule);
+			}
+			.why-card--lead { grid-column: 1 / -1; background: var(--color-accent-soft); border-top: 2px solid var(--color-accent); }
+			.why-card h3 { margin: 0 0 var(--space-sm); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; }
+			.why-card--lead h3 { font-size: var(--text-2xl); max-width: 20ch; }
+			.why-card p { margin: 0; font-size: var(--text-sm2); line-height: 1.6; color: var(--color-ink-3); max-width: 52ch; }
+			.why-card--lead p { color: var(--color-ink-2); max-width: 56ch; }
+			.why-card p strong { color: var(--color-ink); font-weight: 600; }
+			.why-meta { margin-top: var(--space-md) !important; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-accent-2) !important; }
+
+			@media (max-width: 52rem) {
+				.why-grid { grid-template-columns: 1fr; }
+				.why-card--lead { grid-column: auto; }
 			}
 
-			.tier-features svg { color: var(--eth-accent); flex-shrink: 0; margin-top: 3px; }
+			/* ─────────────── PLATFORM ─────────────── */
+			.plat-grid {
+				list-style: none; margin: 0; padding: 0;
+				display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: var(--space-xl) var(--space-2xl);
+			}
+			.plat { padding-top: var(--space-md); border-top: 1px solid var(--color-rule); }
+			.plat-ic { display: inline-flex; color: var(--color-ink-3); margin-bottom: var(--space-sm); }
+			.plat h3 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); font-weight: 600; letter-spacing: -0.02em; }
+			.plat p { margin: 0; font-size: var(--text-sm2); line-height: 1.55; color: var(--color-ink-3); }
 
-			.tier .btn { width: 100%; }
+			@media (max-width: 52rem) { .plat-grid { grid-template-columns: 1fr; gap: var(--space-lg); } }
+
+			/* ─────────────── PRICING ─────────────── */
+			.tiers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-md); }
+			.tier {
+				display: flex; flex-direction: column;
+				padding: var(--space-xl);
+				border: 1px solid var(--color-rule);
+				border-radius: var(--radius-lg);
+				background: var(--color-paper);
+				position: relative;
+			}
+			.tier { transition: border-color var(--dur-1) var(--ease-out); }
+			.tier:not(.tier--pro):hover { border-color: var(--color-rule-2); }
+			.tier--pro { border-color: var(--color-accent); border-width: 1.5px; }
+			.tier-tag {
+				position: absolute; top: -0.7rem; left: var(--space-xl);
+				font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+				background: var(--color-accent); color: var(--color-accent-ink);
+				padding: 0.25rem 0.55rem; border-radius: var(--radius-xs);
+			}
+			.tier-name { margin: 0; font-size: var(--text-lg); font-weight: 600; }
+			.tier-price { margin: var(--space-sm) 0 var(--space-2xs); display: flex; align-items: baseline; gap: var(--space-2xs); }
+			.tier-amount { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 600; letter-spacing: -0.03em; color: var(--color-ink); }
+			.tier-cad { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-4); }
+			.tier-blurb { margin: 0 0 var(--space-lg); font-size: var(--text-sm2); color: var(--color-ink-3); }
+			.tier-feats { list-style: none; margin: 0 0 var(--space-xl); padding: 0; display: flex; flex-direction: column; gap: var(--space-sm); }
+			.tier-feats li { display: flex; align-items: flex-start; gap: var(--space-xs); font-size: var(--text-sm2); color: var(--color-ink-2); line-height: 1.4; }
+			.tier-feats svg { color: var(--color-accent); flex-shrink: 0; margin-top: 2px; }
+			.tier-cta { margin-top: auto; width: 100%; }
 
 			.pricing-note {
-				margin-top: var(--space-8);
-				text-align: center;
-				font-size: 0.88rem;
-				color: var(--eth-text-muted);
+				margin: var(--space-2xl) 0 0;
+				max-width: 72ch;
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				line-height: 1.7;
+				color: var(--color-ink-4);
 			}
 
-			@media (max-width: 1000px) { .tiers { grid-template-columns: repeat(2, 1fr); } }
-			@media (max-width: 560px) { .tiers { grid-template-columns: 1fr; } }
+			@media (max-width: 64rem) { .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+			@media (max-width: 40rem) { .tiers { grid-template-columns: 1fr; } }
 
-			/* ─────────────────────────── Final CTA */
-			.cta-section { padding: var(--space-20) 0; }
+			/* ─────────────── FAQ ─────────────── */
+			.faq-wrap { max-width: var(--wrap-narrow); }
+			.faq-list { border-top: 1px solid var(--color-rule); }
+			.faq-item { border-bottom: 1px solid var(--color-rule); }
+			.faq-item summary {
+				display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+				padding: var(--space-lg) 0;
+				cursor: pointer;
+				font-family: var(--font-display);
+				font-size: var(--text-lg);
+				font-weight: 600;
+				letter-spacing: -0.01em;
+				color: var(--color-ink);
+				list-style: none;
+			}
+			.faq-item summary::-webkit-details-marker { display: none; }
+			.faq-mark { position: relative; width: 14px; height: 14px; flex-shrink: 0; }
+			.faq-mark::before, .faq-mark::after { content: ''; position: absolute; background: var(--color-accent); transition: transform var(--dur-2) var(--ease-out); }
+			.faq-mark::before { top: 6px; left: 0; width: 14px; height: 2px; }
+			.faq-mark::after { top: 0; left: 6px; width: 2px; height: 14px; }
+			.faq-item[open] .faq-mark::after { transform: scaleY(0); }
+			.faq-a { padding: 0 0 var(--space-lg); }
+			.faq-a p { margin: 0; max-width: 66ch; font-size: var(--text-body); line-height: 1.65; color: var(--color-ink-3); }
 
+			/* ─────────────── FINAL CTA ─────────────── */
 			.cta-card {
-				background-color: var(--eth-bg);
-				background-image:
-					linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
-					radial-gradient(ellipse 80% 60% at 20% 40%, rgba(253, 230, 138, 0.45) 0%, transparent 100%),
-					radial-gradient(ellipse 70% 50% at 80% 60%, rgba(249, 168, 212, 0.35) 0%, transparent 100%),
-					radial-gradient(ellipse 60% 50% at 50% 80%, rgba(147, 197, 253, 0.3) 0%, transparent 100%);
-				border-radius: var(--eth-layout-radius);
-				padding: clamp(2rem, 5vw, 4rem);
-				text-align: center;
-				border: 1px solid rgba(255, 255, 255, 0.5);
-				box-shadow: var(--eth-shadow);
+				padding: clamp(2rem, 5vw, 3.5rem);
+				border: 1px solid var(--color-rule-2);
+				border-radius: var(--radius-lg);
+				background: var(--color-paper-2);
 			}
-
-			.cta-eyebrow { color: var(--eth-accent); }
-
-			.cta-card h2 {
-				margin: 0.5rem auto 0.75rem;
-				max-width: 18ch;
-				font-weight: 300;
-				letter-spacing: -0.05em;
-			}
-
-			.cta-card p {
-				color: var(--eth-text-secondary);
-				max-width: 52ch;
-				margin: 0 auto 1.5rem;
-			}
-
-			.cta-form {
-				display: flex;
-				gap: 0.5rem;
-				max-width: 480px;
-				margin-inline: auto;
-			}
-
+			.cta-card h2 { margin: var(--space-2xs) 0 var(--space-md); font-size: var(--text-3xl); font-weight: 600; letter-spacing: -0.025em; }
+			.cta-body { margin: 0; max-width: 56ch; font-size: var(--text-base); line-height: 1.6; color: var(--color-ink-3); }
+			.cta-form { display: flex; gap: var(--space-sm); margin-top: var(--space-lg); max-width: 460px; }
 			.cta-form input {
-				flex: 1;
-				padding: 0.85rem 1.1rem;
-				font-size: 0.95rem;
-				font-family: inherit;
-				border-radius: 9999px;
-				border: 1px solid var(--eth-border);
-				background: var(--eth-surface);
-				color: var(--eth-text);
-				min-height: 48px;
+				flex: 1; min-width: 0;
+				height: 46px;
+				padding-inline: 0.9rem;
+				border: 1px solid var(--color-border-control);
+				border-radius: var(--radius-sm);
+				background: var(--color-paper);
+				font-family: var(--font-sans);
+				font-size: var(--text-sm2);
+				color: var(--color-ink);
 			}
-
-			.cta-form input::placeholder { color: var(--eth-text-muted); }
-
-			.cta-form input:focus-visible {
-				outline: 2px solid var(--eth-accent);
-				outline-offset: 2px;
-				border-color: transparent;
-			}
-
-			.cta-form .btn { min-height: 48px; }
-
-			.cta-error {
-				margin: 0.5rem auto 0;
-				max-width: 480px;
-				color: #b91c1c;
-				font-size: 0.85rem;
-				font-weight: 500;
-				text-align: left;
-				padding-left: 1rem;
-			}
-
-			.cta-thanks-state {
-				text-align: center;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-			}
-
+			.cta-form input::placeholder { color: var(--color-ink-4); }
+			.cta-error { margin: var(--space-sm) 0 0; font-size: var(--text-sm); color: var(--color-danger); }
 			.cta-thanks-icon {
-				width: 58px;
-				height: 58px;
-				border-radius: 9999px;
-				background: var(--eth-accent-soft);
-				color: var(--eth-accent);
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				margin-bottom: 1rem;
+				display: inline-flex; align-items: center; justify-content: center;
+				width: 44px; height: 44px; margin-bottom: var(--space-md);
+				border-radius: var(--radius-md);
+				background: var(--color-accent-soft); color: var(--color-accent);
+			}
+			.cta-thanks-meta { margin-top: var(--space-md); font-size: var(--text-sm2); color: var(--color-ink-4); }
+			.cta-thanks-meta a { color: var(--color-accent-2); }
+			.cta-card strong { color: var(--color-ink); font-weight: 600; }
+
+			@media (max-width: 34rem) { .cta-form { flex-direction: column; } .cta-form .btn { width: 100%; } }
+
+			@media (max-width: 62rem) {
+				.hero-grid { grid-template-columns: 1fr; }
+				.panel { max-width: 560px; }
 			}
 
-			.cta-thanks-state h2 { margin: 0.35rem 0 0.75rem; max-width: 20ch; }
-			.cta-thanks-state p { max-width: 52ch; color: var(--eth-text-secondary); margin: 0 auto; }
-			.cta-thanks-state strong { color: var(--eth-text); font-weight: 600; }
-
-			.cta-thanks-meta { font-size: 0.9rem; margin-top: 1rem !important; }
-			.cta-thanks-meta a { color: var(--eth-accent); font-weight: 500; }
-
-			@media (max-width: 560px) {
-				.cta-form { flex-direction: column; }
+			@media (prefers-reduced-motion: reduce) {
+				.rv { opacity: 1; transform: none; transition: none; }
+				.btn, .btn svg, .mod-soon-link svg, .mod-row, .faq-mark::before, .faq-mark::after { transition: none; }
 			}
 		</style>
+
+		<script>
+			(() => {
+				const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				const supportsIO = 'IntersectionObserver' in window;
+
+				// Reveal on scroll
+				const revealEls = Array.from(document.querySelectorAll('.rv'));
+				if (reduce || !supportsIO) {
+					revealEls.forEach((el) => el.classList.add('is-in'));
+				} else {
+					const io = new IntersectionObserver((entries) => {
+						entries.forEach((en) => {
+							if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+						});
+					}, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+					revealEls.forEach((el) => io.observe(el));
+				}
+
+				// Counter tick on the stat strip
+				const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
+				const fmt = (n: number) => n.toLocaleString('en-IN');
+				const runCount = (el: HTMLElement) => {
+					const raw = el.dataset.count || el.textContent || '';
+					const m = raw.match(/^(\D*)([\d,]+)(.*)$/);
+					if (!m) return;
+					const prefix = m[1];
+					const target = parseInt(m[2].replace(/,/g, ''), 10);
+					const suffix = m[3];
+					if (reduce || !target) { el.textContent = raw; return; }
+					const dur = 900;
+					const start = performance.now();
+					const step = (now: number) => {
+						const p = Math.min(1, (now - start) / dur);
+						const eased = 1 - Math.pow(1 - p, 3);
+						el.textContent = prefix + fmt(Math.round(target * eased)) + suffix;
+						if (p < 1) requestAnimationFrame(step);
+						else el.textContent = raw;
+					};
+					requestAnimationFrame(step);
+				};
+				if (!reduce && supportsIO) {
+					const cio = new IntersectionObserver((entries) => {
+						entries.forEach((en) => {
+							if (en.isIntersecting) { runCount(en.target as HTMLElement); cio.unobserve(en.target); }
+						});
+					}, { threshold: 0.6 });
+					counters.forEach((c) => cio.observe(c));
+				}
+
+				// Type-in one line in the hero panel (plays once)
+				if (!reduce) {
+					document.querySelectorAll<HTMLElement>('.typein').forEach((el) => {
+						const full = el.textContent || '';
+						el.textContent = '';
+						let i = 0;
+						const step = () => {
+							el.textContent = full.slice(0, i);
+							i += 1;
+							if (i <= full.length) window.setTimeout(step, 45);
+						};
+						window.setTimeout(step, 550);
+					});
+				}
+			})();
+		</script>
 
 		<script is:inline>
 			(function () {

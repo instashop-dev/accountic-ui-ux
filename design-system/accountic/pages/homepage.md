@@ -1,45 +1,14 @@
-# Homepage Page Overrides
+# Homepage — Cobalt
 
-> **PROJECT:** Accountic
-> **Generated:** 2026-04-24 12:28:12
-> **Page Type:** Landing / Marketing
+> **Retired.** These "Ethereal" homepage overrides are superseded by the
+> **Cobalt** system. The authoritative spec is [`/design.md`](../../../design.md).
 
-> ⚠️ **IMPORTANT:** Rules in this file **override** the Master file (`design-system/MASTER.md`).
-> Only deviations from the Master are documented here. For all other rules, refer to the Master.
+Homepage macrostructure is **Workbench** (a guided tour of what the product does),
+in DOM order: hero (title-left / instrument-panel-right) · stat strip · problem ·
+the one dark **graphite "how it works" band** · 14-module tabular spec sheet ·
+"why" (cobalt-tinted lead card + hairline cells) · platform grid · pricing
+(Pro tier = cobalt) · FAQ (`<details>`) · CTA capture form · footer.
 
----
-
-## Page-Specific Rules
-
-### Layout Overrides
-
-- **Max Width:** 800px (narrow, focused)
-- **Layout:** Single column, centered
-
-### Spacing Overrides
-
-- **Content Density:** Low — focus on clarity
-
-### Typography Overrides
-
-- No overrides — use Master typography
-
-### Color Overrides
-
-- No overrides — use Master colors
-
-### Component Overrides
-
-- No overrides — use Master component specs
-
----
-
-## Page-Specific Components
-
-- No unique components for this page
-
----
-
-## Recommendations
-
-- Effects: font-size: clamp(3rem 10vw 12rem), font-weight: 900, letter-spacing: -0.05em, massive whitespace
+The hero's right column is a hand-built **instrument panel** (document → verified →
+Tally voucher), rendered as a diagrammatic hairline readout — never a fake app
+screenshot. See [`/design.md`](../../../design.md) § Per-page patterns.

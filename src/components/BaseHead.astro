@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/tokens.css';
 import { SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
 
@@ -31,6 +32,8 @@ const { title, description, image = '/og-default.png', type = 'website' } = Astr
 <meta name="generator" content={Astro.generator} />
 
 <Font cssVariable="--font-sans" preload />
+<Font cssVariable="--font-display" preload />
+<Font cssVariable="--font-mono" />
 
 <link rel="canonical" href={canonicalURL} />
 

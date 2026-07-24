@@ -21,9 +21,9 @@ const pageDescription =
 			<div class="container auth-container">
 				<section class="auth-card" aria-label="Sign in">
 					<div class="auth-brand" aria-hidden="true">
-						<svg viewBox="0 0 32 32" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<rect x="1" y="1" width="30" height="30" rx="9" fill="#10B981" />
-							<g stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+						<svg class="auth-logo" viewBox="0 0 32 32" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect class="auth-logo-bg" x="1" y="1" width="30" height="30" rx="9" />
+							<g class="auth-logo-mark" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
 								<path d="M8.5 23 L16 9 L23.5 23" />
 								<path d="M13.5 16 L18.5 16" />
 								<path d="M12 19 L20 19" />
@@ -150,11 +150,7 @@ const pageDescription =
 				position: relative;
 				min-height: calc(100dvh - 80px);
 				padding: 7rem 0 4rem;
-				background-color: var(--eth-bg);
-				background-image:
-					radial-gradient(ellipse 70% 50% at 25% 25%, rgba(253, 230, 138, 0.4) 0%, transparent 100%),
-					radial-gradient(ellipse 60% 45% at 85% 30%, rgba(249, 168, 212, 0.35) 0%, transparent 100%),
-					radial-gradient(ellipse 55% 40% at 55% 85%, rgba(147, 197, 253, 0.28) 0%, transparent 100%);
+				background-color: var(--color-paper);
 				display: flex;
 				align-items: center;
 			}
@@ -163,25 +159,28 @@ const pageDescription =
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				gap: 1.5rem;
+				gap: var(--space-lg);
 			}
 
 			.auth-card {
 				width: 100%;
 				max-width: 440px;
-				background: var(--eth-surface);
-				border: 1px solid var(--eth-border);
-				border-radius: var(--eth-card-radius);
+				background: var(--color-paper);
+				border: 1px solid var(--color-rule);
+				border-radius: var(--radius-lg);
 				padding: clamp(1.75rem, 4vw, 2.5rem);
-				box-shadow: var(--eth-shadow);
 				position: relative;
 			}
 
 			.auth-brand {
 				display: inline-flex;
 				margin-bottom: 1.25rem;
-				padding: 4px;
+				padding: var(--space-2xs);
 			}
+
+			/* Brand logo — colors routed through Cobalt tokens (no inline hex). */
+			.auth-logo-bg { fill: var(--color-accent); }
+			.auth-logo-mark { stroke: var(--color-accent-ink); }
 
 			.auth-card h1 {
 				font-size: clamp(1.6rem, 3vw, 2rem);
@@ -190,16 +189,16 @@ const pageDescription =
 			}
 
 			.auth-sub {
-				color: var(--eth-text-muted);
-				margin: 0 0 1.5rem;
+				color: var(--color-ink-4);
+				margin: 0 0 var(--space-lg);
 				font-size: 0.95rem;
 			}
 
 			/* SSO */
 			.auth-sso {
 				display: grid;
-				gap: 0.5rem;
-				margin-bottom: 1rem;
+				gap: var(--space-xs);
+				margin-bottom: var(--space-md);
 			}
 
 			.sso-btn {
@@ -209,20 +208,20 @@ const pageDescription =
 				gap: 0.6rem;
 				min-height: 44px;
 				padding: 0.6rem 1rem;
-				border: 1px solid var(--eth-border);
-				background: var(--eth-surface);
-				border-radius: 9999px;
-				color: var(--eth-text);
+				border: 1px solid var(--color-border-control);
+				background: var(--color-paper);
+				border-radius: var(--radius-sm);
+				color: var(--color-ink);
 				font-family: inherit;
 				font-size: 0.9rem;
 				font-weight: 500;
 				cursor: pointer;
-				transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+				transition: background 180ms ease, border-color 180ms ease;
 			}
 
 			.sso-btn:hover {
-				background: var(--eth-surface-alt);
-				border-color: var(--eth-border-light);
+				background: var(--color-paper-2);
+				border-color: var(--color-accent);
 			}
 
 			.sso-btn svg { flex-shrink: 0; }
@@ -231,10 +230,13 @@ const pageDescription =
 			.auth-divider {
 				display: flex;
 				align-items: center;
-				gap: 0.75rem;
-				color: var(--eth-text-muted);
-				font-size: 0.75rem;
-				margin: 1rem 0 1rem;
+				gap: var(--space-sm);
+				font-family: var(--font-mono);
+				color: var(--color-ink-4);
+				font-size: 0.68rem;
+				letter-spacing: var(--tracking-label);
+				text-transform: uppercase;
+				margin: var(--space-md) 0;
 			}
 
 			.auth-divider::before,
@@ -242,7 +244,7 @@ const pageDescription =
 				content: '';
 				flex: 1;
 				height: 1px;
-				background: var(--eth-border);
+				background: var(--color-rule);
 			}
 
 			/* Form */
@@ -254,34 +256,34 @@ const pageDescription =
 				display: flex;
 				justify-content: space-between;
 				font-size: 0.85rem;
-				color: var(--eth-text);
+				color: var(--color-ink);
 				font-weight: 500;
 			}
 
 			.auth-aux {
 				font-size: 0.8rem;
-				color: var(--eth-accent);
+				color: var(--color-accent-2);
 				font-weight: 500;
 			}
 
-			.auth-aux:hover { color: var(--eth-accent-hover); }
+			.auth-aux:hover { color: var(--color-accent); }
 
 			.auth-field input {
 				padding: 0.8rem 1rem;
 				font-size: 0.95rem;
 				font-family: inherit;
-				border: 1px solid var(--eth-border);
-				border-radius: 1rem; /* MASTER: 1rem for data inputs */
-				background: var(--eth-surface);
-				color: var(--eth-text);
+				border: 1px solid var(--color-border-control);
+				border-radius: var(--radius-sm); /* tight technical radius — never pill on data fields */
+				background: var(--color-paper);
+				color: var(--color-ink);
 				min-height: 46px;
 				width: 100%;
 				transition: border-color 180ms ease, box-shadow 180ms ease;
 			}
 
-			.auth-field input:hover { border-color: var(--eth-border-light); }
+			.auth-field input::placeholder { color: var(--color-ink-4); }
 
-			/* Focus uses the global soft-glow rule from global.css. */
+			/* Focus uses the global cobalt ring from global.css. */
 
 			.auth-pwd {
 				position: relative;
@@ -298,10 +300,10 @@ const pageDescription =
 				transform: translateY(-50%);
 				width: 36px;
 				height: 36px;
-				border-radius: 9999px;
+				border-radius: var(--radius-sm);
 				border: none;
 				background: transparent;
-				color: var(--eth-text-muted);
+				color: var(--color-ink-4);
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
@@ -310,8 +312,8 @@ const pageDescription =
 			}
 
 			.pwd-toggle:hover {
-				background: var(--eth-surface-alt);
-				color: var(--eth-text);
+				background: var(--color-paper-2);
+				color: var(--color-ink);
 			}
 
 			.auth-remember {
@@ -319,7 +321,7 @@ const pageDescription =
 				align-items: center;
 				gap: 0.55rem;
 				font-size: 0.88rem;
-				color: var(--eth-text-secondary);
+				color: var(--color-ink-3);
 				margin: 0.15rem 0 0.25rem;
 				cursor: pointer;
 				user-select: none;
@@ -328,7 +330,7 @@ const pageDescription =
 			.auth-remember input {
 				width: 16px;
 				height: 16px;
-				accent-color: var(--eth-accent);
+				accent-color: var(--color-accent);
 				margin: 0;
 				cursor: pointer;
 			}
@@ -342,16 +344,16 @@ const pageDescription =
 			.auth-alt {
 				text-align: center;
 				font-size: 0.88rem;
-				color: var(--eth-text-muted);
+				color: var(--color-ink-4);
 				margin: 1.25rem 0 0;
 			}
 
 			.auth-alt a {
-				color: var(--eth-accent);
+				color: var(--color-accent-2);
 				font-weight: 500;
 			}
 
-			.auth-alt a:hover { color: var(--eth-accent-hover); }
+			.auth-alt a:hover { color: var(--color-accent); }
 
 			/* Trust row below card */
 			.auth-trust {
@@ -361,10 +363,12 @@ const pageDescription =
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: center;
-				gap: 1.5rem;
-				font-size: 0.8rem;
-				font-weight: 500;
-				color: var(--eth-text-muted);
+				gap: var(--space-lg);
+				font-family: var(--font-mono);
+				font-size: 0.72rem;
+				letter-spacing: var(--tracking-label);
+				text-transform: uppercase;
+				color: var(--color-ink-4);
 			}
 
 			.auth-trust li {
@@ -373,11 +377,11 @@ const pageDescription =
 				gap: 0.4rem;
 			}
 
-			.auth-trust svg { color: var(--eth-accent); flex-shrink: 0; }
+			.auth-trust svg { color: var(--color-ink-3); flex-shrink: 0; }
 
 			@media (max-width: 560px) {
 				.auth { padding: 6rem 0 3rem; }
-				.auth-trust { gap: 0.75rem 1rem; font-size: 0.72rem; }
+				.auth-trust { gap: 0.75rem 1rem; font-size: 0.66rem; }
 				.auth-trust li svg { width: 12px; height: 12px; }
 			}
 		</style>
