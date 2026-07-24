@@ -20,6 +20,22 @@ export default defineConfig({
           weights: [300, 400, 500, 600, 700],
           styles: ['normal'],
       },
+      {
+          provider: fontProviders.google(),
+          name: 'Space Grotesk',
+          cssVariable: '--font-display',
+          fallbacks: ['system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+          weights: [400, 500, 600, 700],
+          styles: ['normal'],
+      },
+      {
+          provider: fontProviders.google(),
+          name: 'JetBrains Mono',
+          cssVariable: '--font-mono',
+          fallbacks: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+          weights: [400, 500, 600],
+          styles: ['normal'],
+      },
 	],
 
   adapter: cloudflare({

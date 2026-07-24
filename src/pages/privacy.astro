@@ -9,14 +9,14 @@ import PageLayout from '../layouts/PageLayout.astro';
 	heading="What we collect, why, and how we protect it."
 	lede="Plain-language summary plus the full policy. Written to make your DPDP compliance easier — not harder."
 >
-	<svg slot="visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path d="M130 25 L200 54 V105 C200 139 170 167 130 180 C90 167 60 139 60 105 V54 Z" fill="#ffffff" stroke="#10b981" stroke-width="2" />
-		<path d="M130 25 L200 54 V105 C200 139 170 167 130 180 Z" fill="#10b981" opacity="0.08" />
-		<circle cx="130" cy="92" r="22" fill="#ffffff" stroke="#10b981" stroke-width="2" />
-		<rect x="115" y="94" width="30" height="22" rx="4" fill="#10b981" />
-		<path d="M120 94V85a10 10 0 0 1 20 0v9" stroke="#10b981" stroke-width="3" fill="none" />
-		<circle cx="130" cy="105" r="3" fill="#ffffff" />
-		<rect x="130" y="105" width="2" height="6" fill="#ffffff" />
+	<svg slot="visual" class="hero-mark" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M130 25 L200 54 V105 C200 139 170 167 130 180 C90 167 60 139 60 105 V54 Z" class="m-paper" stroke="currentColor" stroke-width="2" />
+		<path d="M130 25 L200 54 V105 C200 139 170 167 130 180 Z" class="m-soft" />
+		<circle cx="130" cy="92" r="22" class="m-paper" stroke="currentColor" stroke-width="2" />
+		<rect x="115" y="94" width="30" height="22" rx="4" fill="currentColor" />
+		<path d="M120 94V85a10 10 0 0 1 20 0v9" stroke="currentColor" stroke-width="3" fill="none" />
+		<circle cx="130" cy="105" r="3" class="m-accent-ink" />
+		<rect x="130" y="105" width="2" height="6" class="m-accent-ink" />
 	</svg>
 	<article class="doc">
 		<aside class="doc-toc" aria-label="On this page">
@@ -118,3 +118,10 @@ import PageLayout from '../layouts/PageLayout.astro';
 		</div>
 	</article>
 </PageLayout>
+
+<style>
+	.hero-mark { color: var(--color-accent); }
+	.hero-mark .m-paper { fill: var(--color-paper); }
+	.hero-mark .m-soft { fill: var(--color-accent-soft); }
+	.hero-mark .m-accent-ink { fill: var(--color-accent-ink); }
+</style>

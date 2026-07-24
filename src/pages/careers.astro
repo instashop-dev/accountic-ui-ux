@@ -59,18 +59,18 @@ const values = [
 	heading="Build the workbench for 1.6 lakh Indian CAs."
 	lede="We're a small founding team in Mumbai, working on the single most repetitive high-stakes task in Indian accountancy. If you want to ship something measurably trusted by professionals, read on."
 >
-	<svg slot="visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<circle cx="75" cy="90" r="28" fill="#dbeafe" />
-		<circle cx="75" cy="82" r="10" fill="#1e40af" />
-		<path d="M55 110 Q75 100 95 110 L92 125 Q75 118 58 125 Z" fill="#1e40af" />
-		<circle cx="145" cy="70" r="26" fill="#fce7f3" />
-		<circle cx="145" cy="62" r="9" fill="#9d174d" />
-		<path d="M127 88 Q145 79 163 88 L161 102 Q145 95 129 102 Z" fill="#9d174d" />
-		<circle cx="210" cy="100" r="30" fill="#d1fae5" />
-		<circle cx="210" cy="92" r="11" fill="#065f46" />
-		<path d="M188 121 Q210 110 232 121 L229 138 Q210 130 191 138 Z" fill="#065f46" />
-		<rect x="48" y="150" width="170" height="36" rx="18" fill="#ffffff" stroke="#10b981" stroke-width="1.5" />
-		<text x="133" y="172" text-anchor="middle" fill="#065f46" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600">We're hiring</text>
+	<svg slot="visual" class="hero-visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<circle cx="75" cy="90" r="28" class="hv-disc" />
+		<circle cx="75" cy="82" r="10" class="hv-figure" />
+		<path d="M55 110 Q75 100 95 110 L92 125 Q75 118 58 125 Z" class="hv-figure" />
+		<circle cx="145" cy="70" r="26" class="hv-disc" />
+		<circle cx="145" cy="62" r="9" class="hv-figure" />
+		<path d="M127 88 Q145 79 163 88 L161 102 Q145 95 129 102 Z" class="hv-figure" />
+		<circle cx="210" cy="100" r="30" class="hv-disc" />
+		<circle cx="210" cy="92" r="11" class="hv-figure" />
+		<path d="M188 121 Q210 110 232 121 L229 138 Q210 130 191 138 Z" class="hv-figure" />
+		<rect x="48" y="150" width="170" height="36" rx="18" class="hv-paper hv-accent-stroke" stroke-width="1.5" />
+		<text x="133" y="172" text-anchor="middle" class="hv-accent-text" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600">We're hiring</text>
 	</svg>
 	<section class="about">
 		<div class="about-head">
@@ -155,108 +155,133 @@ const values = [
 </PageLayout>
 
 <style>
+	/* Hero illustration — colour routed through CSS (no inline hex) */
+	.hero-visual { color: var(--color-accent); }
+	.hv-disc { fill: var(--color-paper-3); }
+	.hv-figure { fill: var(--color-ink-3); }
+	.hv-paper { fill: var(--color-paper); }
+	.hv-accent-stroke { stroke: var(--color-accent); }
+	.hv-accent-text { fill: var(--color-accent-2); }
+
 	.about-head,
 	.values-head,
-	.roles-head { margin-bottom: var(--space-8); }
+	.roles-head { margin-bottom: var(--space-xl); }
 
 	.about-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 2.5rem;
-		margin-bottom: var(--space-16);
+		gap: var(--space-2xl);
+		margin-bottom: var(--space-3xl);
 	}
 
 	.about-grid p {
-		color: var(--eth-text-secondary);
-		font-size: 1rem;
+		color: var(--color-ink-3);
+		font-size: var(--text-body);
 		line-height: 1.75;
 		margin: 0;
 	}
 
 	.values-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.25rem;
-		margin-bottom: var(--space-16);
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-lg);
+		margin-bottom: var(--space-3xl);
 	}
 
 	.value-card {
-		background: var(--eth-surface);
-		border: 1px solid var(--eth-border);
-		border-radius: var(--eth-card-radius);
-		padding: 1.75rem;
-		box-shadow: var(--eth-shadow-sm);
+		background: var(--color-paper);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
+		padding: var(--space-xl);
+		transition: border-color var(--dur-1) var(--ease-out);
 	}
 
-	.value-card h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.5rem; }
-	.value-card p { margin: 0; color: var(--eth-text-secondary); line-height: 1.65; font-size: 0.95rem; }
+	.value-card:hover { border-color: var(--color-rule-2); }
 
-	.roles-head .lede { max-width: 54ch; }
+	.value-card h3 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--space-xs); color: var(--color-ink); }
+	.value-card p { margin: 0; color: var(--color-ink-3); line-height: 1.65; font-size: var(--text-body); }
+
+	.roles-head .lede { max-width: 54ch; font-size: var(--text-lg); line-height: 1.6; }
 
 	.role-list {
 		list-style: none;
 		padding: 0;
-		margin: 0 0 var(--space-16);
+		margin: 0 0 var(--space-3xl);
 		display: grid;
-		gap: 0.75rem;
+		gap: var(--space-sm);
 	}
 
 	.role-card {
-		background: var(--eth-surface);
-		border: 1px solid var(--eth-border);
-		border-radius: var(--eth-card-radius);
-		padding: 1.5rem;
+		background: var(--color-paper);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
+		padding: var(--space-xl);
 		display: grid;
 		grid-template-columns: 1fr auto;
 		grid-template-areas:
 			'meta meta'
 			'title apply'
 			'blurb blurb';
-		gap: 0.6rem 1rem;
+		gap: var(--space-sm) var(--space-md);
 		align-items: center;
-		transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+		transition: border-color var(--dur-1) var(--ease-out);
 	}
 
 	.role-card:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--eth-shadow);
-		border-color: var(--eth-border-light);
+		border-color: var(--color-rule-2);
 	}
 
-	.role-meta { grid-area: meta; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--eth-text-muted); }
+	/* Mono meta row — location/type; explicit letter-spacing so it never inherits
+	   the body's negative tracking (per design.md mono-label spec). */
+	.role-meta {
+		grid-area: meta;
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		flex-wrap: wrap;
+		font-family: var(--font-mono);
+		font-size: var(--text-sm);
+		letter-spacing: var(--tracking-label);
+		text-transform: uppercase;
+		color: var(--color-ink-4);
+	}
 
-	.role-team { color: var(--eth-accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; }
-	.role-dot { color: var(--eth-border-light); }
+	.role-team { font-weight: 600; }
+	.role-dot { color: var(--color-rule-2); }
 
-	.role-card h3 { grid-area: title; font-size: 1.15rem; font-weight: 600; margin: 0; }
-	.role-card p { grid-area: blurb; margin: 0; color: var(--eth-text-secondary); font-size: 0.92rem; line-height: 1.6; }
+	.role-card h3 { grid-area: title; font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin: 0; color: var(--color-ink); }
+	.role-card p { grid-area: blurb; margin: 0; color: var(--color-ink-3); font-size: var(--text-body); line-height: 1.6; }
 
+	/* Neutral at rest — cobalt only on hover (accent scarcity) */
 	.role-apply {
 		grid-area: apply;
 		display: inline-flex;
 		align-items: center;
-		gap: 0.4rem;
+		gap: var(--space-xs);
+		min-height: 44px;
+		font-family: var(--font-display);
 		font-weight: 600;
-		color: var(--eth-accent);
-		font-size: 0.9rem;
-		padding: 0.5rem 1rem;
-		border: 1px solid var(--eth-border);
-		border-radius: 9999px;
-		transition: background-color 200ms ease, border-color 200ms ease;
+		color: var(--color-ink);
+		font-size: var(--text-sm2);
+		white-space: nowrap;
+		padding: var(--space-xs) var(--space-md);
+		border: 1px solid var(--color-border-control);
+		border-radius: var(--radius-sm);
+		transition: background-color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
 	}
 
-	.role-apply:hover { background: var(--eth-accent-soft); border-color: var(--eth-accent); color: var(--eth-accent-hover); }
+	.role-apply:hover { background: var(--color-accent-soft); border-color: var(--color-accent); color: var(--color-accent-2); }
 
 	.general-card {
-		background: var(--eth-text);
-		color: #e2e8f0;
-		border-radius: var(--eth-layout-radius);
-		padding: clamp(2rem, 5vw, 3rem);
+		background: var(--color-graphite);
+		color: var(--color-on-dark-2);
+		border-radius: var(--radius-lg);
+		padding: clamp(var(--space-xl), 5vw, var(--space-2xl));
 		text-align: center;
 	}
 
-	.general-card h2 { color: #fff; margin: 0 0 0.75rem; }
-	.general-card p { color: rgba(255, 255, 255, 0.75); margin: 0 auto 1.5rem; max-width: 44ch; }
+	.general-card h2 { color: var(--color-on-dark); margin: 0 0 var(--space-sm); }
+	.general-card p { color: var(--color-on-dark-2); margin: 0 auto var(--space-lg); max-width: 44ch; font-size: var(--text-body); }
 
 	@media (max-width: 820px) {
 		.about-grid,

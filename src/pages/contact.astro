@@ -9,26 +9,26 @@ import PageLayout from '../layouts/PageLayout.astro';
 	heading="Let's get your firm onto Accountic."
 	lede="Tell us about your practice and we'll be in touch within one business day. For pilot cohorts, we typically onboard in under 48 hours."
 >
-	<svg slot="visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
-		{/* Incoming chat bubble (from user, white) */}
+	<svg slot="visual" class="contact-visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
+		{/* Incoming chat bubble (from user) */}
 		<g>
-			<path d="M28 52 Q28 38 42 38 H152 Q166 38 166 52 V82 Q166 96 152 96 H68 L48 110 V96 Q28 96 28 82 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.4" />
-			<rect x="44" y="52" width="80" height="5" rx="2.5" fill="#cbd5e1" />
-			<rect x="44" y="63" width="100" height="5" rx="2.5" fill="#cbd5e1" />
-			<rect x="44" y="74" width="60" height="5" rx="2.5" fill="#cbd5e1" />
+			<path class="cv-in" d="M28 52 Q28 38 42 38 H152 Q166 38 166 52 V82 Q166 96 152 96 H68 L48 110 V96 Q28 96 28 82 Z" />
+			<rect class="cv-bar" x="44" y="52" width="80" height="5" rx="2.5" />
+			<rect class="cv-bar" x="44" y="63" width="100" height="5" rx="2.5" />
+			<rect class="cv-bar" x="44" y="74" width="60" height="5" rx="2.5" />
 		</g>
-		{/* Outgoing reply bubble (emerald) */}
+		{/* Outgoing reply bubble (accent) */}
 		<g>
-			<path d="M232 116 Q232 102 218 102 H118 Q104 102 104 116 V142 Q104 156 118 156 H208 L226 172 V156 Q232 156 232 142 Z" fill="#10b981" />
-			<rect x="120" y="118" width="92" height="5" rx="2.5" fill="#ffffff" opacity="0.9" />
-			<rect x="120" y="129" width="70" height="5" rx="2.5" fill="#ffffff" opacity="0.6" />
-			<circle cx="210" cy="142" r="9" fill="#ffffff" />
-			<path d="M205 142l3 3 6-6" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+			<path class="cv-out" d="M232 116 Q232 102 218 102 H118 Q104 102 104 116 V142 Q104 156 118 156 H208 L226 172 V156 Q232 156 232 142 Z" />
+			<rect class="cv-bar-out" x="120" y="118" width="92" height="5" rx="2.5" />
+			<rect class="cv-bar-out cv-bar-out--faint" x="120" y="129" width="70" height="5" rx="2.5" />
+			<circle class="cv-check-bg" cx="210" cy="142" r="9" />
+			<path class="cv-check" d="M205 142l3 3 6-6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
 		</g>
 		{/* Small dots / signals */}
-		<circle cx="22" cy="30" r="4" fill="#fde68a" />
-		<circle cx="244" cy="38" r="5" fill="#fbcfe8" />
-		<circle cx="18" cy="130" r="3" fill="#bfdbfe" />
+		<circle class="cv-dot" cx="22" cy="30" r="4" />
+		<circle class="cv-dot" cx="244" cy="38" r="5" />
+		<circle class="cv-dot" cx="18" cy="130" r="3" />
 	</svg>
 	<div class="contact-grid" data-capture data-source="contact-page" data-endpoint="/api/capture">
 		<form class="contact-form" data-capture-form data-state="form" novalidate>
@@ -162,24 +162,34 @@ import PageLayout from '../layouts/PageLayout.astro';
 </PageLayout>
 
 <style>
+	/* Contact hero visual — colors routed through Cobalt tokens (no inline hex). */
+	.contact-visual { color: var(--color-accent); }
+	.cv-in { fill: var(--color-paper); stroke: var(--color-rule-2); stroke-width: 1.4; }
+	.cv-bar { fill: var(--color-rule-2); }
+	.cv-out { fill: var(--color-accent); }
+	.cv-bar-out { fill: var(--color-accent-ink); opacity: 0.9; }
+	.cv-bar-out--faint { opacity: 0.6; }
+	.cv-check-bg { fill: var(--color-accent-ink); }
+	.cv-check { stroke: var(--color-accent); }
+	.cv-dot { fill: var(--color-rule-2); }
+
 	.contact-grid {
 		display: grid;
-		grid-template-columns: 1.4fr 1fr;
+		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
 		gap: 2.5rem;
 		align-items: start;
 	}
 
 	.contact-form {
-		background: var(--eth-surface);
-		border: 1px solid var(--eth-border);
-		border-radius: var(--eth-card-radius);
+		background: var(--color-paper);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
 		padding: clamp(1.5rem, 3vw, 2.25rem);
-		box-shadow: var(--eth-shadow-sm);
 		display: grid;
-		gap: 1rem;
+		gap: var(--space-md);
 	}
 
-	.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+	.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
 
 	@media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
 
@@ -187,13 +197,13 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 	.field-label {
 		font-size: 0.85rem;
-		color: var(--eth-text);
+		color: var(--color-ink);
 		font-weight: 500;
 		display: flex;
 		justify-content: space-between;
 	}
 
-	.optional { color: var(--eth-text-muted); font-weight: 400; }
+	.optional { color: var(--color-ink-4); font-weight: 400; }
 
 	.field input,
 	.field select,
@@ -201,45 +211,47 @@ import PageLayout from '../layouts/PageLayout.astro';
 		padding: 0.85rem 1rem;
 		font-size: 0.95rem;
 		font-family: inherit;
-		border: 1px solid var(--eth-border);
-		border-radius: 1rem; /* MASTER: 1rem for data inputs, not pill */
-		background: var(--eth-surface);
-		color: var(--eth-text);
+		border: 1px solid var(--color-border-control);
+		border-radius: var(--radius-sm); /* tight technical radius — never pill on data fields */
+		background: var(--color-paper);
+		color: var(--color-ink);
 		min-height: 48px;
 		resize: vertical;
 		transition: border-color 180ms ease, box-shadow 180ms ease;
 	}
 
-	.field textarea { border-radius: 1rem; }
+	.field input::placeholder,
+	.field textarea::placeholder { color: var(--color-ink-4); }
 
-	/* Focus uses the global soft-glow rule from global.css — no override here. */
+	.field textarea { border-radius: var(--radius-sm); }
+
+	/* Focus uses the global cobalt ring from global.css — no override here. */
 
 	.form-foot {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: var(--space-md);
 		flex-wrap: wrap;
-		margin-top: 0.5rem;
+		margin-top: var(--space-xs);
 	}
 
 	.foot-note {
 		font-size: 0.8rem;
-		color: var(--eth-text-muted);
+		color: var(--color-ink-4);
 		margin: 0;
 		max-width: 32ch;
 	}
 
-	.foot-note a { color: var(--eth-text); text-decoration: underline; text-decoration-color: var(--eth-border-light); }
+	.foot-note a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-rule-2); }
 
-	.contact-aside { display: grid; gap: 1rem; }
+	.contact-aside { display: grid; gap: var(--space-md); }
 
 	.aside-card {
-		background: var(--eth-surface);
-		border: 1px solid var(--eth-border);
-		border-radius: var(--eth-card-radius);
-		padding: 1.5rem;
-		box-shadow: var(--eth-shadow-sm);
+		background: var(--color-paper);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
+		padding: var(--space-lg);
 	}
 
 	.aside-card h3 {
@@ -248,51 +260,51 @@ import PageLayout from '../layouts/PageLayout.astro';
 		font-weight: 600;
 	}
 
-	.aside-card ol { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.5rem; color: var(--eth-text-secondary); font-size: 0.9rem; }
+	.aside-card ol { margin: 0; padding-left: 1.25rem; display: grid; gap: var(--space-xs); color: var(--color-ink-3); font-size: var(--text-body); }
 
-	.aside-card ol strong { color: var(--eth-text); font-weight: 600; }
+	.aside-card ol strong { color: var(--color-ink); font-weight: 600; }
 
-	.direct { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
+	.direct { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-sm); }
 
 	.direct li { display: grid; gap: 0.15rem; }
 
 	.dir-label {
+		font-family: var(--font-mono);
 		font-size: 0.72rem;
-		letter-spacing: 0.12em;
+		letter-spacing: var(--tracking-label-lg);
 		text-transform: uppercase;
-		color: var(--eth-text-muted);
-		font-weight: 600;
+		color: var(--color-ink-4);
+		font-weight: 500;
 	}
 
-	.direct a { color: var(--eth-text); font-weight: 500; font-size: 0.92rem; }
+	.direct a { color: var(--color-ink); font-weight: 500; font-size: 0.92rem; }
 
 	.aside-card.subtle {
-		background: var(--eth-surface-alt);
+		background: var(--color-paper-2);
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--space-sm);
 		align-items: flex-start;
 	}
 
-	.aside-card .small { font-size: 0.9rem; margin: 0; color: var(--eth-text-secondary); }
-	.aside-card .small strong { color: var(--eth-text); }
+	.aside-card .small { font-size: var(--text-body); margin: 0; color: var(--color-ink-3); }
+	.aside-card .small strong { color: var(--color-ink); }
 
-	.btn-small { padding: 0.55rem 1rem; font-size: 0.85rem; min-height: 40px; }
+	.btn-small { padding: 0.55rem 1rem; font-size: 0.85rem; min-height: 44px; }
 
 	.form-error {
 		margin: -0.25rem 0 0;
-		color: #b91c1c;
+		color: var(--color-danger);
 		font-size: 0.85rem;
 		font-weight: 500;
 	}
 
 	.contact-thanks {
 		grid-column: 1 / -1;
-		background: var(--eth-surface);
-		border: 1px solid var(--eth-border);
-		border-radius: var(--eth-card-radius);
+		background: var(--color-paper);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
 		padding: clamp(2rem, 5vw, 3rem);
-		box-shadow: var(--eth-shadow);
 		text-align: center;
 		display: flex;
 		flex-direction: column;
@@ -302,33 +314,34 @@ import PageLayout from '../layouts/PageLayout.astro';
 	.thanks-icon {
 		width: 64px;
 		height: 64px;
-		border-radius: 9999px;
-		background: var(--eth-accent-soft);
-		color: var(--eth-accent);
+		border-radius: var(--radius-md);
+		background: var(--color-accent-soft);
+		color: var(--color-accent);
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 1rem;
+		margin-bottom: var(--space-md);
 	}
 
-	.contact-thanks h2 { margin: 0 0 0.75rem; font-size: clamp(1.5rem, 2.4vw, 2rem); }
-	.contact-thanks > p { max-width: 52ch; color: var(--eth-text-secondary); margin: 0 auto; }
-	.contact-thanks strong { color: var(--eth-text); font-weight: 600; }
+	.contact-thanks h2 { margin: 0 0 var(--space-sm); font-size: clamp(1.5rem, 2.4vw, 2rem); }
+	.contact-thanks > p { max-width: 52ch; color: var(--color-ink-3); margin: 0 auto; }
+	.contact-thanks strong { color: var(--color-ink); font-weight: 600; }
 
 	.thanks-next {
-		margin-top: 2rem;
-		padding-top: 1.5rem;
-		border-top: 1px dashed var(--eth-border);
+		margin-top: var(--space-xl);
+		padding-top: var(--space-lg);
+		border-top: 1px dashed var(--color-rule);
 		width: 100%;
 		max-width: 440px;
 	}
 
 	.thanks-next-label {
+		font-family: var(--font-mono);
 		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.14em;
+		font-weight: 500;
+		letter-spacing: var(--tracking-label-lg);
 		text-transform: uppercase;
-		color: var(--eth-text-muted);
+		color: var(--color-ink-4);
 		margin: 0 0 0.6rem;
 	}
 
@@ -341,7 +354,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 	}
 
 	.thanks-next a {
-		color: var(--eth-accent);
+		color: var(--color-accent-2);
 		font-weight: 500;
 		font-size: 0.95rem;
 	}

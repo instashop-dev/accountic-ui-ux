@@ -36,18 +36,18 @@ const pillars = [
 	heading="Security built for the signature on the reply."
 	lede="Your name goes on every draft that leaves Accountic. The way we build, deploy, and secure the product reflects what's actually at stake."
 >
-	<svg slot="visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path d="M130 20 L210 48 V108 C210 142 175 168 130 180 C85 168 50 142 50 108 V48 Z" fill="#ffffff" stroke="#10b981" stroke-width="2" />
-		<path d="M130 20 L210 48 V108 C210 142 175 168 130 180 Z" fill="#10b981" opacity="0.08" />
-		<path d="M100 100 l20 20 l40 -42" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+	<svg slot="visual" class="hero-visual" viewBox="0 0 260 200" width="260" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M130 20 L210 48 V108 C210 142 175 168 130 180 C85 168 50 142 50 108 V48 Z" class="hv-paper hv-accent-stroke" stroke-width="2" />
+		<path d="M130 20 L210 48 V108 C210 142 175 168 130 180 Z" class="hv-accent-fill" />
+		<path d="M100 100 l20 20 l40 -42" class="hv-accent-stroke" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" />
 		<g opacity="0.9">
-			<circle cx="42" cy="150" r="18" fill="#dbeafe" />
-			<rect x="34" y="146" width="16" height="12" rx="2" fill="#1e40af" />
-			<path d="M37 146v-4a5 5 0 0 1 10 0v4" stroke="#1e40af" stroke-width="2" fill="none" />
+			<circle cx="42" cy="150" r="18" class="hv-paper hv-rule-stroke" stroke-width="1.5" />
+			<rect x="34" y="146" width="16" height="12" rx="2" class="hv-ink-fill" />
+			<path d="M37 146v-4a5 5 0 0 1 10 0v4" class="hv-ink-stroke" stroke-width="2" fill="none" />
 		</g>
 		<g opacity="0.9">
-			<circle cx="220" cy="40" r="18" fill="#fef3c7" />
-			<path d="M213 40l4 5 10-11" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+			<circle cx="220" cy="40" r="18" class="hv-paper hv-rule-stroke" stroke-width="1.5" />
+			<path d="M213 40l4 5 10-11" class="hv-accent-stroke" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
 		</g>
 	</svg>
 	<section class="pillars" aria-labelledby="pillars-title">
@@ -141,114 +141,128 @@ const pillars = [
 </PageLayout>
 
 <style>
+	/* Hero illustration — colour routed through CSS (no inline hex) */
+	.hero-visual { color: var(--color-accent); }
+	.hv-paper { fill: var(--color-paper); }
+	.hv-accent-stroke { stroke: var(--color-accent); }
+	.hv-accent-fill { fill: var(--color-accent-soft); }
+	.hv-ink-fill { fill: var(--color-ink-3); }
+	.hv-ink-stroke { stroke: var(--color-ink-3); }
+	.hv-rule-stroke { stroke: var(--color-rule-2); }
+
 	.pillar-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.25rem;
-		margin-bottom: var(--space-16);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--space-lg);
+		margin-bottom: var(--space-3xl);
 	}
 
 	.pillar-card {
-		background: var(--eth-surface);
-		border: 1px solid var(--eth-border);
-		border-radius: var(--eth-card-radius);
-		padding: 1.75rem;
-		box-shadow: var(--eth-shadow-sm);
-		transition: transform 200ms ease, box-shadow 200ms ease;
+		background: var(--color-paper);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
+		padding: var(--space-xl);
+		transition: border-color var(--dur-1) var(--ease-out);
 	}
 
-	.pillar-card:hover { transform: translateY(-2px); box-shadow: var(--eth-shadow); }
+	.pillar-card:hover { border-color: var(--color-rule-2); }
 
+	/* Decorative icon — neutral at rest (accent scarcity); cobalt only on card hover */
 	.pillar-icon {
 		width: 44px;
 		height: 44px;
-		border-radius: 14px;
-		background: var(--eth-accent-soft);
-		color: var(--eth-accent);
+		border-radius: var(--radius-sm);
+		border: 1px solid var(--color-rule);
+		background: transparent;
+		color: var(--color-ink-3);
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 1rem;
+		margin-bottom: var(--space-md);
+		transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
 	}
 
-	.pillar-card h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.5rem; }
-	.pillar-card p { margin: 0; font-size: 0.92rem; line-height: 1.6; }
+	.pillar-card:hover .pillar-icon {
+		color: var(--color-accent);
+		border-color: color-mix(in oklab, var(--color-accent) 30%, var(--color-rule));
+	}
+
+	.pillar-card h3 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--space-xs); color: var(--color-ink); }
+	.pillar-card p { margin: 0; font-size: var(--text-body); line-height: 1.6; color: var(--color-ink-3); }
 
 	.pillars-head,
 	.standards-head,
-	.practices-head { margin-bottom: var(--space-8); }
+	.practices-head { margin-bottom: var(--space-xl); }
 	.pillars-head h2,
 	.standards-head h2,
-	.practices-head h2 { margin-top: 0.35rem; }
+	.practices-head h2 { margin-top: var(--space-2xs); }
 
 	.standards-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1rem;
-		margin-bottom: var(--space-16);
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-md);
+		margin-bottom: var(--space-3xl);
 	}
 
 	.standard {
-		background: var(--eth-surface-alt);
-		border: 1px solid var(--eth-border);
-		border-radius: var(--eth-card-radius);
-		padding: 1.5rem;
+		background: var(--color-paper-2);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
+		padding: var(--space-xl);
 	}
 
+	/* Standard name — mono label, not a heading (per design.md mono-label spec) */
 	.std-name {
-		margin: 0 0 0.4rem;
-		font-size: 0.75rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--eth-accent);
+		margin: 0 0 var(--space-xs);
+		font-family: var(--font-mono);
+		font-size: var(--text-sm2);
 		font-weight: 600;
+		letter-spacing: var(--tracking-label);
+		text-transform: uppercase;
+		color: var(--color-ink-4);
 	}
 
-	.std-body { margin: 0; font-size: 0.92rem; color: var(--eth-text-secondary); line-height: 1.6; }
+	.std-body { margin: 0; font-size: var(--text-body); color: var(--color-ink-3); line-height: 1.6; }
 
 	.practices-list {
 		display: grid;
 		gap: 0;
-		margin: 0 0 var(--space-16);
-		border-top: 1px solid var(--eth-border);
+		margin: 0 0 var(--space-3xl);
+		border-top: 1px solid var(--color-rule);
 	}
 
 	.practices-list > div {
 		display: grid;
 		grid-template-columns: 240px 1fr;
-		gap: 2rem;
-		padding: 1.25rem 0;
-		border-bottom: 1px solid var(--eth-border);
+		gap: var(--space-xl);
+		padding: var(--space-lg) 0;
+		border-bottom: 1px solid var(--color-rule);
 	}
 
-	.practices-list dt { font-weight: 600; font-size: 1rem; margin: 0; }
-	.practices-list dd { margin: 0; color: var(--eth-text-secondary); font-size: 0.92rem; line-height: 1.65; }
-	.practices-list dd a { color: var(--eth-accent); font-weight: 500; }
+	.practices-list dt { font-family: var(--font-display); font-weight: 600; font-size: var(--text-base); margin: 0; color: var(--color-ink); }
+	.practices-list dd { margin: 0; color: var(--color-ink-3); font-size: var(--text-body); line-height: 1.65; }
+	.practices-list dd a { color: var(--color-accent-2); font-weight: 500; }
 
 	.resources-card {
-		background-color: var(--eth-bg);
-		background-image:
-			radial-gradient(ellipse 70% 50% at 20% 30%, rgba(253, 230, 138, 0.4) 0%, transparent 100%),
-			radial-gradient(ellipse 60% 45% at 85% 70%, rgba(147, 197, 253, 0.3) 0%, transparent 100%);
-		border: 1px solid rgba(255, 255, 255, 0.5);
-		border-radius: var(--eth-layout-radius);
-		padding: clamp(1.75rem, 4vw, 3rem);
+		background: var(--color-paper-2);
+		border: 1px solid var(--color-rule);
+		border-radius: var(--radius-lg);
+		padding: clamp(var(--space-xl), 4vw, var(--space-2xl));
 		display: grid;
 		grid-template-columns: 1.4fr 1fr;
-		gap: 2rem;
+		gap: var(--space-xl);
 		align-items: center;
-		box-shadow: var(--eth-shadow);
 	}
 
-	.resources-card h2 { margin: 0.4rem 0 0.75rem; font-size: clamp(1.5rem, 2.2vw, 1.85rem); }
-	.resources-card p { margin: 0; color: var(--eth-text-secondary); }
+	.resources-card h2 { margin: var(--space-xs) 0 var(--space-sm); font-size: clamp(1.5rem, 2.2vw, 1.85rem); color: var(--color-ink); }
+	.resources-card p { margin: 0; font-size: var(--text-base); color: var(--color-ink-3); }
 
-	.resources-actions { display: flex; flex-direction: column; gap: 0.6rem; align-items: stretch; }
+	.resources-actions { display: flex; flex-direction: column; gap: var(--space-sm); align-items: stretch; }
 
 	@media (max-width: 900px) {
-		.pillar-grid { grid-template-columns: repeat(2, 1fr); }
+		.pillar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 		.standards-grid { grid-template-columns: 1fr; }
-		.practices-list > div { grid-template-columns: 1fr; gap: 0.5rem; }
+		.practices-list > div { grid-template-columns: 1fr; gap: var(--space-xs); }
 		.resources-card { grid-template-columns: 1fr; }
 	}
 

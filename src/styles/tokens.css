@@ -1,0 +1,105 @@
+/* Hallmark · theme: Cobalt · genre: modern-minimal
+ * Portable design tokens for the Accountic site.
+ * Font stacks (--font-display / --font-sans / --font-mono) come from the Astro
+ * Fonts API (astro.config.mjs + BaseHead.astro) and are referenced by name.
+ *
+ * Axes — paper band: cool light · display: grotesk-sans · accent: electric cobalt
+ * Contrast: label/body colours tuned to ≥4.5:1 on paper; UI borders ≥3:1.
+ */
+
+:root {
+	/* ── Surfaces (cool engineered near-white — never #fff) ── */
+	--color-paper: oklch(98.5% 0.004 250);
+	--color-paper-2: oklch(96% 0.005 251);
+	--color-paper-3: oklch(94.4% 0.006 252);
+
+	/* ── Ink (cool charcoal — never #000) ── */
+	--color-ink: oklch(24% 0.02 258);      /* headings */
+	--color-ink-2: oklch(34% 0.018 257);   /* body */
+	--color-ink-3: oklch(48% 0.016 256);   /* secondary — ~5.4:1 on paper */
+	--color-ink-4: oklch(56% 0.014 256);   /* mono labels/meta — ~4.5:1 on paper */
+
+	/* ── The cobalt signal ──
+	 * accent   : brighter blue for rings / icons / ticks / focus (non-text UI)
+	 * accent-2 : the workhorse — text accent + primary button fill (~5.4:1 on paper)
+	 * accent-3 : primary button hover
+	 */
+	--color-accent: oklch(58% 0.20 256);
+	--color-accent-2: oklch(52% 0.205 256);
+	--color-accent-3: oklch(46% 0.19 256);
+	--color-accent-soft: oklch(93% 0.05 256);
+	--color-accent-ink: oklch(99% 0.005 250);
+
+	/* ── The dark graphite band + dark surfaces ── */
+	--color-graphite: oklch(22% 0.016 260);
+	--color-graphite-2: oklch(26% 0.018 260);
+	--color-on-dark: oklch(93% 0.008 255);
+	--color-on-dark-2: oklch(74% 0.014 256);
+	--color-on-dark-faint: oklch(66% 0.02 258);
+
+	/* ── Hairlines (structure comes from borders, not shadow) ── */
+	--color-rule: oklch(90% 0.006 255);        /* decorative dividers */
+	--color-rule-2: oklch(84% 0.008 255);      /* heavier hairline */
+	--color-rule-dark: oklch(33% 0.012 260);   /* hairline on graphite */
+	--color-border-control: oklch(64% 0.012 256); /* inputs / triggers — ≥3:1 (WCAG 1.4.11) */
+
+	/* ── State ── */
+	--color-focus: oklch(58% 0.20 256);
+	--color-danger: oklch(55% 0.17 25);
+	--color-danger-soft: oklch(94% 0.03 25);
+
+	/* ── Type scale ── */
+	--text-2xs: 0.6875rem;   /* 11px — small mono labels */
+	--text-xs: 0.75rem;      /* 12px — meta */
+	--text-sm: 0.8125rem;
+	--text-sm2: 0.875rem;    /* 14px — chips / dense meta */
+	--text-body: 0.9375rem;  /* 15px — card & table reading copy */
+	--text-base: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: clamp(1.75rem, 2.4vw + 1rem, 2.375rem);
+	--text-4xl: clamp(2.1rem, 3.4vw + 1rem, 3.25rem);
+	--text-5xl: clamp(2.6rem, 4.6vw + 0.5rem, 4.25rem);
+
+	/* ── Letter-spacing scale ── */
+	--tracking-tight: -0.03em;   /* large display */
+	--tracking-snug: -0.02em;    /* mid headings */
+	--tracking-label: 0.08em;    /* uppercase mono labels */
+	--tracking-label-lg: 0.1em;  /* smallest uppercase labels */
+
+	/* ── Spacing (4pt base, semantic names) ── */
+	--space-3xs: 0.125rem;
+	--space-2xs: 0.25rem;
+	--space-xs: 0.5rem;
+	--space-sm: 0.75rem;
+	--space-md: 1rem;
+	--space-lg: 1.5rem;
+	--space-xl: 2rem;
+	--space-2xl: 3rem;
+	--space-3xl: 4rem;
+	--space-4xl: 6rem;
+	--space-5xl: 8rem;
+
+	/* ── Tight technical radii ("drawn with a ruler") ── */
+	--radius-2xs: 2px;
+	--radius-xs: 4px;
+	--radius-sm: 6px;
+	--radius-md: 8px;
+	--radius-lg: 10px;
+	--radius-xl: 14px;
+	--radius-pill: 9999px;
+
+	/* ── Motion ── */
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-in: cubic-bezier(0.4, 0, 1, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--dur-1: 150ms;
+	--dur-2: 250ms;
+	--dur-3: 400ms;
+	--dur-4: 600ms;
+
+	/* ── Layout ── */
+	--wrap: 1120px;
+	--wrap-narrow: 760px;
+}
