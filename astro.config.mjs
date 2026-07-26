@@ -8,7 +8,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://accountic.com',
+  site: 'https://accountic.in',
   integrations: [mdx(), sitemap()],
 
   fonts: [
