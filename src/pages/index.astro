@@ -4,57 +4,57 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
-const metaTitle = `${SITE_TITLE} — AI Accounting Agent for Indian CA Firms`;
+const metaTitle = `${SITE_TITLE} — AI That Does Your Firm's Accounting Work, and Proves Every Number`;
 const metaDescription =
-	'Accountic is the AI workbench for Indian CA firms. Seven live modules — Tax Audit (Form 3CD), CompuTax, GST Audits, Broker Ledger, Ledger Predictor, TDS Reconciliation, and the Tally Agent — run deterministic-first (rules first, AI only where needed) and post straight into TallyPrime, with India-resident data.';
+	'The AI workbench for Indian CA firms. Tax audits, GST, TDS, reconciliations, Tally posting — the work your team repeats every week, done in minutes and proven line by line. Posts straight into TallyPrime. Built by CAs with 45 years of practice. Your data never leaves India.';
 
 const liveModules = [
 	{
 		id: 'broker-ledger',
 		name: 'Broker Ledger',
-		description: 'Convert broker tradebooks to Tally journal vouchers via a 4-stage FIFO engine — equity, ETF, F&O, and commodity.',
+		description: 'Turn a broker tradebook into clean Tally journal vouchers — equity, ETF, F&O, commodity — with the FIFO maths done for you.',
 		chip: 'Tradebook → Tally in minutes',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
 	},
 	{
 		id: 'ledger-predictor',
 		name: 'Ledger Predictor',
-		description: 'Classify bank-statement transactions to the right Tally ledger via a rule-based cascade plus Claude review, then push vouchers.',
-		chip: '90–98% auto-classified, hands-free',
+		description: 'Sort every bank-statement line into the right Tally ledger automatically, then post the vouchers. You review only the edge cases.',
+		chip: '90–98% booked hands-free',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>`,
 	},
 	{
 		id: 'tds-reconciliation',
 		name: 'TDS Reconciliation',
-		description: 'Audit TDS compliance per vendor, per bill, per FY — matched against statutory section rates and party exemptions.',
-		chip: 'Every vendor TDS-checked automatically',
+		description: 'Check TDS for every vendor, every bill, every year — against the right section rates and exemptions. Nothing slips through.',
+		chip: 'Every vendor TDS-checked',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>`,
 	},
 	{
 		id: 'tax-audit-3cd',
 		name: 'Tax Audit (Form 3CD)',
-		description: 'Assemble Form 3CD (u/s 44AB) clause by clause from Tally books — 31 live clauses with deterministic ledger-scrutiny checks and AI review only at the margins. Exports 3CA/3CB to the ITD schema.',
+		description: 'Build Form 3CD (u/s 44AB) clause by clause from your Tally books — 31 clauses, audit-ready — and export 3CA/3CB to the ITD schema.',
 		chip: 'Form 3CD → 31 clauses, audit-ready',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
 	},
 	{
 		id: 'computax',
 		name: 'CompuTax',
-		description: 'Drive CompuTax / CompuOffice — which has no API — directly, mapping this year\'s Tally ledgers onto the return structure and building statements and annexures. A local agent operates CompuOffice for you.',
+		description: 'Drive CompuOffice directly — no API needed. A local agent maps this year\'s Tally ledgers onto the return and builds the statements.',
 		chip: 'Drives CompuOffice — no API needed',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
 	},
 	{
 		id: 'gst-audits',
 		name: 'GST Audits',
-		description: 'Build the GSTR-9 / 9C annual-return working file from your books, with automatic tie-out checks against GSTR-1 and GSTR-3B — a pure-compute engine, no LLM in the loop.',
+		description: 'Build the GSTR-9 / 9C working file from your books, with tie-outs to GSTR-1 and 3B checked automatically. Pure calculation, no guesswork.',
 		chip: 'GSTR-9C working paper, auto-built',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="m9 14 2 2 4-4"/></svg>`,
 	},
 	{
 		id: 'tally-agent',
 		name: 'Tally Agent',
-		description: 'A Windows system-tray connector that bridges Accountic cloud to your local TallyPrime instance — no manual export/import.',
+		description: 'A quiet Windows tray app that connects Accountic to your TallyPrime. Everything posts live — no export, no import.',
 		chip: 'Live bridge to your TallyPrime',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
 	},
@@ -64,77 +64,77 @@ const soonModules = [
 	{
 		id: 'notice-workflow',
 		name: 'Notice Workflow',
-		description: 'Draft IT notice replies (s. 142(1), 143(3), 148A) grounded in verified case law and IT Act sections.',
+		description: 'Draft IT notice replies (s. 142(1), 143(3), 148A) grounded in real case law and Act sections — not invented ones.',
 		chip: 'Notice PDF → drafted reply',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`,
 	},
 	{
 		id: 'gst-notice-reply',
 		name: 'GST Notice Reply',
-		description: 'Draft replies to GST show-cause notices, grounded in case law and your firm\'s prior replies — distinct from the IT notice workflow.',
+		description: 'Draft replies to GST show-cause notices, grounded in case law and your firm\'s own past replies.',
 		chip: 'GST SCN → drafted reply',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m9 10 2 2 4-4"/></svg>`,
 	},
 	{
 		id: 'appeal-drafting',
 		name: 'Appeal Drafting',
-		description: 'Prepare formal tax appeals before CIT(A) and ITAT — grounds of appeal, addition-by-addition rebuttals, and final PDF/DOCX.',
+		description: 'Prepare appeals for CIT(A) and ITAT — grounds, addition-by-addition rebuttals, final PDF/DOCX.',
 		chip: 'Appeal ready for CIT(A) & ITAT',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h11"/><path d="m15 15 2 2 4-4"/></svg>`,
 	},
 	{
 		id: 'book-rag',
 		name: 'Book Q&amp;A',
-		description: 'Ask questions on the Income Tax Act 1961 &amp; 2025 and get citation-first answers grounded in statute — never hallucinated.',
+		description: 'Ask the Income Tax Act (1961 &amp; 2025) and get citation-first answers from the statute — never invented.',
 		chip: 'Citation-first answers, never invented',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="7" x2="16" y2="7"/><line x1="12" y1="11" x2="16" y2="11"/><line x1="12" y1="15" x2="14" y2="15"/></svg>`,
 	},
 	{
 		id: 'knowledge-base',
 		name: 'Knowledge Base',
-		description: 'Maintain your firm\'s private RAG store — case history, judgements, CBDT circulars, and Taxmann commentary — per-org isolated.',
-		chip: 'Your firm’s private, isolated RAG',
+		description: 'Keep your firm\'s private library — case history, judgements, CBDT circulars, Taxmann — searchable and isolated to your org.',
+		chip: 'Your firm’s private, isolated store',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>`,
 	},
 	{
 		id: 'tally-ocr',
 		name: 'Tally OCR',
-		description: 'Extract supplier invoices (PDF, image, Word) via Azure DI and push GST-split Purchase vouchers directly into TallyPrime.',
+		description: 'Read supplier invoices (PDF, image, Word) and post GST-split Purchase vouchers straight into Tally.',
 		chip: 'Invoice → Tally Purchase voucher',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
 	},
 	{
 		id: 'vouching',
 		name: 'Vouching',
-		description: 'Match Tally entries against source documents (invoices, bank statements) and render SA 230-compliant audit verdicts.',
-		chip: 'Audit-ready working papers, auto-built',
+		description: 'Match Tally entries to source documents and produce SA 230-compliant audit verdicts.',
+		chip: 'Audit-ready working papers',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
 	},
 	{
 		id: 'gstr-2b',
 		name: 'GSTR-2B Reconciliation',
-		description: 'Reconcile your GSTR-2B ITC statement against the purchase register — bucketed mismatches by rule tag, export-ready.',
+		description: 'Match GSTR-2B against your purchase register, bucket the mismatches, export-ready.',
 		chip: 'A day of reconciliation → minutes',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
 	},
 	{
 		id: 'balance-sheet-builder',
 		name: 'Balance Sheet Builder',
-		description: 'Turn trial balances into Schedule III financial statements — BS, P&L, Cash Flow, and Notes — for any entity type.',
-		chip: 'Trial balance → Schedule III statements',
+		description: 'Turn a trial balance into Schedule III statements — BS, P&L, Cash Flow, Notes — for any entity type.',
+		chip: 'Trial balance → Schedule III',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>`,
 	},
 	{
 		id: 'debtor-followup',
 		name: 'Debtor Follow-up',
-		description: 'Sync Sundry Debtor balances from Tally, auto-score risk per debtor, and send chase emails in configurable runs.',
+		description: 'Pull Sundry Debtor balances from Tally, score the risk, and send chase emails on a schedule.',
 		chip: 'Auto-scored AR with chase emails',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
 	},
 	{
 		id: 'sales-bills',
 		name: 'Sales Bills',
-		description: 'Generate GST-compliant invoices for your firm\'s own billing, email them to clients, and post to Tally as sales vouchers.',
+		description: 'Raise GST-compliant invoices for your own billing, email clients, and post to Tally as sales vouchers.',
 		chip: 'GST invoice → Tally sales voucher',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
 	},
@@ -143,28 +143,28 @@ const soonModules = [
 const workflowFamilies = [
 	{
 		label: 'Compliance & Audit',
-		desc: 'Tax audit, GST audit, and TDS compliance.',
+		desc: 'Tax audit, GST audit, TDS — done and defensible.',
 		steps: [
 			'Connect your Tally books or upload a working file',
-			'Accountic runs deterministic checks and builds the working papers',
-			'Export Form 3CD / GSTR-9C or push entries to Tally',
+			'Accountic runs the checks and builds the working papers',
+			'Export Form 3CD / GSTR-9C, or push the entries to Tally',
 		],
 	},
 	{
-		label: 'Data → Tally Automation',
-		desc: 'Reconciliation, classification, and posting.',
+		label: 'Data → Tally, automatically',
+		desc: 'Reconcile, classify, post — no re-keying.',
 		steps: [
 			'Upload a bank statement, tradebook, or invoice',
-			'Accountic classifies, reconciles, and matches',
+			'Accountic classifies, reconciles, and matches every line',
 			'Vouchers post straight into TallyPrime',
 		],
 	},
 	{
 		label: 'Firm Operations',
-		desc: 'Billing, receivables, and reporting.',
+		desc: 'Billing, receivables, reporting — off your plate.',
 		steps: [
-			'Sync debtors or raise a GST sales bill',
-			'Accountic scores risk and checks compliance',
+			'Sync your debtors or raise a GST sales bill',
+			'Accountic scores the risk and checks compliance',
 			'Send chase emails or post to Tally',
 		],
 	},
@@ -172,148 +172,138 @@ const workflowFamilies = [
 
 const platformFeatures = [
 	{
-		title: 'Multi-tenant org model',
-		desc: 'Owner / Admin / Member roles with invite flow. Every firm\'s data is fully isolated — no cross-org retrieval is possible by construction.',
+		title: 'Your firm, your walls',
+		desc: 'Owner / Admin / Member roles with a simple invite flow. Each firm\'s data is sealed off — one org can never see another\'s, by design.',
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
 	},
 	{
-		title: 'Credit billing — 1 credit = ₹1',
-		desc: 'Credits are debited before work begins. Automatic HTTP 402 if insufficient; full refund on system failure. Top-ups available any time.',
+		title: 'Pay only for work done — 1 credit = ₹1',
+		desc: 'Credits are charged before a job runs. Run out mid-job and it stops cleanly; if our system fails, you\'re refunded in full. Top up any time.',
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
 	},
 	{
-		title: 'LLM observability via Langfuse',
-		desc: 'Every LLM call is traced end-to-end. Admins see spend per org, per module, per document — full auditability, no black box.',
+		title: 'See every rupee the AI spends',
+		desc: 'Every AI call is traced end to end. Admins see spend per org, per module, per document — full transparency, no black box.',
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
 	},
 	{
-		title: 'Phone-verified sign-in',
-		desc: 'Sign in by password or a one-time SMS code (via MSG91). Every account is verified against the practitioner\'s mobile number.',
+		title: 'Sign in the secure way',
+		desc: 'Password or a one-time SMS code. Every account is tied to the practitioner\'s verified mobile number.',
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`,
 	},
 	{
-		title: 'Real-time collaborative editing',
-		desc: 'WebSocket-powered live sync on notice drafts via PieSocket. Multiple users can review and annotate the same draft simultaneously.',
+		title: 'Review drafts together, live',
+		desc: 'Multiple people open, review, and mark up the same notice draft at once, in real time.',
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
 	},
 	{
-		title: 'Super Admin console',
-		desc: 'Cross-org usage and cost dashboards, user impersonation for support, credit overrides, and full org management in one place.',
+		title: 'One console to run it all',
+		desc: 'Cross-org usage and cost dashboards, support impersonation, credit overrides, and full org management — in one place.',
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>`,
 	},
 ];
 
 const stats = [
-	{ value: '7', label: 'Live modules · more shipping through 2026' },
-	{ value: '0', label: 'Hallucinated citations, by design' },
-	{ value: '45 yrs', label: 'Of CA practice behind every rule' },
-	{ value: '₹1,000', label: 'Free credits to try every module' },
+	{ value: '7', label: 'Modules live today · more shipping through 2026' },
+	{ value: '0', label: 'Invented citations — the AI cites only what it can prove' },
+	{ value: '45 yrs', label: 'Of real CA practice built into every rule' },
+	{ value: '₹1,000', label: 'Free credits to try every module — no card' },
 ];
 
 const painPoints = [
 	{
-		title: 'Every compliance task starts from scratch',
-		desc: 'Notices, balance sheets, appeals, TDS audits — each one rebuilds the same work from zero, against a statutory deadline.',
+		title: 'Every job starts from a blank page',
+		desc: 'Notices, balance sheets, appeals, TDS audits — each one rebuilt from scratch, against a deadline. The hours don\'t scale, so the firm can\'t either. Every busy season is as long as the last.',
 	},
 	{
-		title: 'Reconciliation is still done by hand',
-		desc: 'GSTR-2B, TDS, bank statements, broker tradebooks — matched line by line in spreadsheets, then re-keyed into Tally one voucher at a time.',
+		title: 'Reconciliation eats the nights',
+		desc: 'GSTR-2B, TDS, bank statements, broker tradebooks — matched line by line in a spreadsheet, then re-keyed into Tally one voucher at a time. One mis-keyed figure in a signed return, and it\'s your name on it.',
 	},
 	{
-		title: 'Nothing leaves an audit trail',
-		desc: 'CSV cleanups and copy-paste move data into Tally, but nothing records why an entry was classified the way it was — or where a citation came from.',
+		title: 'Nothing leaves a trail',
+		desc: 'CSV cleanups and copy-paste move data into Tally, but nothing records why an entry was booked that way, or where a figure came from. When a query lands eight months later, you rebuild the logic from memory.',
 	},
 ];
 
 const whyReasons = [
 	{
-		title: 'Tally-native across every module.',
-		desc: 'Every workflow posts directly into TallyPrime — vouchers, ledger masters, XML imports. No middleware, no re-keying, no CSV gymnastics. What Accountic produces, Tally accepts.',
+		title: 'It speaks Tally, everywhere.',
+		desc: 'Every module posts straight into TallyPrime — vouchers, ledger masters, XML imports. No middleware, no re-keying, no CSV gymnastics. Whatever Accountic produces, Tally accepts.',
 		meta: 'Works with your existing Tally company and chart of accounts from day one.',
 		lead: true,
 	},
 	{
-		title: 'Zero hallucination — deterministic-first.',
-		desc: 'Rule-based pipelines handle everything they can. The LLM only reviews what deterministic logic cannot resolve. Every output is traceable to a source.',
+		title: 'It proves every number.',
+		desc: 'Rules do the work wherever they can. The AI reviews only what they can\'t settle, and every output traces to a source. Nothing lands in your books that you can\'t stand behind.',
 	},
 	{
-		title: 'India-first DPDP posture.',
-		desc: 'Processed and stored inside India. Consent-per-document, PII-aware pipelines. DPAs available for firm customers — a DPA you can hand to a listed-company client without qualification.',
+		title: 'Your data never leaves India.',
+		desc: 'Processed and stored inside India, with consent per document and PII-aware pipelines. A Data Processing Agreement you can hand to a listed-company client without a second thought.',
 	},
 	{
 		id: 'founders',
-		title: 'Built jointly by CAs and engineers.',
-		desc: 'Co-developed with a CA firm carrying <strong>45 years</strong> of Direct &amp; Indirect Tax practice. Every workflow calibrated by people who have filed these returns and drafted these replies themselves.',
+		title: 'Built by CAs who\'ve filed these returns.',
+		desc: 'Co-developed with a CA firm carrying <strong>45 years</strong> of Direct &amp; Indirect Tax practice. Every workflow is shaped by people who have drafted these replies and signed these audits themselves — not by coders guessing at the work.',
 	},
 	{
-		title: 'SOC 2 Type II certified infrastructure.',
-		desc: 'The technology partner behind Accountic holds SOC 2 Type II certification. Encrypted in transit and at rest. Every action logged and auditable end-to-end.',
+		title: 'Enterprise-grade security underneath.',
+		desc: 'The technology partner behind Accountic is SOC 2 Type II certified. Encrypted in transit and at rest, every action logged and auditable end to end.',
 	},
 ];
 
 const pricingTiers = [
 	{
-		name: 'Free',
-		price: '₹0',
-		cadence: 'one-time',
-		blurb: '₹1,000 in credits to trial every live module. No card required.',
-		features: ['₹1,000 credits (30-day trial)', 'All live modules', 'Manual top-up available', 'Full citation verification', 'Email support'],
+		name: 'Everything included',
+		price: 'All',
+		cadence: 'modules & features',
+		blurb: 'Every module and every capability, open to everyone from day one.',
+		features: ['All 7 live modules', 'Every platform feature', 'Full citation verification', 'No feature gates, ever'],
+		cta: 'See the modules',
+		href: '#modules',
+		highlight: false,
+	},
+	{
+		name: 'Pay per use',
+		price: '₹1',
+		cadence: '/ credit',
+		blurb: 'No subscription. You\'re charged only when a job actually runs.',
+		features: ['1 credit = ₹1, always', 'Charged before each job', 'Full refund on system failure', 'No monthly commitment'],
 		cta: 'Start free',
-		href: 'https://app.accountic.in/signup',
-		highlight: false,
-	},
-	{
-		name: 'Basic',
-		price: '₹2,000',
-		cadence: '/ month',
-		blurb: 'For solo practitioners.',
-		features: ['2,000 credits / month', 'All live modules', 'Manual top-up available', 'Soft quota — no mid-month cutoff', 'GST invoice with your GSTIN'],
-		cta: 'Start free trial',
-		href: 'https://app.accountic.in/signup',
-		highlight: false,
-	},
-	{
-		name: 'Pro',
-		price: '₹20,000',
-		cadence: '/ month',
-		blurb: 'For high-volume CAs and firms.',
-		features: ['20,000 credits / month', 'All live modules', 'Manual top-up available', 'Priority support', 'Bulk historical upload'],
-		cta: 'Start free trial',
 		href: 'https://app.accountic.in/signup',
 		highlight: true,
 	},
 	{
-		name: 'Firm',
-		price: 'Custom',
-		cadence: '',
-		blurb: 'For 5–30-professional firms.',
-		features: ['Higher quotas + seat controls', 'Role-based access (roadmap)', 'Data Processing Agreement', 'Dedicated onboarding'],
-		cta: 'Contact sales',
-		href: '/contact',
+		name: 'Start free',
+		price: '₹1,000',
+		cadence: 'in credits',
+		blurb: 'Try every module with ₹1,000 in credits. No card required.',
+		features: ['₹1,000 free credits to start', 'Top up any amount, 1:1', 'Credits never expire', 'GST invoice with your GSTIN'],
+		cta: 'Start free',
+		href: 'https://app.accountic.in/signup',
 		highlight: false,
 	},
 ];
 
 const faqs = [
 	{
-		q: 'Is our firm’s data processed inside India?',
-		a: 'Yes. Everything is processed and stored inside India, with consent-per-document and PII-aware pipelines. Accountic is DPDP-ready, and a Data Processing Agreement is available for firm customers — one you can hand to a listed-company client without qualification.',
+		q: 'Does our data stay in India?',
+		a: 'Yes. Everything is processed and stored inside India, with consent per document and PII-aware pipelines. Accountic is DPDP-ready, and a Data Processing Agreement is available for firm customers — one you can hand to a listed-company client without qualification.',
 	},
 	{
-		q: 'How does Accountic avoid hallucinated citations?',
-		a: 'It is deterministic-first. Rule-based pipelines handle everything they can, and the LLM only reviews what deterministic logic cannot resolve. Every output is traceable to a source, with human review on every output.',
+		q: 'How do I know the AI won’t invent a citation?',
+		a: 'Rules run first and handle everything they can; the AI reviews only what they can’t settle. Every output traces to a source, and a human reviews every result before it’s used. If it can’t be shown, it doesn’t ship. That’s the design, not a setting you switch on.',
 	},
 	{
-		q: 'Does it work with our existing TallyPrime?',
-		a: 'Yes. Every module posts directly into TallyPrime — vouchers, ledger masters, and XML imports — working with your existing Tally company and chart of accounts from day one. No middleware, no re-keying, no CSV gymnastics.',
+		q: 'Will it work with our existing TallyPrime?',
+		a: 'Yes. Every module posts straight into TallyPrime — vouchers, ledger masters, XML imports — using your existing Tally company and chart of accounts from day one. No middleware, no re-keying, no CSV gymnastics.',
 	},
 	{
-		q: 'How does billing work?',
-		a: '1 credit = ₹1, debited before work begins. If credits are insufficient you get an automatic HTTP 402; on system failure, a full refund. Manual top-ups are available any time. Every plan includes GST-compliant invoicing with your GSTIN via Razorpay (NEFT / UPI / cards). No USD billing, no foreign processors.',
+		q: 'What if I run out of credits mid-job, or something fails?',
+		a: 'Credits are charged before a job runs, so a bill never surprises you. Run low and the job stops cleanly — no half-finished mess. If our system fails, you’re refunded in full. Top up any time; top-ups never expire.',
 	},
 	{
-		q: 'Who is Accountic built for, and by whom?',
-		a: 'It is co-developed with a CA firm carrying 45 years of Direct & Indirect Tax practice, calibrated by people who have filed these returns themselves. It fits solo practitioners, in-house accounting teams, and 5–30-professional firms.',
+		q: 'Who is it for, and who built it?',
+		a: 'Co-developed with a CA firm carrying 45 years of Direct & Indirect Tax practice, shaped by people who have filed these returns themselves. It fits solo practitioners, in-house accounting teams, and 5–30-professional firms alike.',
 	},
 ];
 ---
@@ -335,35 +325,35 @@ const faqs = [
 						<p class="kicker rv"><span class="kicker-tick" aria-hidden="true"></span>EARLY ACCESS 2026 · FOR CAs, ACCOUNTING TEAMS &amp; FIRMS</p>
 
 						<h1 class="hero-title rv">
-							The accounting work that fills your week —
-							<span class="accent">Accountic’s AI finishes it in minutes.</span>
+							Your firm’s repeat work, done in minutes —
+							<span class="accent">and proven line by line.</span>
 						</h1>
 
 						<p class="hero-sub rv">
-							Accountic's AI runs the compliance, reconciliation, and reporting your team repeats every week — finishing in minutes what used to take hours, and cutting the cost of every workflow. All posted straight into TallyPrime.
+							Tax audits, GST, TDS, reconciliations — the work your team rebuilds by hand every week. Accountic does it in minutes, checks every figure against the rules, and posts it straight into Tally. You review and sign. Nothing reaches your books that can’t be proven.
 						</p>
 
 						<div class="hero-cta rv">
-							<a class="btn btn--solid" href="https://app.accountic.in/signup">Start free — ₹1,000 credits</a>
+							<a class="btn btn--solid" href="https://app.accountic.in/signup">Start free — ₹1,000 in credits</a>
 							<a class="btn btn--line" href="#modules">
-								See the live modules
+								See what’s live today
 								<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 							</a>
 						</div>
 
-						<p class="hero-note rv">No credit card · ₹1,000 in credits to start · cancel anytime</p>
+						<p class="hero-note rv">No card · ₹1,000 in credits to try everything · cancel anytime</p>
 
 						<ul class="trust rv" aria-label="Platform compliance and trust signals">
 							<li>Built by CAs</li>
-							<li>India-resident data</li>
+							<li>Data stays in India</li>
 							<li>DPDP-ready</li>
-							<li>SOC 2 Type II infra</li>
-							<li>Tally-native</li>
+							<li>SOC 2 Type II infrastructure</li>
+							<li>Posts into your Tally</li>
 						</ul>
 					</div>
 
 					{/* Hero instrument panel — document in → verified → Tally voucher out */}
-					<div class="panel rv" role="img" aria-label="Accountic automation readout: a set of Tally books, a bank statement, and this year's ledgers are each processed into a Form 3CD with 31 clauses, 847 posted Tally vouchers, and a mapped CompuTax return — deterministic-first, with all data kept in India.">
+					<div class="panel rv" role="img" aria-label="Accountic automation readout — Tally books, a bank statement, and this year's ledgers each turned into finished work: a 31-clause Form 3CD, 847 posted Tally vouchers, and a mapped CompuTax return. Every step checked against the rules, all data kept in India.">
 						<div class="panel-head">
 							<span class="panel-name"><span class="panel-glyph" aria-hidden="true"></span>accountic · automation</span>
 							<span class="panel-status"><span class="panel-status-dot" aria-hidden="true"></span>LIVE</span>
@@ -404,9 +394,9 @@ const faqs = [
 							</div>
 						</div>
 						<div class="panel-foot">
-							<span class="foot-stat foot-stat--ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>DETERMINISTIC-FIRST</span>
+							<span class="foot-stat foot-stat--ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>PROVEN LINE BY LINE</span>
 							<span class="foot-stat">DATA IN INDIA</span>
-							<span class="foot-stat">3 IN PARALLEL</span>
+							<span class="foot-stat">3 JOBS AT ONCE</span>
 						</div>
 					</div>
 				</div>
@@ -429,8 +419,8 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>THE PROBLEM</p>
-						<h2 id="problem-title">Compliance work eats the week. Then it repeats.</h2>
-						<p class="lede">The high-judgment work your firm is paid for keeps getting buried under the manual work around it. Three things slow every Indian practice down.</p>
+						<h2 id="problem-title">You didn’t train for years to re-key vouchers all week.</h2>
+						<p class="lede">The judgment work clients pay you for keeps getting buried under the manual work around it. Here’s what that quietly costs your firm — long after the deadline passes.</p>
 					</div>
 
 					<ul class="pain-list">
@@ -444,7 +434,7 @@ const faqs = [
 					</ul>
 
 					<p class="bridge rv">
-						Accountic takes on all three — <strong>seven live modules</strong> that draft, reconcile, classify, and post straight into Tally, with a verifiable trail behind every output. Twenty more are shipping through 2026.
+						This isn’t your ceiling. It’s the manual work nobody automated yet — and the firms that do automate it are taking on more clients without hiring, and winning work you used to. Accountic closes the gap: <strong>seven live modules</strong> that draft, reconcile, classify, and post straight into Tally, with a trail behind every output you can defend to a client or an assessing officer. Twenty more ship through 2026.
 					</p>
 				</div>
 			</section>
@@ -454,8 +444,8 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head sec-head--dark rv">
 						<p class="kicker kicker--dark"><span class="kicker-tick" aria-hidden="true"></span>HOW IT WORKS</p>
-						<h2 id="hiw-title">One platform. Three kinds of work.</h2>
-						<p class="lede lede--dark">Whatever your team repeats every week — drafting compliance replies, turning raw data into Tally vouchers, or running firm operations — the pattern is the same: upload, let Accountic do the work, post the result.</p>
+						<h2 id="hiw-title">Three steps. The way you already work.</h2>
+						<p class="lede lede--dark">Whatever your team repeats every week, the rhythm is the same: bring in the data, let Accountic do the work, post it to Tally. No new system to learn. No workflow to rebuild.</p>
 					</div>
 
 					<ol class="families">
@@ -480,8 +470,8 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>THE PLATFORM</p>
-						<h2 id="modules-title">7 modules live today. More shipping through 2026.</h2>
-						<p class="lede">Every module is purpose-built for Indian accounting workflows, posts directly into TallyPrime, and runs the same deterministic-first verification stack — rules first, AI only where they can't decide. Pick the workflows your firm needs; they all work together.</p>
+						<h2 id="modules-title">7 modules live today. 20+ more shipping through 2026.</h2>
+						<p class="lede">Every module does one Indian accounting job, posts straight into TallyPrime, and works the same way: rules do the work first, AI steps in only where the rules can’t decide. Turn on what your firm needs — they all work together.</p>
 					</div>
 
 					<p class="mod-group rv"><span class="mod-group-dot mod-group-dot--live" aria-hidden="true"></span>Live now</p>
@@ -532,7 +522,7 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>WHY ACCOUNTIC</p>
-						<h2 id="why-title">Five reasons CA firms trust this on firm letterhead.</h2>
+						<h2 id="why-title">Five reasons CA firms put this on their letterhead.</h2>
 					</div>
 
 					<div class="why-grid">
@@ -552,8 +542,8 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>PLATFORM</p>
-						<h2 id="platform-title">Built for the whole firm, not just one practitioner.</h2>
-						<p class="lede">Multi-tenancy, billing controls, real-time collaboration, and full LLM observability come standard on every plan. No add-ons.</p>
+						<h2 id="platform-title">Built for the whole firm, not one desk.</h2>
+						<p class="lede">Multiple users, billing controls, live collaboration, and full visibility into every AI call — standard on every plan. No add-ons, no upsell.</p>
 					</div>
 
 					<ul class="plat-grid" aria-label="Platform features">
@@ -573,14 +563,14 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>PRICING</p>
-						<h2 id="pricing-title">Same verification standard on every plan.</h2>
-						<p class="lede">From free trial to firm tier — every plan gives you access to the full Accountic platform with the same zero-hallucination verification, Tally-native posting, and India-resident data processing. The cheaper plan isn't the lighter plan.</p>
+						<h2 id="pricing-title">No subscriptions. Pay only for the work you run.</h2>
+						<p class="lede">One rate, one currency, every feature — for everyone. 1 credit = ₹1. Every module and every capability is open from day one, and you’re charged only when a job actually runs. No tiers, no locked features, no monthly bill.</p>
 					</div>
 
 					<div class="tiers">
 						{pricingTiers.map((t) => (
 							<article class={`tier rv ${t.highlight ? 'tier--pro' : ''}`}>
-								{t.highlight && <span class="tier-tag">MOST POPULAR</span>}
+								{t.highlight && <span class="tier-tag">PAY AS YOU GO</span>}
 								<h3 class="tier-name">{t.name}</h3>
 								<p class="tier-price"><span class="tier-amount">{t.price}</span><span class="tier-cad">{t.cadence}</span></p>
 								<p class="tier-blurb">{t.blurb}</p>
@@ -598,7 +588,7 @@ const faqs = [
 					</div>
 
 					<p class="pricing-note rv">
-						1 credit = ₹1. Credit consumption varies by module and document volume. Subscription credits reset each month; manual top-ups are priced 1:1 in rupees (₹1 = 1 credit), available on all plans at any time, and never expire. All plans include GST-compliant invoicing with your GSTIN, Razorpay (NEFT / UPI / cards), TDS-deductible where applicable. No USD billing. No foreign processors.
+						1 credit = ₹1 — about the price of a cup of chai per routine job, and you pay only when work runs. How many credits a job uses depends on the module and volume. Top up any amount, priced 1:1, and credits never expire. Every job is charged before it runs, with a full refund on system failure. Every payment includes GST-compliant invoicing with your GSTIN via Razorpay (NEFT / UPI / cards), TDS-deductible where it applies. No subscriptions. No USD billing. No foreign processors.
 					</p>
 				</div>
 			</section>
@@ -608,7 +598,7 @@ const faqs = [
 				<div class="wrap faq-wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>FAQ</p>
-						<h2 id="faq-title">Questions CA firms ask first.</h2>
+						<h2 id="faq-title">The questions CA firms ask first.</h2>
 					</div>
 
 					<div class="faq-list">
@@ -631,8 +621,8 @@ const faqs = [
 					<div class="cta-card rv" data-capture data-source="homepage-cta" data-endpoint="/api/capture">
 						<div class="cta-form-state" data-state="form">
 							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>GET EARLY ACCESS TO THE FULL PLATFORM</p>
-							<h2>Start free. Try every module.</h2>
-							<p class="cta-body">₹1,000 in credits — no card required. Access every live module. Every output posts directly into TallyPrime, with all data processed inside India.</p>
+							<h2>Try it on one real job this week.</h2>
+							<p class="cta-body">₹1,000 in credits, no card. Pick one workflow you’d normally dread, run it through Accountic, and watch the output land in Tally — proven, line by line. If it saves you the afternoon it should, you’ll know in one sitting.</p>
 							<form class="cta-form" data-capture-form novalidate>
 								<label class="sr-only" for="cta-email">Work email</label>
 								<input id="cta-email" name="email" type="email" placeholder="firm-email@yourca.in" required autocomplete="email" />
@@ -647,8 +637,8 @@ const faqs = [
 							</div>
 							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>YOU'RE ON THE LIST</p>
 							<h2>Thanks — we'll be in touch.</h2>
-							<p class="cta-body">We received <strong data-capture-email>your email</strong> and one of the founders will reach out within one business day with your pilot-cohort details.</p>
-							<p class="cta-thanks-meta">In the meantime, you can <a href="/security">read our security posture</a> or <a href="/contact">book a demo</a>.</p>
+							<p class="cta-body">We’ve got <strong data-capture-email>your email</strong>, and one of the founders will reach out within one business day with your pilot-cohort details.</p>
+							<p class="cta-thanks-meta">In the meantime, read our <a href="/security">security posture</a> or <a href="/contact">book a demo</a>.</p>
 						</div>
 					</div>
 				</div>
@@ -1104,7 +1094,7 @@ const faqs = [
 			@media (max-width: 52rem) { .plat-grid { grid-template-columns: 1fr; gap: var(--space-lg); } }
 
 			/* ─────────────── PRICING ─────────────── */
-			.tiers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-md); }
+			.tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
 			.tier {
 				display: flex; flex-direction: column;
 				padding: var(--space-xl);
