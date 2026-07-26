@@ -1,63 +1,40 @@
-# Astro Starter Kit: Blog
+# Accountic — Marketing Website
 
-```sh
-npm create astro@latest -- --template blog
-```
+The public marketing site for [Accountic](https://accountic.in), the AI workbench for Indian CA firms. Built with [Astro](https://astro.build) and deployed on Cloudflare.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The product itself lives at [app.accountic.in](https://app.accountic.in); this repository is the marketing/content site only (homepage, blog, legal, and contact pages) plus an admin-gated blog pipeline.
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 Project structure
 
 ```text
-├── public/
+├── public/            # Static assets (favicon, robots.txt, og-default.png)
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
+│   ├── components/     # Shared Astro components (Header, Footer, BaseHead…)
+│   ├── content/blog/   # Blog posts (.md / .mdx content collection)
+│   ├── layouts/        # Page + BlogPost layouts
+│   ├── pages/          # Routes (index, blog, legal, contact, admin, api)
+│   ├── lib/            # Blog-pipeline + SEO helpers
+│   └── styles/         # Global CSS + design tokens
 ├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+└── wrangler.jsonc
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
+Pages are file-routed from `src/pages/`. Blog posts are a content collection under `src/content/blog/`, retrieved with `getCollection()` and typed against the schema in `src/content.config.ts`.
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command             | Action                                        |
+| :------------------ | :-------------------------------------------- |
+| `npm install`       | Install dependencies                          |
+| `npm run dev`       | Start the local dev server at `localhost:4321`|
+| `npm run build`     | Build the production site to `./dist/`        |
+| `npm run preview`   | Build and preview locally via Wrangler        |
+| `npm run test`      | Run the Vitest suite                          |
+| `npm run deploy`    | Build and deploy to Cloudflare                |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Feeds & SEO
 
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+- Sitemap: `/sitemap-index.xml` (via `@astrojs/sitemap`)
+- RSS feed: `/rss.xml`
+- `robots.txt` and Open Graph image (`/og-default.png`) live in `public/`
+- Canonical domain: `accountic.in`

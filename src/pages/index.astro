@@ -6,23 +6,9 @@ import { SITE_TITLE } from '../consts';
 
 const metaTitle = `${SITE_TITLE} — AI Accounting Agent for Indian CA Firms`;
 const metaDescription =
-	'Accountic automates Indian accounting and tax workflows end-to-end: IT notice drafting, audit vouching, GST reconciliation, broker ledger, balance sheet generation, TDS compliance, bank-statement classification, and Tally OCR — all with verified citations, zero hallucination, and India-resident data.';
+	'Accountic is the AI workbench for Indian CA firms. Seven live modules — Tax Audit (Form 3CD), CompuTax, GST Audits, Broker Ledger, Ledger Predictor, TDS Reconciliation, and the Tally Agent — run deterministic-first (rules first, AI only where needed) and post straight into TallyPrime, with India-resident data.';
 
-const modules = [
-	{
-		id: 'notice-workflow',
-		name: 'Notice Workflow',
-		description: 'Draft IT notice replies (s. 142(1), 143(3), 148A) grounded in verified case law and IT Act sections.',
-		chip: 'Notice PDF → filed reply in < 30 min',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`,
-	},
-	{
-		id: 'appeal-drafting',
-		name: 'Appeal Drafting',
-		description: 'Prepare formal tax appeals before CIT(A) and ITAT — grounds of appeal, addition-by-addition rebuttals, and final PDF/DOCX.',
-		chip: 'Appeal ready for CIT(A) & ITAT',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h11"/><path d="m15 15 2 2 4-4"/></svg>`,
-	},
+const liveModules = [
 	{
 		id: 'broker-ledger',
 		name: 'Broker Ledger',
@@ -33,9 +19,82 @@ const modules = [
 	{
 		id: 'ledger-predictor',
 		name: 'Ledger Predictor',
-		description: 'Classify bank-statement transactions to the right Tally ledger via a 10-stage cascade plus Claude review, then push vouchers.',
+		description: 'Classify bank-statement transactions to the right Tally ledger via a rule-based cascade plus Claude review, then push vouchers.',
 		chip: '90–98% auto-classified, hands-free',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>`,
+	},
+	{
+		id: 'tds-reconciliation',
+		name: 'TDS Reconciliation',
+		description: 'Audit TDS compliance per vendor, per bill, per FY — matched against statutory section rates and party exemptions.',
+		chip: 'Every vendor TDS-checked automatically',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>`,
+	},
+	{
+		id: 'tax-audit-3cd',
+		name: 'Tax Audit (Form 3CD)',
+		description: 'Assemble Form 3CD (u/s 44AB) clause by clause from Tally books — 31 live clauses with deterministic ledger-scrutiny checks and AI review only at the margins. Exports 3CA/3CB to the ITD schema.',
+		chip: 'Form 3CD → 31 clauses, audit-ready',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+	},
+	{
+		id: 'computax',
+		name: 'CompuTax',
+		description: 'Drive CompuTax / CompuOffice — which has no API — directly, mapping this year\'s Tally ledgers onto the return structure and building statements and annexures. A local agent operates CompuOffice for you.',
+		chip: 'Drives CompuOffice — no API needed',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+	},
+	{
+		id: 'gst-audits',
+		name: 'GST Audits',
+		description: 'Build the GSTR-9 / 9C annual-return working file from your books, with automatic tie-out checks against GSTR-1 and GSTR-3B — a pure-compute engine, no LLM in the loop.',
+		chip: 'GSTR-9C working paper, auto-built',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="m9 14 2 2 4-4"/></svg>`,
+	},
+	{
+		id: 'tally-agent',
+		name: 'Tally Agent',
+		description: 'A Windows system-tray connector that bridges Accountic cloud to your local TallyPrime instance — no manual export/import.',
+		chip: 'Live bridge to your TallyPrime',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+	},
+];
+
+const soonModules = [
+	{
+		id: 'notice-workflow',
+		name: 'Notice Workflow',
+		description: 'Draft IT notice replies (s. 142(1), 143(3), 148A) grounded in verified case law and IT Act sections.',
+		chip: 'Notice PDF → drafted reply',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`,
+	},
+	{
+		id: 'gst-notice-reply',
+		name: 'GST Notice Reply',
+		description: 'Draft replies to GST show-cause notices, grounded in case law and your firm\'s prior replies — distinct from the IT notice workflow.',
+		chip: 'GST SCN → drafted reply',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m9 10 2 2 4-4"/></svg>`,
+	},
+	{
+		id: 'appeal-drafting',
+		name: 'Appeal Drafting',
+		description: 'Prepare formal tax appeals before CIT(A) and ITAT — grounds of appeal, addition-by-addition rebuttals, and final PDF/DOCX.',
+		chip: 'Appeal ready for CIT(A) & ITAT',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h11"/><path d="m15 15 2 2 4-4"/></svg>`,
+	},
+	{
+		id: 'book-rag',
+		name: 'Book Q&amp;A',
+		description: 'Ask questions on the Income Tax Act 1961 &amp; 2025 and get citation-first answers grounded in statute — never hallucinated.',
+		chip: 'Citation-first answers, never invented',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="7" x2="16" y2="7"/><line x1="12" y1="11" x2="16" y2="11"/><line x1="12" y1="15" x2="14" y2="15"/></svg>`,
+	},
+	{
+		id: 'knowledge-base',
+		name: 'Knowledge Base',
+		description: 'Maintain your firm\'s private RAG store — case history, judgements, CBDT circulars, and Taxmann commentary — per-org isolated.',
+		chip: 'Your firm’s private, isolated RAG',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>`,
 	},
 	{
 		id: 'tally-ocr',
@@ -50,13 +109,6 @@ const modules = [
 		description: 'Match Tally entries against source documents (invoices, bank statements) and render SA 230-compliant audit verdicts.',
 		chip: 'Audit-ready working papers, auto-built',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
-	},
-	{
-		id: 'tds-reconciliation',
-		name: 'TDS Reconciliation',
-		description: 'Audit TDS compliance per vendor, per bill, per FY — matched against statutory section rates and party exemptions.',
-		chip: 'Every vendor TDS-checked automatically',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>`,
 	},
 	{
 		id: 'gstr-2b',
@@ -80,43 +132,22 @@ const modules = [
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
 	},
 	{
-		id: 'book-rag',
-		name: 'Book Q&amp;A',
-		description: 'Ask questions on the Income Tax Act 1961 &amp; 2025 and get citation-first answers grounded in statute — never hallucinated.',
-		chip: 'Citation-first answers, never invented',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="7" x2="16" y2="7"/><line x1="12" y1="11" x2="16" y2="11"/><line x1="12" y1="15" x2="14" y2="15"/></svg>`,
-	},
-	{
-		id: 'knowledge-base',
-		name: 'Knowledge Base',
-		description: 'Maintain your firm\'s private RAG store — case history, judgements, CBDT circulars, and Taxmann commentary — per-org isolated.',
-		chip: 'Your firm’s private, isolated RAG',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>`,
-	},
-	{
 		id: 'sales-bills',
 		name: 'Sales Bills',
 		description: 'Generate GST-compliant invoices for your firm\'s own billing, email them to clients, and post to Tally as sales vouchers.',
 		chip: 'GST invoice → Tally sales voucher',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
 	},
-	{
-		id: 'tally-agent',
-		name: 'Tally Agent',
-		description: 'A Windows system-tray connector that bridges Accountic cloud to your local TallyPrime instance — no manual export/import.',
-		chip: 'Live bridge to your TallyPrime',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
-	},
 ];
 
 const workflowFamilies = [
 	{
-		label: 'Compliance & Litigation',
-		desc: 'Notices, appeals, and statute research.',
+		label: 'Compliance & Audit',
+		desc: 'Tax audit, GST audit, and TDS compliance.',
 		steps: [
-			'Upload a notice, appeal brief, or tax query',
-			'Accountic retrieves verified case law and drafts',
-			'Export on firm letterhead or push to Tally',
+			'Connect your Tally books or upload a working file',
+			'Accountic runs deterministic checks and builds the working papers',
+			'Export Form 3CD / GSTR-9C or push entries to Tally',
 		],
 	},
 	{
@@ -156,8 +187,8 @@ const platformFeatures = [
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
 	},
 	{
-		title: 'OTP auth via SMS (MSG91)',
-		desc: 'No password to remember or leak. SMS OTP signup keeps access tied to the practitioner\'s mobile number.',
+		title: 'Phone-verified sign-in',
+		desc: 'Sign in by password or a one-time SMS code (via MSG91). Every account is verified against the practitioner\'s mobile number.',
 		icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`,
 	},
 	{
@@ -173,7 +204,7 @@ const platformFeatures = [
 ];
 
 const stats = [
-	{ value: '14', label: 'Live workflows · 20+ in development' },
+	{ value: '7', label: 'Live modules · more shipping through 2026' },
 	{ value: '0', label: 'Hallucinated citations, by design' },
 	{ value: '45 yrs', label: 'Of CA practice behind every rule' },
 	{ value: '₹1,000', label: 'Free credits to try every module' },
@@ -225,8 +256,8 @@ const pricingTiers = [
 		name: 'Free',
 		price: '₹0',
 		cadence: 'one-time',
-		blurb: '₹1,000 credits. No card required.',
-		features: ['₹1,000 free credits', 'All 14 modules', 'Manual top-up available', 'Full citation verification', 'Email support'],
+		blurb: '₹1,000 in credits to trial every live module. No card required.',
+		features: ['₹1,000 credits (30-day trial)', 'All live modules', 'Manual top-up available', 'Full citation verification', 'Email support'],
 		cta: 'Start free',
 		href: 'https://app.accountic.in/signup',
 		highlight: false,
@@ -236,7 +267,7 @@ const pricingTiers = [
 		price: '₹2,000',
 		cadence: '/ month',
 		blurb: 'For solo practitioners.',
-		features: ['2,000 credits / month', 'All 14 modules', 'Manual top-up available', 'Soft quota — no mid-month cutoff', 'GST invoice with your GSTIN'],
+		features: ['2,000 credits / month', 'All live modules', 'Manual top-up available', 'Soft quota — no mid-month cutoff', 'GST invoice with your GSTIN'],
 		cta: 'Start free trial',
 		href: 'https://app.accountic.in/signup',
 		highlight: false,
@@ -246,7 +277,7 @@ const pricingTiers = [
 		price: '₹20,000',
 		cadence: '/ month',
 		blurb: 'For high-volume CAs and firms.',
-		features: ['60,000 credits / month', 'All 14 modules', 'Manual top-up available', 'Priority support', 'Bulk historical upload'],
+		features: ['20,000 credits / month', 'All live modules', 'Manual top-up available', 'Priority support', 'Bulk historical upload'],
 		cta: 'Start free trial',
 		href: 'https://app.accountic.in/signup',
 		highlight: true,
@@ -315,7 +346,7 @@ const faqs = [
 						<div class="hero-cta rv">
 							<a class="btn btn--solid" href="https://app.accountic.in/signup">Start free — ₹1,000 credits</a>
 							<a class="btn btn--line" href="#modules">
-								See all 14 modules
+								See the live modules
 								<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 							</a>
 						</div>
@@ -326,13 +357,13 @@ const faqs = [
 							<li>Built by CAs</li>
 							<li>India-resident data</li>
 							<li>DPDP-ready</li>
-							<li>SOC 2 Type II</li>
+							<li>SOC 2 Type II infra</li>
 							<li>Tally-native</li>
 						</ul>
 					</div>
 
 					{/* Hero instrument panel — document in → verified → Tally voucher out */}
-					<div class="panel rv" role="img" aria-label="Accountic automation readout: an income-tax notice, a bank statement, and a supplier invoice are each processed into a drafted reply with verified citations, 847 posted Tally vouchers, and a GST purchase voucher — with zero hallucinations and all data kept in India.">
+					<div class="panel rv" role="img" aria-label="Accountic automation readout: a set of Tally books, a bank statement, and this year's ledgers are each processed into a Form 3CD with 31 clauses, 847 posted Tally vouchers, and a mapped CompuTax return — deterministic-first, with all data kept in India.">
 						<div class="panel-head">
 							<span class="panel-name"><span class="panel-glyph" aria-hidden="true"></span>accountic · automation</span>
 							<span class="panel-status"><span class="panel-status-dot" aria-hidden="true"></span>LIVE</span>
@@ -341,11 +372,11 @@ const faqs = [
 							<div class="flow">
 								<div class="flow-io flow-io--in">
 									<span class="flow-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-									<span class="flow-meta"><strong>Notice_143(3).pdf</strong><em>s.143(3) scrutiny · SCN</em></span>
+									<span class="flow-meta"><strong>Tally_books · 44AB</strong><em>FY 2024-25</em></span>
 								</div>
 								<span class="flow-arrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
 								<div class="flow-io flow-io--out">
-									<span class="flow-meta"><strong class="typein">Drafted reply</strong><em>7 citations verified</em></span>
+									<span class="flow-meta"><strong class="typein">Form 3CD</strong><em>31 clauses built</em></span>
 									<span class="flow-check" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
 								</div>
 							</div>
@@ -363,17 +394,17 @@ const faqs = [
 							<div class="flow">
 								<div class="flow-io flow-io--in">
 									<span class="flow-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
-									<span class="flow-meta"><strong>Supplier_invoice.pdf</strong><em>GST-split extracted</em></span>
+									<span class="flow-meta"><strong>Tally_ledgers.xml</strong><em>this year's books</em></span>
 								</div>
 								<span class="flow-arrow" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
 								<div class="flow-io flow-io--out">
-									<span class="flow-meta"><strong>Purchase voucher</strong><em>Pushed to TallyPrime</em></span>
+									<span class="flow-meta"><strong>CompuTax return</strong><em>Mapped in CompuOffice</em></span>
 									<span class="flow-check" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
 								</div>
 							</div>
 						</div>
 						<div class="panel-foot">
-							<span class="foot-stat foot-stat--ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>0 HALLUCINATIONS</span>
+							<span class="foot-stat foot-stat--ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>DETERMINISTIC-FIRST</span>
 							<span class="foot-stat">DATA IN INDIA</span>
 							<span class="foot-stat">3 IN PARALLEL</span>
 						</div>
@@ -413,7 +444,7 @@ const faqs = [
 					</ul>
 
 					<p class="bridge rv">
-						Accountic takes on all three — <strong>fourteen workflows</strong> that draft, reconcile, classify, and post straight into Tally, with a verifiable trail behind every output. Twenty more are in development.
+						Accountic takes on all three — <strong>seven live modules</strong> that draft, reconcile, classify, and post straight into Tally, with a verifiable trail behind every output. Twenty more are shipping through 2026.
 					</p>
 				</div>
 			</section>
@@ -449,12 +480,13 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>THE PLATFORM</p>
-						<h2 id="modules-title">14 modules live. 20+ more coming.</h2>
-						<p class="lede">Every module is purpose-built for Indian accounting workflows, posts directly to TallyPrime, and runs the same zero-hallucination verification stack. Pick the workflows your firm needs — they all work together.</p>
+						<h2 id="modules-title">7 modules live today. More shipping through 2026.</h2>
+						<p class="lede">Every module is purpose-built for Indian accounting workflows, posts directly into TallyPrime, and runs the same deterministic-first verification stack — rules first, AI only where they can't decide. Pick the workflows your firm needs; they all work together.</p>
 					</div>
 
-					<ul class="mod-table" aria-label="Accountic modules">
-						{modules.map((m, i) => (
+					<p class="mod-group rv"><span class="mod-group-dot mod-group-dot--live" aria-hidden="true"></span>Live now</p>
+					<ul class="mod-table" aria-label="Modules live now">
+						{liveModules.map((m, i) => (
 							<li class="mod-row rv">
 								<span class="mod-idx">{String(i + 1).padStart(2, '0')}</span>
 								<span class="mod-ic" aria-hidden="true" set:html={m.icon} />
@@ -465,14 +497,29 @@ const faqs = [
 								<span class="mod-chip">{m.chip}</span>
 							</li>
 						))}
+					</ul>
+
+					<p class="mod-group rv"><span class="mod-group-dot" aria-hidden="true"></span>Coming soon · shipping through 2026</p>
+					<ul class="mod-table" aria-label="Modules coming soon">
+						{soonModules.map((m, i) => (
+							<li class="mod-row rv">
+								<span class="mod-idx">{String(i + 1).padStart(2, '0')}</span>
+								<span class="mod-ic" aria-hidden="true" set:html={m.icon} />
+								<span class="mod-main">
+									<span class="mod-name" set:html={m.name} />
+									<span class="mod-desc" set:html={m.description} />
+								</span>
+								<span class="mod-chip mod-chip--soon">Coming soon</span>
+							</li>
+						))}
 						<li class="mod-row mod-row--soon rv">
 							<span class="mod-idx">+</span>
 							<span class="mod-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
 							<span class="mod-main">
-								<span class="mod-name">20+ modules coming</span>
+								<span class="mod-name">20+ more modules in development</span>
 								<span class="mod-desc">More workflows that transform how accountants, departments, and firms work — shipping through 2026.</span>
 							</span>
-							<a class="mod-soon-link" href="https://app.accountic.in/signup">Join the waitlist
+							<a class="mod-soon-link" href="https://app.accountic.in/signup">Start free
 								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 							</a>
 						</li>
@@ -551,7 +598,7 @@ const faqs = [
 					</div>
 
 					<p class="pricing-note rv">
-						1 credit = ₹1. Credit consumption varies by module and document volume. Manual top-ups are available on all plans at any time. All plans include GST-compliant invoicing with your GSTIN, Razorpay (NEFT / UPI / cards), TDS-deductible where applicable. No USD billing. No foreign processors.
+						1 credit = ₹1. Credit consumption varies by module and document volume. Subscription credits reset each month; manual top-ups are priced 1:1 in rupees (₹1 = 1 credit), available on all plans at any time, and never expire. All plans include GST-compliant invoicing with your GSTIN, Razorpay (NEFT / UPI / cards), TDS-deductible where applicable. No USD billing. No foreign processors.
 					</p>
 				</div>
 			</section>
@@ -585,7 +632,7 @@ const faqs = [
 						<div class="cta-form-state" data-state="form">
 							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>GET EARLY ACCESS TO THE FULL PLATFORM</p>
 							<h2>Start free. Try every module.</h2>
-							<p class="cta-body">₹1,000 free credits — no card required. Access all 14 modules. Every output posts directly into TallyPrime, with all data processed inside India.</p>
+							<p class="cta-body">₹1,000 in credits — no card required. Access every live module. Every output posts directly into TallyPrime, with all data processed inside India.</p>
 							<form class="cta-form" data-capture-form novalidate>
 								<label class="sr-only" for="cta-email">Work email</label>
 								<input id="cta-email" name="email" type="email" placeholder="firm-email@yourca.in" required autocomplete="email" />
@@ -993,6 +1040,15 @@ const faqs = [
 				padding: 0.3rem 0.7rem;
 				white-space: nowrap;
 			}
+			.mod-group {
+				display: flex; align-items: center; gap: var(--space-xs);
+				margin: var(--space-xl) 0 0;
+				font-family: var(--font-mono); font-size: var(--text-xs);
+				letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-4);
+			}
+			.mod-group-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-ink-4); flex-shrink: 0; }
+			.mod-group-dot--live { background: var(--color-accent); }
+			.mod-chip--soon { color: var(--color-ink-4); background: transparent; border: 1px solid var(--color-rule); }
 			.mod-row--soon { border-bottom: none; }
 			.mod-row--soon .mod-ic { color: var(--color-ink-4); border-style: dashed; }
 			.mod-row--soon .mod-name { color: var(--color-ink-2); }
