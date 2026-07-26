@@ -8,9 +8,14 @@ const metaTitle = `${SITE_TITLE} — AI That Does Your Firm's Accounting Work, a
 const metaDescription =
 	'The AI workbench for Indian CA firms. Tax audits, GST, TDS, reconciliations, Tally posting — the work your team repeats every week, done in minutes and proven line by line. Posts straight into TallyPrime. Built by CAs with 45 years of practice. Your data never leaves India.';
 
+/* In-app help hub (public — no login needed). Slugs come from the app's help
+   registry; a module without a published guide simply omits `help`. */
+const HELP_BASE = 'https://app.accountic.in/help';
+
 const liveModules = [
 	{
 		id: 'broker-ledger',
+		help: 'broker-ledger',
 		name: 'Broker Ledger',
 		description: 'Turn a broker tradebook into clean Tally journal vouchers — equity, ETF, F&O, commodity — with the FIFO maths done for you.',
 		chip: 'Tradebook → Tally in minutes',
@@ -18,6 +23,7 @@ const liveModules = [
 	},
 	{
 		id: 'ledger-predictor',
+		help: 'ledger-predictor',
 		name: 'Ledger Predictor',
 		description: 'Sort every bank-statement line into the right Tally ledger automatically, then post the vouchers. You review only the edge cases.',
 		chip: '90–98% booked hands-free',
@@ -25,6 +31,7 @@ const liveModules = [
 	},
 	{
 		id: 'tds-reconciliation',
+		help: 'tds-reconciliation',
 		name: 'TDS Reconciliation',
 		description: 'Check TDS for every vendor, every bill, every year — against the right section rates and exemptions. Nothing slips through.',
 		chip: 'Every vendor TDS-checked',
@@ -32,6 +39,7 @@ const liveModules = [
 	},
 	{
 		id: 'tax-audit-3cd',
+		help: 'tax-audit',
 		name: 'Tax Audit (Form 3CD)',
 		description: 'Build Form 3CD (u/s 44AB) clause by clause from your Tally books — 31 clauses, audit-ready — and export 3CA/3CB to the ITD schema.',
 		chip: 'Form 3CD → 31 clauses, audit-ready',
@@ -39,20 +47,15 @@ const liveModules = [
 	},
 	{
 		id: 'computax',
+		help: 'computax',
 		name: 'CompuTax',
 		description: 'Drive CompuOffice directly — no API needed. A local agent maps this year\'s Tally ledgers onto the return and builds the statements.',
 		chip: 'Drives CompuOffice — no API needed',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
 	},
 	{
-		id: 'gst-audits',
-		name: 'GST Audits',
-		description: 'Build the GSTR-9 / 9C working file from your books, with tie-outs to GSTR-1 and 3B checked automatically. Pure calculation, no guesswork.',
-		chip: 'GSTR-9C working paper, auto-built',
-		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="m9 14 2 2 4-4"/></svg>`,
-	},
-	{
 		id: 'tally-agent',
+		help: 'tally-setup-prime',
 		name: 'Tally Agent',
 		description: 'A quiet Windows tray app that connects Accountic to your TallyPrime. Everything posts live — no export, no import.',
 		chip: 'Live bridge to your TallyPrime',
@@ -62,7 +65,15 @@ const liveModules = [
 
 const soonModules = [
 	{
+		id: 'gst-audits',
+		name: 'GST Audits',
+		description: 'Build the GSTR-9 / 9C working file from your books, with tie-outs to GSTR-1 and 3B checked automatically. Pure calculation, no guesswork.',
+		chip: 'GSTR-9C working paper, auto-built',
+		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="m9 14 2 2 4-4"/></svg>`,
+	},
+	{
 		id: 'notice-workflow',
+		help: 'notice-workflow',
 		name: 'Notice Workflow',
 		description: 'Draft IT notice replies (s. 142(1), 143(3), 148A) grounded in real case law and Act sections — not invented ones.',
 		chip: 'Notice PDF → drafted reply',
@@ -70,6 +81,7 @@ const soonModules = [
 	},
 	{
 		id: 'gst-notice-reply',
+		help: 'gst-notices',
 		name: 'GST Notice Reply',
 		description: 'Draft replies to GST show-cause notices, grounded in case law and your firm\'s own past replies.',
 		chip: 'GST SCN → drafted reply',
@@ -77,6 +89,7 @@ const soonModules = [
 	},
 	{
 		id: 'appeal-drafting',
+		help: 'notice-workflow',
 		name: 'Appeal Drafting',
 		description: 'Prepare appeals for CIT(A) and ITAT — grounds, addition-by-addition rebuttals, final PDF/DOCX.',
 		chip: 'Appeal ready for CIT(A) & ITAT',
@@ -84,6 +97,7 @@ const soonModules = [
 	},
 	{
 		id: 'book-rag',
+		help: 'knowledge-base',
 		name: 'Book Q&amp;A',
 		description: 'Ask the Income Tax Act (1961 &amp; 2025) and get citation-first answers from the statute — never invented.',
 		chip: 'Citation-first answers, never invented',
@@ -91,6 +105,7 @@ const soonModules = [
 	},
 	{
 		id: 'knowledge-base',
+		help: 'knowledge-base',
 		name: 'Knowledge Base',
 		description: 'Keep your firm\'s private library — case history, judgements, CBDT circulars, Taxmann — searchable and isolated to your org.',
 		chip: 'Your firm’s private, isolated store',
@@ -98,6 +113,7 @@ const soonModules = [
 	},
 	{
 		id: 'tally-ocr',
+		help: 'invoice-to-tally',
 		name: 'Tally OCR',
 		description: 'Read supplier invoices (PDF, image, Word) and post GST-split Purchase vouchers straight into Tally.',
 		chip: 'Invoice → Tally Purchase voucher',
@@ -105,6 +121,7 @@ const soonModules = [
 	},
 	{
 		id: 'vouching',
+		help: 'smart-vouching',
 		name: 'Vouching',
 		description: 'Match Tally entries to source documents and produce SA 230-compliant audit verdicts.',
 		chip: 'Audit-ready working papers',
@@ -112,6 +129,7 @@ const soonModules = [
 	},
 	{
 		id: 'gstr-2b',
+		help: 'gstr-2b-recon',
 		name: 'GSTR-2B Reconciliation',
 		description: 'Match GSTR-2B against your purchase register, bucket the mismatches, export-ready.',
 		chip: 'A day of reconciliation → minutes',
@@ -119,6 +137,7 @@ const soonModules = [
 	},
 	{
 		id: 'balance-sheet-builder',
+		help: 'balance-sheet-builder',
 		name: 'Balance Sheet Builder',
 		description: 'Turn a trial balance into Schedule III statements — BS, P&L, Cash Flow, Notes — for any entity type.',
 		chip: 'Trial balance → Schedule III',
@@ -126,6 +145,7 @@ const soonModules = [
 	},
 	{
 		id: 'debtor-followup',
+		help: 'debtor-followup',
 		name: 'Debtor Follow-up',
 		description: 'Pull Sundry Debtor balances from Tally, score the risk, and send chase emails on a schedule.',
 		chip: 'Auto-scored AR with chase emails',
@@ -133,6 +153,7 @@ const soonModules = [
 	},
 	{
 		id: 'sales-bills',
+		help: 'sales-bills',
 		name: 'Sales Bills',
 		description: 'Raise GST-compliant invoices for your own billing, email clients, and post to Tally as sales vouchers.',
 		chip: 'GST invoice → Tally sales voucher',
@@ -204,7 +225,7 @@ const platformFeatures = [
 ];
 
 const stats = [
-	{ value: '7', label: 'Modules live today · more shipping through 2026' },
+	{ value: '6', label: 'Modules live today · more shipping through 2026' },
 	{ value: '0', label: 'Invented citations — the AI cites only what it can prove' },
 	{ value: '45 yrs', label: 'Of real CA practice built into every rule' },
 	{ value: '₹1,000', label: 'Free credits to try every module — no card' },
@@ -257,7 +278,7 @@ const pricingTiers = [
 		price: 'All',
 		cadence: 'modules & features',
 		blurb: 'Every module and every capability, open to everyone from day one.',
-		features: ['All 7 live modules', 'Every platform feature', 'Full citation verification', 'No feature gates, ever'],
+		features: ['All 6 live modules', 'Every platform feature', 'Full citation verification', 'No feature gates, ever'],
 		cta: 'See the modules',
 		href: '#modules',
 		highlight: false,
@@ -434,7 +455,7 @@ const faqs = [
 					</ul>
 
 					<p class="bridge rv">
-						This isn’t your ceiling. It’s the manual work nobody automated yet — and the firms that do automate it are taking on more clients without hiring, and winning work you used to. Accountic closes the gap: <strong>seven live modules</strong> that draft, reconcile, classify, and post straight into Tally, with a trail behind every output you can defend to a client or an assessing officer. Twenty more ship through 2026.
+						This isn’t your ceiling. It’s the manual work nobody automated yet — and the firms that do automate it are taking on more clients without hiring, and winning work you used to. Accountic closes the gap: <strong>six live modules</strong> that draft, reconcile, classify, and post straight into Tally, with a trail behind every output you can defend to a client or an assessing officer. Twenty more ship through 2026.
 					</p>
 				</div>
 			</section>
@@ -470,7 +491,7 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>THE PLATFORM</p>
-						<h2 id="modules-title">7 modules live today. 20+ more shipping through 2026.</h2>
+						<h2 id="modules-title">6 modules live today. 20+ more shipping through 2026.</h2>
 						<p class="lede">Every module does one Indian accounting job, posts straight into TallyPrime, and works the same way: rules do the work first, AI steps in only where the rules can’t decide. Turn on what your firm needs — they all work together.</p>
 					</div>
 
@@ -483,6 +504,11 @@ const faqs = [
 								<span class="mod-main">
 									<span class="mod-name" set:html={m.name} />
 									<span class="mod-desc" set:html={m.description} />
+									{m.help && (
+										<a class="mod-guide" href={`${HELP_BASE}/${m.help}`} aria-label={`Read the ${m.name.replace('&amp;', '&')} guide`}>Read the guide
+											<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+										</a>
+									)}
 								</span>
 								<span class="mod-chip">{m.chip}</span>
 							</li>
@@ -498,6 +524,11 @@ const faqs = [
 								<span class="mod-main">
 									<span class="mod-name" set:html={m.name} />
 									<span class="mod-desc" set:html={m.description} />
+									{m.help && (
+										<a class="mod-guide" href={`${HELP_BASE}/${m.help}`} aria-label={`Read the ${m.name.replace('&amp;', '&')} guide`}>Read the guide
+											<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+										</a>
+									)}
 								</span>
 								<span class="mod-chip mod-chip--soon">Coming soon</span>
 							</li>
@@ -1020,6 +1051,19 @@ const faqs = [
 			.mod-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 			.mod-name { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; letter-spacing: -0.01em; color: var(--color-ink); }
 			.mod-desc { font-size: var(--text-body); line-height: 1.5; color: var(--color-ink-3); }
+			.mod-guide {
+				align-self: start;
+				display: inline-flex; align-items: center; gap: var(--space-2xs);
+				margin-top: var(--space-2xs);
+				font-family: var(--font-mono); font-size: var(--text-xs);
+				letter-spacing: 0.04em;
+				color: var(--color-ink-4);
+				transition: color var(--dur-1) var(--ease-out);
+			}
+			.mod-guide svg { transition: transform var(--dur-2) var(--ease-out); }
+			.mod-row:hover .mod-guide { color: var(--color-accent-2); }
+			.mod-guide:hover { color: var(--color-accent-2); text-decoration: underline; text-underline-offset: 3px; }
+			.mod-guide:hover svg { transform: translateX(3px); }
 			.mod-chip {
 				justify-self: end;
 				font-family: var(--font-mono);
