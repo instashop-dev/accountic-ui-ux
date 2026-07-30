@@ -3,7 +3,7 @@
  * Font stacks (--font-display / --font-sans / --font-mono) come from the Astro
  * Fonts API (astro.config.mjs + BaseHead.astro) and are referenced by name.
  *
- * Axes — paper band: cool light · display: grotesk-sans · accent: electric cobalt
+ * Axes — paper band: cool light · display: grotesk-sans · accent: emerald
  * Contrast: label/body colours tuned to ≥4.5:1 on paper; UI borders ≥3:1.
  */
 
@@ -19,15 +19,15 @@
 	--color-ink-3: oklch(48% 0.016 256);   /* secondary — ~5.4:1 on paper */
 	--color-ink-4: oklch(56% 0.014 256);   /* mono labels/meta — ~4.5:1 on paper */
 
-	/* ── The cobalt signal ──
-	 * accent   : brighter blue for rings / icons / ticks / focus (non-text UI)
+	/* ── The emerald signal (matches the Accountic app brand #10b981) ──
+	 * accent   : brighter emerald for rings / icons / ticks / focus (non-text UI)
 	 * accent-2 : the workhorse — text accent + primary button fill (~5.4:1 on paper)
-	 * accent-3 : primary button hover
+	 * accent-3 : primary button hover — the app's deep button emerald
 	 */
-	--color-accent: oklch(58% 0.20 256);
-	--color-accent-2: oklch(52% 0.205 256);
-	--color-accent-3: oklch(46% 0.19 256);
-	--color-accent-soft: oklch(93% 0.05 256);
+	--color-accent: oklch(60% 0.15 162);
+	--color-accent-2: oklch(52% 0.13 162);
+	--color-accent-3: oklch(45% 0.115 162);
+	--color-accent-soft: oklch(93% 0.05 162);
 	--color-accent-ink: oklch(99% 0.005 250);
 
 	/* ── The dark graphite band + dark surfaces ── */
@@ -44,7 +44,7 @@
 	--color-border-control: oklch(64% 0.012 256); /* inputs / triggers — ≥3:1 (WCAG 1.4.11) */
 
 	/* ── State ── */
-	--color-focus: oklch(58% 0.20 256);
+	--color-focus: oklch(60% 0.15 162);
 	--color-danger: oklch(55% 0.17 25);
 	--color-danger-soft: oklch(94% 0.03 25);
 
