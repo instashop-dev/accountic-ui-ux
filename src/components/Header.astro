@@ -22,11 +22,12 @@ const paletteActions = [
 		<div class="nav-left">
 			<a href="/" class="brand" aria-label={`${SITE_TITLE} — home`}>
 				<span class="brand-mark" aria-hidden="true">
+					{/* The Split Delta — small-size cut, optically centered in the container */}
 					<svg viewBox="0 0 32 32" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-						<rect class="bm-bg" x="0" y="0" width="32" height="32" rx="6" />
-						<g class="bm-fg" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-							<path d="M7 24.5 L16 7 L25 24.5" />
-							<path d="M11 18 L21 18" />
+						<rect class="bm-bg" x="0" y="0" width="32" height="32" rx="8" />
+						<g class="bm-fg" transform="translate(0.965 -0.635) scale(0.9397)">
+							<path d="M11.784 17.04 L20.216 17.04 A1.3 1.3 0 0 0 21.379 15.158 L18.147 8.693 A2.4 2.4 0 0 0 13.853 8.693 L10.621 15.158 A1.3 1.3 0 0 0 11.784 17.04 Z" />
+							<path d="M6.504 27.6 L25.496 27.6 A1.3 1.3 0 0 0 26.659 25.718 L24.379 21.158 A1.3 1.3 0 0 0 23.217 20.44 L8.783 20.44 A1.3 1.3 0 0 0 7.621 21.158 L5.341 25.718 A1.3 1.3 0 0 0 6.504 27.6 Z" />
 						</g>
 					</svg>
 				</span>
@@ -115,9 +116,9 @@ const paletteActions = [
 		white-space: nowrap;
 	}
 
-	.brand-mark { display: inline-flex; color: var(--color-accent); }
+	.brand-mark { display: inline-flex; color: #10b981; } /* app-brand emerald — fixed, not themed */
 	.brand-mark .bm-bg { fill: currentColor; }
-	.brand-mark .bm-fg { stroke: var(--color-accent-ink); }
+	.brand-mark .bm-fg { fill: var(--color-accent-ink); }
 
 	.nav-links { display: flex; align-items: center; gap: var(--space-lg); }
 
