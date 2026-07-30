@@ -12,6 +12,8 @@ const metaDescription =
    registry; a module without a published guide simply omits `help`. */
 const HELP_BASE = 'https://app.accountic.in/help';
 
+/* Every module below is live in the product today. Order is launch order:
+   the six original modules first, then the twelve shipped after them. */
 const liveModules = [
 	{
 		id: 'broker-ledger',
@@ -61,9 +63,6 @@ const liveModules = [
 		chip: 'Live bridge to your TallyPrime',
 		icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
 	},
-];
-
-const soonModules = [
 	{
 		id: 'gst-audits',
 		name: 'GST Audits',
@@ -161,10 +160,28 @@ const soonModules = [
 	},
 ];
 
+/* Schematic diagrams for the dark band — data in, work done, output out.
+   Diagrammatic only (no re-drawn app chrome). Strokes inherit `currentColor`
+   from `.family-art`; `.art-hi` marks the one emerald element per diagram. */
 const workflowFamilies = [
 	{
 		label: 'Compliance & Audit',
 		desc: 'Tax audit, GST audit, TDS — done and defensible.',
+		art: `<svg viewBox="0 0 260 84" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<rect x="3" y="14" width="62" height="56" rx="3"/>
+			<path d="M14 27h28M14 38h40M14 49h40M14 60h24"/>
+			<path d="M70 42h20" stroke-dasharray="3 4"/>
+			<path d="M92 42h4M92 42l-4-3M92 42l-4 3"/>
+			<rect x="101" y="14" width="58" height="56" rx="3"/>
+			<g class="art-hi"><path d="M110 27.5l3 3 5.5-6M110 41.5l3 3 5.5-6M110 55.5l3 3 5.5-6"/></g>
+			<path d="M126 28h22M126 42h22M126 56h14"/>
+			<path d="M164 42h20" stroke-dasharray="3 4"/>
+			<path d="M186 42h4M186 42l-4-3M186 42l-4 3"/>
+			<path d="M195 14h40l22 20v36H195z" />
+			<path d="M235 14v20h22"/>
+			<path d="M206 50h34M206 60h22"/>
+			<g class="art-hi"><path d="M206 39l4 4 8-9"/></g>
+		</svg>`,
 		steps: [
 			'Connect your Tally books or upload a working file',
 			'Accountic runs the checks and builds the working papers',
@@ -174,6 +191,18 @@ const workflowFamilies = [
 	{
 		label: 'Data → Tally, automatically',
 		desc: 'Reconcile, classify, post — no re-keying.',
+		art: `<svg viewBox="0 0 260 84" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<path d="M3 20h44M11 31h38M3 42h52M15 53h32M3 64h40"/>
+			<path d="M70 42h20" stroke-dasharray="3 4"/>
+			<path d="M92 42h4M92 42l-4-3M92 42l-4 3"/>
+			<path d="M101 18h58l-21 24v24h-16V42z"/>
+			<g class="art-hi"><circle cx="130" cy="29" r="3.5" fill="currentColor" stroke="none"/></g>
+			<path d="M164 42h20" stroke-dasharray="3 4"/>
+			<path d="M186 42h4M186 42l-4-3M186 42l-4 3"/>
+			<rect x="195" y="14" width="62" height="56" rx="3"/>
+			<path d="M215 26h30M215 40h30M215 54h30"/>
+			<g class="art-hi"><path d="M203 24.5l2.5 2.5 4.5-5M203 38.5l2.5 2.5 4.5-5M203 52.5l2.5 2.5 4.5-5"/></g>
+		</svg>`,
 		steps: [
 			'Upload a bank statement, tradebook, or invoice',
 			'Accountic classifies, reconciles, and matches every line',
@@ -183,6 +212,23 @@ const workflowFamilies = [
 	{
 		label: 'Firm Operations',
 		desc: 'Billing, receivables, reporting — off your plate.',
+		art: `<svg viewBox="0 0 260 84" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<path d="M3 70h62"/>
+			<rect x="8" y="52" width="10" height="18"/>
+			<rect x="24" y="42" width="10" height="28"/>
+			<rect x="40" y="30" width="10" height="40"/>
+			<g class="art-hi"><rect x="56" y="18" width="10" height="52"/></g>
+			<path d="M70 42h20" stroke-dasharray="3 4"/>
+			<path d="M92 42h4M92 42l-4-3M92 42l-4 3"/>
+			<path d="M101 54a29 29 0 0 1 58 0"/>
+			<path d="M101 54h6M153 54h6M107 33l4 4M153 33l-4 4"/>
+			<g class="art-hi"><path d="M130 54l16-13"/><circle cx="130" cy="54" r="2.5" fill="currentColor" stroke="none"/></g>
+			<path d="M164 42h20" stroke-dasharray="3 4"/>
+			<path d="M186 42h4M186 42l-4-3M186 42l-4 3"/>
+			<rect x="193" y="23" width="46" height="36" rx="3"/>
+			<path d="M193 27l23 17 23-17"/>
+			<g class="art-hi"><path d="M244 41h13M257 41l-4-4M257 41l-4 4"/></g>
+		</svg>`,
 		steps: [
 			'Sync your debtors or raise a GST sales bill',
 			'Accountic scores the risk and checks compliance',
@@ -225,7 +271,7 @@ const platformFeatures = [
 ];
 
 const stats = [
-	{ value: '6', label: 'Modules live today · more shipping through 2026' },
+	{ value: '18', label: 'Modules live today — every one included' },
 	{ value: '0', label: 'Invented citations — the AI cites only what it can prove' },
 	{ value: '45 yrs', label: 'Of real CA practice built into every rule' },
 	{ value: '₹1,000', label: 'Free credits to try every module — no card' },
@@ -235,14 +281,20 @@ const painPoints = [
 	{
 		title: 'Every job starts from a blank page',
 		desc: 'Notices, balance sheets, appeals, TDS audits — each one rebuilt from scratch, against a deadline. The hours don\'t scale, so the firm can\'t either. Every busy season is as long as the last.',
+		/* An empty sheet — the page you start from every time. */
+		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8" stroke-dasharray="2 3"/><path d="M8 17h8" stroke-dasharray="2 3"/></svg>`,
 	},
 	{
 		title: 'Reconciliation eats the nights',
 		desc: 'GSTR-2B, TDS, bank statements, broker tradebooks — matched line by line in a spreadsheet, then re-keyed into Tally one voucher at a time. One mis-keyed figure in a signed return, and it\'s your name on it.',
+		/* Two sides matched back and forth, by hand. */
+		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h14M14 5l3 3-3 3"/><path d="M21 16H7M10 13l-3 3 3 3"/></svg>`,
 	},
 	{
 		title: 'Nothing leaves a trail',
 		desc: 'CSV cleanups and copy-paste move data into Tally, but nothing records why an entry was booked that way, or where a figure came from. When a query lands eight months later, you rebuild the logic from memory.',
+		/* The link back to the source, broken. */
+		icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 0 1 3.5 8.5"/><path d="M8 12h3"/><path d="M3 3l18 18"/></svg>`,
 	},
 ];
 
@@ -278,7 +330,7 @@ const pricingTiers = [
 		price: 'All',
 		cadence: 'modules & features',
 		blurb: 'Every module and every capability, open to everyone from day one.',
-		features: ['All 6 live modules', 'Every platform feature', 'Full citation verification', 'No feature gates, ever'],
+		features: ['All 18 live modules', 'Every platform feature', 'Full citation verification', 'No feature gates, ever'],
 		cta: 'See the modules',
 		href: '#modules',
 		highlight: false,
@@ -343,7 +395,7 @@ const faqs = [
 			<section class="hero">
 				<div class="wrap hero-grid">
 					<div class="hero-copy">
-						<p class="kicker rv"><span class="kicker-tick" aria-hidden="true"></span>EARLY ACCESS 2026 · FOR CAs, ACCOUNTING TEAMS &amp; FIRMS</p>
+						<p class="kicker kicker--badge rv"><span class="kicker-tick" aria-hidden="true"></span>FOR CAs, ACCOUNTING TEAMS &amp; FIRMS</p>
 
 						<h1 class="hero-title rv">
 							Your firm’s repeat work, done in minutes —
@@ -447,7 +499,10 @@ const faqs = [
 					<ul class="pain-list">
 						{painPoints.map((p, i) => (
 							<li class="pain rv">
-								<span class="pain-num">{String(i + 1).padStart(2, '0')}</span>
+								<span class="pain-head">
+									<span class="pain-num">{String(i + 1).padStart(2, '0')}</span>
+									<span class="pain-ic" aria-hidden="true" set:html={p.icon} />
+								</span>
 								<h3>{p.title}</h3>
 								<p>{p.desc}</p>
 							</li>
@@ -455,7 +510,7 @@ const faqs = [
 					</ul>
 
 					<p class="bridge rv">
-						This isn’t your ceiling. It’s the manual work nobody automated yet — and the firms that do automate it are taking on more clients without hiring, and winning work you used to. Accountic closes the gap: <strong>six live modules</strong> that draft, reconcile, classify, and post straight into Tally, with a trail behind every output you can defend to a client or an assessing officer. Twenty more ship through 2026.
+						This isn’t your ceiling. It’s the manual work nobody automated yet — and the firms that do automate it are taking on more clients without hiring, and winning work you used to. Accountic closes the gap: <strong>eighteen live modules</strong> that draft, reconcile, classify, and post straight into Tally, with a trail behind every output you can defend to a client or an assessing officer. More are in active development.
 					</p>
 				</div>
 			</section>
@@ -475,6 +530,8 @@ const faqs = [
 								<span class="family-idx">{String(i + 1).padStart(2, '0')}</span>
 								<h3>{fam.label}</h3>
 								<p class="family-desc">{fam.desc}</p>
+								{/* Decorative — the numbered steps below state the same flow in words. */}
+								<div class="family-art" aria-hidden="true" set:html={fam.art} />
 								<ol class="steps">
 									{fam.steps.map((s, j) => (
 										<li><span class="step-num">{j + 1}</span><span>{s}</span></li>
@@ -491,11 +548,11 @@ const faqs = [
 				<div class="wrap">
 					<div class="sec-head rv">
 						<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>THE PLATFORM</p>
-						<h2 id="modules-title">6 modules live today. 20+ more shipping through 2026.</h2>
-						<p class="lede">Every module does one Indian accounting job, posts straight into TallyPrime, and works the same way: rules do the work first, AI steps in only where the rules can’t decide. Turn on what your firm needs — they all work together.</p>
+						<h2 id="modules-title">18 modules live today. Every one included.</h2>
+						<p class="lede">Every module does one Indian accounting job, posts straight into TallyPrime, and works the same way: rules do the work first, AI steps in only where the rules can’t decide. Use whichever your firm needs — they all work together, and nothing is gated.</p>
 					</div>
 
-					<p class="mod-group rv"><span class="mod-group-dot mod-group-dot--live" aria-hidden="true"></span>Live now</p>
+					<p class="mod-group rv"><span class="mod-group-dot mod-group-dot--live" aria-hidden="true"></span>Live now · all 18 modules</p>
 					<ul class="mod-table" aria-label="Modules live now">
 						{liveModules.map((m, i) => (
 							<li class="mod-row rv">
@@ -513,32 +570,12 @@ const faqs = [
 								<span class="mod-chip">{m.chip}</span>
 							</li>
 						))}
-					</ul>
-
-					<p class="mod-group rv"><span class="mod-group-dot" aria-hidden="true"></span>Coming soon · shipping through 2026</p>
-					<ul class="mod-table" aria-label="Modules coming soon">
-						{soonModules.map((m, i) => (
-							<li class="mod-row rv">
-								<span class="mod-idx">{String(i + 1).padStart(2, '0')}</span>
-								<span class="mod-ic" aria-hidden="true" set:html={m.icon} />
-								<span class="mod-main">
-									<span class="mod-name" set:html={m.name} />
-									<span class="mod-desc" set:html={m.description} />
-									{m.help && (
-										<a class="mod-guide" href={`${HELP_BASE}/${m.help}`} aria-label={`Read the ${m.name.replace('&amp;', '&')} guide`}>Read the guide
-											<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-										</a>
-									)}
-								</span>
-								<span class="mod-chip mod-chip--soon">Coming soon</span>
-							</li>
-						))}
 						<li class="mod-row mod-row--soon rv">
 							<span class="mod-idx">+</span>
 							<span class="mod-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
 							<span class="mod-main">
-								<span class="mod-name">20+ more modules in development</span>
-								<span class="mod-desc">More workflows that transform how accountants, departments, and firms work — shipping through 2026.</span>
+								<span class="mod-name">More modules in development</span>
+								<span class="mod-desc">More workflows for accountants, in-house departments, and firms — in active development.</span>
 							</span>
 							<a class="mod-soon-link" href="https://app.accountic.in/signup">Start free
 								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -651,13 +688,13 @@ const faqs = [
 				<div class="wrap">
 					<div class="cta-card rv" data-capture data-source="homepage-cta" data-endpoint="/api/capture">
 						<div class="cta-form-state" data-state="form">
-							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>GET EARLY ACCESS TO THE FULL PLATFORM</p>
+							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>START ON YOUR FIRST REAL JOB</p>
 							<h2>Try it on one real job this week.</h2>
 							<p class="cta-body">₹1,000 in credits, no card. Pick one workflow you’d normally dread, run it through Accountic, and watch the output land in Tally — proven, line by line. If it saves you the afternoon it should, you’ll know in one sitting.</p>
 							<form class="cta-form" data-capture-form novalidate>
 								<label class="sr-only" for="cta-email">Work email</label>
 								<input id="cta-email" name="email" type="email" placeholder="firm-email@yourca.in" required autocomplete="email" />
-								<button type="submit" class="btn btn--solid">Request access</button>
+								<button type="submit" class="btn btn--solid">Start free</button>
 							</form>
 							<p class="cta-error" data-capture-error role="alert" hidden>Please enter a valid work email.</p>
 						</div>
@@ -666,10 +703,10 @@ const faqs = [
 							<div class="cta-thanks-icon" aria-hidden="true">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
 							</div>
-							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>YOU'RE ON THE LIST</p>
+							<p class="kicker"><span class="kicker-tick" aria-hidden="true"></span>REQUEST RECEIVED</p>
 							<h2>Thanks — we'll be in touch.</h2>
-							<p class="cta-body">We’ve got <strong data-capture-email>your email</strong>, and one of the founders will reach out within one business day with your pilot-cohort details.</p>
-							<p class="cta-thanks-meta">In the meantime, read our <a href="/security">security posture</a> or <a href="/contact">book a demo</a>.</p>
+							<p class="cta-body">We’ve got <strong data-capture-email>your email</strong>, and one of the founders will reach out within one business day. You don’t have to wait, though — <a href="https://app.accountic.in/signup">create your account now</a> and your ₹1,000 in credits is ready to use.</p>
+							<p class="cta-thanks-meta">Or read our <a href="/security">security posture</a> and <a href="/contact">book a demo</a>.</p>
 						</div>
 					</div>
 				</div>
@@ -721,6 +758,24 @@ const faqs = [
 
 			.kicker-tick { width: 6px; height: 6px; border-radius: var(--radius-2xs); background: var(--color-accent); flex-shrink: 0; }
 			.kicker--dark { color: var(--color-on-dark-2); }
+
+			/* Audience badge — hero eyebrow only, so it reads as deliberate.
+			   gap/padding stay tight enough to hold one line down to 320px. */
+			.kicker--badge {
+				gap: var(--space-2xs);
+				padding: 0.4rem 0.75rem 0.4rem 0.6rem;
+				border: 1px solid color-mix(in oklab, var(--color-accent) 32%, var(--color-rule));
+				border-radius: var(--radius-pill);
+				background: var(--color-accent-soft);
+				color: var(--color-accent-3);
+				overflow-wrap: normal;
+			}
+			/* Below ~352px the label needs two lines — square the corners and
+			   top-align the tick so the wrap reads as a block, not a broken pill. */
+			@media (max-width: 22rem) {
+				.kicker--badge { align-items: flex-start; border-radius: var(--radius-sm); letter-spacing: 0.05em; }
+				.kicker--badge .kicker-tick { margin-top: 0.45rem; }
+			}
 
 			h1, h2, h3 { font-family: var(--font-display); font-style: normal; color: var(--color-ink); }
 
@@ -980,7 +1035,10 @@ const faqs = [
 				gap: var(--space-xl);
 			}
 			.pain { padding-top: var(--space-md); border-top: 1px solid var(--color-rule-2); }
+			.pain-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
 			.pain-num { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent-2); }
+			.pain-ic { display: inline-flex; color: var(--color-ink-4); transition: color var(--dur-2) var(--ease-out); }
+			.pain:hover .pain-ic { color: var(--color-ink-3); }
 			.pain h3 { margin: var(--space-sm) 0 var(--space-xs); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; }
 			.pain p { margin: 0; font-size: var(--text-body); line-height: 1.6; color: var(--color-ink-3); }
 
@@ -1010,6 +1068,17 @@ const faqs = [
 			.family-idx { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-accent); }
 			.family h3 { margin: var(--space-sm) 0 var(--space-2xs); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; color: var(--color-on-dark); }
 			.family-desc { margin: 0 0 var(--space-lg); font-size: var(--text-sm2); color: var(--color-on-dark-2); }
+
+			/* Schematic: data in → work done → output out. Muted strokes so the
+			   diagram sits behind the copy; one emerald element carries the result. */
+			.family-art {
+				margin: 0 0 var(--space-lg);
+				padding-bottom: var(--space-lg);
+				border-bottom: 1px solid var(--color-rule-dark);
+				color: color-mix(in oklab, var(--color-on-dark-2) 62%, var(--color-graphite));
+			}
+			.family-art :global(svg) { display: block; width: 100%; height: auto; }
+			.family-art :global(.art-hi) { color: var(--color-accent); stroke: var(--color-accent); }
 
 			.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-md); }
 			.steps li { display: flex; gap: var(--space-sm); align-items: flex-start; font-size: var(--text-sm2); line-height: 1.5; color: var(--color-on-dark-2); }
@@ -1082,7 +1151,6 @@ const faqs = [
 			}
 			.mod-group-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-ink-4); flex-shrink: 0; }
 			.mod-group-dot--live { background: var(--color-accent); }
-			.mod-chip--soon { color: var(--color-ink-4); background: transparent; border: 1px solid var(--color-rule); }
 			.mod-row--soon { border-bottom: none; }
 			.mod-row--soon .mod-ic { color: var(--color-ink-4); border-style: dashed; }
 			.mod-row--soon .mod-name { color: var(--color-ink-2); }
@@ -1233,6 +1301,8 @@ const faqs = [
 			}
 			.cta-thanks-meta { margin-top: var(--space-md); font-size: var(--text-sm2); color: var(--color-ink-4); }
 			.cta-thanks-meta a { color: var(--color-accent-2); }
+			.cta-body a { color: var(--color-accent-2); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+			.cta-body a:hover { color: var(--color-accent-3); }
 			.cta-card strong { color: var(--color-ink); font-weight: 600; }
 
 			@media (max-width: 34rem) { .cta-form { flex-direction: column; } .cta-form .btn { width: 100%; } }

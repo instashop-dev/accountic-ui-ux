@@ -94,7 +94,7 @@ Built with Hallmark. Powered by Together AI.
 Composed and sparse. Primitives: `IntersectionObserver` reveal (fade + 10px rise, `--dur-4`/`--ease-out`), one-shot hero type-in, stat counter-tick, ⌘K open/close, emerald underline-grow on nav/links. Never animate layout properties. `prefers-reduced-motion` collapses all of it to instant/visible (global catch-all + JS guards). `@media (scripting: none)` keeps reveal content visible.
 
 ## Per-page patterns
-- **Homepage** — hero (title-left / instrument-panel-right) · stat strip · problem · **graphite "how it works" band** · 14-module tabular spec sheet · why (emerald-tinted lead + hairline cells) · platform grid · pricing (Pro = emerald) · FAQ (`<details>`) · CTA form · footer.
+- **Homepage** — hero (title-left / emerald audience badge / instrument-panel-right) · stat strip · problem (hairline glyph per pain) · **graphite "how it works" band** (one schematic per workflow family) · 18-module tabular spec sheet · why (emerald-tinted lead + hairline cells) · platform grid · pricing (Pro = emerald) · FAQ (`<details>`) · CTA form · footer.
 - **Interior (`PageLayout`)** — paper hero + hairline, mono eyebrow + tick, Space Grotesk H1, emerald lede; body on the `--space-*` rhythm.
 - **Legal (`.doc*` in global.css)** — sticky hairline TOC (mono numerals), 72ch body, mono meta.
 - **Blog** — hairline post cards, mono meta/tags; article template with mono TOC + reading progress.
